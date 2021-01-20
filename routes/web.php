@@ -121,6 +121,8 @@ Route::post('bill_insert','BillController@bill_insert');
 
 // Districts
 Route::resource('districts', DistrictsController::class);
+// Reasons
+Route::resource('commonreasons', CommonReasonsController::class);
 
 
 });
