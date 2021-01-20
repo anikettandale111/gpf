@@ -1,7 +1,7 @@
 @extends('Section.app')
 
 @section('content')
-    
+
 <div class="">
     <div class="row">
         <div class="col-md-12 col-sm-12 ">
@@ -11,19 +11,19 @@
                     <div class="clearfix"></div>
                     @if ($message = Session::get('danger'))
                     <div class="alert alert-danger alert-block">
-                          <button type="button" class="close" data-dismiss="alert">×</button> 
+                          <button type="button" class="close" data-dismiss="alert">×</button>
                           <strong>{{ $message }}</strong>
                     </div>
                     @endif
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success alert-block">
-                              <button type="button" class="close" data-dismiss="alert">×</button> 
+                              <button type="button" class="close" data-dismiss="alert">×</button>
                               <strong>{{ $message }}</strong>
                         </div>
                     @endif
                     @if ($message = Session::get('info'))
                         <div class="alert alert-info alert-block">
-                              <button type="button" class="close" data-dismiss="alert">×</button> 
+                              <button type="button" class="close" data-dismiss="alert">×</button>
                               <strong>{{ $message }}</strong>
                         </div>
                     @endif
@@ -52,7 +52,7 @@
                                               <td>{{$loop->index+1}}</td>
                                               <td>{{$master->designation}}</td>
                                               <td>
-                                                  <a href="{{url('designation_Edit',[$master->id])}}"> 
+                                                  <a href="{{url('designation_Edit',[$master->id])}}">
                                                   <button type="button" class="btn btn-info" data-toggle="modal"
                                                   data-target=""><i class="fa fa-edit"></i> </button></a>
                                                   <a href="{{url('designation_Delete',$master->id)}}">
@@ -75,18 +75,18 @@
                               <h5 class="modal-title" id="exampleModalLabel">पदनाम</h5>
                           </div>
                                     <div class="modal-body">
-                                        <form   class="form-horizontal form-label-left" action="{{url('/designation_Insert_Data')}}"method="POST"  enctype="multipart/form-data" novalidate>
+                                        <form   class="form-horizontal form-label-left validatedForm" action="{{url('/designation_Insert_Data')}}"method="POST"  enctype="multipart/form-data" novalidate>
                                             {{csrf_field()}}
-                                           
-                                           
+
+
                                             <div class="field item form-group">
                                               <label class="col-form-label col-md-3 col-sm-3  label-align">पदनाम <span class="required"></span></label>
                                                 <div class="col-md-6 col-sm-6">
                                                     <input class="form-control" name="designation" class='designation'>
-                                                 
+
                                                 </div>
                                             </div>
-                                          
+
                                               <div class="ln_solid"></div>
                                              <div class="item form-group">
                                                 <div class="col-md-6 col-sm-6 offset-md-3">
@@ -94,10 +94,10 @@
                                               <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">
                                               <i class="fa fa-sign-out" aria-hidden="true"></i> Cancel
                                               </button>
-                                             
+
                                                 </div>
                                             </div>
-                                     
+
                                       </form>
                                     </div>
                             </div>
@@ -109,4 +109,16 @@
          </div>
     </div>
 </div>
+<script>
+$('.validatedForm').validate({
+    rules:{
+        designation:"required",
+
+    },
+    messages:{
+        designation:"Please Enter The Designation Name",
+
+    }
+});
+</script>
 @endsection

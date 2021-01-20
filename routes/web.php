@@ -115,7 +115,9 @@ Route::post('account_Delete/{id}','AccountclosedController@account_Delete');
 
 //chalan add
 Route::post('chalan_insert','ChalanController@chalan_insert');
-
+//Bill No
+Route::get('bill_information','BillController@index');
+Route::post('bill_insert','BillController@bill_insert');
 
 
 });

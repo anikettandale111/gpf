@@ -11,19 +11,19 @@
                     <div class="clearfix"></div>
                     @if ($message = Session::get('danger'))
                     <div class="alert alert-danger alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button> 
+                        <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>{{ $message }}</strong>
                     </div>
                     @endif
                     @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button> 
+                        <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>{{ $message }}</strong>
                     </div>
                     @endif
                     @if ($message = Session::get('info'))
                     <div class="alert alert-info alert-block">
-                      <button type="button" class="close" data-dismiss="alert">×</button> 
+                      <button type="button" class="close" data-dismiss="alert">×</button>
                       <strong>{{ $message }}</strong>
                     </div>
                     @endif
@@ -52,9 +52,9 @@
                                                   <td>{{$master->department}}
                                                    </td>
                                                   <td>
-                                                     <a href="{{url('department_Edit',[$master->id])}}"> 
+                                                     <a href="{{url('department_Edit',[$master->id])}}">
                                                      <button type="button" class="btn btn-info" data-toggle="modal"
-                                                     data-target=""><i class="fa fa-edit"></i> 
+                                                     data-target=""><i class="fa fa-edit"></i>
                                                       </button></a>
                                                      <a href="{{url('department_Delete',$master->id)}}">
                                                      <button type="button" class="btn btn-danger "><i class="fa fa-trash"></i> </button></a>
@@ -76,7 +76,7 @@
                                 <h5 class="modal-title" id="exampleModalLabel">बँकेत नाव </h5>
                             </div>
                             <div class="modal-body">
-                                 <form   class="form-horizontal form-label-left" action="{{url('/department_Insert_Data')}}"method="POST"  enctype="multipart/form-data" novalidate>
+                                 <form   class="form-horizontal form-label-left validatedForm" action="{{url('/department_Insert_Data')}}"method="POST"  enctype="multipart/form-data" novalidate>
                                             {{csrf_field()}}
                                      <div class="field item form-group">
                                          <label class="col-form-label col-md-3  col-sm-3  label-align">विभाग संकेतांक <span class="required"></span></label>
@@ -102,5 +102,17 @@
        </div>
     </div>
 </div>
+<script>
+    $('.validatedForm').validate({
+    rules:{
+        department:"required",
+
+    },
+    messages:{
+        department:"Please Enter The Department Name",
+
+    }
+});
+</script>
 
 @endsection

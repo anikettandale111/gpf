@@ -72,7 +72,7 @@
                                                       <button type="button" class="btn btn-danger "><i class="fa fa-trash"></i> </button></a>
                                                   </td>
                                               </tr>
-                                          @endforeach             
+                                          @endforeach
                                         @endif
                                    </tbody>
                                </table>
@@ -88,7 +88,7 @@
                                 <h5 class="modal-title" id="exampleModalLabel">बँकेत नाव </h5>
                             </div>
                             <div class="modal-body">
-                                <form   class="form-horizontal form-label-left" action="{{url('/Master_Insert_Data')}}"method="POST"  enctype="multipart/form-data" novalidate>
+                                <form   class="form-horizontal form-label-left validatedForm" action="{{url('/Master_Insert_Data')}}"method="POST"  enctype="multipart/form-data" novalidate>
                                     {{csrf_field()}}
                                       <div class="field item form-group">
                                         <label class="col-form-label col-md-3 col-sm-3  label-align">बँकेत नाव <span class="required"></span></label>
@@ -99,13 +99,13 @@
                                       <div class="ln_solid"></div>
                                         <div class="item form-group">
                                           <div class="col-md-6 col-sm-6 offset-md-3">
-                                            <button type="submit" class="btn btn-success"> <i class="fa fa-floppy-o"></i> Save 
+                                            <button type="submit" class="btn btn-success"> <i class="fa fa-floppy-o"></i> Save
                                             </button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">
                                             <i class="fa fa-sign-out" aria-hidden="true"></i> Cancel
                                             </button>
                                           </div>
-                                      </div>      
+                                      </div>
                                 </form>
                             </div>
                         </div>
@@ -115,7 +115,16 @@
         </div>
    </div>
 </div>
-  
+<script>
+$('.validatedForm').validate({
+    rules:{
+        bank_name:"required",
 
+    },
+    messages:{
+        bank_name:"Please Enter The Bank Name",
 
+    }
+});
+</script>
  @endsection

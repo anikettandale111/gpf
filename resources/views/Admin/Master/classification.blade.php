@@ -11,19 +11,19 @@
                     <div class="clearfix"></div>
                     @if ($message = Session::get('danger'))
                     <div class="alert alert-danger alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button> 
+                        <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>{{ $message }}</strong>
                     </div>
                     @endif
                     @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button> 
+                        <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>{{ $message }}</strong>
                     </div>
                     @endif
                     @if ($message = Session::get('info'))
                     <div class="alert alert-info alert-block">
-                      <button type="button" class="close" data-dismiss="alert">×</button> 
+                      <button type="button" class="close" data-dismiss="alert">×</button>
                       <strong>{{ $message }}</strong>
                     </div>
                     @endif
@@ -51,7 +51,7 @@
                                                 <td>{{$loop->index+1}}</td>
                                                 <td> {{$master->classification}}</td>
                                                 <td>
-                                                    <a href="{{url('classification_Edit',[$master->id])}}"> 
+                                                    <a href="{{url('classification_Edit',[$master->id])}}">
                                                     <button type="button" class="btn btn-info" data-toggle="modal"
                                                     data-target=""><i class="fa fa-edit"></i> </button></a>
                                                     <a href="{{url('classification_Delete',$master->id)}}">
@@ -74,7 +74,7 @@
                                 <h5 class="modal-title" id="exampleModalLabel">बँकेत नाव </h5>
                             </div>
                             <div class="modal-body">
-                                <form   class="form-horizontal form-label-left" action="{{url('/classification_Insert_Data')}}"method="POST"  enctype="multipart/form-data" novalidate>
+                                <form   class="form-horizontal form-label-left validatedForm" action="{{url('/classification_Insert_Data')}}"method="POST"  enctype="multipart/form-data" novalidate>
                                    {{csrf_field()}}
                                      <div class="field item form-group">
                                         <label class="col-form-label col-md-3 col-sm-3  label-align">वर्गीकरण  <span class="required"></span></label>
@@ -100,5 +100,16 @@
        </div>
     </div>
 </div>
+<script>
+$('.validatedForm').validate({
+    rules:{
+        classification:"required",
 
+    },
+    messages:{
+        classification:"Please Enter The Classification Name",
+
+    }
+});
+</script>
 @endsection
