@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App;
 use App\User;
 use Auth;
 use DB;
@@ -112,6 +113,11 @@ class HomeController extends Controller
 
         return redirect()->back()->with('false','Email-Id Already Exist');
     }
+    public function languagechange($locale)
+    {
+        App::setLocale($locale);
+        session()->put('locale', $locale);
+        return true;
+    }
 
-  
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -13,13 +13,13 @@
     <link href=" {{ asset('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{asset('asset/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <!-- NProgress --><!-- 
+    <!-- NProgress --><!--
     <link href="{{asset('asset/vendors/nprogress/nprogress.css')}}" rel="stylesheet"> -->
-    <!-- iCheck --><!-- 
+    <!-- iCheck --><!--
     <link href="{{asset('asset/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet"> -->
     <!-- bootstrap-progressbar -->
     <!-- <link href="{{asset('asset/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet"> -->
-    <!-- JQVMap --><!-- 
+    <!-- JQVMap --><!--
     <link href="{{asset('asset/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/> -->
     <!-- bootstrap-daterangepicker -->
     <link href="{{asset('asset/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
@@ -32,10 +32,10 @@
     <link href="{{asset('asset/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{asset('asset/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
-  
+
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <style type="text/css">
         .error
@@ -61,7 +61,7 @@
                 <img src="{{asset('asset/images/img.jpg')}}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info mt-3">
-               
+
                 <h2>{{ Auth::user()->name }}</h2>
               </div>
             </div>
@@ -72,17 +72,17 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-          
+
                 <ul class="nav side-menu">
                   <li><a href="{{url('home')}}"><i class="fa fa-home"></i> Home </a>
-                      <li><a href="{{url('ganrate_new_number')}}"><i class="fa fa-clone"></i>लेखाक्रमांक प्रदान करणे 
+                      <li><a href="{{url('ganrate_new_number')}}"><i class="fa fa-clone"></i>लेखाक्रमांक प्रदान करणे
                   </a>
                   </li>
 
-                   
+
                   </li>
                   <li><a href="{{url('Customer_Registration')}}"><i class="fa fa-table"></i> कर्मचाऱ्यांची  मुळ माहिती  </a>
-                   
+
                   </li>
                  <li><a><i class="fa fa-bug"></i> मुख्यालय <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -97,7 +97,7 @@
                   <li><a href="{{url('Nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद
                   </a>
                   </li>
-                
+
                   <li><a><i class="fa fa-bug"></i> मासिक बदल  <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('Trend_add')}}">चलन</a></li>
@@ -143,6 +143,12 @@
               </div>
               <nav class="nav navbar-nav">
               <ul class=" navbar-right">
+                <li class="nav-item ">
+                  <a class="nav-link" href="#" onclick="changelanguage('{{trans('language.test_language')}}')" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-globe fa-fw"></i> {{trans('language.test_language')}}
+                </a>
+              </li>
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                   <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
                     <img src="{{asset ('asset/images/img.jpg ')}}" alt="">{{ Auth::user()->name }}
@@ -152,7 +158,7 @@
                     <a class="dropdown-item"  href="{{url('/change_pwd')}}"> Change Password</a>
                     <a class="dropdown-item"  href="{{ route('logout') }}"
                     onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                    <i class="fa fa-sign-out pull-right"></i> 
+                    <i class="fa fa-sign-out pull-right"></i>
                     Log Out</a>
                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                           @csrf
@@ -182,7 +188,7 @@
     <!-- jQuery -->
     <!-- <script src="{{asset('asset/vendors/jquery/dist/jquery.min.js') }}"></script> -->
     <!-- Bootstrap -->
-  <script src="{{asset('asset/vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script> 
+  <script src="{{asset('asset/vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <!-- FastClick -->
     <script src="{{asset('asset/vendors/fastclick/lib/fastclick.js') }}"></script>
     <!-- NProgress -->
@@ -234,3 +240,20 @@
     <script src="{{asset('asset/vendors/jszip/dist/jszip.min.js') }}"></script>
     <script src="{{asset('asset/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{asset('asset/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+<script>
+  function changelanguage(lang){
+    if(lang == 'English'){
+      lang="mar";
+    }else{
+      lang="en";
+    }
+    $.ajax({
+      type:'GET',
+      url:'/languagechange/'+lang,
+      data:{"_token": "{{ csrf_token() }}"},
+      success:function(data){
+        location.reload();
+      }
+    });
+  }
+</script>

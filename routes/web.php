@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/languagechange/{locale}', 'HomeController@languagechange')->name('languagechange');
+
 Auth::routes();
 Route::middleware('auth')->group(function(){
 Route::get('/home', 'HomeController@index')->name('home');
