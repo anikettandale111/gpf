@@ -74,25 +74,34 @@
               <div class="menu_section">
 
                 <ul class="nav side-menu">
-                  <li><a href="{{url('home')}}"><i class="fa fa-home"></i> Home </a>
-                      <li><a href="{{url('ganrate_new_number')}}"><i class="fa fa-clone"></i>लेखाक्रमांक प्रदान करणे
-                  </a>
+                  <li>
+                    <a href="{{url('home')}}"><i class="fa fa-home"></i> {{trans('language.menu_home')}} </a>
+                  </li>
+                  <li><a><i class="fa fa-bug"></i> {{trans('language.menu_master')}} <span class="fa fa-chevron-down"></span></a>
+                     <ul class="nav child_menu">
+                       <li><a href="{{url('districts')}}">{{trans('language.ms_districts')}}</a></li>
+                       <li><a href="{{url('Taluka')}}">{{trans('language.ms_taluka')}}</a></li>
+                       <li><a href="{{url('department')}}">{{trans('language.ms_department')}}</a></li>
+                       <li><a href="{{url('designation')}}">{{trans('language.ms_designations')}}</a></li>
+                       <li><a href="{{url('classification')}}">{{trans('language.ms_classification')}}</a></li>
+                       <li><a href="{{url('Master')}}">{{trans('language.ms_bank')}}</a></li>
+                       <li><a href="javascript:;">{{trans('language.ms_staff')}}</a></li>
+                       <li><a href="javascript:;">{{trans('language.ms_employee')}}</a></li>
+                       <li><a href="javascript:;">{{trans('language.ms_reason_for_accounts')}}</a></li>
+                       <li><a href="javascript:;">{{trans('language.ms_gpf_number_master')}}</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms')}} <span class="fa fa-chevron-down"></span></a>
+                     <ul class="nav child_menu">
+                       <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li>
+                       <li><a href="javascript:;">{{trans('language.fr_application_form_amount_withdrawn')}}</a></li>
+                       <li><a href="{{url('closed_account')}}">{{trans('language.fr_application_form_account_close')}}</a></li>
+                       <li><a href="javascript:;">{{trans('language.fr_application_form_account_statement')}}</a></li>
+                    </ul>
                   </li>
 
+                  <!-- <li><a href="{{url('Customer_Registration')}}"><i class="fa fa-table"></i> कर्मचाऱ्यांची  मुळ माहिती  </a>
 
-                  </li>
-                  <li><a href="{{url('Customer_Registration')}}"><i class="fa fa-table"></i> कर्मचाऱ्यांची  मुळ माहिती  </a>
-
-                  </li>
-                 <li><a><i class="fa fa-bug"></i> मुख्यालय <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="{{url('Master')}}">बँकेत नाव</a></li>
-                      <li><a href="{{url('department')}}">विभाग संकेतांक</a></li>
-                      <li><a href="{{url('designation')}}">पदनाम</a></li>
-                      <li><a href="{{url('classification')}}">वर्गीकरण</a></li>
-                      <li><a href="{{url('Taluka')}}"> तालुका  मुख्यालय  संकेताक </a></li>
-                       <li><a href="{{url('Year')}}">वर्षाचे व्याज दर  भरणे </a> </li>
-                   </ul>
                   </li>
                   <li><a href="{{url('Nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद
                   </a>
@@ -108,6 +117,7 @@
                   <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>७ वा वेतन आयोग फरक जमा </a></li>
                   <li><a href="{{url('closed_account')}}"> <i class="fa fa-users"></i>खाते बंद करणे  </a></li>
                   <li><a href="{{url('bill_information')}}"> <i class="fa fa-users"></i>बिल माहिती </a></li>
+                  <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>७ वा वेतन आयोग फरक जमा </a></li> -->
                 </ul>
               </div>
 

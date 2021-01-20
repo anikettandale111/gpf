@@ -119,5 +119,8 @@ Route::post('chalan_insert','ChalanController@chalan_insert');
 Route::get('bill_information','BillController@index');
 Route::post('bill_insert','BillController@bill_insert');
 
+// Districts
+Route::resource('districts', DistrictsController::class);
+
 
 });
