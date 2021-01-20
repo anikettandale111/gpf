@@ -116,6 +116,8 @@ Route::post('account_Delete/{id}','AccountclosedController@account_Delete');
 //chalan add
 Route::post('chalan_insert','ChalanController@chalan_insert');
 
+// Districts
+Route::resource('districts', DistrictsController::class);
 
 
 });
