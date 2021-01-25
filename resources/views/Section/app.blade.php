@@ -11,6 +11,7 @@
     <title>GPF </title>
     <!-- Bootstrap -->
     <link href=" {{ asset('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/main.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{asset('asset/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <!-- NProgress --><!--
