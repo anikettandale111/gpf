@@ -13,21 +13,27 @@ use App\designation;
 use App\classification;
 use App\month;
 use DB;
+use App\District;
 
 class TalukaController extends Controller
 {
-   
+
     public function index()
     {
-    	$taluka=taluka::all();
-        return view('Admin.Taluka.taluka', compact("taluka"));
+         $taluka=taluka::all();
+         $district = District::select("districts.dsitrict_id", "districts.district_name_mar as district_name")
+         ->leftJoin("taluka", "taluka.district_id", "=", "districts.dsitrict_id")
+         ->get();
+        return view('Admin.Taluka.taluka', compact("taluka","district"));
     }
-    public function Taluka_Insert_Data(Request $request)
+    public function taluka_insert_data(Request $request)
     {
 
         $Newtaluka = new taluka();
-        
-        $Newtaluka->name=$request->name;
+
+        $Newtaluka->taluka_name_en=$request->taluka_name_en;
+        $Newtaluka->taluka_name_mar=$request->taluka_name_mar;
+        $Newtaluka->district_id=$request->district_id;
         $Newtaluka->save();
        return redirect('Taluka')->with('info',' Data  Successfully ');
     }
@@ -99,7 +105,7 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
     }
 
     public function Custmoer_Insert_Data(Request $request )
-  
+
     {
        $NewCustomer = new Customer();
         $NewCustomer->gpf_no=$request->gpf_no;
@@ -153,24 +159,24 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
      public function Customer_new(Request $request)
       {
 
-          $query = DB::raw('SELECT * FROM ganrate_new_number WHERE b_no='.$request->id); 
+          $query = DB::raw('SELECT * FROM ganrate_new_number WHERE b_no='.$request->id);
           $result = DB::Select($query);
-        
+
         if(isset($result[0])){
           return json_encode(['stuas'=>'success','msg' =>'data success ' ,'userdata' =>$result]);
         }else{
-             
+
              $message = "data";
              if ($message) {
              $success = true;
               $message = "Record Not Found";
-            
+
         }
         return json_encode(['stuas'=>'failed','msg' =>$message]);
         }
-        
+
       }
-     
+
 
     public function Master()
     {
@@ -179,7 +185,7 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
     }
      public function Master_Insert_Data(Request $request)
      {
-               
+
         $Newmaster = new master();
         $Newmaster->bank_name=$request->bank_name;
         $Newmaster->save();
@@ -205,7 +211,7 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
 
     public function department()
      {
-         $department=department::all(); 
+         $department=department::all();
          return view ("Admin.Master.department",compact("department"));
      }
      public function department_Insert_Data(Request $request)
@@ -238,7 +244,7 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
 
      public function designation()
      {
-        $designation=designation::all(); 
+        $designation=designation::all();
          return view ("Admin.Master.designation",compact("designation"));
      }
      public function designation_Insert_Data(Request $request)
@@ -267,13 +273,13 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
      }
 
      public function classification()
-     { 
-        $classification=classification::all(); 
+     {
+        $classification=classification::all();
          return view ("Admin.Master.classification",compact("classification"));
      }
      public function classification_Insert_Data(Request $request)
      {
-               
+
         $Newmaster = new classification();
         $Newmaster->classification=$request->classification;
         $Newmaster->save();
@@ -297,7 +303,7 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
          return redirect("classification")->with('danger',' Data Deleted Successfully ');
      }
 
-    
-     
+
+
 
 }

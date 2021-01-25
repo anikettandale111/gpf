@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class taluka extends Model
 {
     protected $table = 'taluka';
-    
+
     protected $fillable = [
-        "name","created_by","modified_by","created_at","updated_at"
+        "id","taluka_name_en","taluka_name_mar","district_id","created_at","updated_at"
     ];
 
 }

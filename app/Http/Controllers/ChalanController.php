@@ -17,7 +17,7 @@ use App\Chalan;
 
 class ChalanController extends Controller
 {
-   
+
     public function index()
     {
         $taluka=taluka::all();
@@ -31,7 +31,7 @@ class ChalanController extends Controller
     {
        $data['Currency_number'] = $request->Currency_number;
        $data['year'] = $request->year;
-       $data['trend_no'] = $request->trend_no; 
+       $data['trend_no'] = $request->trend_no;
        $deposits=deposit::select('amount','primary_number','diff_amount')->where($data)->first();
        $res = '';
        if(!empty($deposits->primary_number))
@@ -71,7 +71,7 @@ class ChalanController extends Controller
         }
         else
         {
-            return redirect()->back()->with('danger',' Data Already exist');   
+            return redirect()->back()->with('danger',' Data Already exist');
         }
     }
     public function Year_Edit($id)
@@ -108,7 +108,7 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
     }
 
     public function Custmoer_Insert_Data(Request $request )
-  
+
     {
        $NewCustomer = new Customer();
         $NewCustomer->custmoer_no=$request->custmoer_no;
@@ -167,7 +167,7 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
     }
      public function Master_Insert_Data(Request $request)
      {
-               
+
         $Newmaster = new master();
         $Newmaster->department_code=$request->department_code;
         $Newmaster->designation=$request->designation;
@@ -203,10 +203,10 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
         die();
          return view ("Admin.Customer.nomination_record");
      }
-    
+
      public function department()
      {
-         $department=department::all(); 
+         $department=department::all();
          return view ("Admin.Master.department",compact("department"));
      }
      public function department_Insert_Data(Request $request)
@@ -239,7 +239,7 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
 
      public function designation()
      {
-        $designation=designation::all(); 
+        $designation=designation::all();
          return view ("Admin.Master.designation",compact("designation"));
      }
      public function designation_Insert_Data(Request $request)
@@ -268,13 +268,13 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
      }
 
      public function classification()
-     { 
-        $classification=classification::all(); 
+     {
+        $classification=classification::all();
          return view ("Admin.Master.classification",compact("classification"));
      }
      public function classification_Insert_Data(Request $request)
      {
-               
+
         $Newmaster = new classification();
         $Newmaster->classification=$request->classification;
         $Newmaster->save();
@@ -298,7 +298,7 @@ return view ('Admin.Customer.Customer_Registration', compact("customers","taluka
          return redirect("classification")->with('danger',' Data Deleted Successfully ');
      }
 
-    
-     
+
+
 
 }

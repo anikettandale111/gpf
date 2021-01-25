@@ -15,15 +15,15 @@ class CreateDepositsTable extends Migration
     {
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
-            $table->string('Currency_number');
-            $table->string('App_number');
-            $table->string('Currency_date');
-            $table->string('Classification');
-            $table->string('Total_waste');
-            $table->string('Taluka_code');
-            $table->string('Select_taluka');
-            $table->string('The_amount');
-            $table->text('Shera');
+            $table->string('chalan_no');
+            $table->string('App_no');
+            $table->string('chalan_date');
+            $table->string('classification');
+            $table->string('total_waste');
+            $table->string('taluka_code');
+            $table->string('select_taluka');
+            $table->string('amount');
+            $table->text('shera');
             $table->timestamps();
         });
     }

@@ -7,23 +7,23 @@
          <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
                     <div class="x_title">
-                          <h2>खाते बंद करणे </h2>
+                          <h2>{{trans('language.h_closing_the_account')}}</h2>
                            <div class="clearfix"></div>
                           @if ($message = Session::get('danger'))
                           <div class="alert alert-danger alert-block">
-                              <button type="button" class="close" data-dismiss="alert">×</button> 
+                              <button type="button" class="close" data-dismiss="alert">×</button>
                               <strong>{{ $message }}</strong>
                           </div>
                           @endif
                           @if ($message = Session::get('success'))
                           <div class="alert alert-success alert-block">
-                              <button type="button" class="close" data-dismiss="alert">×</button> 
+                              <button type="button" class="close" data-dismiss="alert">×</button>
                               <strong>{{ $message }}</strong>
                           </div>
                           @endif
                           @if ($message = Session::get('info'))
                           <div class="alert alert-info alert-block">
-                              <button type="button" class="close" data-dismiss="alert">×</button> 
+                              <button type="button" class="close" data-dismiss="alert">×</button>
                               <strong>{{ $message }}</strong>
                           </div>
                           @endif
@@ -31,16 +31,16 @@
 
                     </div>
                     <div class="x_content">
-                        <form  class="validatedForm" action="{{url('/account_Insert_Data')}}"       method="POST"  enctype="multipart/form-data" id="cform"  novalidate>
+                        <form  class="validatedForm" action="{{url('/account_Insert_Data')}}" method="POST"  enctype="multipart/form-data" id="cform"  novalidate>
                               {{csrf_field()}}
                             <div class="field item form-group">
-                              <label class="col-form-label col-md-3 col-sm-3  label-align"> भ. नि .नि. क्रमांक <span class="required"></span></label>
+                              <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_Closing_b_n_n_no')}} <span class="required"></span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <input class="form-control" class='optional ' id="gpf_no" name="gpf_no" data-validate-length-range="5,15" type="text" />
                                 </div>
                             </div>
                             <div class="field item form-group">
-                              <label class="col-form-label col-md-3 col-sm-3  label-align">तालुका संकेतांक<span class="required"></span></label>
+                              <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_closing_taluka')}} <span class="required"></span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <select class="form-control" name="taluka" id="taluka" class='email' readonly>
                                        <option value="">-- निवडा तालुका --</option>
@@ -51,10 +51,10 @@
                                 </div>
                             </div>
                             <div class="field item form-group">
-                              <label class="col-form-label col-md-3 col-sm-3  label-align">विभाग संकेतांक <span class="required"></span></label>
+                              <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_closing_department')}}<span class="required"></span></label>
                               <div class="col-md-6 col-sm-6">
                                <select class="form-control" id="department" name="department" class='email'>
-                              
+
                                   <option value="">-- निवडा विभाग --</option>
                                     @foreach($department as $k => $v)
                                         <option value="{{$v->department}}">{{$v->department}}</option>
@@ -63,12 +63,12 @@
                               </div>
                             </div>
                             <div class="field item form-group">
-                              <label class="col-form-label col-md-3 col-sm-3  label-align"> नाव   <span class="required"></span></label>
+                              <label class="col-form-label col-md-3 col-sm-3  label-align"> {{trans('language.th_closing_name')}}   <span class="required"></span></label>
                               <div class="col-md-6 col-sm-6">
                                   <input class="form-control" type="text" id="name" class='number' name="name" data-validate-minmax="10,100" required='required ' readonly></div>
                             </div>
                             <div class="field item form-group">
-                              <label class="col-form-label col-md-3 col-sm-3  label-align">पदनाम <span class="required"></span></label>
+                              <label class="col-form-label col-md-3 col-sm-3  label-align"> {{trans('language.th_closing_designation')}}  <span class="required"></span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <select class="form-control" name="designation" id="designation" class='designation'>
                                     <option value="">-- निवडा पदनाम --</option>
@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="field item form-group">
-                              <label class="col-form-label col-md-3 col-sm-3  label-align">व्याज देय महिना   <span class="required"></span></label>
+                              <label class="col-form-label col-md-3 col-sm-3  label-align"> {{trans('language.th_closing_month_of_interest_payable')}}  <span class="required"></span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <select class="form-control" name="month_interest_payable"  id="month_interest_payable"class='month_interest_payable'>
                                       <option value="">-- निवडा महिना --</option>
@@ -91,26 +91,26 @@
                                 </div>
                             </div>
                              <div class="field item form-group">
-                              <label class="col-form-label col-md-3 col-sm-3  label-align">अंतिम देय  वर्ष   <span class="required"></span></label>
+                              <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_closing_last_due_year')}}  <span class="required"></span></label>
                                 <div class="col-md-6 col-sm-6">
                                   @php
-                                      $currently_selected = date('Y'); 
-                                      $earliest_year = 2020; 
-                                      $latest_year = date('Y'); 
+                                      $currently_selected = date('Y');
+                                      $earliest_year = 2020;
+                                      $latest_year = date('Y');
                                       @endphp
                                       <select name="last_due_year" class="form-control year">
                                         <option value="">-- निवडा वर्ष --</option>
-                                        <?php 
+                                        <?php
                                             foreach ( range( $latest_year, $earliest_year ) as $i ) {
                                               echo '<option value="'.$i.'"'.($i === $currently_selected ? ' selected="selected"' : '').'>'.$i.'</option>';
                                             }
-                                            
+
                                         ?>
                                      </select>
                                 </div>
                             </div>
                             <div class="field item form-group">
-                              <label class="col-form-label col-md-3 col-sm-3  label-align">७ पाय  व्याज महिना    <span class="required"></span></label>
+                              <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_closing_feet_interest_month')}}   <span class="required"></span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <select class="form-control" name="feet_interest_payable_month"  id="feet_interest_payable_month"class='feet_interest_payable_month'>
                                             <option value="">-- निवडा महिना --</option>
@@ -121,26 +121,26 @@
                                 </div>
                             </div>
                              <div class="field item form-group">
-                              <label class="col-form-label col-md-3 col-sm-3  label-align">७ पाय व्याज देय वर्ष <span class="required"></span></label>
+                              <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_closing_feet_interest_payable_year')}}<span class="required"></span></label>
                                 <div class="col-md-6 col-sm-6">
                                   @php
-                                      $currently_selected = date('Y'); 
-                                      $earliest_year = 2020; 
-                                      $latest_year = date('Y'); 
+                                      $currently_selected = date('Y');
+                                      $earliest_year = 2020;
+                                      $latest_year = date('Y');
                                       @endphp
                                       <select name="feet_interest_payable_year" class="form-control year">
                                               <option value="">-- निवडा वर्ष --</option>
-                                        <?php 
+                                        <?php
                                             foreach ( range( $latest_year, $earliest_year ) as $i ) {
                                               echo '<option value="'.$i.'"'.($i === $currently_selected ? ' selected="selected"' : '').'>'.$i.'</option>';
                                             }
-                                            
+
                                         ?>
                                      </select>
                                 </div>
                             </div>
                              <div class="field item form-group">
-                              <label class="col-form-label col-md-3 col-sm-3  label-align">अंतिम  वर्गणी  महिना<span class="required"></span></label>
+                              <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_closing_last_subscription_month')}}<span class="required"></span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <select class="form-control" name="last_subscription_month" id="last_subscription_month"class='last_subscription_month'>
                                             <option value="">-- निवडा महिना --</option>
@@ -151,20 +151,20 @@
                                 </div>
                             </div>
                              <div class="field item form-group">
-                              <label class="col-form-label col-md-3 col-sm-3  label-align">अंतिम वर्गणी वर्ष   <span class="required"></span></label>
+                              <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_closing_last_subscription_year')}} <span class="required"></span></label>
                                 <div class="col-md-6 col-sm-6">
                                   @php
-                                      $currently_selected = date('Y'); 
-                                      $earliest_year = 2020; 
-                                      $latest_year = date('Y'); 
+                                      $currently_selected = date('Y');
+                                      $earliest_year = 2020;
+                                      $latest_year = date('Y');
                                       @endphp
                                       <select name="last_subscription_year" class="form-control year">
                                         <option value="">-- निवडा वर्ष --</option>
-                                        <?php 
+                                        <?php
                                             foreach ( range( $latest_year, $earliest_year ) as $i ) {
                                               echo '<option value="'.$i.'"'.($i === $currently_selected ? ' selected="selected"' : '').'>'.$i.'</option>';
                                             }
-                                            
+
                                         ?>
                                      </select>
                                 </div>
@@ -172,8 +172,8 @@
                              <div class="ln_solid"></div>
                              <div class="item form-group">
                                  <div class="col-md-6 col-sm-6 offset-md-3">
-                                      <button type="submit" class="btn btn-success"> <i class="fa fa-floppy-o"></i> Save </button>
-                                      
+                                      <button type="submit" class="btn btn-success"> <i class="fa fa-floppy-o"></i> {{trans('language.btn_save')}} </button>
+
                                   </div>
                              </div>
                         </form>
@@ -182,26 +182,26 @@
                         <div class="row">
                             <div class="col-sm-12">
                              <div class="card-box table-responsive">
-                              
 
-                                  <table id="datatable" class="table   
+
+                                  <table id="datatable" class="table
                                        table-striped table-bordered table-responsive" style="width:100%">
                                          <thead>
                                           <tr>
-                                          <th> क्रं </th>
-                                            <th>भ.नि .नि क्रमांक </th>
-                                            <th>तालुका  संकेतांक </th>
-                                            <th>विभाग संकेतांक</th>
-                                            <th>नाव </th>
-                                            <th>पदनाम </th>
-                                            <th>व्याज देय महिना  </th>
-                                            <th>अंतिम देय  वर्ष </th>
-                                            <th> ७ पाय  व्याज महिना  </th>
-                                            <th>  ७ पाय व्याज देय वर्ष  </th>
-                                            <th>अंतिम  वर्गणी  महिना </th>
-                                            <th>अंतिम वर्गणी वर्ष   </th>
-                                         
-                                            <th>Action</th>
+                                             <th>{{trans('language.th_closing_no')}}</th>
+                                             <th>{{trans('language.th_Closing_b_n_n_no')}}</th>
+                                             <th>{{trans('language.th_closing_taluka')}}</th>
+                                             <th>{{trans('language.th_closing_department')}}</th>
+                                             <th>{{trans('language.th_closing_name')}}</th>
+                                             <th>{{trans('language.th_closing_designation')}}</th>
+                                             <th>{{trans('language.th_closing_month_of_interest_payable')}}</th>
+                                             <th>{{trans('language.th_closing_last_due_year')}}</th>
+                                             <th>{{trans('language.th_closing_feet_interest_month')}}</th>
+                                             <th>{{trans('language.th_closing_feet_interest_payable_year')}}</th>
+                                             <th>{{trans('language.th_closing_last_subscription_month')}}</th>
+                                             <th>{{trans('language.th_closing_last_subscription_year')}}</th>
+                                             <th>{{trans('language.btn_action')}}</th>
+
                                           </tr>
                                          </thead>
                                          <tbody>
@@ -222,14 +222,14 @@
                                                <td>{{$temp->last_subscription_year}}</td>
                                                </td>
                                                <td>
-                                                 <!--  <a href="{{url('temp_Edit',[$temp->id])}}"> 
+                                                 <!--  <a href="{{url('temp_Edit',[$temp->id])}}">
                                                   <button type="button" class="btn btn-info" data-toggle="modal"
                                                   data-target=""><i class="fa fa-edit"></i> </button></a>
                                                -->
                                                   <button class="btn btn-danger btn-flat btn-sm remove-user"
-                                                   data-id="{{ $temp->id }}" data-action="{{ url('account_Delete',$temp->id) }}" onclick="deleteConfirmation({{$temp->id}})"> <i class="fa fa-trash"></i> 
+                                                   data-id="{{ $temp->id }}" data-action="{{ url('account_Delete',$temp->id) }}" onclick="deleteConfirmation({{$temp->id}})"> <i class="fa fa-trash"></i>
                                                  </button>
-                                                    
+
                                                 </td>
                                             </tr>
                                                @endforeach
@@ -267,10 +267,10 @@
                     dataType: 'JSON',
                     success: function (results) {
 
-                      
+
 
                         $('#'+results.id).remove();
-                         
+
                     }
 
 
@@ -284,7 +284,7 @@
             return false;
         })
 
-        
+
     }
    $('#gpf_no').on('change', function() {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -295,7 +295,7 @@
             type: 'post',
             data: {_token: CSRF_TOKEN,'id':id},
             success: function(data)
-            {  
+            {
 
               var obj = $.parseJSON(data);
 
@@ -308,17 +308,17 @@
               $('#retirement_date').val(obj.userdata[0].date_dated);
               $('#account_no').val(obj.userdata[0].account_no);
               $('#name').val(obj.userdata[0].name);
-             
+
               }else{
                   alert("This number is not exist");
                 $("#cform")[0].reset();
-             
+
                 return false;
-          
+
               }
             }
         });
- 
+
 });
      $('.validatedForm').validate({
         rules : {
@@ -340,14 +340,14 @@
             feet_interest_payable_year:"required",
             last_subscription_month:"required",
             last_subscription_year:"required",
-            
+
         },
         messages: {
              vetan:"Plese Select vetan",
             classification:"Plese Select Classification",
              gpf_no: {
              required: "Please Enter gpf Number",
-            }, 
+            },
              taluka: " Please Select Taluka",
              department: " Please Select Department",
              name:" Please Enter The Name",
@@ -358,7 +358,7 @@
              feet_interest_payable_year: " Please Select 7 feet interest payable year",
              last_subscription_month: " Please Select Last subscription month",
              last_subscription_year: " Please Select Last subscription year",
-            
+
          }
     });
 

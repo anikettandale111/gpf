@@ -31,12 +31,10 @@
     <link href="{{asset('asset/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{asset('asset/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{asset('asset/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <link  href="{{asset('asset/css/sweetalert2.min.css')}}" rel="stylesheet">
+    <script src="{{asset('asset/js/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{asset('asset/js/sweetalert2.all.min.js') }}"></script>
+    <script src="{{asset('asset/js/jquery.validate.min.js') }}"></script>
     <style type="text/css">
         .error
         {
@@ -99,8 +97,15 @@
                        <li><a href="javascript:;">{{trans('language.fr_application_form_account_statement')}}</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-bug"></i> परतावा प्रास्ताव करणे <span class="fa fa-chevron-down"></span></a>
+                     <ul class="nav child_menu">
+                       <li><a href="{{url('application_form')}}">कर्मचाऱ्याने कार्यालय  प्रमुखास अर्ज करणे </a></li>
 
-                  <!-- <li><a href="{{url('Customer_Registration')}}"><i class="fa fa-table"></i> कर्मचाऱ्यांची  मुळ माहिती  </a>
+                    </ul>
+                  </li>
+
+
+                  <li><a href="{{url('Customer_Registration')}}"><i class="fa fa-table"></i> कर्मचाऱ्यांची  मुळ माहिती  </a>
 
                   </li>
                   <li><a href="{{url('Nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद
@@ -117,7 +122,7 @@
                   <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>७ वा वेतन आयोग फरक जमा </a></li>
                   <li><a href="{{url('closed_account')}}"> <i class="fa fa-users"></i>खाते बंद करणे  </a></li>
                   <li><a href="{{url('bill_information')}}"> <i class="fa fa-users"></i>बिल माहिती </a></li>
-                  <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>७ वा वेतन आयोग फरक जमा </a></li> -->
+                  <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>७ वा वेतन आयोग फरक जमा </a></li>
                 </ul>
               </div>
 

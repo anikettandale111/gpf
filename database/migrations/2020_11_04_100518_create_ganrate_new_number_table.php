@@ -16,7 +16,7 @@ class CreateGanrateNewNumberTable extends Migration
         Schema::create('ganrate_new_number', function (Blueprint $table) {
             $table->id();
             $table->string('classification');
-            $table->string('b_no');
+            $table->string('gpf_no');
             $table->string('taluka');
             $table->string('department');
             $table->string('name');

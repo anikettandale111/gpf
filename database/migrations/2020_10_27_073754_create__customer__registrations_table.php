@@ -15,9 +15,9 @@ class CreateCustomerRegistrationsTable extends Migration
     {
         Schema::create('customer_registrations', function (Blueprint $table) {
             $table->id();
-            $table->string('custmoer_no');
-            $table->string('taluka_code');
-            $table->string('department_code');
+            $table->string('gpf_no');
+            $table->string('taluka');
+            $table->string('department');
             $table->string('name');
             $table->string('designation');
             $table->string('classification');

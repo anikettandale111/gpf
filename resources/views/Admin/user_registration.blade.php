@@ -1,12 +1,12 @@
 @extends('Section.app')
 
 @section('content')
-<div class="">        
+<div class="">
     <div class="row">
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>वापरकर्त्यांची नोंदणी</h2>
+                    <h2>{{trans('language.h_user_registration')}}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -16,14 +16,14 @@
                     <div class="clearfix"></div>
                    <!--  @if ($message = Session::get('success'))
                         <div class="alert alert-success alert-block">
-                          <button type="button" class="close" data-dismiss="alert">×</button> 
+                          <button type="button" class="close" data-dismiss="alert">×</button>
                           <strong>{{ $message }}</strong>
                         </div>
-                    @elseif($message = Session::get('false'))  
+                    @elseif($message = Session::get('false'))
                         <div class="alert alert-danger alert-block">
-                          <button type="button" class="close" data-dismiss="alert">×</button> 
+                          <button type="button" class="close" data-dismiss="alert">×</button>
                           <strong>{{ $message }}</strong>
-                        </div>  
+                        </div>
                     @endif -->
                 </div>
                 <div class="x_content">
@@ -32,7 +32,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{trans('language.th_user_registration_name')}}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{trans('language.th_user_registration_phone')}}</label>
 
                             <div class="col-md-6">
                                 <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{trans('language.th_user_registration_email')}}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{trans('language.th_user_registration_password')}}</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -88,7 +88,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{trans('language.th_user_registration_confirm_password')}}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __('Select Taluka') }}</label>
+                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{trans('language.th_user_registration_taluka')}}</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="taluka">
@@ -109,7 +109,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __('Select Department') }}</label>
+                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{trans('language.th_user_registration_department')}}</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="department">
@@ -131,9 +131,7 @@
                     </form>
                 </div>
                 <div class="x_panel">
-                    <div class="x_title">
-                        <h2>ववापरकर्त्यांची नोंदणी</h2>
-                        <div class="clearfix"></div>
+                    <div class="">
                         @if ($message = Session::get('danger'))
                         <div class="alert alert-danger alert-block">
                               <button type="button" class="close" data-dismiss="alert">×</button>
@@ -162,14 +160,14 @@
                                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                                <tr>
-                                                  <th> NO </th>
-                                                  <th> Name </th>
-                                                  <th>Phone  </th>
-                                                  <th>E-Mail Address</th>
-                                                  <th>Select Taluka  </th>
-                                                  <th>Select Department</th>
-                                                  <th>Created</th>
-                                                  <th>Action</th>
+                                                  <th>{{trans('language.th_user_registration_s_no')}} </th>
+                                                  <th> {{trans('language.th_user_registration_name')}} </th>
+                                                  <th>{{trans('language.th_user_registration_phone')}}  </th>
+                                                  <th>{{trans('language.th_user_registration_email')}}</th>
+                                                  <th>{{trans('language.th_user_registration_taluka')}}  </th>
+                                                  <th>{{trans('language.th_user_registration_department')}}</th>
+                                                  <th>{{trans('language.th_user_registration_created')}}</th>
+                                                  <th>{{trans('language.btn_action')}}</th>
                                               </tr>
                                           </thead>
                                            <tbody>
@@ -196,12 +194,12 @@
                                                         <a href="{{url('Registration_Delete',$temp->id)}}/inactive">
                                                         <button type="button" class="btn btn-danger">In-Active </button></a>
                                                         @endif
-                                                        
+
                                                     </td>
                                                 </tr>
                                                 @endforeach
                                                 @endif
-                                          </tbody>  
+                                          </tbody>
                                     </table>
                                </div>
                           </div>
@@ -241,7 +239,7 @@
               digits: "Please enter valid phone number",
               minlength: "Phone number field accept only 10 digits",
               maxlength: "Phone number field accept only 10 digits",
-            }, 
+            },
             email: {
                 required: "Enter your Email",
                 email: "Please enter a valid email address.",

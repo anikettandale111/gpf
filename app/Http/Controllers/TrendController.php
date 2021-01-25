@@ -109,11 +109,11 @@ class TrendController extends Controller
     return redirect ('ganrate_new_number')->with('success',' Data  Successfully');
 
   }
-  public function ganrate_reports($id) 
+  public function ganrate_reports($id)
   {
      $ganratereports=ganrate::where('id', $id)->first();
      return view ('Admin.Ganrate.ganratereports', compact('ganratereports'));
-  } 
+  }
 
   public function ganrate_Delete($id)
   {
@@ -125,14 +125,14 @@ class TrendController extends Controller
    {
 
 
-    $query = DB::raw('SELECT * FROM ganrate_new_number WHERE b_no='.$request->id); 
+    $query = DB::raw('SELECT * FROM ganrate_new_number WHERE b_no='.$request->id);
     $result = DB::Select($query);
     if(isset($result[0])){
       return json_encode(['stuas'=>'success','msg' =>'Data Found' ,'userdata' =>$result]);
     }else{
       return json_encode(['stuas'=>'failed','msg' =>'Data Not Found' ]);
     }
-    
+
    }
 
   public function vetan()
@@ -174,17 +174,15 @@ class TrendController extends Controller
    }
   public function vetan_new(Request $request)
    {
-
-
-    $query = DB::raw('SELECT * FROM ganrate_new_number WHERE b_no='.$request->id); 
+    $query = DB::raw('SELECT * FROM ganrate_new_number WHERE b_no='.$request->id);
     $result = DB::Select($query);
-   
+
     if(isset($result[0])){
       return json_encode(['stuas'=>'success','msg' =>'Data Found' ,'userdata' =>$result]);
     }else{
       return json_encode(['stuas'=>'failed','msg' =>'Data Not Found']);
     }
-    
+
    }
   public function vetan_Delete($id)
   {

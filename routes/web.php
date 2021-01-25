@@ -23,7 +23,7 @@ Auth::routes();
 Route::middleware('auth')->group(function(){
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('Taluka', 'TalukaController@index');
-Route::post('Taluka_Insert_Data', 'TalukaController@Taluka_Insert_Data');
+Route::post('taluka_insert_data', 'TalukaController@taluka_insert_data');
 Route::get('Taluka_Edit/{id}', 'TalukaController@Taluka_Edit');
 Route::post('Taluka_Update', 'TalukaController@Taluka_Update');
 Route::get('Talukat_Delete/{id}', 'TalukaController@Talukat_Delete');
@@ -123,6 +123,8 @@ Route::post('bill_insert','BillController@bill_insert');
 Route::resource('districts', DistrictsController::class);
 // Reasons
 Route::resource('commonreasons', CommonReasonsController::class);
+//
+Route::get('application_form','ApplicationController@application_form');
 
 
 });

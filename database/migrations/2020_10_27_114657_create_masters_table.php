@@ -15,8 +15,10 @@ class CreateMastersTable extends Migration
     {
         Schema::create('master_bank', function (Blueprint $table) {
             $table->id();
-            $table->string('bank_name');
+            $table->string('bank_name_en');
+            $table->string('bank_name_mar');
             $table->timestamps();
+
         });
     }
 

@@ -1,12 +1,12 @@
 @extends('Section.app')
 
 @section('content')
-<div class="">        
+<div class="">
     <div class="row">
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>लेखाक्रमांक प्रदान करणे</h2>
+                    <h2>{{trans('language.h_providing_account_numbe')}} </h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -14,18 +14,18 @@
                         </li>
                     </ul>
                     <div class="clearfix"></div>
-                 
+
                 </div>
                 <div class="x_content">
                     <br />
                     <form method="POST" class="validatedForm" action="{{ url('ganrate_insert_no') }}">
                         @csrf
                          <div class="form-group row">
-                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __(' वर्गीकरण ') }}</label>
+                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_classification')}} </label>
 
                             <div class="col-md-6">
                                 <select class="form-control mySelect" name="classification" class="form-control @error('classification ') is-invalid @enderror" required autocomplete="classification" autofocus id="mySelect">
-                                    
+
                                      <option value="">-- निवडा वर्गीकरण --</option>
                                     @foreach($classification as $k => $v)
                                         <option value="{{$v->classification}}">{{$v->classification}}</option>
@@ -37,18 +37,16 @@
                                     </span>
                                   @enderror
                             </div>
-                            
+
                         </div>
                         <div class="form-group row">
-                            <label for="b_no" class="col-md-4 col-form-label text-md-right">{{ __('भ.नि .नि क्रमांक ') }}</label>
-
-                         
-                            <div class="col-md-2">
+                            <label for="b_no" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_b_n_n_no')}}</label>
+                           <div class="col-md-2">
                                 <input id="bno" type="text" class="form-control gpf_number" name="" >
                             </div>
                                <div class="col-md-4">
                                 <input id="b_no" type="text" class="form-control @error('b_no') is-invalid @enderror" name="b_no" value="{{ old('b_no') }}" required autocomplete="b_no" autofocus placeholder="Enter The GPF Number">
- 
+
                                  @error('b_no')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -57,7 +55,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __('तालुका  संकेतांक ') }}</label>
+                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_taluka')}}</label>
 
                             <div class="col-md-6">
                                 <select class="form-control  @error('taluka') is-invalid @enderror" name="taluka" value="{{ old('taluka') }}" required autocomplete="taluka" autofocus>
@@ -75,11 +73,11 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __('विभाग संकेतांक') }}</label>
+                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_department')}}</label>
 
                             <div class="col-md-6">
                                   <select class="form-control  @error('department') is-invalid @enderror" name="department" value="{{ old('department') }}" required autocomplete="department" autofocus>
-                              
+
                                    <option value="">-- निवडा विभाग --</option>
                                     @foreach($department as $k => $v)
                                         <option value="{{$v->department}}">{{$v->department}}</option>
@@ -94,7 +92,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('नाव ') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_name')}}</label>
 
                             <div class="col-md-6">
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -107,13 +105,13 @@
                             </div>
                         </div>
                          <div class="form-group row">
-                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __('पदनाम ') }}</label>
-                         
+                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_designation')}}</label>
+
                             <div class="col-md-6">
                                 <select class="form-control  @error('designation') is-invalid @enderror" name="designation" value="{{ old('designation') }}" required autocomplete="designation" autofocus>
                                  <option value="">-- निवडा पदनाम --</option>
                                     @foreach($designation as $k => $v)
-                                        <option value="{{$v->designation}}">{{$v->designation}}</option>
+                                        <option value="{{$v->designation_code}}">{{$v->designation_code}}</option>
                                     @endforeach
                                 </select>
                                   @error('designation')
@@ -124,13 +122,7 @@
                              </div>
                         </div>
                         <div class="form-group row">
-                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __('खाते क्र  ') }}</label>
-                            <!-- <div class="col-md-2">
-                                <input id="account_no" type="account_no" class="form-control" name="account_no">
-
-                              
-                            </div> -->
-
+                            <label for="taluka" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_account_no')}}</label>
                             <div class="col-md-6">
                                 <input class="form-control" name="account_no"  class="form-control @error('account_no') is-invalid @enderror" id="account_no" value="{{ old('account_no') }}" required autocomplete="account_no" autofocus>
 
@@ -139,11 +131,11 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                   @enderror
-                              
+
                             </div>
                         </div>
                          <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('जन्म दिनांक') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_date_of_birth')}}</label>
 
                             <div class="col-md-6">
                                 <input type="date" name="date_of_birthday" class="form-control @error('date_of_birthday') is-invalid @enderror" id="date_of_birthday" value="{{ old('date_of_birthday') }}" required autocomplete="date_of_birthday" autofocus>
@@ -152,11 +144,11 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                   @enderror
-                              
+
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('रुजू दिनांक') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_date_dated')}}</label>
 
                             <div class="col-md-6">
                                 <input type="date" name="date_birth" class="form-control @error('date_birth') is-invalid @enderror" id="date_birth" value="{{ old('date_birth') }}" required autocomplete="date_birth" autofocus>
@@ -165,11 +157,11 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                   @enderror
-                             
+
                             </div>
                         </div>
                          <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('सेवानिवृती दिनांक') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_date_of_retirement')}}</label>
 
                             <div class="col-md-6">
                                 <input type="date" name="date_dated" class="form-control @error('date_dated') is-invalid @enderror" id="date_dated" value="{{ old('date_dated') }}" required autocomplete="date_dated" autofocus>
@@ -181,9 +173,9 @@
                                   @enderror
                             </div>
                         </div>
-                      
+
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('ग .वि .अ/ ग .शि. अ .पं.स तालुका  यांचे  पत्र  क्रं ') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_letter_no')}}</label>
 
                             <div class="col-md-6">
                                 <input type="text" name="c_v_letter" class="form-control @error('c_v_letter') is-invalid @enderror" id="c_v_letter" value="{{ old('c_v_letter') }}" required autocomplete="c_v_letter" autofocus>
@@ -195,16 +187,16 @@
                                     </span>
                                   @enderror
 
-                              
+
                             </div>
                         </div>
                            <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('लेखाक्रमांक प्रदान  करावयाचा आहे का ?') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_whether_to_a_n')}}</label>
 
                             <div class="col-md-6 mt-2">
                                   <input type="radio" name="yes" class="@error('yes') is-invalid @enderror" id="yes" value="{{ old('yes') }}" required autocomplete="yes" autofocus> होय
                                   <input type="radio" name="yes" class=" @error('yes') is-invalid @enderror" id="yes" value="{{ old('No') }}" required autocomplete="yes" autofocus> नाही
-                              
+
                                   @error('yes')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -215,7 +207,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Save') }}
+                                {{trans('language.btn_save')}}
                                 </button>
                             </div>
                         </div>
@@ -224,7 +216,7 @@
 
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>लेखाक्रमांक प्रदान करणे</h2>
+                        <h2>{{trans('language.h_providing_account_numbe')}}</h2>
                         <div class="clearfix"></div>
                         @if ($message = Session::get('danger'))
                         <div class="alert alert-danger alert-block">
@@ -254,19 +246,20 @@
                                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                                <tr>
-                                                  <th> क्रं </th>
-                                                  <th> वर्गीकरण  </th>
-                                                  <th>भ.नि .नि क्रमांक   </th>
-                                                  <th>तालुका  संकेतांक </th>
-                                                  <th>विभाग संकेतांक  </th>
-                                                  <th>नाव </th>
-                                                  <th>पदनाम </th>
-                                                  <th>खाते क्र </th>
-                                                  <th>जन्म दिनांक</th>
-                                                  <th>रुजू दिनांक</th>
-                                                  <th>सेवानिवृती दिनांक</th>
-                                                  <th>ग .वि .अ/ ग .शि. अ .पं.स तालुका  यांचे  पत्र  क्रं</th>
-                                                  <th>Action</th>
+                                                  <th> {{trans('language.th_providing_no')}} </th>
+                                                  <th> {{trans('language.th_providing_classification')}} </th>
+                                                  <th> {{trans('language.th_providing_b_n_n_no')}} </th>
+                                                  <th> {{trans('language.th_providing_taluka')}} </th>
+                                                  <th> {{trans('language.th_providing_department')}} </th>
+                                                  <th> {{trans('language.th_providing_name')}} </th>
+                                                  <th> {{trans('language.th_providing_designation')}} </th>
+                                                  <th> {{trans('language.th_providing_account_no')}} </th>
+                                                  <th> {{trans('language.th_providing_date_of_birth')}} </th>
+                                                  <th> {{trans('language.th_providing_date_dated')}} </th>
+                                                  <th> {{trans('language.th_providing_date_of_retirement')}} </th>
+                                                  <th> {{trans('language.th_providing_letter_no')}} </th>
+                                                   <th> {{trans('language.btn_action')}} </th>
+
                                               </tr>
                                           </thead>
                                            <tbody>
@@ -287,7 +280,7 @@
                                                     <td>{{$temp->c_v_letter}}</td>
                                                      <td>
                                                         <button class="btn btn-danger btn-flat btn-sm remove-user"
-                                                        data-id="{{ $temp->id }}" data-action="{{ url('ganrate_Delete',$temp->id) }}" onclick="deleteConfirmation({{$temp->id}})"> <i class="fa fa-trash"></i> 
+                                                        data-id="{{ $temp->id }}" data-action="{{ url('ganrate_Delete',$temp->id) }}" onclick="deleteConfirmation({{$temp->id}})"> <i class="fa fa-trash"></i>
                                                         </button>
                                                         <a href="{{url('ganrate_reports',$temp->id)}}">
                                                         <button type="button" class="btn btn-success "><i class="fa fa-print" aria-hidden="true"></i> </button></a>
@@ -295,8 +288,8 @@
                                                 </tr>
                                                 @endforeach
                                                 @endif
-                                              
-                                          </tbody>  
+
+                                          </tbody>
                                     </table>
                                </div>
                           </div>
@@ -322,34 +315,34 @@
             department:"required",
             name:"required",
             designation:"required",
-             account_no: 
+             account_no:
             {
                 required: true,
                 digits: "required",
             },
-            date_of_birthday:"required", 
-            date_birth:"required", 
-            date_dated:"required", 
-            c_v_letter:"required", 
-            yes:"required", 
+            date_of_birthday:"required",
+            date_birth:"required",
+            date_dated:"required",
+            c_v_letter:"required",
+            yes:"required",
         },
         messages: {
               classification:"Plese Select Classification",
               b_no: {
                required: "Please Enter gpf Number",
-            }, 
+            },
              taluka: "Plese Select Taluka",
              department: "Plese Select Department",
              name:"Plese Enter The Name",
              designation: "Plese Select designation",
                account_no: {
                  required: "Please Enter Account Number",
-            }, 
-              date_of_birthday:"Please Enter Birthday Date", 
-              date_birth:"Please Enter Resume Date", 
-              date_dated:"Please Enter Retirement  Date", 
-              c_v_letter:"Please Enter C .v .a / c .shi. Letter no. Of PNS taluka ", 
-              yes:" Want to provide account number?", 
+            },
+              date_of_birthday:"Please Enter Birthday Date",
+              date_birth:"Please Enter Resume Date",
+              date_dated:"Please Enter Retirement  Date",
+              c_v_letter:"Please Enter C .v .a / c .shi. Letter no. Of PNS taluka ",
+              yes:" Want to provide account number?",
         }
     });
 

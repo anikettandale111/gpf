@@ -44,9 +44,11 @@ class HomeController extends Controller
 
     public function user_registration()
     {
+
         $taluka = DB::Select(DB::raw('select * from taluka'));
+
         $department = DB::Select(DB::raw('select * from departments'));
-        $users=User::select('users.*','taluka.name as taluka_name','departments.department as dept_name','u2.name as created')
+        $users=User::select('users.*','taluka.name as taluka_name','departments.department_code as dept_name','u2.name as created')
         ->leftJoin('taluka','taluka.id','=','users.taluka_id')
         ->leftJoin('departments','departments.id','=','users.department_id')
         ->leftJoin('users as u2','u2.id','=','users.created_by')

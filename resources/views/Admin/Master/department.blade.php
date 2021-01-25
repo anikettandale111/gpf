@@ -7,7 +7,7 @@
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
-                      <h2>विभाग संकेतांक </h2>
+                      <h2>{{trans('language.h_department')}} </h2>
                     <div class="clearfix"></div>
                     @if ($message = Session::get('danger'))
                     <div class="alert alert-danger alert-block">
@@ -39,9 +39,10 @@
                                 <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                                   <thead>
                                      <tr>
-                                        <th> क्रं </th>
-                                        <th>विभाग संकेतांक</th>
-                                        <th>Action</th>
+                                        <th>{{trans('language.th_department_no')}} </th>
+                                        <th>{{trans('language.th_department_name_en')}}</th>
+                                        <th>{{trans('language.th_department_name_mar')}}</th>
+                                        <th>{{trans('language.btn_action')}} </th>
                                      </tr>
                                   </thead>
                                        <tbody>
@@ -49,8 +50,8 @@
                                             @foreach($department as $master)
                                               <tr>
                                                   <td>{{$loop->index+1}}</td>
-                                                  <td>{{$master->department}}
-                                                   </td>
+                                                  <td>{{$master->department}}</td>
+                                                  <td>{{$master->department}}</td>
                                                   <td>
                                                      <a href="{{url('department_Edit',[$master->id])}}">
                                                      <button type="button" class="btn btn-info" data-toggle="modal"
@@ -73,13 +74,19 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">बँकेत नाव </h5>
+                                <h5 class="modal-title" id="exampleModalLabel">{{trans('language.h_department')}} </h5>
                             </div>
                             <div class="modal-body">
                                  <form   class="form-horizontal form-label-left validatedForm" action="{{url('/department_Insert_Data')}}"method="POST"  enctype="multipart/form-data" novalidate>
                                             {{csrf_field()}}
                                      <div class="field item form-group">
-                                         <label class="col-form-label col-md-3  col-sm-3  label-align">विभाग संकेतांक <span class="required"></span></label>
+                                         <label class="col-form-label col-md-3  col-sm-3  label-align">{{trans('language.th_department_name_en')}} <span class="required"></span></label>
+                                         <div class="col-md-6 col-sm-6">
+                                            <input class="form-control" name="department" class='email'>
+                                        </div>
+                                     </div>
+                                     <div class="field item form-group">
+                                         <label class="col-form-label col-md-3  col-sm-3  label-align">{{trans('language.th_department_name_mar')}} <span class="required"></span></label>
                                          <div class="col-md-6 col-sm-6">
                                             <input class="form-control" name="department" class='email'>
                                         </div>
@@ -87,9 +94,9 @@
                                      <div class="ln_solid"></div>
                                      <div class="item form-group">
                                         <div class="col-md-6 col-sm-6 offset-md-3">
-                                            <button type="submit" class="btn btn-success"> <i class="fa fa-floppy-o"></i> Save </button>
+                                            <button type="submit" class="btn btn-success"> <i class="fa fa-floppy-o"></i> {{trans('language.btn_save')}} </button>
                                           <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">
-                                          <i class="fa fa-sign-out" aria-hidden="true"></i> Cancel
+                                          <i class="fa fa-sign-out" aria-hidden="true"></i> {{trans('language.btn_cancel')}}
                                           </button>
                                       </div>
                                     </div>

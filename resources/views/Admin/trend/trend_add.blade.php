@@ -5,26 +5,26 @@
       <div class="x_panel">
         @if ($message = Session::get('danger_insert'))
         <div class="alert alert-danger alert-block">
-          <button type="button" class="close" data-dismiss="alert">×</button> 
+          <button type="button" class="close" data-dismiss="alert">×</button>
           <strong>{{ $message }}</strong>
         </div>
         @endif
 
         @if ($message = Session::get('success_insert'))
         <div class="alert alert-success alert-block">
-          <button type="button" class="close" data-dismiss="alert">×</button> 
+          <button type="button" class="close" data-dismiss="alert">×</button>
           <strong>{{ $message }}</strong>
         </div>
         @endif
 
         @if ($message = Session::get('info_insert'))
         <div class="alert alert-info alert-block">
-          <button type="button" class="close" data-dismiss="alert">×</button> 
+          <button type="button" class="close" data-dismiss="alert">×</button>
           <strong>{{ $message }}</strong>
         </div>
         @endif
         <div class="x_title">
-          <h2>चलन   </h2>
+          <h2>{{trans('language.h_trend')}}   </h2>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -35,24 +35,24 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <div class="col-md-6 col-sm-3 ">
-                    <label  for="Year"> वर्ष </label>
+                    <label  for="Year"> {{trans('language.th_trend_year')}} </label>
                     @php
-                    $currently_selected = date('Y'); 
-                    $earliest_year = 2020; 
-                    $latest_year = date('Y'); 
+                    $currently_selected = date('Y');
+                    $earliest_year = 2020;
+                    $latest_year = date('Y');
                     @endphp
                     <select name="year" id="year" class="form-control">
                       <option value="">-- निवडा वर्ष --</option>
-                    <?php 
+                    <?php
                     foreach ( range( $latest_year, $earliest_year ) as $i ) {
                       echo '<option value="'.$i.'"'.($i === $currently_selected ? ' selected="selected"' : '').'>'.$i.'</option>';
                     }
-                    
+
                     ?>
                     </select>
                 </div>
                 <div class="col-md-6 col-sm-3 ">
-                  <label  for="first-name"> चलन क्रमांक </label>
+                  <label  for="first-name"> {{trans('language.th_trend_no')}}  </label>
                   <select type="text" id="Currency_number"  name="Currency_number" required="required" class="form-control ">
                     <option value="">-- निवडा चलन क्रमांक --</option>
                     @foreach ($Month as $temp)
@@ -60,7 +60,7 @@
                     @endforeach
                   </select>
                 </div>
-                
+
               </div>
 
               <div class="form-group col-md-6">
@@ -74,7 +74,7 @@
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                 <label for="middle-name">तालूका निवडा </label>
+                 <label for="middle-name">{{trans('language.th_trend_taluka')}}</label>
                  <select id="Select_taluka" class="form-control" type="text" name="Select_taluka">
                   <option value="">-- निवडा  तालूका --</option>
                   @foreach ($taluka as $temp)
@@ -82,11 +82,11 @@
                   @endforeach
                 </select>
               </div>
-              
-            </div>  
+
+            </div>
             <div class="form-group col-md-6">
               <div class="form-group col-md-6">
-                <label for="middle-name">वर्गीकरण </label>
+                <label for="middle-name">{{trans('language.th_trend_classification')}} </label>
                 <select id="middle-name" class="form-control" type="text" name="Classification">
                   <option value="">-- निवडा  वर्गीकरण --</option>
                   @foreach ($classification as $temp)
@@ -95,7 +95,7 @@
                 </select>
               </div>
               <div class="col-md-6">
-                <label for="middle-name">ऐकून रक्कम  </label>
+                <label for="middle-name">{{trans('language.th_trend_the_amount_of_hearing')}} </label>
                 <input id="amount" class="form-control" type="number" name="amount">
               </div>
 
@@ -103,20 +103,20 @@
 
             <div class="form-group col-md-6">
               <div class="col-md-6">
-                <label for="middle-name">एकूण खलावली </label>
+                <label for="middle-name">{{trans('language.th_trend_total_waste')}}</label>
 
                 <input id="middle-name" class="form-control" type="text" name="Total_waste" value="0">
 
               </div>
               <div class="col-md-6">
-                <label for="middle-name">शेरा </label>
+                <label for="middle-name">{{trans('language.th_trend_shera')}}  </label>
                 <textarea id="Shera" class="form-control" type="text" name="Shera" cols="5" rows="2"></textarea>
               </div>
             </div>
             <div class="form-group col-md-12">
                 <div style="margin-top:49px; float: right;">
-                  <button class="btn btn-primary" type="button">Cancel</button>
-                  <button type="submit" class="btn btn-success">Submit</button>
+                  <button class="btn btn-primary" type="button">{{trans('language.btn_cancel')}}</button>
+                  <button type="submit" class="btn btn-success">{{trans('language.btn_save')}}</button>
                 </div>
             </div>
 
@@ -135,21 +135,21 @@
         <div class="clearfix"></div>
         @if ($message = Session::get('danger'))
         <div class="alert alert-danger alert-block">
-          <button type="button" class="close" data-dismiss="alert">×</button> 
+          <button type="button" class="close" data-dismiss="alert">×</button>
           <strong>{{ $message }}</strong>
         </div>
         @endif
 
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
-          <button type="button" class="close" data-dismiss="alert">×</button> 
+          <button type="button" class="close" data-dismiss="alert">×</button>
           <strong>{{ $message }}</strong>
         </div>
         @endif
 
         @if ($message = Session::get('info'))
         <div class="alert alert-info alert-block">
-          <button type="button" class="close" data-dismiss="alert">×</button> 
+          <button type="button" class="close" data-dismiss="alert">×</button>
           <strong>{{ $message }}</strong>
         </div>
         @endif
@@ -161,17 +161,16 @@
               <table id="datatable" class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th> क्रं </th>
-                    <th>चलन क्रमांक </th>
-                    <th>क्रमांक </th>
-                    <th>चलन दिनांक </th>
-                    <th>वर्गीकरण </th>
-                    <th>एकूण खलावली</th>
-
-                    <th>तालूका निवडा</th>
-                    <th>ऐकून रक्कम  </th>
-                    <th>  शेरा</th>
-                    <th>Action</th>
+                    <th>{{trans('language.th_trend_s_no')}} </th>
+                    <th>{{trans('language.th_trend_no')}}</th>
+                    <th>{{trans('language.th_trend_s_no')}} </th>
+                    <th>{{trans('language.th_trend_date')}} </th>
+                    <th>{{trans('language.th_trend_taluka')}} </th>
+                    <th>{{trans('language.th_trend_classification')}}  </th>
+                    <th>{{trans('language.th_trend_the_amount_of_hearing')}} </th>
+                    <th>{{trans('language.th_trend_total_waste')}}  </th>
+                    <th>{{trans('language.th_trend_shera')}}</th>
+                    <th>{{trans('language.btn_action')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -193,13 +192,13 @@
                        <button class="btn btn-danger btn-flat btn-sm remove-user"data-id="{{ $temp->id }}" data-action="{{ url('deposit_Delete',$temp->id) }}"
                         onclick="deleteConfirmation({{$temp->id}})">
                          <i class="fa fa-trash"></i> </button>
-                    
+
 
                   </td>
 
                 </tr>
                 @endforeach
-                @endif     
+                @endif
               </tbody>
             </table>
           </div>
@@ -208,7 +207,7 @@
     </div>
   </div>
 </div>
-</div>   
+</div>
 <script type="text/javascript">
   var date = new Date();
   var day = date.getDate();
@@ -243,10 +242,10 @@
                     dataType: 'JSON',
                     success: function (results) {
 
-                      
+
 
                         $('#'+results.id).remove();
-                         
+
                     }
 
 
@@ -260,7 +259,7 @@
             return false;
         })
 
-        
+
     }
 
 
@@ -288,14 +287,14 @@
             },
             Shera:"required",
             Total_waste:"required",
-           
+
         },
         messages: {
              year:"Plese Select Year",
             classification:"Plese Select Classification",
              gpf_no: {
              required: "Please Enter gpf Number",
-            }, 
+            },
              Select_taluka: " Please Select Taluka",
              department: " Please Select Department",
              Classification:" Please Enter The classificationn",

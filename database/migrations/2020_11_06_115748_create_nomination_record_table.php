@@ -15,7 +15,7 @@ class CreateNominationRecordTable extends Migration
     {
         Schema::create('nomination_record', function (Blueprint $table) {
             $table->id();
-            $table->string('p_no')->nullable();
+            $table->string('gpf_no')->nullable();
             $table->string('taluka')->nullable();
             $table->string('department')->nullable();
             $table->string('name')->nullable();

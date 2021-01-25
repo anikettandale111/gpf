@@ -13,11 +13,11 @@ class CreateTalukasTable extends Migration
      */
     public function up()
     {
-        Schema::create('talukas', function (Blueprint $table) {
+        Schema::create('taluka', function (Blueprint $table) {
             $table->id();
-            $table->string('master_taluka');
-            $table->string('created_by');
-            $table->string('modified_by');
+            $table->string('taluka_name_en');
+            $table->string('taluka_name_mar');
+            $table->string('district_id');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateTalukasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('talukas');
+        Schema::dropIfExists('taluka');
     }
 }
