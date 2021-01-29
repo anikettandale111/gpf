@@ -74,7 +74,9 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
+                        @php
+                          $taluka=App\taluka::all();
+                        @endphp
                         <div class="form-group row">
                             <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __('Select Taluka') }}</label>
                             <div class="col-md-6">
