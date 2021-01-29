@@ -36,7 +36,7 @@ class TalukaMasterController extends Controller
             $taluka = $request->taluka_name_mar;
             $taluka = $request->district_id;
             taluka::create($request->all());
-            $msg = " Recored Insert Successfully";
+            $msg = " Taluka Insert Successfully";
         } else {
             $taluka =Taluka::find($request->taluka_id);
             $taluka = $request->taluka_name_en;
@@ -48,10 +48,11 @@ class TalukaMasterController extends Controller
                 'taluka_name_mar' => $request->taluka_name_mar,
                 'district_id' => $request->district_id,
             ]);
-            $msg = " Recored Update Successfully";
+            $msg = " Taluka Update Successfully";
         }
-        session()->flash('msg', $msg);
-        return redirect()->back();
+        // session()->flash('msg', $msg);
+        // return redirect()->back();
+        return back()->with('info',$msg);
     }
     public function destroy($id)
     {
