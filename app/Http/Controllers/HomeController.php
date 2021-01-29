@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App;
+use App\Taluka;
+use App\Department;
 use App\User;
-use Auth;
-use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 
 class HomeController extends Controller
 {
@@ -38,67 +40,65 @@ class HomeController extends Controller
 
     public function submit_change_pwd(Request $request)
     {
-        $user = User::where('id',Auth::id())->update(['password'=>Hash::make($request->new_password)]);
-        return redirect()->back()->with('success','Password  Udapte  Successfully ');
+        $user = User::where('id', Auth::id())->update(['password' => Hash::make($request->new_password)]);
+        return redirect()->back()->with('success', 'Password  Udapte  Successfully ');
     }
 
     public function user_registration()
     {
 
-        $taluka = DB::Select(DB::raw('select * from taluka'));
 
-        $department = DB::Select(DB::raw('select * from departments'));
-        $users=User::select('users.*','taluka.name as taluka_name','departments.department_code as dept_name','u2.name as created')
-        ->leftJoin('taluka','taluka.id','=','users.taluka_id')
-        ->leftJoin('departments','departments.id','=','users.department_id')
-        ->leftJoin('users as u2','u2.id','=','users.created_by')
-        ->get();
-        return view('Admin.user_registration',compact('taluka','department','users'));
+        $data['users'] = User::select('users.*', 'taluka.taluka_name_mar as taluka_name', 'departments.department_name_mar as dept_name', 'u2.name as created')
+            ->leftJoin('taluka', 'taluka.id', '=', 'users.taluka_id')
+            ->leftJoin('departments', 'departments.id', '=', 'users.department_id')
+            ->leftJoin('users as u2', 'u2.id', '=', 'users.created_by')
+            ->latest()->get();
+        $data['taluka'] = Taluka::all();
+        $data['department'] = Department::all();
+
+
+        return view('Admin.user_registration', $data);
     }
-        public function user_registration_Edit($id)
+    public function user_registration_Edit($id)
     {
-        $users=User::where('id','=',$id)->first();
+        $users = User::where('id', '=', $id)->first();
         $taluka = DB::Select(DB::raw('select * from taluka'));
         $department = DB::Select(DB::raw('select * from departments'));
-       return view('Admin.user_registration_edit',compact("users","taluka","department"));
+        return view('Admin.user_registration_edit', compact("users", "taluka", "department"));
     }
-    public function Registration_Delete($id,$para)
+    public function Registration_Delete($id, $para)
     {
-        if($para == 'Active')
-        {
+        if ($para == 'Active') {
             $val = 0;
             $msg = 'User Inactive Successfully';
             $sym = 'danger';
-        }
-        elseif($para == 'inactive')
-        {
+        } elseif ($para == 'inactive') {
             $val = 1;
             $msg = 'User Active Successfully';
             $sym = 'success';
         }
 
-        $users=User::where('id',$id)->update(['isactive'=>$val]);
-       return redirect()->back()->with($sym,$msg);
+        $users = User::where('id', $id)->update(['isactive' => $val]);
+        return redirect()->back()->with($sym, $msg);
     }
 
     public function update_req(Request $request)
     {
-       $NewUser= User::find($request->id);
-        $NewUser->name=$request->name;
-        $NewUser->phone=$request->phone;
-        $NewUser->email=$request->email;
-        $NewUser->taluka_id=$request->taluka_id;
-        $NewUser->department_id=$request->department_id;
+        $NewUser = User::find($request->id);
+        $NewUser->name = $request->name;
+        $NewUser->phone = $request->phone;
+        $NewUser->email = $request->email;
+        $NewUser->taluka_id = $request->taluka_id;
+        $NewUser->department_id = $request->department_id;
         $NewUser->save();
-        return redirect('user_registration')->with('success',' Data  Udapte  Successfully ');
+        return redirect('user_registration')->with('success', ' Data  Udapte  Successfully ');
     }
 
     protected function create_register(Request $request)
     {
-        $user = User::where('email',$request['email'])->get();
+        $user = User::where('email', $request['email'])->get();
 
-        if(count($user) == 0)
-        {
+        if (count($user) == 0) {
             User::create([
                 'name' => $request['name'],
                 'email' => $request['email'],
@@ -106,14 +106,14 @@ class HomeController extends Controller
                 'taluka_id' => $request['taluka'],
                 'phone' => $request['phone'],
                 'department_id' => $request['department'],
-                'created_by'=>Auth::id(),
-                'modified_by'=>Auth::id(),
+                'created_by' => Auth::id(),
+                'modified_by' => Auth::id(),
             ]);
 
-            return redirect()->back()->with('success','Password  Udapte  Successfully ');
+            return redirect()->back()->with('success', 'Password  Udapte  Successfully ');
         }
 
-        return redirect()->back()->with('false','Email-Id Already Exist');
+        return redirect()->back()->with('false', 'Email-Id Already Exist');
     }
     public function languagechange($locale)
     {
@@ -121,5 +121,4 @@ class HomeController extends Controller
         session()->put('locale', $locale);
         return true;
     }
-
 }

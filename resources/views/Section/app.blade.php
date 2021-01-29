@@ -96,7 +96,7 @@
                        <li><a href="{{url('bank')}}">{{trans('language.ms_bank')}}</a></li>
                        <li><a href="javascript:;">{{trans('language.ms_staff')}}</a></li>
                        <li><a href="javascript:;">{{trans('language.ms_employee')}}</a></li>
-                       <li><a href="javascript:;">{{trans('language.ms_reason_for_accounts')}}</a></li>
+                       <li><a href="{{url('commonreasons')}}">{{trans('language.ms_reason_for_accounts')}}</a></li>
                        <li><a href="javascript:;">{{trans('language.ms_gpf_number_master')}}</a></li>
                     </ul>
                   </li>

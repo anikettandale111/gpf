@@ -102,7 +102,7 @@
                                 <select class="form-control" name="taluka">
                                     <option value="">--Select--</option>
                                     @foreach($taluka as $k => $v)
-                                        <option value="{{$v->id}}">{{$v->name}}</option>
+                                        <option value="{{$v->id}}">{{$v->taluka_name_mar}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -115,7 +115,7 @@
                                 <select class="form-control" name="department">
                                     <option value="">--Select--</option>
                                     @foreach($department as $k => $v)
-                                        <option value="{{$v->id}}">{{$v->department}}</option>
+                                        <option value="{{$v->id}}">{{$v->department_name_mar}}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -69,10 +69,16 @@ Route::post('ganrate_Delete/{id}','ProvidingAccountController@ganrate_Delete');
 Route::post('ganrate_new','ProvidingAccountController@ganrate_new');
 
 // vetan
-Route::get('vetan','TrendController@vetan');
-Route::post('vetan_insert_no','TrendController@vetan_insert');
-Route::post('vetan_new','TrendController@vetan_new');
-Route::post('vetan_Delete/{id}','TrendController@vetan_Delete');
+
+
+
+
+
+// vetan
+Route::get('vetan','VetanController@index');
+Route::post('vetan_insert_no','VetanController@vetan_insert');
+Route::post('vetan_new','VetanController@vetan_new');
+Route::post('vetan_Delete/{id}','VetanController@vetan_Delete');
 
 
 Route::get('closed_account','AccountclosedController@closed_account');

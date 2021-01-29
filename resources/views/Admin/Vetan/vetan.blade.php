@@ -1,7 +1,7 @@
 @extends('Section.app')
 
 @section('content')
-<div class="">        
+<div class="">
     <div class="row">
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
@@ -14,11 +14,11 @@
                         </li>
                     </ul>
                     <div class="clearfix"></div>
-                 
+
                 </div>
                 <div class="x_content">
                     <br />
-                    <form method="POST" class="validatedForm" action="{{ url('vetan_insert_no') }}" id="cform"> 
+                    <form method="POST" class="validatedForm" action="{{ url('vetan_insert_no') }}" id="cform">
                         @csrf
                          <div class="form-group row">
                             <label for="vetan" class="col-md-4 col-form-label text-md-right">{{ __(' वेतन ') }}</label>
@@ -28,16 +28,16 @@
                                     <option value="">--Select --</option>
                                    <option value="वेतन 6"> वेतन 6 </option>
                                    <option value="वेतन 7"> वेतन 7</option>
-                                   
+
                                 </select>
-                                 
+
                             </div>
-                            
+
                         </div>
                         <div class="form-group row">
                             <label for="b_no" class="col-md-4 col-form-label text-md-right">{{ __('भ.नि .नि क्रमांक ') }}</label>
 
-                         
+
                                <div class="col-md-6">
                                 <input id="gpf_no" type="text" class="form-control @error('gpf_no') is-invalid @enderror" name="gpf_no" value="{{ old('gpf_no') }}" required autocomplete="gpf_no" autofocus>
 
@@ -54,9 +54,9 @@
                             <div class="col-md-6">
                                 <select class="form-control"  id="taluka" name="taluka">
                                     <option value=""> -- निवडा तालूका -- </option>
-                                  
+
                                     @foreach($taluka as $k => $v)
-                                        <option value="{{$v->name}}">{{$v->name}}</option>
+                                        <option value="{{$v->id}}">{{$v->taluka_name_mar}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -67,9 +67,9 @@
                             <div class="col-md-6">
                                 <select class="form-control"  id="department"name="department">
                                       <option value=""> --  निवडा विभाग  -- </option>
-                                  
+
                                     @foreach($department as $k => $v)
-                                        <option value="{{$v->department}}">{{$v->department}}</option>
+                                        <option value="{{$v->id}}">{{$v->department_name_mar}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -90,37 +90,33 @@
                         </div>
                          <div class="form-group row">
                             <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __('पदनाम ') }}</label>
-                         
+
                             <div class="col-md-6">
                                 <select  id="designation" class="form-control @error('designation') is-invalid @enderror" name="designation">
                                    <option value=""> -- निवडा पदनाम -- </option>
                                     @foreach($designation as $k => $v)
-                                        <option value="{{$v->designation}}">{{$v->designation}}</option>
+                                        <option value="{{$v->id}}">{{$v->designation_name_mar}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __('हप्ता क्रमांत  ') }}</label>
-                               
-
-                              
-                            
-                            <div class="col-md-6">
+                             <div class="col-md-6">
                                 <input class="form-control" name="hapta_no"  class="form-control @error('hapta_no') is-invalid @enderror" id="hapta_no" value="{{ old('hapta_no') }}" required autocomplete="hapta_no" autofocus>
                                   @error('hapta_no')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                                  
+
                             </div>
                         </div>
                           <div class="form-group row">
                             <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __('चलन क्रमांत   ') }}</label>
                             <div class="col-md-2">
                                 <input id="chalna_no" type="text" class="form-control" name="chalna_no">
-                                  
+
                                 @error('chalna_no')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -130,7 +126,7 @@
 
                             <div class="col-md-4">
                                 <input class="form-control" name="chalna_no"  class="form-control @error('chalna_no') is-invalid @enderror" id="chalna_no" value="{{ old('chalna_no') }}" required autocomplete="chalna_no" autofocus>
-                                  
+
                             </div>
                         </div>
                          <div class="form-group row">
@@ -172,7 +168,7 @@
                                 @enderror
                             </div>
                         </div>
-                      
+
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('फरक') }}</label>
 
@@ -256,7 +252,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                   @enderror
-                              
+
                             </div>
                         </div>
                         <div class="form-group row mb-0">
@@ -298,7 +294,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="card-box table-responsive">
-                                    <table id="datatable" class="table   
+                                    <table id="datatable" class="table
                                        table-striped table-bordered table-responsive"style="width:100%">
                                             <thead>
                                                <tr>
@@ -331,10 +327,10 @@
                                                     <td>{{$loop->index+1}}</td>
                                                     <td>{{$temp->vetan}}</td>
                                                     <td>{{$temp->gpf_no}}</td>
-                                                    <td>{{$temp->taluka }}</td>
-                                                    <td>{{$temp->department}}</td>
+                                                    <td>{{$temp->taluka_name_mar }}</td>
+                                                    <td>{{$temp->department_name_mar}}</td>
                                                     <td>{{$temp->name}}</td>
-                                                    <td>{{$temp->designation}}</td>
+                                                    <td>{{$temp->designation_name_mar}}</td>
                                                     <td>{{$temp->hapta_no}}</td>
                                                     <td>{{$temp->chalna_no}}</td>
                                                     <td>{{$temp->month_hapta}}</td>
@@ -349,7 +345,7 @@
                                                     <td>{{$temp->shera}}</td>
                                                      <td>
                                                         <button class="btn btn-danger btn-flat btn-sm remove-user"
-                                                        data-id="{{ $temp->id }}" data-action="{{ url('vetan_Delete',$temp->id) }}" onclick="deleteConfirmation({{$temp->id}})"> <i class="fa fa-trash"></i> 
+                                                        data-id="{{ $temp->id }}" data-action="{{ url('vetan_Delete',$temp->id) }}" onclick="deleteConfirmation('{{$temp->id}}')"> <i class="fa fa-trash"></i>
                                                         </button>
                                                        <!--  <a href="{{url('ganrate_reports',$temp->id)}}">
                                                         <button type="button" class="btn btn-success "><i class="fa fa-print" aria-hidden="true"></i> </button></a> -->
@@ -357,8 +353,8 @@
                                                 </tr>
                                                 @endforeach
                                                 @endif
-                                              
-                                          </tbody>  
+
+                                          </tbody>
                                     </table>
                                </div>
                           </div>
@@ -386,12 +382,12 @@
             name:"required",
             designation:"required",
             shera:"required",
-            hapta_no:"required", 
-            chalna_no:"required", 
-            month_hapta:"required", 
+            hapta_no:"required",
+            chalna_no:"required",
+            month_hapta:"required",
             chalna_amount:"required",
             digging:"required",
-            difference:"required", 
+            difference:"required",
             from_interest_date:"required",
             until_date: "required",
             difference_amount:"required",
@@ -403,17 +399,17 @@
             classification:"Plese Select Classification",
              gpf_no: {
              required: "Please Enter gpf Number",
-            }, 
+            },
              taluka: " Please Select Taluka",
              department: " Please Select Department",
              name:" Please Enter The Name",
              designation: " Please Select designation",
              shera:" Please Enter The Shera",
-             hapta_no:"Please Enter In installments", 
-             chalna_no:" Please Enter Currency order", 
-             month_hapta:" Please Enter The month of the installment", 
+             hapta_no:"Please Enter In installments",
+             chalna_no:" Please Enter Currency order",
+             month_hapta:" Please Enter The month of the installment",
              chalna_amount:" Please EnterThe Currency amount",
-             difference:"Please Enter The  difference", 
+             difference:"Please Enter The  difference",
              digging:"Please Enter The Digging",
              from_interest_date:"Please Enter Data from interest",
              until_date:" Please Enter Date up to",
@@ -461,18 +457,7 @@
         })
 
     }
-//        $('.mySelect').on('change', function() {
-//   var value = $(this).val();
-//   if(value == 'शिक्षक')
-//   {
-//     gpf = "p";
-//   }
-//   else
-//   {
-//     gpf = "o";
-//   }
-//   $('.gpf_number').val(gpf);
-// });
+
 
  $('#gpf_no').on('change', function() {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -483,7 +468,7 @@
             type: 'post',
             data: {_token: CSRF_TOKEN,'id':id},
             success: function(data)
-            {              
+            {
               var obj = $.parseJSON(data);
               if(obj.userdata){
                   $('#taluka').val(obj.userdata[0].taluka);
@@ -494,12 +479,12 @@
               }else{
                 alert("This number is not exist");
                 $("#cform")[0].reset();
-             
+
                 return false;
               }
             }
         });
- 
+
 });
 </script>
 

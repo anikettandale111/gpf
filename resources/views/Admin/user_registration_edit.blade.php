@@ -20,7 +20,7 @@
                     <br />
                         <form class="form-horizontal form-label-left" action="{{url('user_registration_update')}}"
                         method="post"  enctype="multipart/form-data" >
-                            <input type="hidden" value="{{$users->id}}" name="id"> 
+                            <input type="hidden" value="{{$users->id}}" name="id">
                              {{csrf_field()}}
                               <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align"> Name <span class="required"></span></label>
@@ -38,7 +38,7 @@
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">E-Mail Address<span class="required"></span></label>
                                   <div class="col-md-6 col-sm-6">
                                       <input class="form-control" name="email" value="{{$users->email}}" class='email'readonly>
-                                      
+
                                   </div>
                               </div>
                               <div class="field item form-group">
@@ -48,13 +48,13 @@
                                          @foreach ($taluka as $temp => $n)
 
                                           @if($users->taluka_id == $n->id)
-                                          <option value="{{$n->id}}" selected> {{$n->name}}</option>
+                                          <option value="{{$n->id}}" selected> {{$n->taluka_name_mar}}</option>
                                           @else
-                                          <option value="{{$n->id}}"> {{$n->name}}</option>
+                                          <option value="{{$n->id}}"> {{$n->taluka_name_mar}}</option>
                                           @endif
                                          @endforeach
 
-                                      
+
                                       </select>
                                    </div>
                               </div>
@@ -65,27 +65,27 @@
                                           @foreach ($department as $temp => $n)
 
                                           @if($users->department_id == $n->id)
-                                          <option value="{{$n->id}}" selected> {{$n->department	}}</option>
+                                          <option value="{{$n->id}}" selected> {{$n->department_name_mar}}</option>
                                           @else
-                                          <option value="{{$n->id}}"> {{$n->department	}}</option>
+                                          <option value="{{$n->id}}"> {{$n->department_name_mar}}</option>
                                           @endif
                                          @endforeach
                                       </select>
                                   </div>
                               </div>
-                              
+
                                <div class="ln_solid"></div>
                                <div class="item form-group">
                                   <div class="col-md-6 col-sm-6 offset-md-3">
-                                      <button type="submit" class="btn btn-success"> <i class="fa fa-floppy-o"></i> Save 
+                                      <button type="submit" class="btn btn-success"> <i class="fa fa-floppy-o"></i> Save
                                       </button>
-                                      <a href="{{url('Customer_Registration')}}"> 
+                                      <a href="{{url('Customer_Registration')}}">
                                       <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">
                                       <i class="fa fa-sign-out" aria-hidden="true"></i> Cancel
                                       </button></a>
                                  </div>
                               </div>
-                        </form>   
+                        </form>
                     </div>
                 </div>
             </div>
