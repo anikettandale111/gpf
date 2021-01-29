@@ -1,0 +1,78 @@
+/*Define Veriables*/
+:root {
+    --primery: #b03493;
+    --secondary: #f17028;
+    --link: #b03493;
+    --over: #f17028;
+    --main-bg: #b03493;
+    --black-bg: #000;
+    --font:"montserrat","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+    --medium: "montserratmedium";
+    --regular: "montserratregular";
+    --semi-bold: "montserratsemi_bold";
+    --bold: "montserratbold";
+	--logoGredient: linear-gradient(0deg, rgba(243,114,34,1) 0%, rgba(175,52,147,1) 100%);
+	--logoGreFilter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f37222",endColorstr="#af3493",GradientType=1);
+}
+
+/*Body font and color and size*/
+body, html{font-family: var(--font);}
+
+/*Body font and color and size End*/
+
+
+
+
+.btn, .promo-link, .smbt_btn {
+	border-radius: 100px;
+}
+/***** All Section BTN ******/
+.tabPanel .primaryCta, .promo-link, .primaryCta, .smbt_btn,
+.tabPanel .primaryCta:active, .promo-link:active, .primaryCta:active, .smbt_btn:active {
+    color: #fff;
+	background: rgb(243,114,34);
+	background: -moz-var(--logoGredient);
+	background: -webkit-var(--logoGredient);
+	background: var(--logoGredient);
+	filter: var(--logoGreFilter);
+}
+.tabPanel .primaryCta:hover, .promo-link:hover, .primaryCta:hover, .smbt_btn:hover {
+	background:#e8693c;color: #fff;
+}
+.btn, .linkCta, .promo-link {
+    font-size: inherit;
+    cursor: pointer;
+    font-family: var(--font);
+}
+
+/*****Tab Section BTN ******/
+.tabPanel .primaryCta{color: #fff;background: rgb(243,114,34);
+background: var(--logoGredient);}
+.tabPanel .primaryCta:hover{background:#e8693c;color: #fff;}
+
+/*Tab Section link section bg*/
+.tabPanelMenuTracker {background-color: #000;border-radius: 25px;color: #fff;}
+
+/***** Scroll case Studies ******/
+.SkySlider-main .primaryCta:hover {
+    color: #fff;
+    background-color: #b3561c;
+}
+
+/***** Blog Section BTN ******/
+.blogPanel .primaryCta{color: #fff;background: rgb(243,114,34);
+background: var(--logoGredient);}
+.blogPanel .primaryCta:hover{background:#e8693c;color: #fff;}
+
+/***** Case Studies Section BTN ******/
+.promo .promo-link{}
+.promo .promo-link:hover{}
+
+/***** Case Studies page BTN ******/
+.cd-modal-action .btn{}
+.cd-modal-action .btn:hover{}
+
+/***** Contact page Submit BTN ******/
+.submit_btn {padding: 5px 30px;min-width: 140px;background: rgb(243,114,34);
+background: var(--logoGredient);color: #fff;}
+.submit_btn:hover{background:#e8693c;color: #fff;}@media (max-width: 1023px){.tabPanel {    padding: 40px 26px 0;}.tabPanel .panel {    padding: 30px 0px 0;}#tabPanel .device.deviceHardwareLaptop, .alexaFigure, .alexaFigure> figure, .webdevelopment .devicewebdevelopment .deviceScreen {    width: 100% !important;    min-width: 100% !important;}.tabPanel .tabList li:first-child {    margin-left: 0px;}.case-detail-heading-wrap h2{font-size: 2.6em;}.case-detail-heading-wrap p{font-size: 1.1em;}}@media all and (min-width: 767px) and (max-width: 890px){	.tabPanel {margin-bottom:0px;min-height: 200px;}	.tabPanel .tabList .title {font-size:1em;padding: 8px 8px 8px 8px;}	.fontSizeH1 {font-size: 2.5em;}	.fontSizeH2 {font-size: 1.9em;}	.fontSizeH3 {font-size: 1.5em;}	.fontSizeH4 {font-size: 1.3em;}	.fontSizeH5 {font-size: 1.1em;}	.fontSizeH6 {font-size: 1em;}	.heading-Wrapper p {font-size: 1.2em;}	.marginBottom2 {margin-bottom: 10px;}	.marginBottom3 {margin-bottom: 15px;}	.marginBottom4 {margin-bottom: 20px;}	.marginBottom5 {margin-bottom: 25px;}	.sectionBlog .fontSizeH3 {font-size: 1.4em;margin-top: 0;}}@media (max-width: 768px){	.tabPanel {margin-bottom:0px;min-height: 200px;}	.tabPanel .tabList .title {font-size:1em;padding: 8px 8px 8px 8px;}	.tabPanel .tabList {display: block;position: relative;z-index: 1;padding-top: 0;margin-bottom: 20px;white-space:nowrap;overflow:auto;width: 100%;}	.tabPanel .tabList .title {display: inline-block;position: relative;margin-top: 0;}.tabPanelMenuTracker{display:none;}.blogPanelImgWrap{height:auto;max-height:250px;}	.case-detail-heading-wrap h2{font-size: 1.7em;}.case-detail-heading-wrap p{font-size: 1em;}}
