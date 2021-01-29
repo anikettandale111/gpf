@@ -28,7 +28,7 @@
 
                                      <option value="">-- निवडा वर्गीकरण --</option>
                                     @foreach($classification as $k => $v)
-                                        <option value="{{$v->classification}}">{{$v->classification}}</option>
+                                        <option value="{{$v->id}}">{{$v->classification_name_mar}}</option>
                                     @endforeach
                                 </select>
                                   @error('classification')
@@ -40,28 +40,26 @@
 
                         </div>
                         <div class="form-group row">
-                            <label for="b_no" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_b_n_n_no')}}</label>
+                            <label for="gpf_no" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_b_n_n_no')}}</label>
                            <div class="col-md-2">
-                                <input id="bno" type="text" class="form-control gpf_number" name="" >
+                                <input id="bno" type="text" class="form-control gpf_number" name=" ">
                             </div>
                                <div class="col-md-4">
-                                <input id="b_no" type="text" class="form-control @error('b_no') is-invalid @enderror" name="b_no" value="{{ old('b_no') }}" required autocomplete="b_no" autofocus placeholder="Enter The GPF Number">
+                                <input id="gpf_no" type="text" class="form-control @error('gpf_no') is-invalid @enderror"
+                                 name="gpf_no" value="{{ old('gpf_no') }}"
+                                  placeholder="Enter The GPF Number" readonly>
 
-                                 @error('b_no')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                  @enderror
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="taluka" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_taluka')}}</label>
 
                             <div class="col-md-6">
-                                <select class="form-control  @error('taluka') is-invalid @enderror" name="taluka" value="{{ old('taluka') }}" required autocomplete="taluka" autofocus>
+                                <select class="form-control  @error('taluka') is-invalid @enderror" name="taluka" value="{{ old('taluka') }}"  autocomplete="taluka" autofocus>
                                    <option value="">-- निवडा तालुका --</option>
                                     @foreach($taluka as $k => $v)
-                                        <option value="{{$v->name}}">{{$v->name}}</option>
+                                        <option value="{{$v->id}}">{{$v->taluka_name_mar}}</option>
                                     @endforeach
                                 </select>
                                   @error('taluka')
@@ -80,7 +78,7 @@
 
                                    <option value="">-- निवडा विभाग --</option>
                                     @foreach($department as $k => $v)
-                                        <option value="{{$v->department}}">{{$v->department}}</option>
+                                        <option value="{{$v->id}}">{{$v->department_name_mar}}</option>
                                     @endforeach
                                 </select>
                                   @error('taluka')
@@ -111,7 +109,7 @@
                                 <select class="form-control  @error('designation') is-invalid @enderror" name="designation" value="{{ old('designation') }}" required autocomplete="designation" autofocus>
                                  <option value="">-- निवडा पदनाम --</option>
                                     @foreach($designation as $k => $v)
-                                        <option value="{{$v->designation_code}}">{{$v->designation_code}}</option>
+                                        <option value="{{$v->id}}">{{$v->designation_name_mar}}</option>
                                     @endforeach
                                 </select>
                                   @error('designation')
@@ -194,8 +192,8 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{trans('language.th_providing_whether_to_a_n')}}</label>
 
                             <div class="col-md-6 mt-2">
-                                  <input type="radio" name="yes" class="@error('yes') is-invalid @enderror" id="yes" value="{{ old('yes') }}" required autocomplete="yes" autofocus> होय
-                                  <input type="radio" name="yes" class=" @error('yes') is-invalid @enderror" id="yes" value="{{ old('No') }}" required autocomplete="yes" autofocus> नाही
+                                  <input type="radio" name="yes" class="@error('yes') is-invalid @enderror" id="yes" value="1" required autocomplete="yes" autofocus> होय
+                                  <input type="radio" name="yes" class=" @error('yes') is-invalid @enderror" id="yes" value="0" required autocomplete="yes" autofocus> नाही
 
                                   @error('yes')
                                     <span class="invalid-feedback" role="alert">
@@ -267,12 +265,12 @@
                                                 @foreach($ganrate as $temp)
                                                 <tr id="{{$temp->id}}">
                                                 <td>{{$loop->index+1}}</td>
-                                                    <td>{{$temp->classification}}</td>
-                                                    <td>{{$temp->b_no}}</td>
-                                                    <td>{{$temp->taluka }}</td>
-                                                    <td>{{$temp->department}}</td>
+                                                    <td>{{$temp->classification_name_mar}}</td>
+                                                    <td>{{$temp->gpf_no}}</td>
+                                                    <td>{{$temp->taluka_name_mar }}</td>
+                                                    <td>{{$temp->department_name_mar}}</td>
                                                     <td>{{$temp->name}}</td>
-                                                    <td>{{$temp->designation}}</td>
+                                                    <td>{{$temp->designation_name_mar}}</td>
                                                     <td>{{$temp->account_no}}</td>
                                                     <td>{{$temp->date_of_birthday}}</td>
                                                     <td>{{$temp->date_birth}}</td>
@@ -280,7 +278,7 @@
                                                     <td>{{$temp->c_v_letter}}</td>
                                                      <td>
                                                         <button class="btn btn-danger btn-flat btn-sm remove-user"
-                                                        data-id="{{ $temp->id }}" data-action="{{ url('ganrate_Delete',$temp->id) }}" onclick="deleteConfirmation({{$temp->id}})"> <i class="fa fa-trash"></i>
+                                                        data-id="{{ $temp->id }}" data-action="{{ url('ganrate_Delete','$temp->id') }}" onclick="deleteConfirmation('{{$temp->id}}')"> <i class="fa fa-trash"></i>
                                                         </button>
                                                         <a href="{{url('ganrate_reports',$temp->id)}}">
                                                         <button type="button" class="btn btn-success "><i class="fa fa-print" aria-hidden="true"></i> </button></a>
@@ -307,10 +305,7 @@
             classification: {
                   required: true,
             },
-            b_no: {
-                required: true,
-                digits: "required",
-            },
+
             taluka:"required",
             department:"required",
             name:"required",
@@ -328,9 +323,7 @@
         },
         messages: {
               classification:"Plese Select Classification",
-              b_no: {
-               required: "Please Enter gpf Number",
-            },
+
              taluka: "Plese Select Taluka",
              department: "Plese Select Department",
              name:"Plese Enter The Name",
@@ -386,13 +379,14 @@
     }
        $('.mySelect').on('change', function() {
   var value = $(this).val();
-  if(value == 'शिक्षक')
+
+  if(value == 'p')
   {
-    gpf = "p";
+    gpf = "P";
   }
   else
   {
-    gpf = "o";
+    gpf = "O";
   }
   $('.gpf_number').val(gpf);
 });

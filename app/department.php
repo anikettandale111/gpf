@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class department extends Model
+class Department extends Model
 {
     protected $table = 'departments';
-    
+
     protected $fillable = [
-            
-            "department","created_at","updated_at"
+
+     "id","department_name_en","department_name_mar","created_at","updated_at"
     ];
 }

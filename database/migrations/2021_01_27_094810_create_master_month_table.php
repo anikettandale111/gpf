@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMastersTable extends Migration
+class CreateMasterMonthTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateMastersTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_bank', function (Blueprint $table) {
+        Schema::create('master_month', function (Blueprint $table) {
             $table->id();
-            $table->string('bank_name_en');
-            $table->string('bank_name_mar');
+            $table->string('month_name_en');
+            $table->string('month_name_mar');
             $table->timestamps();
-
         });
     }
 
@@ -29,6 +28,6 @@ class CreateMastersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_bank');
+        Schema::dropIfExists('master_month');
     }
 }

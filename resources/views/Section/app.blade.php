@@ -41,6 +41,16 @@
         {
             color: red;
         }
+
+    .icon-edit {
+        color: blue;
+        font-size: 25px;
+    }
+
+    .icon-trash {
+        color: red;
+        font-size: 25px;
+    }
     </style>
 </head>
 <body class="nav-md">
@@ -79,11 +89,11 @@
                   <li><a><i class="fa fa-bug"></i> {{trans('language.menu_master')}} <span class="fa fa-chevron-down"></span></a>
                      <ul class="nav child_menu">
                        <li><a href="{{url('districts')}}">{{trans('language.ms_districts')}}</a></li>
-                       <li><a href="{{url('Taluka')}}">{{trans('language.ms_taluka')}}</a></li>
+                       <li><a href="{{url('taluka   ')}}">{{trans('language.ms_taluka')}}</a></li>
                        <li><a href="{{url('department')}}">{{trans('language.ms_department')}}</a></li>
                        <li><a href="{{url('designation')}}">{{trans('language.ms_designations')}}</a></li>
                        <li><a href="{{url('classification')}}">{{trans('language.ms_classification')}}</a></li>
-                       <li><a href="{{url('Master')}}">{{trans('language.ms_bank')}}</a></li>
+                       <li><a href="{{url('bank')}}">{{trans('language.ms_bank')}}</a></li>
                        <li><a href="javascript:;">{{trans('language.ms_staff')}}</a></li>
                        <li><a href="javascript:;">{{trans('language.ms_employee')}}</a></li>
                        <li><a href="javascript:;">{{trans('language.ms_reason_for_accounts')}}</a></li>
@@ -101,12 +111,11 @@
                   <li><a><i class="fa fa-bug"></i> परतावा प्रास्ताव करणे <span class="fa fa-chevron-down"></span></a>
                      <ul class="nav child_menu">
                        <li><a href="{{url('application_form')}}">कर्मचाऱ्याने कार्यालय  प्रमुखास अर्ज करणे </a></li>
-
                     </ul>
                   </li>
 
 
-                  <li><a href="{{url('Customer_Registration')}}"><i class="fa fa-table"></i> कर्मचाऱ्यांची  मुळ माहिती  </a>
+                  <li><a href="{{url('customer_registration')}}"><i class="fa fa-table"></i> {{trans('language.h_basic_employee_information')}} </a>
 
                   </li>
                   <li><a href="{{url('Nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद
@@ -115,7 +124,7 @@
 
                   <li><a><i class="fa fa-bug"></i> मासिक बदल  <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{url('Trend_add')}}">चलन</a></li>
+                      <li><a href="{{url('chalan')}}">चलन</a></li>
                       <li><a href="{{url('monthly_chalan')}}">मासिक चलन खतावणी</a></li>
                     </ul>
                   </li>
@@ -163,7 +172,7 @@
                 <li class="nav-item ">
                   <a class="nav-link" href="#" onclick="changelanguage('{{trans('language.test_language')}}')" role="button" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-globe fa-fw"></i> {{trans('language.test_language')}}
+                  <i class="fas fa-globe fa-fw"></i> {{(app()->getLocale()== "mar") ? 'English' : 'मराठी'}}
                 </a>
               </li>
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
@@ -257,6 +266,8 @@
     <script src="{{asset('asset/vendors/jszip/dist/jszip.min.js') }}"></script>
     <script src="{{asset('asset/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{asset('asset/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+    @stack('custom-scripts')
+
 <script>
   function changelanguage(lang){
     if(lang == 'English'){

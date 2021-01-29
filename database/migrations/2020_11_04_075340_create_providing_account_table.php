@@ -15,6 +15,19 @@ class CreateProvidingAccountTable extends Migration
     {
         Schema::create('providing_account', function (Blueprint $table) {
             $table->id();
+            $table->string('gpf_no');
+            $table->string('classification');
+            $table->string('taluka');
+            $table->string('department');
+            $table->string('name');
+            $table->string('designation');
+            $table->string('account_no');
+            $table->string('date_of_birthday');
+            $table->string('date_birth');
+            $table->string('date_dated');
+            $table->string('c_v_letter');
+            $table->string('created_by')->nullable();
+            $table->string('modified_by')->nullable();
             $table->timestamps();
         });
     }

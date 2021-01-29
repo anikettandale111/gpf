@@ -78,7 +78,7 @@
                         <div class="form-group row">
                             <label for="taluka" class="col-md-4 col-form-label text-md-right">{{ __('Select Taluka') }}</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="taluka">
+                                <select class="form-control" name="taluka_id">
                                     <option value="0">--Select--</option>
                                     @foreach($taluka as $k => $v)
                                         <option value="{{$v->id}}">{{$v->taluka_name_mar}}</option>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTalukaTable extends Migration
+class CreateBankTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateTalukaTable extends Migration
      */
     public function up()
     {
-        Schema::create('taluka', function (Blueprint $table) {
+        Schema::create('bank', function (Blueprint $table) {
             $table->id();
-            $table->string('taluka_name_en');
-            $table->string('taluka_name_mar');
-            $table->string('district_id');
+            $table->string('bank_name_en');
+            $table->string('bank_name_mar');
             $table->timestamps();
+
         });
     }
 
@@ -29,6 +29,6 @@ class CreateTalukaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taluka');
+        Schema::dropIfExists('bank');
     }
 }

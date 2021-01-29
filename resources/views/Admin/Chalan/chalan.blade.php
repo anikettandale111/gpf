@@ -29,7 +29,7 @@
         </div>
         <div class="x_content">
           <br />
-          <form   class="validatedForm" action="{{url('deposit_Insert_Data')}}"method="POST"  enctype="multipart/form-data" novalidate>
+          <form   class="validatedForm" action="{{url('deposit_insert_data')}}"method="POST"  enctype="multipart/form-data" novalidate>
             {{csrf_field()}}
 
             <div class="form-row">
@@ -53,10 +53,10 @@
                 </div>
                 <div class="col-md-6 col-sm-3 ">
                   <label  for="first-name"> {{trans('language.th_trend_no')}}  </label>
-                  <select type="text" id="Currency_number"  name="Currency_number" required="required" class="form-control ">
+                  <select type="text" id="chalan_no"  name="chalan_no" required="required" class="form-control ">
                     <option value="">-- निवडा चलन क्रमांक --</option>
-                    @foreach ($Month as $temp)
-                    <option>{{$temp->name}}</option>
+                    @foreach ($month as $month)
+                    <option value="{{$month->id}}">{{$month->month_name_mar}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -66,7 +66,7 @@
               <div class="form-group col-md-6">
                 <div class="col-md-6 col-sm-3 ">
                   <label></label>
-                  <select type="text" id="trend_no" name="trend_no" required="required" class="form-control " style="margin-top: 7px;">
+                  <select type="text" id="app_no" name="app_no" required="required" class="form-control " style="margin-top: 7px;">
                      <option value="">-- निवडा  क्रमांक --</option>
                     @for($i=1; $i <= 300; $i++)
                     <option value="{{$i}}">{{$i}}</option>
@@ -75,10 +75,10 @@
                 </div>
                 <div class="form-group col-md-6">
                  <label for="middle-name">{{trans('language.th_trend_taluka')}}</label>
-                 <select id="Select_taluka" class="form-control" type="text" name="Select_taluka">
+                 <select id="taluka" class="form-control" type="text" name="taluka">
                   <option value="">-- निवडा  तालूका --</option>
-                  @foreach ($taluka as $temp)
-                  <option>{{$temp->name}}</option>
+                  @foreach ($taluka as $taluka)
+                  <option value="{{$taluka->id}}">{{$taluka->taluka_name_mar}}</option>
                   @endforeach
                 </select>
               </div>
@@ -87,10 +87,10 @@
             <div class="form-group col-md-6">
               <div class="form-group col-md-6">
                 <label for="middle-name">{{trans('language.th_trend_classification')}} </label>
-                <select id="middle-name" class="form-control" type="text" name="Classification">
+                <select id="middle-name" class="form-control" type="text" name="classification">
                   <option value="">-- निवडा  वर्गीकरण --</option>
-                  @foreach ($classification as $temp)
-                  <option>{{$temp->classification}}</option>
+                  @foreach ($classification as $classification)
+                  <option value="{{$classification->id}}">{{$classification->classification_name_mar}}</option>
                   @endforeach
                 </select>
               </div>
@@ -105,12 +105,12 @@
               <div class="col-md-6">
                 <label for="middle-name">{{trans('language.th_trend_total_waste')}}</label>
 
-                <input id="middle-name" class="form-control" type="text" name="Total_waste" value="0">
+                <input id="middle-name" class="form-control" type="text" name="total_waste" value="0">
 
               </div>
               <div class="col-md-6">
                 <label for="middle-name">{{trans('language.th_trend_shera')}}  </label>
-                <textarea id="Shera" class="form-control" type="text" name="Shera" cols="5" rows="2"></textarea>
+                <textarea id="Shera" class="form-control" type="text" name="shera" cols="5" rows="2"></textarea>
               </div>
             </div>
             <div class="form-group col-md-12">
@@ -176,25 +176,24 @@
                 <tbody>
                  @if(count($deposits) != 0)
                  @foreach($deposits as $temp)
-                  <tr id="{{$temp->id}}">
+                  <tr id="{{$temp->deposit_id}}">
                   <td>{{$loop->index+1}}</td>
-                  <td>{{$temp->Currency_number}} {{$temp->trend_no}}</td>
+                  <td>{{$temp->month_name_mar}} {{$temp->app_no}}</td>
                   <td>{{$temp->primary_number}}</td>
                   <td>{{date('d-M-Y',strtotime($temp->created_at))}}</td>
-                  <td>{{$temp->Classification}}</td>
-                  <td>{{$temp->Total_waste}}</td>
-                  <td>{{$temp->Select_taluka}}</td>
-                  <td>{{$temp->amount}}</td>
-                  <td>{{$temp->Shera}}</td>
+                  <td>{{$temp->taluka_name}}</td>
+                  <td>{{$temp->classification_name_mar}}</td>
+                 <td>{{$temp->amount}}</td>
+                  <td>{{$temp->total_waste}}</td>
+                  <td>{{$temp->shera}}</td>
 
                   <td>
 
-                       <button class="btn btn-danger btn-flat btn-sm remove-user"data-id="{{ $temp->id }}" data-action="{{ url('deposit_Delete',$temp->id) }}"
-                        onclick="deleteConfirmation({{$temp->id}})">
-                         <i class="fa fa-trash"></i> </button>
+                    <button class="btn btn-danger btn-flat btn-sm remove-user" id="" data-id="{{ $temp->deposit_id }}" data-action="{{ url('deposit_delete','$temp->deposit_id') }}"
+                    onclick="deleteConfirmation('{{$temp->deposit_id}}')">
+                    <i class="fa fa-trash"></i> </button>
 
-
-                  </td>
+               </td>
 
                 </tr>
                 @endforeach
@@ -221,6 +220,7 @@
   document.getElementById('date').value = today;
 
  function deleteConfirmation(id) {
+
         swal({
             title: "Delete?",
             text: "Please    and then confirm!",
@@ -234,10 +234,9 @@
 
             if (e.value === true) {
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
                 $.ajax({
                     type: 'POST',
-                    url: "{{url('/deposit_Delete')}}/" + id,
+                    url: "deposit_delete/" + id,
                     data: {_token: CSRF_TOKEN},
                     dataType: 'JSON',
                     success: function (results) {
@@ -270,41 +269,30 @@
      $('.validatedForm').validate({
         rules : {
             year:"required",
-            classification: {
-                  required: true,
-            },
-            gpf_no: {
-                required: true,
-                digits: "required",
-            },
-            Select_taluka:"required",
+            taluka:"required",
             department:"required",
-            Classification:"required",
+            classification:"required",
             designation:"required",
             amount:"required",
-            trend_no:{
+            app_no:{
               required:true,
             },
-            Shera:"required",
-            Total_waste:"required",
+            shera:"required",
+            total_waste:"required",
 
         },
         messages: {
              year:"Plese Select Year",
-            classification:"Plese Select Classification",
-             gpf_no: {
-             required: "Please Enter gpf Number",
-            },
-             Select_taluka: " Please Select Taluka",
+             taluka: " Please Select Taluka",
              department: " Please Select Department",
-             Classification:" Please Enter The classificationn",
+             classification:" Please Enter The classificationn",
              designation: " Please Select designation",
              amount:"Please Enter The Amount",
-             trend_no:{
+             app_no:{
               required:"Enter The number",
-             }
-             Shera:"Please Enter The Shera",
-             Total_waste:"Please Enter The Total Waste",
+             },
+             shera:"Please Enter The Shera",
+             total_waste:"Please Enter The Total Waste",
          }
     });
       });

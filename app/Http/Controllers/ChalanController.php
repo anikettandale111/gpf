@@ -27,53 +27,7 @@ class ChalanController extends Controller
         $deposits=deposit::latest()->get();
         return view('Admin.monthly_chalan', compact("taluka",'Month','classification','deposits'));
     }
-    public function get_chalan_amount(Request $request)
-    {
-       $data['Currency_number'] = $request->Currency_number;
-       $data['year'] = $request->year;
-       $data['trend_no'] = $request->trend_no;
-       $deposits=deposit::select('amount','primary_number','diff_amount')->where($data)->first();
-       $res = '';
-       if(!empty($deposits->primary_number))
-       {
-            $res = Chalan::select('chalan.*','users.name')->where('chalan.primary_number',$deposits->primary_number)
-            ->leftjoin('users','users.id','=','chalan.created_by')
-            ->latest()->get();
-       }
-       return ['amt'=>$deposits,'chalan'=>$res];
-    }
 
-    public function chalan_insert(Request $request)
-    {
-        $res = Chalan::where(['trend_no'=>$request->trend_no,'year'=>$request->year,'month'=>$request->Currency_number,'gpf_number'=>$request->account_id])->get();
-
-        if(count($res) == 0)
-        {
-            $arr['year'] = $request->year;
-            $arr['month'] = $request->Currency_number;
-            $arr['trend_no'] = $request->trend_no;
-            $arr['primary_number'] = $request->primary_number;
-            $arr['taluka'] = $request->Select_taluka;
-            $arr['department'] = $request->Classification;
-            $final_amt_diff = $request->diffrence_amount - ($request->deposit_amt + $request->refund + $request->pending_amt);
-            $arr['final_amt_diff'] = $final_amt_diff;
-            $arr['gpf_number'] = $request->account_id;
-            $arr['deposit'] = $request->deposit_amt;
-            $arr['partava'] = $request->refund;
-            $arr['pending_amt'] = $request->pending_amt;
-            $arr['total'] = $request->total;
-            $arr['created_by'] = Auth::id();
-            $arr['modified_by'] = Auth::id();
-            $create = Chalan::Create($arr);
-            deposit::where('primary_number',$request->primary_number)->update(['diff_amount'=>$final_amt_diff,'modified_by'=>Auth::id()]);
-
-            return redirect()->back()->with('info',' Data Successfully Added');
-        }
-        else
-        {
-            return redirect()->back()->with('danger',' Data Already exist');
-        }
-    }
     public function Year_Edit($id)
     {
         $yedit=year::where('id','=',$id)->first();

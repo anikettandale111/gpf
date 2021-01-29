@@ -30,12 +30,8 @@
                 </div>
                 <div class="x_content">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-7 mt-7">
                           <div class="card-box table-responsive">
-                              <p class="dataTables_wrapper container-fluid dt-bootstrap no-footer" style="text-align: end;">
-                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"  data-placement="right"
-                               title="" data-original-title="Add">Add</button>
-                              </p>
                                 <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                                   <thead>
                                       <tr>
@@ -47,17 +43,15 @@
                                   </thead>
                                   <tbody>
                                         @if(count($classification))
-                                            @foreach($classification as $master)
-                                              <tr>
+                                            @foreach($classification as $classification)
+                                              <tr id="{{$classification->id}}">
                                                 <td>{{$loop->index+1}}</td>
-                                                <td> {{$master->classification}}</td>
-                                                <td> {{$master->classification}}</td>
+                                                <td id="classification_name_en_{{$classification->id}}"> {{$classification->classification_name_en}}</td>
+                                                <td id="classification_name_mar_{{$classification->id}}"> {{$classification->classification_name_mar}}</td>
                                                 <td>
-                                                    <a href="{{url('classification_Edit',[$master->id])}}">
-                                                    <button type="button" class="btn btn-info" data-toggle="modal"
-                                                    data-target=""><i class="fa fa-edit"></i> </button></a>
-                                                    <a href="{{url('classification_Delete',$master->id)}}">
-                                                    <button type="button" class="btn btn-danger "><i class="fa fa-trash"></i> </button></a>
+                                                <i class=" fa fa-edit icon-edit" onclick="geteditdata('{{$classification->id}}')"></i>
+                                                <i class="fa fa-trash icon-trash" data-id="{{$classification->id}}" onclick="deleteConfirmation('{{$classification->id}}')"></i></tr>
+
                                                  </td>
                                               </tr>
                                             @endforeach
@@ -66,36 +60,30 @@
                                 </table>
                            </div>
                         </div>
-                    </div>
-                </div>
-                    <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">{{trans('language.h_classification')}} </h5>
-                            </div>
-                            <div class="modal-body">
-                                <form   class="form-horizontal form-label-left validatedForm" action="{{url('/classification_Insert_Data')}}"method="POST"  enctype="multipart/form-data" novalidate>
+                        <div class="col-sm-5 mt-7">
+                        <div class="modal-body">
+                                <form   class="form-horizontal form-label-left classification_vali" action="{{route('classification.store')}}"method="POST"  enctype="multipart/form-data" novalidate>
                                    {{csrf_field()}}
                                      <div class="field item form-group">
-                                        <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_classification_name_en')}}  <span class="required"></span></label>
+                                        <label class="col-form-label  col-md-3  col-lg-5  label-align">{{trans('language.th_classification_name_en')}}  <span class="required"></span></label>
                                           <div class="col-md-6 col-sm-6">
-                                              <input class="form-control" name="classification" class='classification'>
+                                          <input type="hidden" class="form-control" name="classification_id" id="classification_id" value="0">
+
+                                              <input class="form-control" name="classification_name_en" id="classification_name_en" class='classification'>
                                           </div>
                                      </div>
 
                                      <div class="field item form-group">
-                                        <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_classification_name_mar')}}  <span class="required"></span></label>
+                                        <label class="col-form-label  col-md-3  col-lg-5  label-align">{{trans('language.th_classification_name_mar')}}  <span class="required"></span></label>
                                           <div class="col-md-6 col-sm-6">
-                                              <input class="form-control" name="classification" class='classification'>
+                                              <input class="form-control" name="classification_name_mar" id="classification_name_mar" class='classification'>
                                           </div>
                                      </div>
                                      <div class="ln_solid"></div>
                                       <div class="item form-group">
-                                        <div class="col-md-6 col-sm-6 offset-md-3">
-                                            <button type="submit" class="btn btn-success"> <i class="fa fa-floppy-o"></i> {{trans('language.btn_save')}}  </button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">
+                                        <div class="col-md-6 col-sm-6 offset-md-6">
+                                            <button type="submit" class="btn btn-success classification_submit"> <i class="fa fa-floppy-o"></i> {{trans('language.btn_save')}}  </button>
+                                            <button type="button" class="btn btn-primary classification_clear" data-dismiss="modal" aria-label="Close">
                                             <i class="fa fa-sign-out" aria-hidden="true"></i> {{trans('language.btn_cancel')}}
                                             </button>
                                         </div>
@@ -109,16 +97,9 @@
        </div>
     </div>
 </div>
-<script>
-$('.validatedForm').validate({
-    rules:{
-        classification:"required",
 
-    },
-    messages:{
-        classification:"Please Enter The Classification Name",
-
-    }
-});
-</script>
 @endsection
+
+@push('custom-scripts')
+<script type="text/javascript" src="{{URL('js/classification-master.js')}}"></script>
+@endpush

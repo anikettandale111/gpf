@@ -13,17 +13,23 @@ class CreateDepositsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('deposits');
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
+            $table->string('year');
             $table->string('chalan_no');
-            $table->string('App_no');
+            $table->string('app_no');
             $table->string('chalan_date');
             $table->string('classification');
             $table->string('total_waste');
             $table->string('taluka_code');
-            $table->string('select_taluka');
+            $table->string('taluka');
             $table->string('amount');
             $table->text('shera');
+            $table->string('diff_amount');
+            $table->string('primary_number');
+            $table->string('created_by')->nullable();
+            $table->string('modified_by')->nullable();
             $table->timestamps();
         });
     }

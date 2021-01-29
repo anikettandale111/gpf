@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class classification extends Model
+class Classification extends Model
 {
     protected $table = 'classifications';
-    
+
     protected $fillable = [
-            
-           "classification","created_at","updated_at"
+
+           "id","classification_name_en","classification_name_mar","created_at","updated_at"
     ];
 }
