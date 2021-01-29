@@ -266,8 +266,10 @@
     <script src="{{asset('asset/vendors/jszip/dist/jszip.min.js') }}"></script>
     <script src="{{asset('asset/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{asset('asset/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script type="text/javascript" src="{{asset('asset/scripts/main.js')}}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     @stack('custom-scripts')
-
 <script>
   function changelanguage(lang){
     if(lang == 'English'){
