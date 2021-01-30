@@ -45,7 +45,7 @@
                                     <select class="form-control" name="taluka" id="taluka" class='email' readonly>
                                        <option value="">-- निवडा तालुका --</option>
                                     @foreach ($taluka as $temp)
-                                    <option value="{{$temp->name}}">{{$temp->name}}</option>
+                                    <option value="{{$temp->id}}">{{$temp->taluka_name_mar}}</option>
                                     @endforeach
                                     </select>
                                 </div>
@@ -57,7 +57,7 @@
 
                                   <option value="">-- निवडा विभाग --</option>
                                     @foreach($department as $k => $v)
-                                        <option value="{{$v->department}}">{{$v->department}}</option>
+                                        <option value="{{$v->id}}">{{$v->department_name_mar}}</option>
                                     @endforeach
                                 </select>
                               </div>
@@ -73,7 +73,7 @@
                                     <select class="form-control" name="designation" id="designation" class='designation'>
                                     <option value="">-- निवडा पदनाम --</option>
                                     @foreach ($designation as $temp)
-                                    <option value="{{$temp->designation}}">{{$temp->designation}}</option>
+                                    <option value="{{$temp->id}}">{{$temp->designation_name_mar}}</option>
                                     @endforeach
                                     </select>
                                 </div>
@@ -83,9 +83,8 @@
                                 <div class="col-md-6 col-sm-6">
                                     <select class="form-control" name="month_interest_payable"  id="month_interest_payable"class='month_interest_payable'>
                                       <option value="">-- निवडा महिना --</option>
-
-                                    @foreach ($Month as $temp)
-                                    <option value="{{$temp->name}}">{{$temp->name}}</option>
+                                   @foreach ($month as $temp)
+                                    <option value="{{$temp->month_name_mar}}">{{$temp->month_name_mar}}</option>
                                     @endforeach
                                     </select>
                                 </div>
@@ -114,8 +113,8 @@
                                 <div class="col-md-6 col-sm-6">
                                     <select class="form-control" name="feet_interest_payable_month"  id="feet_interest_payable_month"class='feet_interest_payable_month'>
                                             <option value="">-- निवडा महिना --</option>
-                                    @foreach ($Month as $temp)
-                                    <option value="{{$temp->name}}">{{$temp->name}}</option>
+                                    @foreach ($month as $temp)
+                                    <option value="{{$temp->month_name_mar}}">{{$temp->month_name_mar}}</option>
                                     @endforeach
                                     </select>
                                 </div>
@@ -144,8 +143,8 @@
                                 <div class="col-md-6 col-sm-6">
                                     <select class="form-control" name="last_subscription_month" id="last_subscription_month"class='last_subscription_month'>
                                             <option value="">-- निवडा महिना --</option>
-                                    @foreach ($Month as $temp)
-                                    <option value="{{$temp->name}}">{{$temp->name}}</option>
+                                    @foreach ($month as $temp)
+                                    <option value="{{$temp->month_name_mar}}">{{$temp->month_name_mar}}</option>
                                     @endforeach
                                     </select>
                                 </div>
@@ -210,10 +209,10 @@
                                              <tr  id="{{$temp->id}}">
                                                <td>{{$loop->index+1}}</td>
                                                <td>{{$temp->gpf_no}}</td>
-                                               <td>{{$temp->taluka}}</td>
-                                               <td>{{$temp->department}}</td>
+                                               <td>{{$temp->taluka_name_mar}}</td>
+                                               <td>{{$temp->department_name_mar}}</td>
                                                <td>{{$temp->name}}</td>
-                                               <td>{{$temp->designation}}</td>
+                                               <td>{{$temp->designation_name_mar}}</td>
                                                <td>{{$temp->month_interest_payable}}</td>
                                                <td>{{$temp->last_due_year}}</td>
                                                <td>{{$temp->feet_interest_payable_month}}</td>

@@ -21,9 +21,7 @@ class TalukaController extends Controller
 
     public function year()
     {
-        $Year=year::all();
-        $Month=month::all();
-        return view('Admin.Year.year', compact('Year','Month'));
+
     }
     public function Year_Insert_Data(Request $request)
     {

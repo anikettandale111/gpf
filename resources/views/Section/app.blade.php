@@ -118,7 +118,7 @@
                   <li><a href="{{url('customer_registration')}}"><i class="fa fa-table"></i> {{trans('language.h_basic_employee_information')}} </a>
 
                   </li>
-                  <li><a href="{{url('Nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद
+                  <li><a href="{{url('nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद
                   </a>
                   </li>
 
@@ -129,10 +129,10 @@
                     </ul>
                   </li>
                   <li><a href="{{url('user_registration')}}"> <i class="fa fa-users"></i>वापरकर्त्यांची नोंदणी</a></li>
-                  <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>७ वा वेतन आयोग फरक जमा </a></li>
                   <li><a href="{{url('closed_account')}}"> <i class="fa fa-users"></i>खाते बंद करणे  </a></li>
                   <li><a href="{{url('bill_information')}}"> <i class="fa fa-users"></i>बिल माहिती </a></li>
                   <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>७ वा वेतन आयोग फरक जमा </a></li>
+                  <li><a href="{{url('Year')}}"> <i class="fa fa-users"></i>वर्षाचे व्याज दर भरणे </a></li>
                 </ul>
               </div>
 
@@ -267,8 +267,7 @@
     <script src="{{asset('asset/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{asset('asset/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
     <script type="text/javascript" src="{{asset('asset/scripts/main.js')}}"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
     @stack('custom-scripts')
 <script>
   function changelanguage(lang){

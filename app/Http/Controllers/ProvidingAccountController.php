@@ -8,6 +8,7 @@ use App\Classification;
 use App\Designation;
 use App\ganrate;
 use App\Taluka;
+use Illuminate\Support\Facades\DB;
 
 class ProvidingAccountController extends Controller
 {
@@ -33,6 +34,20 @@ class ProvidingAccountController extends Controller
         $data['department'] = Department::all();
         return view('Admin.Ganrate.ganrate_new_number', $data);
     }
+    public function ganrate_new(Request $request)
+    {
+
+
+     $query = DB::raw('SELECT * FROM ganrate_new_number WHERE gpf_no='.$request->id);
+     $result = DB::Select($query);
+     if(isset($result[0])){
+       return json_encode(['stuas'=>'success','msg' =>'Data Found' ,'userdata' =>$result]);
+     }else{
+       return json_encode(['stuas'=>'failed','msg' =>'Data Not Found' ]);
+     }
+
+    }
+
     public function ganrate_insert_no(Request $request)
   {
     $req = ganrate::select('gpf_no')->latest()->first();

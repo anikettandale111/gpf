@@ -12,25 +12,25 @@
                            <div class="clearfix"></div>
                           @if ($message = Session::get('danger'))
                           <div class="alert alert-danger alert-block">
-                              <button type="button" class="close" data-dismiss="alert">×</button> 
+                              <button type="button" class="close" data-dismiss="alert">×</button>
                               <strong>{{ $message }}</strong>
                           </div>
                           @endif
                           @if ($message = Session::get('success'))
                           <div class="alert alert-success alert-block">
-                              <button type="button" class="close" data-dismiss="alert">×</button> 
+                              <button type="button" class="close" data-dismiss="alert">×</button>
                               <strong>{{ $message }}</strong>
                           </div>
                           @endif
                           @if ($message = Session::get('info'))
                           <div class="alert alert-info alert-block">
-                              <button type="button" class="close" data-dismiss="alert">×</button> 
+                              <button type="button" class="close" data-dismiss="alert">×</button>
                               <strong>{{ $message }}</strong>
                           </div>
                           @endif
                     </div>
                     <div class="x_content">
-                        <form   class="validatedForm"action="  {{url('Nomination_Insert_Data')}}"method="POST"  enctype="multipart/form-data"  id="cform"novalidate>
+                        <form   class="validatedForm"action="  {{url('nomination_insert_data')}}"method="POST"  enctype="multipart/form-data"  id="cform"novalidate>
                                             {{csrf_field()}}
                               <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align"> भ. नि .नि. क्रमांक <span class="required"></span></label>
@@ -53,21 +53,21 @@
                                     <option value="{{$temp->name}}">{{$temp->name}}</option>
                                     @endforeach
                                     </select>
-                                   
+
                                    </div>
                               </div>
                               <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">विभाग संकेतांक <span class="required"></span></label>
                                 <div class="col-md-6 col-sm-6">
-                                     
+
                                     <select class="form-control" id="department" name="department" class='email'>
                                          <option value="">-- निवडा विभाग --</option>
-                                   
+
                                @foreach ($department as $temp)
                                     <option value="{{$temp->department}}">{{$temp->department}}</option>
                                     @endforeach
                                </select>
-                               
+
                                </div>
                               </div>
                               <div class="field item form-group">
@@ -86,7 +86,7 @@
                                     <option value="{{$temp->designation}}">{{$temp->designation}}</option>
                                     @endforeach
                                     </select>
-                                     
+
                                    </div>
                               </div>
                                <div class="field item form-group">
@@ -168,7 +168,7 @@
                               <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align"> अंतिमाचे प्रयोजन <span class="required"></span></label>
                                 <div class="col-md-6 col-sm-6">
-                                 
+
                                         <input type="text" name="last_purpose" class="form-control @error('last_purpose') is-invalid @enderror" id="last_purpose" value="{{ old('last_purpose') }}" required autocomplete="last_purpose" autofocus>
 
 
@@ -177,7 +177,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                   @enderror
-                                     
+
                                 </div>
                               </div>
                               <div class="field item form-group">
@@ -190,7 +190,7 @@
                                <div class="item form-group">
                                   <div class="col-form-label col-md-9 col-sm-3  label-align">
                                     <button type="submit" class="btn btn-success"> <i class="fa fa-floppy-o"></i> Save </button>
-                                    
+
                                   </div>
                               </div>
                        </form>
@@ -247,11 +247,11 @@
                                                <td>{{$temp->district_transfer_date}}</td>
                                                <td>
                                                     <button class="btn btn-danger btn-flat btn-sm remove-user"
-                                                   data-id="{{ $temp->id }}" data-action="{{ url('nomination_Delete',$temp->id) }}" onclick="deleteConfirmation('{{$temp->id}}')"> <i class="fa fa-trash"></i> 
+                                                   data-id="{{ $temp->id }}" data-action="{{ url('nomination_Delete',$temp->id) }}" onclick="deleteConfirmation('{{$temp->id}}')"> <i class="fa fa-trash"></i>
                                                  </button>
-                                                 
+
                                                </td>
-                                              
+
                                           </tr>
                                         @endforeach
                                         @endif
@@ -280,12 +280,12 @@
             department:"required",
             name:"required",
             designation:"required",
-            date_of_birthday:"required", 
-            date_birth:"required", 
-            application_date:"required", 
+            date_of_birthday:"required",
+            date_birth:"required",
+            application_date:"required",
             dismissal_no:"required",
             office_transfer:"required",
-            letter_no:"required", 
+            letter_no:"required",
             order_no:"required",
             money_name: "required",
             replacement_p_no:"required",
@@ -299,16 +299,16 @@
             classification:"Plese Select Classification",
              p_no: {
              required: "Please Enter gpf Number",
-            }, 
+            },
              taluka: " Please Select Taluka",
              department: " Please Select Department",
              name:" Please Enter The Name",
              designation: " Please Select designation",
-             date_of_birthday:"Please Enter Birthday Date", 
-             date_birth:" Please Enter Resume Date", 
-             application_date:" Please Enter Application  Date", 
+             date_of_birthday:"Please Enter Birthday Date",
+             date_birth:" Please Enter Resume Date",
+             application_date:" Please Enter Application  Date",
              dismissal_no:" Please Enter Department / Panchayat Samiti Dismissal No.",
-             letter_no:"Please Enter C .v .a / c .shi. Letter no. Of PNS taluka ", 
+             letter_no:"Please Enter C .v .a / c .shi. Letter no. Of PNS taluka ",
              office_transfer:"Please Enter The Office of Transfer / Promotion",
              order_no:"Please Enter Order No ",
              money_name:" Please Enter Money in the name of",
@@ -318,7 +318,7 @@
              carbin_copy_c:" Please Enter Copy 3",
              last_purpose:"Please Enter The Ultimate Purpose",
               district_transfer_date:"Please Enter Class / district transfer Date",
-             
+
         }
     });
 
@@ -347,10 +347,10 @@
                     dataType: 'JSON',
                     success: function (results) {
 
-                      
+
 
                         $('#'+results.id).remove();
-                         
+
                     }
 
 
@@ -364,7 +364,7 @@
             return false;
         })
 
-        
+
     }
   $('#p_no').on('change', function() {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -376,7 +376,7 @@
             type: 'post',
             data: {_token: CSRF_TOKEN,'id':id},
             success: function(data)
-            {              
+            {
               var obj = $.parseJSON(data);
               if(obj.userdata){
                   $('#taluka').val(obj.userdata[0].taluka);
@@ -387,12 +387,12 @@
               }else{
                  alert("This number is not exist");
                 $("#cform")[0].reset();
-             
+
                 return false;
               }
             }
         });
- 
+
 });
 
 

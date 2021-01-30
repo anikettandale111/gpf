@@ -545,6 +545,7 @@ class ComposerStaticInitde1378d07c0fe6ede367c6e603ad2cca
         'App\\Http\\Controllers\\TalukaController' => __DIR__ . '/../..' . '/app/Http/Controllers/TalukaController.php',
         'App\\Http\\Controllers\\TalukaMasterController' => __DIR__ . '/../..' . '/app/Http/Controllers/TalukaMasterController.php',
         'App\\Http\\Controllers\\TrendController' => __DIR__ . '/../..' . '/app/Http/Controllers/TrendController.php',
+        'App\\Http\\Controllers\\VetanController' => __DIR__ . '/../..' . '/app/Http/Controllers/VetanController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',

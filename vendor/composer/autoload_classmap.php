@@ -41,6 +41,7 @@ return array(
     'App\\Http\\Controllers\\TalukaController' => $baseDir . '/app/Http/Controllers/TalukaController.php',
     'App\\Http\\Controllers\\TalukaMasterController' => $baseDir . '/app/Http/Controllers/TalukaMasterController.php',
     'App\\Http\\Controllers\\TrendController' => $baseDir . '/app/Http/Controllers/TrendController.php',
+    'App\\Http\\Controllers\\VetanController' => $baseDir . '/app/Http/Controllers/VetanController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',
