@@ -13,11 +13,13 @@ class CreateGanrateNewNumberTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('ganrate_new_number');
         Schema::create('ganrate_new_number', function (Blueprint $table) {
             $table->id();
             $table->string('gpf_no');
+            $table->string('inital_letter');
             $table->string('classification');
-            $table->string('taluka_id');
+            $table->string('taluka');
             $table->string('department');
             $table->string('name');
             $table->string('designation');
@@ -26,6 +28,10 @@ class CreateGanrateNewNumberTable extends Migration
             $table->string('date_birth');
             $table->string('date_dated');
             $table->string('c_v_letter');
+            $table->string('bank');
+            $table->string('branch');
+            $table->string('ifsc_code');
+            $table->string('yes');
             $table->timestamps();
         });
     }

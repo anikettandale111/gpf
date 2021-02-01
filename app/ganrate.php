@@ -11,6 +11,6 @@ class ganrate extends Model
     protected $fillable = [
 
             "classification","gpf_no","taluka_id","department","name","designation","account_no","c_v_letter",
-            "date_birth","date_dated","date_of_birthday","created_by","modified_by","yes"
+            "date_birth","date_dated","date_of_birthday","created_by","modified_by","yes","branch","bank","inital_letter","IFSC_code"
     ];
 }

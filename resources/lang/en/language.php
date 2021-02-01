@@ -84,7 +84,10 @@ return [
     'th_providing_date_of_birth'=>'Date of Birth',
     'th_providing_date_of_retirement'=>'Date of Retirement',
     'th_providing_date_dated'=>'Date Dated',
-    'th_providing_letter_no'=>'C .v .a / c. Letter no',
+    'th_providing_bank'=>'Bank Name',
+    'th_providing_branch'=>'branch',
+    'th_providing_i_f_s_c_code'=>'I.F.S.C.Code',
+
     'th_providing_letter_no'=>'C .v .a / c. Letter no',
     'th_providing_whether_to_a_n'=>'Whether to provide account number',
     // Closing the account

@@ -78,6 +78,9 @@ return [
     'th_providing_date_of_birth'=>'जन्म दिनांक',
     'th_providing_date_dated'=>'रुजू दिनांक',
     'th_providing_date_of_retirement'=>'सेवानिवृती दिनांक',
+    'th_providing_bank'=>'बँकेत नाव',
+    'th_providing_branch'=>'शाखा',
+    'th_providing_i_f_s_c_code'=>'आय. एफ.एस.सी.कोड',
     'th_providing_letter_no'=>'ग .वि .अ/ ग .शि. अ .पं.स तालुका यांचे पत्र क्रं',
     'th_providing_whether_to_a_n'=>'लेखाक्रमांक प्रदान करावयाचा आहे का ?',
      // Closing the account

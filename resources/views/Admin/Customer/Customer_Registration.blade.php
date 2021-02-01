@@ -134,33 +134,21 @@
                                     <option value="{{$bank->id}}">{{$bank->bank_name_mar}}</option>
                                     @endforeach
                                 </select>
-                                @error('bank_name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+
                             </div>
                         </div>
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align"> {{trans('language.th_basic_employee_branch')}} <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6">
                                 <input class="form-control" class='date' type="text" name="branch"  id="branch"required='required'>
-                                @error('branch')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+
                             </div>
                         </div>
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align"> {{trans('language.th_basic_employee_i_f_s_c_code')}} <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6">
                                 <input class="form-control" class='date' type="text" name="IFSC_code" id="IFSC_code" required='required'>
-                                @error('IFSC_code')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+
                             </div>
                         </div>
                         <div class="field item form-group">
@@ -255,4 +243,44 @@
 @endsection
 @push('custom-scripts')
 <script type="text/javascript" src="{{URL('js/customer-registration.js')}}"></script>
+<script>
+$('#gpf_no').on('change', function() {
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    var id = $(this).val();
+
+    $.ajax({
+        url: "{{url('customer_registration.edit')}}",
+        type: 'post',
+        data: {
+            _token: CSRF_TOKEN,
+            'id': id
+        },
+        success: function(data) {
+
+            var obj = $.parseJSON(data);
+
+            if (obj.userdata) {
+                $('#taluka').val(obj.userdata[0].taluka);
+                $('#department').val(obj.userdata[0].department);
+                $('#designation').val(obj.userdata[0].designation);
+                $('#date_birth').val(obj.userdata[0].date_of_birthday);
+                $('#date_dated').val(obj.userdata[0].date_birth);
+                $('#retirement_date').val(obj.userdata[0].date_dated);
+                $('#account_no').val(obj.userdata[0].account_no);
+                $('#name').val(obj.userdata[0].name);
+                $('#classification').val(obj.userdata[0].classification);
+
+            } else {
+
+                alert("This number is not exist");
+                $("#cform")[0].reset();
+
+                return false;
+            }
+        }
+    });
+
+});
+
+</script>
 @endpush
