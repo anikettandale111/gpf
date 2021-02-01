@@ -31,6 +31,7 @@
 
                 </div>
                 <div class="x_content">
+
                     <form class="validatedForm" action="{{route('customer_registration.store')}}" method="POST" enctype="multipart/form-data" id="cform" novalidate>
                         {{csrf_field()}}
                         <div class="field item form-group">
@@ -127,7 +128,7 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_basic_employee_bank')}} <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6">
-                                <select class="form-control" name="bank" class='bank'>
+                                <select class="form-control" name="bank"  id="bank"class='bank'>
                                     <option value="">-- निवडा बँकेत --</option>
                                     @foreach ($bank as $bank)
                                     <option value="{{$bank->id}}">{{$bank->bank_name_mar}}</option>
@@ -143,7 +144,7 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align"> {{trans('language.th_basic_employee_branch')}} <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6">
-                                <input class="form-control" class='date' type="text" name="branch" required='required'>
+                                <input class="form-control" class='date' type="text" name="branch"  id="branch"required='required'>
                                 @error('branch')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -199,7 +200,7 @@
                                             <th>{{trans('language.th_basic_employee_classification')}} </th>
                                             <th>{{trans('language.th_basic_employee_date_of_birth')}} </th>
                                             <th>{{trans('language.th_basic_employee_date_dated')}} </th>
-                                            <th> {{trans('language.th_basic_employee_date_of_retirement')}} </th>
+                                            <th>{{trans('language.th_basic_employee_date_of_retirement')}} </th>
                                             <th>{{trans('language.th_basic_employee_bank')}}</th>
                                             <th>{{trans('language.th_basic_employee_branch')}} </th>
                                             <th>{{trans('language.th_basic_employee_i_f_s_c_code')}} </th>
@@ -212,26 +213,30 @@
                                         @foreach($customers as $customer)
                                         <tr id="{{$customer->id}}">
                                             <td>{{$loop->index+1}}</td>
-                                            <td>{{$customer->gpf_no}}</td>
-                                            <td>{{$customer->taluka_name_mar}}</td>
-                                            <td>{{$customer->department_name_mar}}</td>
-                                            <td>{{$customer->name}}</td>
-                                            <td>{{$customer->designation_name_mar}}</td>
-                                            <td>{{$customer->classification_name_mar}}</td>
-                                            <td>{{$customer->date_birth}}</td>
-                                            <td>{{$customer->date_dated}}</td>
-                                            <td>{{$customer->retirement_date}}</td>
-                                            <td>{{$customer->bank_name_mar}}</td>
-                                            <td>{{$customer->branch}}</td>
-                                            <td>{{$customer->IFSC_code}}</td>
-                                            <td>{{$customer->account_no}}
+                                            <td id="gpf_no_{{$customer->id}}" >{{$customer->gpf_no}}</td>
+                                            <td id="taluka_name_mar_{{$customer->id}}" >{{$customer->taluka_name_mar}}</td>
+                                            <td id="department_name_mar_{{$customer->id}}" >{{$customer->department_name_mar}}</td>
+                                            <td id="name_{{$customer->id}}" >{{$customer->name}}</td>
+                                            <td id="designation_name_mar_{{$customer->id}}" >{{$customer->designation_name_mar}}</td>
+                                            <td id="classification_name_mar_{{$customer->id}}" >{{$customer->classification_name_mar}}</td>
+                                            <td id="date_birth_{{$customer->id}}" >{{$customer->date_birth}}</td>
+                                            <td id="date_dated_{{$customer->id}}" >{{$customer->date_dated}}</td>
+                                            <td id="retirement_date_{{$customer->id}}" >{{$customer->retirement_date}}</td>
+                                            <td id="bank_name_mar_{{$customer->id}}" >{{$customer->bank_name_mar}}</td>
+                                            <td id="branch_{{$customer->id}}" >{{$customer->branch}}</td>
+                                            <td id="IFSC_code_{{$customer->id}}" >{{$customer->IFSC_code}}</td>
+                                            <td id="account_no_{{$customer->id}}" >{{$customer->account_no}}
                                             </td>
                                             <td>
-                                                <a href="{{url('customer_edit',[$customer->id])}}">
+                                                <!-- <a href="{{url('customer_edit',[$customer->id])}}">
                                                     <button type="button" class="btn btn-info" data-toggle="modal" data-target=""><i class="fa fa-edit"></i> </button></a>
 
                                                 <button class="btn btn-danger btn-flat btn-sm remove-user" data-id="{{ $customer->id }}" data-action="{{ url('customer_delete', '$customer->id') }}" onclick="deleteConfirmation('{{$customer->id}}')"> <i class="fa fa-trash"></i>
-                                                </button>
+                                                </button> -->
+
+                                                  <i class=" fa fa-edit icon-edit" onclick="geteditdata('{{$customer->id}}')"></i>
+                                                  <i class="fa fa-trash icon-trash" data-id="{{$customer->id}}" onclick="deleteConfirmation('{{$customer->id}}')"></i></tr>
+
 
                                             </td>
                                         </tr>
@@ -247,137 +252,7 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        //jQuery code goes here
-        $('.validatedForm').validate({
-            rules: {
-                classification: {
-                    required: true,
-                },
-                gpf_no: {
-                    required: true,
-                    digits: "required",
-                },
-                taluka: "required",
-                department: "required",
-                name: "required",
-                designation: "required",
-                date_of_birthday: "required",
-                date_birth: "required",
-                retirement_date: "required",
-                bank: "required",
-                branch: "required",
-                IFSC_code: "required",
-                account_no: {
-                    required: true,
-                    digits: "required",
-                },
-            },
-            messages: {
-                classification: "Plese Select Classification",
-                gpf_no: {
-                    required: "Please Enter gpf Number",
-                },
-                taluka: " Please Select Taluka",
-                department: " Please Select Department",
-                name: " Please Enter The Name",
-                designation: " Please Select designation",
-                date_of_birthday: "Please Enter Birthday Date",
-                date_birth: " Please Enter Resume Date",
-                retirement_date: " Please Enter Retirement  Date",
-                bank: " Please Enter The Blank Name",
-                branch: "Please Enter The Branch Name",
-                IFSC_code: "Please Enter IFSC code",
-                account_no: {
-                    required: " Please Enter Account Number",
-                },
-            }
-        });
-
-    });
-
-    function deleteConfirmation(id) {
-        swal({
-            title: "Delete?",
-            text: "Please    and then confirm!",
-            type: "warning",
-            showCancelButton: !0,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            reverseButtons: !0
-
-        }).then(function(e) {
-
-            if (e.value === true) {
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
-                $.ajax({
-                    type: 'POST',
-                    url: "{{url('/customer_delete')}}/" + id,
-                    data: {
-                        _token: CSRF_TOKEN
-                    },
-                    dataType: 'JSON',
-                    success: function(results) {
-
-                   $('#' + results.id).remove();
-
-                    }
-
-
-                });
-
-            } else {
-                e.dismiss;
-            }
-
-        }, function(dismiss) {
-            return false;
-        })
-  }
-    $('#gpf_no').on('change', function() {
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        var id = $(this).val();
-
-        $.ajax({
-            url: "{{url('customer_registration.edit')}}",
-            type: 'post',
-            data: {
-                _token: CSRF_TOKEN,
-                'id': id
-            },
-            success: function(data) {
-
-                var obj = $.parseJSON(data);
-
-                if (obj.userdata) {
-                    $('#taluka').val(obj.userdata[0].taluka);
-                    $('#department').val(obj.userdata[0].department);
-                    $('#designation').val(obj.userdata[0].designation);
-                    $('#date_birth').val(obj.userdata[0].date_of_birthday);
-                    $('#date_dated').val(obj.userdata[0].date_birth);
-                    $('#retirement_date').val(obj.userdata[0].date_dated);
-                    $('#account_no').val(obj.userdata[0].account_no);
-                    $('#name').val(obj.userdata[0].name);
-                    $('#classification').val(obj.userdata[0].classification);
-
-                } else {
-
-                    alert("This number is not exist");
-                    $("#cform")[0].reset();
-
-                    return false;
-                }
-            }
-        });
-
-    });
-</script>
-
 @endsection
-
 @push('custom-scripts')
 <script type="text/javascript" src="{{URL('js/customer-registration.js')}}"></script>
 @endpush

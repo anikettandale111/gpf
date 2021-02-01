@@ -266,7 +266,7 @@
                                                 <tr id="{{$temp->id}}">
                                                 <td>{{$loop->index+1}}</td>
                                                     <td>{{$temp->classification_name_mar}}</td>
-                                                    <td>{{$temp->gpf_no}}</td>
+                                                    <td>{{$temp->inital_letter}}{{$temp->gpf_no}}</td>
                                                     <td>{{$temp->taluka_name_mar }}</td>
                                                     <td>{{$temp->department_name_mar}}</td>
                                                     <td>{{$temp->name}}</td>
