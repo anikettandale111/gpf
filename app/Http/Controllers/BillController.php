@@ -44,4 +44,7 @@ class BillController extends Controller
        ]);
         return response()->json( ['success' => true,'message' => 'Data inserted successfully']);
     }
+  public function getlast_billnumber(){
+      return Bill::max("bill_no");
+  }
 }

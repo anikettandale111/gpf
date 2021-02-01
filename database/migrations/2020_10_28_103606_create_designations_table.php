@@ -13,6 +13,7 @@ class CreateDesignationsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('designations');
         Schema::create('designations', function (Blueprint $table) {
             $table->id();
             $table->string('designation_name_en');
