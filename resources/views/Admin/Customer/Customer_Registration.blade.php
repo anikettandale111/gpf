@@ -31,7 +31,7 @@
 
                 </div>
                 <div class="x_content">
-                    <form class="validatedForm" action="{{url('custmoer_insert_data')}}" method="POST" enctype="multipart/form-data" id="cform" novalidate>
+                    <form class="validatedForm" action="{{route('customer_registration.store')}}" method="POST" enctype="multipart/form-data" id="cform" novalidate>
                         {{csrf_field()}}
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align"> {{trans('language.th_basic_employee_b_n_n_no')}} <span class="required"></span></label>
@@ -49,7 +49,8 @@
 
 
                         </div>
-                        <div class="field item form-group">
+                        <div class="field item form-group
+                        ">
                             <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_basic_employee_taluka')}}<span class="required"></span></label>
                             <div class="col-md-6 col-sm-6">
                                 <select class="form-control" name="taluka" id="taluka" class='email' readonly>
@@ -84,7 +85,7 @@
                                 <select class="form-control" name="designation" id="designation" class='designation'>
                                     <option value="">-- निवडा पदनाम --</option>
                                     @foreach ($designation as $designation)
-                                    <option value="{{$temp->id}}">{{$designation->designation_name_mar}}</option>
+                                    <option value="{{$designation->id}}">{{$designation->designation_name_mar}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -126,10 +127,10 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align">{{trans('language.th_basic_employee_bank')}} <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6">
-                                <select class="form-control" name="bank_name" class='bank_name'>
+                                <select class="form-control" name="bank" class='bank'>
                                     <option value="">-- निवडा बँकेत --</option>
                                     @foreach ($bank as $bank)
-                                    <option value="{{$bank->id}}">{{$temp->bank_name_mar}}</option>
+                                    <option value="{{$bank->id}}">{{$bank->bank_name_mar}}</option>
                                     @endforeach
                                 </select>
                                 @error('bank_name')
@@ -153,7 +154,7 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align"> {{trans('language.th_basic_employee_i_f_s_c_code')}} <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6">
-                                <input class="form-control" class='date' type="text" name="IFSC_code" required='required'>
+                                <input class="form-control" class='date' type="text" name="IFSC_code" id="IFSC_code" required='required'>
                                 @error('IFSC_code')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -212,15 +213,15 @@
                                         <tr id="{{$customer->id}}">
                                             <td>{{$loop->index+1}}</td>
                                             <td>{{$customer->gpf_no}}</td>
-                                            <td>{{$customer->taluka}}</td>
-                                            <td>{{$customer->department}}</td>
+                                            <td>{{$customer->taluka_name_mar}}</td>
+                                            <td>{{$customer->department_name_mar}}</td>
                                             <td>{{$customer->name}}</td>
-                                            <td>{{$customer->designation}}</td>
-                                            <td>{{$customer->classification}}</td>
+                                            <td>{{$customer->designation_name_mar}}</td>
+                                            <td>{{$customer->classification_name_mar}}</td>
                                             <td>{{$customer->date_birth}}</td>
                                             <td>{{$customer->date_dated}}</td>
                                             <td>{{$customer->retirement_date}}</td>
-                                            <td>{{$customer->bank_name}}</td>
+                                            <td>{{$customer->bank_name_mar}}</td>
                                             <td>{{$customer->branch}}</td>
                                             <td>{{$customer->IFSC_code}}</td>
                                             <td>{{$customer->account_no}}
@@ -246,6 +247,7 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function() {
         //jQuery code goes here
@@ -265,7 +267,7 @@
                 date_of_birthday: "required",
                 date_birth: "required",
                 retirement_date: "required",
-                bank_name: "required",
+                bank: "required",
                 branch: "required",
                 IFSC_code: "required",
                 account_no: {
@@ -285,7 +287,7 @@
                 date_of_birthday: "Please Enter Birthday Date",
                 date_birth: " Please Enter Resume Date",
                 retirement_date: " Please Enter Retirement  Date",
-                bank_name: " Please Enter The Blank Name",
+                bank: " Please Enter The Blank Name",
                 branch: "Please Enter The Branch Name",
                 IFSC_code: "Please Enter IFSC code",
                 account_no: {
@@ -340,7 +342,7 @@
         var id = $(this).val();
 
         $.ajax({
-            url: "{{url('customer_new')}}",
+            url: "{{url('customer_registration.edit')}}",
             type: 'post',
             data: {
                 _token: CSRF_TOKEN,
@@ -375,3 +377,7 @@
 </script>
 
 @endsection
+
+@push('custom-scripts')
+<script type="text/javascript" src="{{URL('js/customer-registration.js')}}"></script>
+@endpush

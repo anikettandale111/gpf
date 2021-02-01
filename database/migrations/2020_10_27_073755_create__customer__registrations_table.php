@@ -13,6 +13,7 @@ class CreateCustomerRegistrationsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('customer_registrations');
         Schema::create('customer_registrations', function (Blueprint $table) {
             $table->id();
             $table->string('gpf_no');
@@ -25,10 +26,10 @@ class CreateCustomerRegistrationsTable extends Migration
             $table->string('date_dated');
             $table->string('initial_balance');
             $table->string('retirement_date');
-            $table->string('bank_name');
+            $table->string('bank');
             $table->string('branch');
             $table->string('IFSC_code');
-            $table->string('account_order');
+            $table->string('account_no');
             $table->timestamps();
         });
     }

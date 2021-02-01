@@ -39,7 +39,7 @@
                                 <div class="field item form-group">
                                     <label class="col-form-label col-md-5 col-sm-5  label-align"> बिल नं.<span class="required"></span></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input class="form-control" class='optional' name="bill_no" id="bill_no" data-validate-length-range="5,15" type="number" />
+                                        <input class="form-control" class='optional' name="bill_no" id="bill_no" data-validate-length-range="5,15" type="number"  />
                                     </div>
                                 </div>
                                 <div class="field item form-group">

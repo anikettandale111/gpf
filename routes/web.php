@@ -95,13 +95,14 @@ Route::middleware('auth')->group(function () {
     // Year
     Route::resource('Year', YearController::class);
     // Customer Registration
-    Route::get('customer_registration', 'CustomerRegistrationController@index');
-    Route::post('custmoer_insert_data', 'CustomerRegistrationController@custmoer_insert_data');
-    Route::post('customer_delete/{id}', 'CustomerRegistrationController@customer_delete');
-    Route::get('Customer_edit/{id}', 'CustomerRegistrationController@customer_edit');
-    Route::post('customer_update', 'CustomerRegistrationController@customer_update');
-    Route::post('customer_new', 'CustomerRegistrationController@customer_new');
-
+    // Route::get('customer_registration', 'CustomerRegistrationController@index');
+    // Route::post('custmoer_insert_data', 'CustomerRegistrationController@custmoer_insert_data');
+    // Route::post('customer_delete/{id}', 'CustomerRegistrationController@customer_delete');
+    // Route::get('customer_edit/{id}', 'CustomerRegistrationController@customer_edit');
+    // Route::post('customer_update', 'CustomerRegistrationController@customer_update');
+    // Route::post('customer_new', 'CustomerRegistrationController@customer_new');
+    //
+     Route::resource('customer_registration', CustomerRegistrationController::class);
 
     // Reasons
     Route::resource('commonreasons', CommonReasonsController::class);

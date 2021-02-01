@@ -15,7 +15,7 @@ class BillController extends Controller
 
         if ($request->ajax()) {
             $data = Bill::latest()->get();
-            return Datatables::of($data)
+            return Datatable::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
 
