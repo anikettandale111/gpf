@@ -97,16 +97,14 @@
                             <div class="card-box table-responsive">
                                 <table id="myTable" class="table table-hover table-bordered" cellspacing="0" width="100%">
                                     <thead>
-                                        <tr>
                                             <th> क्रं </th>
                                             <th>बिल नं</th>
                                             <th>बिल दिनांक </th>
                                             <th>रक्कम </th>
                                             <th>बिल धनादेश</th>
-                                            <th> धनादेश दिनांक</th>
-                                            <th> धनादेश क्रमांक </th>
+                                            <th>धनादेश दिनांक</th>
+                                            <th>धनादेश क्रमांक </th>
                                             <th>action</th>
-                                        </tr>
                                     </thead>
                                 </table>
                             </div>
@@ -120,4 +118,38 @@
 @endsection
 @push('custom-scripts')
 <script type="text/javascript" src="{{URL('js/bill-infromation-master.js')}}"></script>
+<script>
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+$(document).ready(function() {
+  $.ajax({
+    type: 'GET',
+    url: "{{url('/getLastBillNO')}}",
+    data: {_token: CSRF_TOKEN},
+    success: function (results) {
+      if(results == null){
+        var new_no = "{{Config::get('custom.gpf_bill_number')}}";
+      } else {
+        var new_no = parseInt(results) + 1;
+      }
+      $('#bill_no').val(new_no);
+    }
+  });
+  var table = $('#myTable').DataTable({
+    // processing: true,
+    serverSide: true,
+    ajax: "{{url('bill_information')}}",
+    columns: [
+      {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+      {data: 'bill_no', name: 'bill_no'},
+      {data: 'bill_date', name: 'bill_date'},
+      {data: 'amount', name: 'amount'},
+      {data: 'bill_check', name: 'bill_check'},
+      {data: 'check_date', name: 'check_date'},
+      {data: 'check_no', name: 'check_no'},
+      {data: 'action', name: 'action'}
+    ]
+  });
+});
+
+</script>
 @endpush

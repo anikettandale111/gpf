@@ -102,10 +102,14 @@ Route::middleware('auth')->group(function () {
     // Route::post('customer_update', 'CustomerRegistrationController@customer_update');
     // Route::post('customer_new', 'CustomerRegistrationController@customer_new');
     //
-     Route::resource('customer_registration', CustomerRegistrationController::class);
+    Route::resource('customer_registration', CustomerRegistrationController::class);
 
     // Reasons
     Route::resource('commonreasons', CommonReasonsController::class);
     // Application form
     Route::get('application_form', 'ApplicationController@application_form');
+    // Get Max GPF Number
+    Route::get('getLastGpfNo', 'ProvidingAccountController@getlast_gpfnumber');
+    // Get Max Bill Number
+    Route::get('getLastBillNO', 'BillController@getlast_billnumber');
 });

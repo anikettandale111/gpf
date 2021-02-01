@@ -88,5 +88,7 @@ class ProvidingAccountController extends Controller
      return ['id'=>$id];
 
    }
-
+  public function getlast_gpfnumber(){
+    return ganrate::max("gpf_no");
+  }
 }
