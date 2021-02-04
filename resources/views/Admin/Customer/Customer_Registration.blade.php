@@ -247,7 +247,6 @@
 $('#gpf_no').on('change', function() {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     var id = $(this).val();
-
     $.ajax({
         url: "{{url('customer_registration.edit')}}",
         type: 'post',

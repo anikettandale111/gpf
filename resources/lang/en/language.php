@@ -45,6 +45,8 @@ return [
 	'th_reasons_no'=>'Sr.No.',
 	'th_reasons_name_en'=>'Reason Name English',
 	'th_reasons_name_mar'=>'Reason Name Marathi',
+	'th_reasons_description_en'=>'Reason Description Marathi',
+	'th_reasons_description_mar'=>'Reason Description Marathi',
 	'th_reasons_action'=>'Action',
     'form_reasons'=>'Reason',
     // Table Department

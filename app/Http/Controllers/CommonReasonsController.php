@@ -45,12 +45,12 @@ class CommonReasonsController extends Controller
     }
     public function update(Request $request)
     {
-      DB::table('common_reasons')->where('cr_id', $request->district_id)->update(['reason_name_mar'=>$request->reason_name_mar,'reason_name_en'=>$request->reason_name_en,'reason_description_en'=>$request->reason_description_en,'reason_description_mar'=>$request->reason_description_mar]);
+      DB::table('common_reasons')->where('cr_id', $request->cr_id)->update(['reason_name_mar'=>$request->reason_name_mar,'reason_name_en'=>$request->reason_name_en,'reason_description_en'=>$request->reason_description_en,'reason_description_mar'=>$request->reason_description_mar]);
       Session::flash('success', 'Reason Updated successfully.');
     }
     public function destroy(Request $request)
     {
-      DB::table('common_reasons')->where('cr_id', $request->district_id)->delete();
+      DB::table('common_reasons')->where('cr_id', $request->cr_id)->delete();
       Session::flash('danger', 'Reason Deleted successfully.');
     }
 }
