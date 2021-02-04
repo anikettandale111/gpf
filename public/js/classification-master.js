@@ -68,7 +68,8 @@ function deleteConfirmation(id) {
         } else {
                 e.dismiss;
         }
-        }, function(dismiss) {
+        },
+        function(dismiss) {
             return false;
     });
 }

@@ -79,6 +79,10 @@ Route::middleware('auth')->group(function () {
     //Bill No
     Route::get('bill_information', 'BillController@index');
     Route::post('bill_insert', 'BillController@bill_insert');
+    Route::post('edit_bill','BillController@edit_bill');
+    Route::post('delete_bill','BillController@delete_bill');
+     // Get Max Bill Number
+     Route::get('getLastBillNO', 'BillController@getlast_billnumber');
 
     // Districts
     Route::resource('districts', DistrictsController::class);
@@ -110,6 +114,5 @@ Route::middleware('auth')->group(function () {
     Route::get('application_form', 'ApplicationController@application_form');
     // Get Max GPF Number
     Route::get('getLastGpfNo', 'ProvidingAccountController@getlast_gpfnumber');
-    // Get Max Bill Number
-    Route::get('getLastBillNO', 'BillController@getlast_billnumber');
+
 });
