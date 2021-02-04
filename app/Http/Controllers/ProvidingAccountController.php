@@ -20,16 +20,15 @@ class ProvidingAccountController extends Controller
             "departments.department_name_mar",
             "taluka.taluka_name_mar",
             "classifications.classification_name_mar",
+            "classifications.inital_letter",
             "designations.designation_name_mar",
             "bank.bank_name_mar",
-
             )
-
-        ->leftJoin("departments", "departments.id", "=", "ganrate_new_number.department")
-        ->leftJoin("taluka", "taluka.id", "=", "ganrate_new_number.taluka")
+        ->leftJoin("departments", "departments.id", "=", "ganrate_new_number.department_id")
+        ->leftJoin("taluka", "taluka.id", "=", "ganrate_new_number.taluka_id")
         ->leftJoin("classifications", "classifications.id", "=", "ganrate_new_number.classification")
-        ->leftJoin("designations", "designations.id", "=", "ganrate_new_number.designation")
-        ->leftJoin("bank", "bank.id", "=", "ganrate_new_number.bank")
+        ->leftJoin("designations", "designations.id", "=", "ganrate_new_number.designation_id")
+        ->leftJoin("bank", "bank.id", "=", "ganrate_new_number.bank_id")
         ->latest()->get();
         $data['classification'] = Classification::all();
         $data['taluka'] = Taluka::all();

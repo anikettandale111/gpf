@@ -103,6 +103,7 @@
                   <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms')}} <span class="fa fa-chevron-down"></span></a>
                      <ul class="nav child_menu">
                        <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li>
+                       <li><a href="{{url('commonforms')}}">{{trans('language.fr_common_application_form')}}</a></li>
                        <li><a href="javascript:;">{{trans('language.fr_application_form_amount_withdrawn')}}</a></li>
                        <li><a href="{{url('closed_account')}}">{{trans('language.fr_application_form_account_close')}}</a></li>
                        <li><a href="javascript:;">{{trans('language.fr_application_form_account_statement')}}</a></li>
@@ -198,8 +199,9 @@
         <!-- /top navigation -->
 
         <div class="right_col" role="main">
+        @include('Section.flash_messages')
         @yield('content')
-          </div>
+        </div>
 
          <!-- footer content -->
    <footer>

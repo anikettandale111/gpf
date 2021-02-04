@@ -218,24 +218,20 @@
                                         <thead>
                                             <tr>
                                                 <th> {{trans('language.th_providing_no')}} </th>
-                                                <!-- <th> {{trans('language.th_providing_classification')}} </th> -->
                                                 <th> {{trans('language.th_providing_b_n_n_no')}} </th>
-                                                <th> {{trans('language.th_providing_taluka')}} </th>
-                                                <th> {{trans('language.th_providing_department')}} </th>
                                                 <th> {{trans('language.th_providing_name')}} </th>
+                                                <th> {{trans('language.th_providing_department')}} </th>
                                                 <th> {{trans('language.th_providing_designation')}} </th>
-                                                <th> {{trans('language.th_providing_account_no')}} </th>
+                                                <th> {{trans('language.th_providing_taluka')}} </th>
                                                 <th> {{trans('language.th_providing_date_of_birth')}} </th>
                                                 <th> {{trans('language.th_providing_date_dated')}} </th>
                                                 <th> {{trans('language.th_providing_date_of_retirement')}} </th>
                                                 <th> {{trans('language.th_providing_letter_no')}} </th>
-                                                <th>{{trans('language.th_providing_branch')}} </th>
-                                                <th>{{trans('language.th_providing_bank')}} </th>
-                                                <th>{{trans('language.th_providing_i_f_s_c_code')}} </th>
-                                                <th> {{trans('language.th_providing_account_no')}}</th>
-
+                                                <th> {{trans('language.th_providing_bank')}} </th>
+                                                <th> {{trans('language.th_providing_branch')}} </th>
+                                                <th> {{trans('language.th_providing_account_no')}} </th>
+                                                <th> {{trans('language.th_providing_i_f_s_c_code')}} </th>
                                                 <th> {{trans('language.btn_action')}} </th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -245,19 +241,18 @@
                                                 <td>{{$loop->index+1}}</td>
                                                 <!-- <td>{{$temp->classification_name_mar}}</td> -->
                                                 <td>{{$temp->inital_letter}} {{$temp->gpf_no}}</td>
-                                                <td>{{$temp->taluka_name_mar }}</td>
+                                                <td>{{$temp->employee_name}}</td>
                                                 <td>{{$temp->department_name_mar}}</td>
-                                                <td>{{$temp->name}}</td>
                                                 <td>{{$temp->designation_name_mar}}</td>
-                                                <td>{{$temp->account_no}}</td>
-                                                <td>{{$temp->date_of_birthday}}</td>
-                                                <td>{{$temp->date_birth}}</td>
-                                                <td>{{$temp->date_dated}}</td>
+                                                <td>{{$temp->taluka_name_mar }}</td>
+                                                <td>{{$temp->date_of_birth}}</td>
+                                                <td>{{$temp->joining_date}}</td>
+                                                <td>{{$temp->retirement_date}}</td>
                                                 <td>{{$temp->c_v_letter}}</td>
-                                                <td>{{$temp->branch}}</td>
                                                 <td>{{$temp->bank_name_mar}}</td>
+                                                <td>{{$temp->branch_location}}</td>
+                                                <td>{{$temp->bank_account_no}}</td>
                                                 <td>{{$temp->ifsc_code}}</td>
-                                                <td>{{$temp->account_no}}</td>
                                                 <td>
                                                     <button class="btn btn-danger btn-flat btn-sm remove-user" data-id="{{ $temp->id }}" data-action="{{ url('ganrate_Delete','$temp->id') }}" onclick="deleteConfirmation('{{$temp->id}}')"> <i class="fa fa-trash"></i>
                                                     </button>

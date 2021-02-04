@@ -8,9 +8,7 @@ class ganrate extends Model
 {
       protected $table = 'ganrate_new_number';
 
-    protected $fillable = [
-
-            "classification","gpf_no","taluka_id","department","name","designation","account_no","c_v_letter",
-            "date_birth","date_dated","date_of_birthday","created_by","modified_by","yes","branch","bank","inital_letter","IFSC_code"
-    ];
+    protected $fillable = ["gpf_no","employee_id","inital_letter","classification","taluka_id","department_id","employee_name",
+                            "date_of_birth","designation_id","joining_date","retirement_date","retritment_reason","total_service","profile_photo","c_v_letter","bank_id","bank_account_no","branch_location","ifsc_code","gpf_no_status","is_active","is_delete"
+                          ];
 }

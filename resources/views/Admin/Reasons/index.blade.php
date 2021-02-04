@@ -34,6 +34,34 @@
         @endif
       </div>
       <div class="x_content">
+        <div class="form-group">
+          <!-- <h2>{{trans('language.form_reasons')}}</h2> -->
+          <form class="form-group" >
+            <div class="row">
+              {{csrf_field()}}
+              <input type="hidden" name="cr_id" id="cr_id" value="0">
+              <div class="col-sm-6">
+                <label>{{trans  ('language.th_reasons_name_en')}}</label>
+                <input class="form-control" type="text" name="reason_name_en" id="reason_name_en">
+              </div>
+              <div class="col-sm-6">
+                <label>{{trans('language.th_reasons_name_mar')}}</label>
+                <input class="form-control" type="text" name="reason_name_mar" id="reason_name_mar">
+              </div>
+              <div class="col-sm-6">
+                <label>{{trans  ('language.th_reasons_description_en')}}</label>
+                <input class="form-control" type="text" name="reason_description_en" id="reason_description_en">
+              </div>
+              <div class="col-sm-6">
+                <label>{{trans('language.th_reasons_description_mar')}}</label>
+                <input class="form-control" type="text" name="reason_description_mar" id="reason_description_mar">
+              </div>
+            </div>
+            <br>
+            <button type="button" class="btn btn-success" onclick="saveReasons()">{{trans('language.btn_save')}}</button>
+            <button type="button" class="btn btn-secondary" onclick="clearReasons();">{{trans('language.btn_cancel')}}</button>
+          </form>
+        </div>
         <div class="row">
           <div class="col-sm-12">
             <div class="card-box ">
@@ -69,32 +97,11 @@
               </table>
             </div>
           </div>
-          </div>
-          <div class="form-group">
-            <h2>{{trans('language.form_reasons')}}</h2>
-            <form class="form-group" >
-              {{csrf_field()}}
-              <input type="hidden" name="cr_id" id="cr_id" value="0">
-              <label>{{trans  ('language.th_reasons_name_en')}}</label>
-              <input class="form-control" type="text" name="reason_name_en" id="reason_name_en">
-              <br>
-              <label>{{trans('language.th_reasons_name_mar')}}</label>
-              <input class="form-control" type="text" name="reason_name_mar" id="reason_name_mar">
-              <br>
-              <label>{{trans  ('language.th_reasons_description_en')}}</label>
-              <input class="form-control" type="text" name="reason_description_en" id="reason_description_en">
-              <br>
-              <label>{{trans('language.th_reasons_description_mar')}}</label>
-              <input class="form-control" type="text" name="reason_description_mar" id="reason_description_mar">
-              <br>
-              <button type="button" class="btn btn-success" onclick="saveReasons()">{{trans('language.btn_save')}}</button>
-              <button type="button" class="btn btn-secondary" onclick="clearReasons();">{{trans('language.btn_cancel')}}</button>
-            </form>
-          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <script>
