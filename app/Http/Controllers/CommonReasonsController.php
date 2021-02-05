@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App;
-use Session;
-use DB;
+use Illuminate\Support\Facades\App;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Illuminate\Support\Facades\DB;
 
 class CommonReasonsController extends Controller
 {
