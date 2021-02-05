@@ -269,6 +269,7 @@
     <script src="{{asset('asset/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{asset('asset/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
     <script type="text/javascript" src="{{asset('asset/scripts/main.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/commonfunctions.js')}}"></script>
 
     @stack('custom-scripts')
 <script>

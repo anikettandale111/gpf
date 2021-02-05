@@ -81,6 +81,7 @@ return [
   'th_providing_taluka'=>'तालुका',
   'th_providing_department'=>'विभाग',
   'th_providing_name'=>'नाव',
+  'th_opening_balance'=>'प्रारंभिक शिल्लक',
   'th_providing_designation'=>'पदनाम',
   'th_providing_account_no'=>'खाते क्र.',
   'th_providing_date_of_birth'=>'जन्म दिनांक',

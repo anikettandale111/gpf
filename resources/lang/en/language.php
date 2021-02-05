@@ -81,6 +81,7 @@ return [
     'th_providing_taluka'=>'Taluka Name',
     'th_providing_department'=>'Department Name',
     'th_providing_name'=>'Name',
+    'th_opening_balance'=>'Opening Balance',
     'th_providing_designation'=>'Designation Name',
     'th_providing_account_no'=>'Account Number',
     'th_providing_date_of_birth'=>'Date of Birth',
