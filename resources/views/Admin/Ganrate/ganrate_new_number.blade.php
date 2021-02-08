@@ -17,26 +17,26 @@
 
         </div>
         <div class="x_content">
-          <form method="POST" class="validatedForm" action="{{ url('ganrate_insert_no') }}">
+          <form method="POST" class="validatedForm" action="{{ url('ganrate_insert_no') }}" enctype="multipart/form-data">
             @csrf
             <div class="row">
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_classification')}} </label>
                 <select class="form-control mySelect" name="classification_id">
-                  <option value="">-- निवडा वर्गीकरण --</option>
+                  <option value="">{{trans('language.th_providing_select_classification')}}</option>
                   @foreach($classification as $k => $v)
                   <option value="{{$v->id}}" data-letter="{{$v->inital_letter}}">{{$v->classification_name_mar}}</option>
                   @endforeach
                 </select>
               </div>
               <div class="form-group col-md-4">
-                <label for="gpf_no" >{{trans('language.th_providing_b_n_n_no')}}</label>
+                <label for="new_application_gpf_no" >{{trans('language.th_providing_application_number')}}</label>
                 <div class="row">
                   <div class="col-sm-2">
-                    <input id="inital_letter" type="text" class="form-control gpf_number" name="inital_letter" readonly>
+                    <input id="inital_letter" type="text" class="form-control app_number" name="inital_letter" readonly>
                   </div>
                   <div class="col-sm-10">
-                    <input id="gpf_no" type="text" class="form-control @error('gpf_no') is-invalid @enderror" name="gpf_no" value="{{ old('gpf_no') }}" placeholder="Enter The GPF Number" readonly>
+                    <input id="new_application_gpf_no" type="text" class="form-control @error('new_application_gpf_no') is-invalid @enderror" name="new_application_gpf_no" value="{{ old('new_application_gpf_no') }}" placeholder="Enter The GPF Number" readonly>
                   </div>
                 </div>
               </div>
@@ -46,8 +46,8 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_taluka')}}</label>
-                <select class="form-control  @error('taluka') is-invalid @enderror" name="taluka_id" value="{{ old('taluka') }}" autocomplete="taluka" autofocus>
-                  <option value="">-- निवडा तालुका --</option>
+                <select class="form-control  @error('taluka') is-invalid @enderror" name="taluka_id" value="{{ old('taluka') }}" autocomplete="off" autofocus>
+                  <option value="">{{trans('language.th_providing_select_taluka')}}</option>
                   @foreach($taluka as $k => $v)
                   <option value="{{$v->id}}">{{$v->taluka_name_mar}}</option>
                   @endforeach
@@ -55,8 +55,8 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_department')}}</label>
-                <select class="form-control  @error('department') is-invalid @enderror" name="department_id" value="{{ old('department') }}" required autocomplete="department" autofocus>
-                  <option value="">-- निवडा विभाग --</option>
+                <select class="form-control  @error('department') is-invalid @enderror" name="department_id" value="{{ old('department') }}" required autocomplete="off" autofocus>
+                  <option value="">{{trans('language.th_providing_select_department')}}</option>
                   @foreach($department as $k => $v)
                   <option value="{{$v->id}}">{{$v->department_name_mar}}</option>
                   @endforeach
@@ -65,12 +65,12 @@
 
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_name')}}</label>
-                <input type="text" name="employee_name" class="form-control @error('name') is-invalid @enderror" id="employee_name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                <input type="text" name="employee_name" class="form-control @error('name') is-invalid @enderror" id="employee_name" value="{{ old('name') }}" required autocomplete="off" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_designation')}}</label>
-                <select class="form-control  @error('designation') is-invalid @enderror" name="designation_id" value="{{ old('designation') }}" required autocomplete="designation" autofocus>
-                  <option value="">-- निवडा पदनाम --</option>
+                <select class="form-control  @error('designation') is-invalid @enderror" name="designation_id" value="{{ old('designation') }}" required autocomplete="off" autofocus>
+                  <option value="">{{trans('language.th_providing_select_designation')}}</option>
                   @foreach($designation as $k => $v)
                   <option value="{{$v->id}}">{{$v->designation_name_mar}}</option>
                   @endforeach
@@ -78,20 +78,20 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_date_of_birth')}}</label>
-                <input type="date" name="date_of_birthday" class="form-control @error('date_of_birthday') is-invalid @enderror" id="date_of_birthday" value="{{ old('date_of_birthday') }}" required autocomplete="date_of_birthday" autofocus>
+                <input type="date" name="date_of_birthday" class="form-control @error('date_of_birthday') is-invalid @enderror" id="date_of_birthday" value="{{ old('date_of_birthday') }}" required autocomplete="off" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_joining_date')}}</label>
-                <input type="date" name="joining_date" class="form-control @error('joining_date') is-invalid @enderror" id="joining_date" value="{{ old('joining_date') }}" required autocomplete="date_birth" autofocus>
+                <input type="date" name="joining_date" class="form-control @error('joining_date') is-invalid @enderror" id="joining_date" value="{{ old('joining_date') }}" required autocomplete="off" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_date_of_retirement')}}</label>
-                <input type="date" name="retirement_date" class="form-control @error('retirement_date') is-invalid @enderror" id="retirement_date" value="{{ old('retirement_date') }}" required autocomplete="date_dated" autofocus>
+                <input type="date" name="retirement_date" class="form-control @error('retirement_date') is-invalid @enderror" id="retirement_date" value="{{ old('retirement_date') }}" required autocomplete="off" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label >{{trans('language.th_providing_bank')}} <span class="required"></span></label>
                 <select class="form-control" name="bank_id" id="bank_id" >
-                  <option value="">-- निवडा बँकेत --</option>
+                  <option value="">{{trans('language.th_providing_select_bank')}}</option>
                   @foreach ($bank as $bank)
                   <option value="{{$bank->id}}">{{$bank->bank_name_mar}}</option>
                   @endforeach
@@ -107,20 +107,36 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_account_no')}}</label>
-                <input name="bank_account_no" class="allow-numbers form-control @error('bank_account_no') is-invalid @enderror" id="account_no" value="{{ old('bank_account_no') }}" required autocomplete="bank_account_no" autofocus>
+                <input name="bank_account_no" class="allow-numbers form-control @error('bank_account_no') is-invalid @enderror" id="account_no" value="{{ old('bank_account_no') }}" required autocomplete="off" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_opening_balance')}}</label>
-                <input type="text" name="opening_balance" class="allow-numbers form-control @error('opening_balance') is-invalid @enderror" id="opening_balance" value="{{ old('opening_balance') }}" required autocomplete="name" autofocus>
+                <input type="text" name="opening_balance" class="allow-numbers form-control @error('opening_balance') is-invalid @enderror" id="opening_balance" value="{{ old('opening_balance') }}" required autocomplete="off" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_letter_no')}}</label>
-                <input type="text" name="c_v_letter" class="form-control @error('c_v_letter') is-invalid @enderror" id="c_v_letter" value="{{ old('c_v_letter') }}" required autocomplete="c_v_letter" autofocus>
+                <input type="text" name="c_v_letter" class="form-control @error('c_v_letter') is-invalid @enderror" id="c_v_letter" value="{{ old('c_v_letter') }}" required autocomplete="off" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_whether_to_a_n')}}</label><br>
-                <input type="radio" name="gpf_no_status" class="@error('yes') is-invalid @enderror" id="yes" value="1" required autocomplete="yes" autofocus> होय
-                <input type="radio" name="gpf_no_status" class=" @error('yes') is-invalid @enderror" id="no" value="0" required autocomplete="yes" autofocus checked> नाही
+                <input type="radio" name="gpf_no_status" class="@error('yes') is-invalid @enderror" id="yes" value="1" required autocomplete="off" autofocus> {{trans('language.th_providing_gpf_yes_status')}}
+                <input type="radio" name="gpf_no_status" class=" @error('yes') is-invalid @enderror" id="no" value="0" required autocomplete="off" autofocus checked> {{trans('language.th_providing_gpf_no_status')}}
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name" >{{trans('language.th_providing_attachment_one')}}</label>
+                <input type="file" name="attachment_one" class="form-control @error('attachment_one') is-invalid @enderror" id="attachment_one" required >
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name" >{{trans('language.th_providing_attachment_two')}}</label>
+                <input type="file" name="attachment_two" class="form-control @error('attachment_two') is-invalid @enderror" id="attachment_two" required >
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name" >{{trans('language.th_providing_attachment_three')}}</label>
+                <input type="file" name="attachment_three" class="form-control @error('attachment_three') is-invalid @enderror" id="attachment_three" required >
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name" >{{trans('language.th_providing_attachment_four')}}</label>
+                <input type="file" name="attachment_four" class="form-control @error('attachment_four') is-invalid @enderror" id="attachment_four" required >
               </div>
             </div>
 
@@ -166,7 +182,7 @@
                     <thead>
                       <tr>
                         <th> {{trans('language.th_providing_no')}} </th>
-                        <th> {{trans('language.th_providing_b_n_n_no')}} </th>
+                        <th> {{trans('language.th_providing_application_number')}} </th>
                         <th> {{trans('language.th_providing_name')}} </th>
                         <th> {{trans('language.th_providing_department')}} </th>
                         <th> {{trans('language.th_providing_designation')}} </th>
@@ -267,7 +283,7 @@
     function deleteConfirmation(id) {
       swal({
         title: "Delete?",
-        text: "Please    and then confirm!",
+        text: "Please confirm!",
         type: "warning",
         showCancelButton: !0,
         confirmButtonText: "Yes, delete it!",
@@ -303,10 +319,10 @@
     $('.mySelect').on('change', function() {
       var value = $(this);
       var option = $('option:selected', this).attr('data-letter');
-      $('.gpf_number').val(option);
+      $('.app_number').val(option);
       $.ajax({
         type: 'GET',
-        url: "{{url('/getLastGpfNo')}}",
+        url: "{{url('/getLastApplicationNo')}}",
         data: {
           _token: CSRF_TOKEN
         },
@@ -316,7 +332,7 @@
           } else {
             var new_no =  "{{Config::get('custom.gpf_no_prefix_text')}}"+(parseInt(results) + 1);
           }
-          $('#gpf_no').val(new_no);
+          $('#new_application_gpf_no').val(new_no);
         }
       });
     });
