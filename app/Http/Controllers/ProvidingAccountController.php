@@ -3,20 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use App\Department;
 use App\Classification;
 use App\Designation;
 use App\ganrate;
+use App\GenerateApplication;
 use App\Taluka;
 use App\Bank;
-use Illuminate\Support\Facades\DB;
 
 class ProvidingAccountController extends Controller
 {
   public function index()
   {
-    $data['ganrate'] = ganrate::select(
-      "ganrate_new_number.*",
+    // $data['ganrate'] = GenerateApplication::select(
+    //   "gpf_number_application.*",
+    //   "departments.department_name_mar",
+    //   "taluka.taluka_name_mar",
+    //   "classifications.classification_name_mar",
+    //   "classifications.inital_letter",
+    //   "designations.designation_name_mar",
+    //   "bank.bank_name_mar",
+    //   )
+    //   ->leftJoin("departments", "departments.id", "=", "gpf_number_application.department_id")
+    //   ->leftJoin("taluka", "taluka.id", "=", "gpf_number_application.taluka_id")
+    //   ->leftJoin("classifications", "classifications.id", "=", "gpf_number_application.classification_id")
+    //   ->leftJoin("designations", "designations.id", "=", "gpf_number_application.designation_id")
+    //   ->leftJoin("bank", "bank.id", "=", "gpf_number_application.bank_id")
+    //   ->latest()->get();
+    $data['ganrate'] = GenerateApplication::select(
+      "gpf_number_application.*",
       "departments.department_name_mar",
       "taluka.taluka_name_mar",
       "classifications.classification_name_mar",
@@ -24,11 +41,11 @@ class ProvidingAccountController extends Controller
       "designations.designation_name_mar",
       "bank.bank_name_mar",
       )
-      ->leftJoin("departments", "departments.id", "=", "ganrate_new_number.department_id")
-      ->leftJoin("taluka", "taluka.id", "=", "ganrate_new_number.taluka_id")
-      ->leftJoin("classifications", "classifications.id", "=", "ganrate_new_number.classification_id")
-      ->leftJoin("designations", "designations.id", "=", "ganrate_new_number.designation_id")
-      ->leftJoin("bank", "bank.id", "=", "ganrate_new_number.bank_id")
+      ->leftJoin("departments", "departments.id", "=", "gpf_number_application.department_id")
+      ->leftJoin("taluka", "taluka.id", "=", "gpf_number_application.taluka_id")
+      ->leftJoin("classifications", "classifications.id", "=", "gpf_number_application.classification_id")
+      ->leftJoin("designations", "designations.id", "=", "gpf_number_application.designation_id")
+      ->leftJoin("bank", "bank.id", "=", "gpf_number_application.bank_id")
       ->latest()->get();
       $data['classification'] = Classification::all();
       $data['taluka'] = Taluka::all();
@@ -53,10 +70,10 @@ class ProvidingAccountController extends Controller
 
     public function ganrate_insert_no(Request $request)
     {
-      $Newdeposit = new ganrate;
+      $Newdeposit = new GenerateApplication;
       $Newdeposit->classification_id=$request->classification_id;
       $Newdeposit->inital_letter=$request->inital_letter;
-      $Newdeposit->gpf_no=$request->gpf_no;
+      $Newdeposit->app_no=$request->new_application_gpf_no;
       $Newdeposit->employee_id=$request->employee_id;
       $Newdeposit->taluka_id=$request->taluka_id;
       $Newdeposit->department_id=$request->department_id;
@@ -73,6 +90,14 @@ class ProvidingAccountController extends Controller
       $Newdeposit->opening_balance=$request->opening_balance;
       $Newdeposit->c_v_letter=$request->c_v_letter;
       $Newdeposit->gpf_no_status=$request->gpf_no_status;
+      if($request->attachment_one)
+        $Newdeposit->attachment_one = $request->file('attachment_one')->store('Files');
+      if($request->attachment_two)
+        $Newdeposit->attachment_two = $request->file('attachment_two')->store('Files');
+      if($request->attachment_three)
+        $Newdeposit->attachment_three = $request->file('attachment_three')->store('Files');
+      if($request->attachment_four)
+        $Newdeposit->attachment_four = $request->file('attachment_four')->store('Files');
       $Newdeposit->save();
       return redirect ('ganrate_new_number')->with('success',' Data  Successfully');
 
@@ -97,6 +122,9 @@ class ProvidingAccountController extends Controller
 
     }
     public function getlast_gpfnumber(){
-      return ganrate::max("gpf_no");
+      return ganrate::max("app_no");
+    }
+    public function getLastApplicationNo(){
+      return GenerateApplication::max("app_no");
     }
   }

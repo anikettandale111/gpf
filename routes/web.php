@@ -117,6 +117,6 @@ Route::middleware('auth')->group(function () {
     // Application form
     Route::get('application_form', 'ApplicationController@application_form');
     // Get Max GPF Number
-    Route::get('getLastGpfNo', 'ProvidingAccountController@getlast_gpfnumber');
+    Route::get('getLastApplicationNo', 'ProvidingAccountController@getLastApplicationNo');
 
 });
