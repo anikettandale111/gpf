@@ -307,10 +307,11 @@
           _token: CSRF_TOKEN
         },
         success: function(results) {
-          if (results == null) {
-            var new_no = "{{Config::get('custom.gpf_no_prefix_text')}}";
+          var prefix = parseInt("{{Config::get('custom.gpf_no_prefix_text')}}");
+          if (results == null || results == '') {
+            var new_no = "{{Config::get('custom.gpf_no_prefix_text')}}"+1;
           } else {
-            var new_no = "{{Config::get('custom.gpf_no_prefix_text')}}" + (parseInt(results) + 1);
+            var new_no =  "{{Config::get('custom.gpf_no_prefix_text')}}"+(parseInt(results) + 1);
           }
           $('#gpf_no').val(new_no);
         }
