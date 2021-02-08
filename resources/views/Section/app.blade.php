@@ -104,6 +104,7 @@
                      <ul class="nav child_menu">
                        <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li>
                        <li><a href="{{url('commonforms')}}">{{trans('language.fr_common_application_form')}}</a></li>
+                       <li><a href="{{url('listcommonforms')}}">{{trans('language.fr_common_application_form_list')}}</a></li>
                        <li><a href="javascript:;">{{trans('language.fr_application_form_amount_withdrawn')}}</a></li>
                        <li><a href="{{url('closed_account')}}">{{trans('language.fr_application_form_account_close')}}</a></li>
                        <li><a href="javascript:;">{{trans('language.fr_application_form_account_statement')}}</a></li>

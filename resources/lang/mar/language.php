@@ -159,7 +159,12 @@ return [
   'th_user_registration_department'=>'विभाग',
   'th_user_registration_created'=>'तयार केले',
   // Common Application Form
+  'fr_common_new_application' => 'नवीन अर्ज करा',
+  'fr_common_application_list' => 'आलेले अर्ज बघा',
+  'fr_common_application_form_list' => 'कार्यालय प्रमुखास आलेले अर्ज',
   'fr_common_application_form' => 'कर्मचाऱ्याने कार्यालय प्रमुखास अर्ज करणे',
+  'fr_common_app_number' => 'क्रमांक',
+  'fr_common_app_date' => 'अर्ज दिनांक',
   'fr_common_application_form_number' => 'अर्ज क्रमांक',
   'fr_common_gpf_no' => 'भं.नि.नि. क्रमांक',
   'fr_common_user_name' => 'कर्मचारी नाव',
