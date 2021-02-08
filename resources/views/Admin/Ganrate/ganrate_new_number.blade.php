@@ -307,7 +307,6 @@
           _token: CSRF_TOKEN
         },
         success: function(results) {
-          var prefix = parseInt("{{Config::get('custom.gpf_no_prefix_text')}}");
           if (results == null || results == '') {
             var new_no = "{{Config::get('custom.gpf_no_prefix_text')}}"+1;
           } else {
