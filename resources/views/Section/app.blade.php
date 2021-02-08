@@ -130,14 +130,20 @@
                     </ul>
                   </li>
                   <li><a href="{{url('user_registration')}}"> <i class="fa fa-users"></i>वापरकर्त्यांची नोंदणी</a></li>
-                  <li><a href="{{url('closed_account')}}"> <i class="fa fa-users"></i>खाते बंद करणे  </a></li>
+
                   <li><a href="{{url('bill_information')}}"> <i class="fa fa-users"></i>बिल माहिती </a></li>
                   <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>७ वा वेतन आयोग फरक जमा </a></li>
                   <li><a href="{{url('Year')}}"> <i class="fa fa-users"></i>वर्षाचे व्याज दर भरणे </a></li>
+                  <li><a><i class="fa fa-bug"></i> मासिक बदल  <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                    <li><a href="{{url('closed_account')}}"> <i class="fa fa-users"></i>खाते बंद करणे  </a></li>
+                      <li><a href="{{url('monthly_chalan')}}">मासिक चलन खतावणी</a></li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
 
-            </div>
+           </div>
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->

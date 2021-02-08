@@ -115,6 +115,15 @@ $(document).ready(function() {
 
         $(document).on('click', '.deleteBill', function() {
             var id = $(this).attr('data-id');
+            swal({
+                    title: "Delete?",
+                         text: "Please  and then confirm!",
+                         type: "warning",
+                         showCancelButton: !0,
+                         confirmButtonText: "Yes, delete it!",
+                         cancelButtonText: "No, cancel!",
+                         reverseButtons: !0
+                        });
 
             $.ajax({
                 url: "delete_bill",
@@ -123,6 +132,7 @@ $(document).ready(function() {
                 success: function(data){
 
                     location.reload();
+
                 }
 
 

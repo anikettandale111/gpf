@@ -22,7 +22,7 @@
             <div class="row">
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_classification')}} </label>
-                <select class="form-control mySelect" name="classification">
+                <select class="form-control mySelect" name="classification_id">
                   <option value="">-- निवडा वर्गीकरण --</option>
                   @foreach($classification as $k => $v)
                   <option value="{{$v->id}}" data-letter="{{$v->inital_letter}}">{{$v->classification_name_mar}}</option>

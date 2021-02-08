@@ -13,7 +13,7 @@ class ganrate extends Model
         "gpf_n",
         "employee_i",
         "inital_lette",
-        "classification_i",
+        "classification_id",
         "taluka_i",
         "department_i",
         "employee_nam",

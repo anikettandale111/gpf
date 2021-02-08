@@ -37,7 +37,7 @@ return [
   'h_taluka_filling_taluka_head_quarters'=>'तालुका मुख्यालय संकेताक भरणे',
   'th_taluka_no' => 'क्रमांक',
   'th_taluka_name_en' => 'तालुका नाव इंग्लिश ',
-  'th_taluka_name_mar' => 'तालुकाा नाव मराठी',
+  'th_taluka_name_mar' => 'तालुका नाव मराठी',
   'th_districts_name' => 'जिल्हा  नाव ',
   'th_taluka_action' => 'क्रिया',
   'form_taluka' => 'तालुका',

@@ -10,6 +10,7 @@ class Department extends Model
 
     protected $fillable = [
 
-     "id","department_name_en","department_name_mar","created_at","updated_at"
+        "id", "department_name_en", "department_name_mar", "taluka_id", "created_at", "updated_at"
     ];
 }
+

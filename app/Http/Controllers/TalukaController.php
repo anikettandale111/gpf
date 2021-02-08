@@ -25,7 +25,7 @@ class TalukaController extends Controller
     }
     public function Year_Insert_Data(Request $request)
     {
-        $Newyear= new year();
+        $Newyear= new Year();
         $Newyear->year=$request->year;
         $Newyear->percent=$request->percent;
         $Newyear->from_month=$request->from_month;
