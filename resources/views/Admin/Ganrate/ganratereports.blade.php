@@ -131,7 +131,7 @@
 
         <div align="justify" style="margin-bottom: 0.14in">
             <p>
-                उपरोक्त संदर्भियविषयान्वये श्री /श्रीमती .<b> {{ $ganratereports->name }} </b> यांना भविष्य निर्वाह निधी योजना लेखाक्रमांक प्रदान करण्यात येत आहे.
+                उपरोक्त संदर्भियविषयान्वये श्री /श्रीमती .<b> {{ $ganratereports->employee_name }} ({{$ganratereports->designation_name}})</b> यांना भविष्य निर्वाह निधी योजना लेखाक्रमांक प्रदान करण्यात येत आहे.
                 सदर लेखाक्रमांक महाराष्ट्र सर्वसाधारण भविष्य निर्वाह निधी नियम 1998 चे नियम 4 ते 8 च्या अटी व शर्तीच्या अधिन राहुन प्रदान करण्यांत येत आहे.
             </P>
         </div>
@@ -145,10 +145,10 @@
             </tr>
             <tr>
                 <td>{{$ganratereports->id}}</td>
-                <td>{{ $ganratereports->name }}</td>
-                <td>{{ $ganratereports->designation }}</td>
-                <td>{{ $ganratereports->taluka }}</td>
-                <td>{{ $ganratereports->b_no }}</td>
+                <td>{{ $ganratereports->employee_name }}</td>
+                <td>{{ $ganratereports->designation_name }}</td>
+                <td>{{ $ganratereports->taluka_name }}</td>
+                <td>{{ $ganratereports->gpf_no }}</td>
             </tr>
         </table>
         <P> भविष्य निर्वाह निधी नविन लेखा क्रमांकाबाबत आपले स्तरावरुन खालील

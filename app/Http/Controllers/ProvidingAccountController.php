@@ -67,6 +67,7 @@ class ProvidingAccountController extends Controller
     $Newdeposit->date_of_birthday=$request->date_of_birthday;
     $Newdeposit->date_birth=$request->date_birth;
     $Newdeposit->date_dated=$request->date_dated;
+    $Newdeposit->opening_balance=$request->opening_balance;
     $Newdeposit->c_v_letter=$request->c_v_letter;
     $Newdeposit->bank=$request->bank;
     $Newdeposit->branch=$request->branch;
@@ -76,9 +77,16 @@ class ProvidingAccountController extends Controller
     return redirect ('ganrate_new_number')->with('success',' Data  Successfully');
 
   }
-  public function ganrate_reports($id)
+  public function assigned_gpf_number($id)
   {
-     $ganratereports=ganrate::where('id', $id)->first();
+     // $ganratereports=ganrate::where('id', $id)->first();
+     $lang = app()->getLocale();
+     $ganratereports=DB::table('ganrate_new_number as gn')
+                        ->leftJoin('designations as de','de.id','=','gn.designation_id')
+                        ->leftJoin('taluka as tl','tl.id','=','gn.taluka_id')
+                        ->select('gn.id','gn.c_v_letter','gn.gpf_no','gn.employee_name','de.designation_name_'.$lang.' as designation_name','tl.taluka_name_'.$lang.' as taluka_name',
+                          'gn.created_at')
+                        ->where('gn.id', $id)->first();
      return view ('Admin.Ganrate.ganratereports', compact('ganratereports'));
   }
 

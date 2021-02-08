@@ -167,14 +167,14 @@
                         <th> {{trans('language.th_providing_department')}} </th>
                         <th> {{trans('language.th_providing_designation')}} </th>
                         <th> {{trans('language.th_providing_taluka')}} </th>
-                        <th> {{trans('language.th_providing_date_of_birth')}} </th>
+                        <!-- <th> {{trans('language.th_providing_date_of_birth')}} </th>
                         <th> {{trans('language.th_providing_date_dated')}} </th>
                         <th> {{trans('language.th_providing_date_of_retirement')}} </th>
                         <th> {{trans('language.th_providing_letter_no')}} </th>
                         <th> {{trans('language.th_providing_bank')}} </th>
                         <th> {{trans('language.th_providing_branch')}} </th>
                         <th> {{trans('language.th_providing_account_no')}} </th>
-                        <th> {{trans('language.th_providing_i_f_s_c_code')}} </th>
+                        <th> {{trans('language.th_providing_i_f_s_c_code')}} </th> -->
                         <th> {{trans('language.btn_action')}} </th>
                       </tr>
                     </thead>
@@ -189,24 +189,23 @@
                         <td>{{$temp->department_name_mar}}</td>
                         <td>{{$temp->designation_name_mar}}</td>
                         <td>{{$temp->taluka_name_mar }}</td>
-                        <td>{{$temp->date_of_birth}}</td>
+                        <!-- <td>{{$temp->date_of_birth}}</td>
                         <td>{{$temp->joining_date}}</td>
                         <td>{{$temp->retirement_date}}</td>
                         <td>{{$temp->c_v_letter}}</td>
                         <td>{{$temp->bank_name_mar}}</td>
                         <td>{{$temp->branch_location}}</td>
                         <td>{{$temp->bank_account_no}}</td>
-                        <td>{{$temp->ifsc_code}}</td>
+                        <td>{{$temp->ifsc_code}}</td> -->
                         <td>
-                          <button class="btn btn-danger btn-flat btn-sm remove-user" data-id="{{ $temp->id }}" data-action="{{ url('ganrate_Delete','$temp->id') }}" onclick="deleteConfirmation('{{$temp->id}}')"> <i class="fa fa-trash"></i>
-                          </button>
-                          <a href="{{url('ganrate_reports',$temp->id)}}">
-                            <button type="button" class="btn btn-success "><i class="fa fa-print" aria-hidden="true"></i> </button></a>
+                          <!-- <button class="btn btn-danger btn-flat btn-sm remove-user" data-id="{{ $temp->id }}" data-action="{{ url('ganrate_Delete','$temp->id') }}" onclick="deleteConfirmation('{{$temp->id}}')"> <i class="fa fa-trash"></i>
+                          </button> -->
+                          <a href="{{url('assigned_gpf_number',$temp->id)}}" target="_blank">
+                            <button type="button" class="btn btn-success "><i class="fa fa-eye" aria-hidden="true"></i> </button></a>
                           </td>
                         </tr>
                         @endforeach
                         @endif
-
                       </tbody>
                     </table>
                   </div>
