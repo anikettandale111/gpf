@@ -33,7 +33,7 @@
                 <label for="gpf_no" >{{trans('language.th_providing_b_n_n_no')}}</label>
                 <div class="row">
                   <div class="col-sm-2">
-                    <input id="bno" type="text" class="form-control gpf_number" name="inital_letter" readonly>
+                    <input id="inital_letter" type="text" class="form-control gpf_number" name="inital_letter" readonly>
                   </div>
                   <div class="col-sm-10">
                     <input id="gpf_no" type="text" class="form-control @error('gpf_no') is-invalid @enderror" name="gpf_no" value="{{ old('gpf_no') }}" placeholder="Enter The GPF Number" readonly>
@@ -41,8 +41,12 @@
                 </div>
               </div>
               <div class="form-group col-md-4">
+                <label > {{trans('language.th_providing_employee_seva_number')}} <span class="required"></span></label>
+                <input class="form-control" type="text" name="employee_id" id="employee_id" required='required'>
+              </div>
+              <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_taluka')}}</label>
-                <select class="form-control  @error('taluka') is-invalid @enderror" name="taluka" value="{{ old('taluka') }}" autocomplete="taluka" autofocus>
+                <select class="form-control  @error('taluka') is-invalid @enderror" name="taluka_id" value="{{ old('taluka') }}" autocomplete="taluka" autofocus>
                   <option value="">-- निवडा तालुका --</option>
                   @foreach($taluka as $k => $v)
                   <option value="{{$v->id}}">{{$v->taluka_name_mar}}</option>
@@ -51,7 +55,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_department')}}</label>
-                <select class="form-control  @error('department') is-invalid @enderror" name="department" value="{{ old('department') }}" required autocomplete="department" autofocus>
+                <select class="form-control  @error('department') is-invalid @enderror" name="department_id" value="{{ old('department') }}" required autocomplete="department" autofocus>
                   <option value="">-- निवडा विभाग --</option>
                   @foreach($department as $k => $v)
                   <option value="{{$v->id}}">{{$v->department_name_mar}}</option>
@@ -61,11 +65,11 @@
 
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_name')}}</label>
-                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                <input type="text" name="employee_name" class="form-control @error('name') is-invalid @enderror" id="employee_name" value="{{ old('name') }}" required autocomplete="name" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_designation')}}</label>
-                <select class="form-control  @error('designation') is-invalid @enderror" name="designation" value="{{ old('designation') }}" required autocomplete="designation" autofocus>
+                <select class="form-control  @error('designation') is-invalid @enderror" name="designation_id" value="{{ old('designation') }}" required autocomplete="designation" autofocus>
                   <option value="">-- निवडा पदनाम --</option>
                   @foreach($designation as $k => $v)
                   <option value="{{$v->id}}">{{$v->designation_name_mar}}</option>
@@ -77,16 +81,16 @@
                 <input type="date" name="date_of_birthday" class="form-control @error('date_of_birthday') is-invalid @enderror" id="date_of_birthday" value="{{ old('date_of_birthday') }}" required autocomplete="date_of_birthday" autofocus>
               </div>
               <div class="form-group col-md-4">
-                <label for="name" >{{trans('language.th_providing_date_dated')}}</label>
-                <input type="date" name="date_birth" class="form-control @error('date_birth') is-invalid @enderror" id="date_birth" value="{{ old('date_birth') }}" required autocomplete="date_birth" autofocus>
+                <label for="name" >{{trans('language.th_providing_joining_date')}}</label>
+                <input type="date" name="joining_date" class="form-control @error('joining_date') is-invalid @enderror" id="joining_date" value="{{ old('joining_date') }}" required autocomplete="date_birth" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_date_of_retirement')}}</label>
-                <input type="date" name="date_dated" class="form-control @error('date_dated') is-invalid @enderror" id="date_dated" value="{{ old('date_dated') }}" required autocomplete="date_dated" autofocus>
+                <input type="date" name="retirement_date" class="form-control @error('retirement_date') is-invalid @enderror" id="retirement_date" value="{{ old('retirement_date') }}" required autocomplete="date_dated" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label >{{trans('language.th_providing_bank')}} <span class="required"></span></label>
-                <select class="form-control" name="bank" id="bank" >
+                <select class="form-control" name="bank_id" id="bank_id" >
                   <option value="">-- निवडा बँकेत --</option>
                   @foreach ($bank as $bank)
                   <option value="{{$bank->id}}">{{$bank->bank_name_mar}}</option>
@@ -95,7 +99,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label > {{trans('language.th_providing_branch')}} <span class="required"></span></label>
-                <input class="form-control" type="text" name="branch" id="branch" required='required'>
+                <input class="form-control" type="text" name="branch_location" id="branch_location" required='required'>
               </div>
               <div class="form-group col-md-4">
                 <label > {{trans('language.th_providing_i_f_s_c_code')}} <span class="required"></span></label>
@@ -103,7 +107,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_account_no')}}</label>
-                <input name="account_no" class="allow-numbers form-control @error('account_no') is-invalid @enderror" id="account_no" value="{{ old('account_no') }}" required autocomplete="account_no" autofocus>
+                <input name="bank_account_no" class="allow-numbers form-control @error('bank_account_no') is-invalid @enderror" id="account_no" value="{{ old('bank_account_no') }}" required autocomplete="bank_account_no" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_opening_balance')}}</label>
@@ -115,8 +119,8 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_whether_to_a_n')}}</label><br>
-                <input type="radio" name="yes" class="@error('yes') is-invalid @enderror" id="yes" value="1" required autocomplete="yes" autofocus> होय
-                <input type="radio" name="yes" class=" @error('yes') is-invalid @enderror" id="yes" value="0" required autocomplete="yes" autofocus> नाही
+                <input type="radio" name="gpf_no_status" class="@error('yes') is-invalid @enderror" id="yes" value="1" required autocomplete="yes" autofocus> होय
+                <input type="radio" name="gpf_no_status" class=" @error('yes') is-invalid @enderror" id="no" value="0" required autocomplete="yes" autofocus checked> नाही
               </div>
             </div>
 
