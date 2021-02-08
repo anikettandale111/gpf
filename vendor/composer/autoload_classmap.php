@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Account' => $baseDir . '/app/Account.php',
+    'App\\ApplicationsForms' => $baseDir . '/app/ApplicationsForms.php',
     'App\\Bank' => $baseDir . '/app/Bank.php',
     'App\\Bill' => $baseDir . '/app/Bill.php',
     'App\\Chalan' => $baseDir . '/app/Chalan.php',
@@ -29,6 +30,7 @@ return array(
     'App\\Http\\Controllers\\BillController' => $baseDir . '/app/Http/Controllers/BillController.php',
     'App\\Http\\Controllers\\ChalanController' => $baseDir . '/app/Http/Controllers/ChalanController.php',
     'App\\Http\\Controllers\\ClassificationMasterController' => $baseDir . '/app/Http/Controllers/ClassificationMasterController.php',
+    'App\\Http\\Controllers\\CommonApplicationController' => $baseDir . '/app/Http/Controllers/CommonApplicationController.php',
     'App\\Http\\Controllers\\CommonReasonsController' => $baseDir . '/app/Http/Controllers/CommonReasonsController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\CustomerRegistrationController' => $baseDir . '/app/Http/Controllers/CustomerRegistrationController.php',

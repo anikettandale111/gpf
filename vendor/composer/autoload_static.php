@@ -511,6 +511,7 @@ class ComposerStaticInitde1378d07c0fe6ede367c6e603ad2cca
 
     public static $classMap = array (
         'App\\Account' => __DIR__ . '/../..' . '/app/Account.php',
+        'App\\ApplicationsForms' => __DIR__ . '/../..' . '/app/ApplicationsForms.php',
         'App\\Bank' => __DIR__ . '/../..' . '/app/Bank.php',
         'App\\Bill' => __DIR__ . '/../..' . '/app/Bill.php',
         'App\\Chalan' => __DIR__ . '/../..' . '/app/Chalan.php',
@@ -533,6 +534,7 @@ class ComposerStaticInitde1378d07c0fe6ede367c6e603ad2cca
         'App\\Http\\Controllers\\BillController' => __DIR__ . '/../..' . '/app/Http/Controllers/BillController.php',
         'App\\Http\\Controllers\\ChalanController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChalanController.php',
         'App\\Http\\Controllers\\ClassificationMasterController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClassificationMasterController.php',
+        'App\\Http\\Controllers\\CommonApplicationController' => __DIR__ . '/../..' . '/app/Http/Controllers/CommonApplicationController.php',
         'App\\Http\\Controllers\\CommonReasonsController' => __DIR__ . '/../..' . '/app/Http/Controllers/CommonReasonsController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CustomerRegistrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/CustomerRegistrationController.php',

@@ -35,6 +35,7 @@ class CreateGanrateNewNumberTable extends Migration
              $table->string('bank_account_no')->nullable();
              $table->string('branch_location')->nullable();
              $table->string('ifsc_code')->nullable();
+             $table->double('opening_balance', 10, 2);
              $table->boolean('gpf_no_status')->default(1)->comment('0 No,1 Yes');
              $table->boolean('is_active')->default(1)->comment('0 Inactive,1 Active');
              $table->boolean('is_delete')->default(1)->comment('0 deleted,1 not-deleted');
