@@ -8,9 +8,8 @@
         <div class="x_title">
           <h2>{{trans('language.fr_common_application_form')}}</h2>
           <ul class="nav navbar-right panel_toolbox">
-            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            <li>
+              <a href="{{url('listcommonforms')}}" class="btn btn-primary">{{trans('language.fr_common_application_list')}}</a>
             </li>
           </ul>
           <div class="clearfix"></div>
@@ -120,6 +119,7 @@
       </div>
     </div>
   </div>
+</div>
   @endsection
   @push('custom-scripts')
   <script type="text/javascript" src="{{URL('js/common-forms.js')}}"></script>

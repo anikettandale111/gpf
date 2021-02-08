@@ -105,12 +105,14 @@ Route::middleware('auth')->group(function () {
     // Route::get('customer_edit/{id}', 'CustomerRegistrationController@customer_edit');
     // Route::post('customer_update', 'CustomerRegistrationController@customer_update');
     // Route::post('customer_new', 'CustomerRegistrationController@customer_new');
-    //
+
     Route::resource('customer_registration', CustomerRegistrationController::class);
     // Common Application Forms
     Route::get('getLastApplicationNumber', 'CommonApplicationController@getLastApplicationNumber');
     Route::get('getuserdetailsbygpfno', 'CommonApplicationController@getuserdetailsbygpfno');
     // Common Application Forms
+    Route::get('listcommonforms', 'CommonApplicationController@listcommonforms');
+    Route::get('viewapplication/{id?}', 'CommonApplicationController@viewapplication');
     Route::resource('commonforms', CommonApplicationController::class);
     // Reasons
     Route::resource('commonreasons', CommonReasonsController::class);
