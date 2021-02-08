@@ -69,7 +69,7 @@ $(document).ready(function() {
     if(lg == 5){
       setTimeout(function(){
         getdetails();
-      },500);
+      },200);
     }
   });
   $('#user_withdrawn_amount').focusout(function(e){

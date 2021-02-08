@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
     //Providing Account Number
     Route::get('ganrate_new_number', 'ProvidingAccountController@index');
     Route::post('ganrate_insert_no', 'ProvidingAccountController@ganrate_insert_no');
-    Route::get('ganrate_reports/{id}', 'ProvidingAccountController@ganrate_reports');
+    Route::get('assigned_gpf_number/{id}', 'ProvidingAccountController@assigned_gpf_number');
     Route::post('ganrate_Delete/{id}', 'ProvidingAccountController@ganrate_Delete');
     Route::post('ganrate_new', 'ProvidingAccountController@ganrate_new');
 
