@@ -105,6 +105,8 @@ return [
   'th_providing_attachment_two'=>' पुरावा क्र २ ',
   'th_providing_attachment_three'=>' पुरावा क्र ३ ',
   'th_providing_attachment_four'=>' पुरावा क्र ४ ',
+  'th_providing_date_of_application'=>'अर्ज दिनांक',
+  'th_providing_status'=>'स्थिती',
   // Closing the account
   'h_closing_the_account'=>'खाते बंद करणे',
   'th_closing_no'=>'क्रमांक',

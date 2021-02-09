@@ -90,6 +90,7 @@ return [
     'th_providing_bank'=>'Bank Name',
     'th_providing_branch'=>'branch',
     'th_providing_i_f_s_c_code'=>'I.F.S.C.Code',
+    'th_providing_date_of_application'=>'Application Date',
 
     'th_providing_letter_no'=>'C .v .a / c. Letter no',
     'th_providing_whether_to_a_n'=>'Whether to provide account number',

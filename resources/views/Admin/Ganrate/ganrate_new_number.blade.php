@@ -5,16 +5,8 @@
   <div class="row">
     <div class="col-md-12 col-sm-12 ">
       <div class="x_panel">
-        <div class="x_title">
+        <div class="">
           <h2>{{trans('language.h_providing_account_numbe')}} </h2>
-          <ul class="nav navbar-right panel_toolbox">
-            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-            <li><a class="close-link"><i class="fa fa-close"></i></a>
-            </li>
-          </ul>
-          <div class="clearfix"></div>
-
         </div>
         <div class="x_content">
           <form method="POST" class="validatedForm" action="{{ url('ganrate_insert_no') }}" enctype="multipart/form-data">
@@ -186,7 +178,8 @@
                         <th> {{trans('language.th_providing_name')}} </th>
                         <th> {{trans('language.th_providing_department')}} </th>
                         <th> {{trans('language.th_providing_designation')}} </th>
-                        <th> {{trans('language.th_providing_taluka')}} </th>
+                        <th> {{trans('language.th_providing_designation')}} </th>
+                        <th> {{trans('language.th_providing_status')}}</th>
                         <!-- <th> {{trans('language.th_providing_date_of_birth')}} </th>
                         <th> {{trans('language.th_providing_date_dated')}} </th>
                         <th> {{trans('language.th_providing_date_of_retirement')}} </th>
@@ -204,11 +197,12 @@
                       <tr id="{{$temp->id}}">
                         <td>{{$loop->index+1}}</td>
                         <!-- <td>{{$temp->classification_name_mar}}</td> -->
-                        <td>{{$temp->inital_letter}} {{$temp->gpf_no}}</td>
+                        <td>{{$temp->inital_letter}} {{$temp->app_no}}</td>
                         <td>{{$temp->employee_name}}</td>
                         <td>{{$temp->department_name_mar}}</td>
                         <td>{{$temp->designation_name_mar}}</td>
-                        <td>{{$temp->taluka_name_mar }}</td>
+                        <td>{{date('d/m/Y',strtotime($temp->created_at))}}</td>
+                        <td>{{date('d/m/Y',strtotime($temp->created_at))}}</td>
                         <!-- <td>{{$temp->date_of_birth}}</td>
                         <td>{{$temp->joining_date}}</td>
                         <td>{{$temp->retirement_date}}</td>
@@ -220,8 +214,10 @@
                         <td>
                           <!-- <button class="btn btn-danger btn-flat btn-sm remove-user" data-id="{{ $temp->id }}" data-action="{{ url('ganrate_Delete','$temp->id') }}" onclick="deleteConfirmation('{{$temp->id}}')"> <i class="fa fa-trash"></i>
                           </button> -->
-                          <a href="{{url('assigned_gpf_number',$temp->id)}}" target="_blank">
-                            <button type="button" class="btn btn-success "><i class="fa fa-eye" aria-hidden="true"></i> </button></a>
+                          <!-- <a href="{{url('assigned_gpf_number',$temp->id)}}" target="_blank">
+                            <button type="button" class="btn btn-success "><i class="fa fa-eye" aria-hidden="true"></i>
+                            </button></a> -->
+                            <button>
                           </td>
                         </tr>
                         @endforeach

@@ -41,7 +41,7 @@ class CreateGpfNumberApplicationTable extends Migration
             $table->string('attachment_two')->nullable();
             $table->string('attachment_three')->nullable();
             $table->string('attachment_four')->nullable();
-            $table->boolean('app_status')->default(1)->comment('0 Pending,1 Approved,2 Rejected');
+            $table->boolean('app_status')->default(0)->comment('0 Pending,1 Approved,2 Rejected');
             $table->text('remark')->nullable();
             $table->integer('modified_by')->nullable();
             $table->boolean('is_delete')->default(1)->comment('0 deleted,1 not-deleted');
