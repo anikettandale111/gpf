@@ -108,6 +108,7 @@
                        <li><a href="javascript:;">{{trans('language.fr_application_form_amount_withdrawn')}}</a></li>
                        <li><a href="{{url('closed_account')}}">{{trans('language.fr_application_form_account_close')}}</a></li>
                        <li><a href="javascript:;">{{trans('language.fr_application_form_account_statement')}}</a></li>
+                       <li><a href="{{url('testpdf')}}">Test Pdf</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bug"></i> परतावा प्रास्ताव करणे <span class="fa fa-chevron-down"></span></a>

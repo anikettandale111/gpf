@@ -36,7 +36,7 @@
                     <input id="inital_letter" type="text" class="form-control app_number" name="inital_letter" readonly>
                   </div>
                   <div class="col-sm-10">
-                    <input id="new_application_gpf_no" type="text" class="form-control @error('new_application_gpf_no') is-invalid @enderror" name="new_application_gpf_no" value="{{ old('new_application_gpf_no') }}" placeholder="Enter The GPF Number" readonly>
+                    <input id="new_application_gpf_no" type="text" class="form-control @error('new_application_gpf_no') is-invalid @enderror" name="new_application_gpf_no" value="{{ old('new_application_gpf_no') }}" readonly>
                   </div>
                 </div>
               </div>
