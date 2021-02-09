@@ -212,7 +212,13 @@
                         <td>{{$temp->bank_account_no}}</td>
                         <td>{{$temp->ifsc_code}}</td> -->
                         <td>
-                          <!-- <button class="btn btn-danger btn-flat btn-sm remove-user" data-id="{{ $temp->id }}" data-action="{{ url('ganrate_Delete','$temp->id') }}" onclick="deleteConfirmation('{{$temp->id}}')"> <i class="fa fa-trash"></i>
+                        <a href="{{url('genarate_view',$temp->id)}}"
+                           class="btn btn-info btn-flat btn-sm view-user"> View
+
+                          </a>
+                          <!-- <button class="btn btn-danger btn-flat btn-sm remove-user" data-id="{{ $temp->id }}"
+                           data-action="{{ url('ganrate_Delete','$temp->id') }}" onclick="deleteConfirmation('{{$temp->id}}')">
+                           <i class="fa fa-trash"></i>
                           </button> -->
                           <!-- <a href="{{url('assigned_gpf_number',$temp->id)}}" target="_blank">
                             <button type="button" class="btn btn-success "><i class="fa fa-eye" aria-hidden="true"></i>
@@ -332,5 +338,6 @@
         }
       });
     });
+
     </script>
     @endsection
