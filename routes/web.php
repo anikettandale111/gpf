@@ -108,7 +108,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('customer_registration', CustomerRegistrationController::class);
     // Common Application Forms
-    Route::any('testpdf', 'CommonApplicationController@testpdf');
     Route::get('getLastApplicationNumber', 'CommonApplicationController@getLastApplicationNumber');
     Route::get('getuserdetailsbygpfno', 'CommonApplicationController@getuserdetailsbygpfno');
     // Common Application Forms
