@@ -9,7 +9,7 @@ use App\Month;
 use App\Classification;
 use App\Department;
 use App\Designation;
-use App\ganrate;
+use App\Masteremployee;
 use Illuminate\Support\Facades\DB;
 use App\vetan;
 
@@ -63,7 +63,7 @@ class VetanController extends Controller
    }
   public function vetan_new(Request $request)
    {
-    $query = DB::raw('SELECT * FROM ganrate_new_number WHERE gpf_no='.$request->id);
+    $query = DB::raw('SELECT * FROM master_employee WHERE gpf_no='.$request->id);
     $result = DB::Select($query);
 
     if(isset($result[0])){

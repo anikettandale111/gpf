@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Smalot;
 use App;
 use Session;
 use DB;
@@ -115,20 +114,5 @@ class CommonApplicationController extends Controller
     } else {
       return redirect()->back();
     }
-  }
-  public function testpdf(Request $request){
-    if(isset($request->test_pdf)){
-      $parser = new \Smalot\PdfParser\Parser();
-      $pdf    = $parser->parseFile($request->file('test_pdf'));
-      $details = $pdf->getDetails();
-      $pages = $pdf->getPages();
-      $text = $pdf->getText();
-      print_r($pages);
-      echo "------------------------------------------------------------<br>";
-      print_r($details);die();
-      echo "------------------------------------------------------------<br>";
-      print_r($text);die();
-    }
-    return view('testpdf');
   }
 }

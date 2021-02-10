@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Department;
 use App\Classification;
 use App\Designation;
-use App\ganrate;
+use App\Masteremployee;
 use App\GenerateApplication;
 use App\Taluka;
 use App\Bank;
@@ -54,19 +54,19 @@ class ProvidingAccountController extends Controller
       $data['bank'] = Bank::all();
       return view('Admin.Ganrate.ganrate_new_number', $data);
     }
-    public function ganrate_new(Request $request)
-    {
+    // public function ganrate_new(Request $request)
+    // {
 
 
-      $query = DB::raw('SELECT * FROM ganrate_new_number WHERE gpf_no='.$request->id);
-      $result = DB::Select($query);
-      if(isset($result[0])){
-        return json_encode(['stuas'=>'success','msg' =>'Data Found' ,'userdata' =>$result]);
-      }else{
-        return json_encode(['stuas'=>'failed','msg' =>'Data Not Found' ]);
-      }
+    //   $query = DB::raw('SELECT * FROM ganrate_new_number WHERE gpf_no='.$request->id);
+    //   $result = DB::Select($query);
+    //   if(isset($result[0])){
+    //     return json_encode(['stuas'=>'success','msg' =>'Data Found' ,'userdata' =>$result]);
+    //   }else{
+    //     return json_encode(['stuas'=>'failed','msg' =>'Data Not Found' ]);
+    //   }
 
-    }
+    // }
 
     public function ganrate_insert_no(Request $request)
     {
@@ -115,16 +115,37 @@ class ProvidingAccountController extends Controller
       return view ('Admin.Ganrate.ganratereports', compact('ganratereports'));
     }
 
-    public function ganrate_Delete($id)
-    {
-      ganrate::where('id',$id)->delete();
-      return ['id'=>$id];
 
-    }
     public function getlast_gpfnumber(){
-      return ganrate::max("app_no");
-    }
-    public function getLastApplicationNo(){
       return GenerateApplication::max("app_no");
+    }
+    public function getLastApplicationNo()
+    {
+      return GenerateApplication::max("app_no");
+    }
+    public function genarate_view($id)
+    {
+     $data['ganarate_view'] = GenerateApplication::select(
+      "gpf_number_application.*",
+      "departments.department_name_mar",
+      "taluka.taluka_name_mar",
+      "classifications.classification_name_mar",
+      "classifications.inital_letter",
+      "designations.designation_name_mar",
+      "bank.bank_name_mar",
+      )
+      ->where('gpf_number_application.id',$id)
+      ->leftJoin("departments", "departments.id", "=", "gpf_number_application.department_id")
+      ->leftJoin("taluka", "taluka.id", "=", "gpf_number_application.taluka_id")
+      ->leftJoin("classifications", "classifications.id", "=", "gpf_number_application.classification_id")
+      ->leftJoin("designations", "designations.id", "=", "gpf_number_application.designation_id")
+      ->leftJoin("bank", "bank.id", "=", "gpf_number_application.bank_id")
+      ->latest()->get();
+
+         return view('Admin.Ganrate.ganarate_view',$data);
+    }
+    public function  genaratetrans()
+    {
+        return view ('genaratetrans');
     }
   }

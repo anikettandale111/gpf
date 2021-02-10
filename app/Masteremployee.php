@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ganrate extends Model
+class Masteremployee extends Model
 {
-    protected $table = 'ganrate_new_number';
+    protected $table = 'master_employee';
 
     protected $fillable = [
         'id',

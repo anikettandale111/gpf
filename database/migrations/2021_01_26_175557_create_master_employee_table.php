@@ -13,8 +13,8 @@ class CreateGanrateNewNumberTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('ganrate_new_number');
-        Schema::create('ganrate_new_number', function (Blueprint $table) {
+        Schema::dropIfExists('master_employee');
+        Schema::create('master_employee', function (Blueprint $table) {
             $table->id();
              $table->string('gpf_no')->nullable();
              $table->integer('employee_id')->nullable();
@@ -54,6 +54,6 @@ class CreateGanrateNewNumberTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ganrate_new_number');
+        Schema::dropIfExists('master_employee');
     }
 }

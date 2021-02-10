@@ -130,4 +130,5 @@ function diff_year_month_day(dt1, dt2)
      var days = Math.floor(((diff_date % 31536000000) % 2628000000)/86400000);
      return years+" year(s) "+months+" month(s) "+days+" and day(s)";
    }
+
  }
