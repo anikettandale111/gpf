@@ -27,6 +27,6 @@ class EmployeeReportsController extends Controller
 
     public function index()
     {
-        return view('Reports/index');
+        return view('Reports/report_88');
     }
 }
