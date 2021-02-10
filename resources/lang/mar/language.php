@@ -15,6 +15,7 @@ return [
   'ms_reason_for_accounts' => 'सामाईक कारणे',
   'ms_gpf_number_master' => 'भं.नि.नि. क्रमांक',
   'ms_yearly_roi' => 'वर्षाचे व्याज दर  भरणे',
+  'ms_reports' => 'कर्मचारी अहवाल',
   'menu_forms' => 'नवीन अर्ज',
   'menu_forms_received' => 'नवीन आलेले अर्ज',
   'register_users' => 'वापरकर्ताची नोंद',
@@ -210,4 +211,9 @@ return [
   'common_form_qualify_option_zero' => 'पात्रता निकष निवडा',
   'common_form_qualify_option_one' => 'पात्र आहे',
   'common_form_qualify_option_two' => 'पात्र नाही',
+  // Reports Types
+  'report_type' => 'अहवाल प्रकार',
+  'report_emp_namuna_88' => 'अहवाल नमुना ८८',
+  'report_emp_namuna_79' => 'अहवाल नमुना ७९',
+  'report_emp_namuna_231' => 'अहवाल नमुना २३१',
 ];

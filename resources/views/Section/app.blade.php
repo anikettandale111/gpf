@@ -132,7 +132,7 @@
             <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>{{trans('language.7_pay_commission_paid')}}</a></li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.bill_expensess_report')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li><a href="javascript:;"> {{trans('language.employee_account_stmt')}} </a></li>
+                <li><a href="{{url('employeereports')}}"> {{trans('language.employee_account_stmt')}} </a></li>
                 <!-- <li><a href="{{url('bill_information')}}"> {{trans('language.bill_expensess_info')}} </a></li> -->
                 <!-- <li><a href="{{url('closed_account')}}"> <i class="fa fa-users"></i>खाते बंद करणे  </a></li>
                 <li><a href="{{url('monthly_chalan')}}">मासिक चलन खतावणी</a></li> -->

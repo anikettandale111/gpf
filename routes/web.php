@@ -115,8 +115,11 @@ Route::middleware('auth')->group(function () {
     Route::get('viewapplication/{id?}', 'CommonApplicationController@viewapplication');
     Route::resource('commonforms', CommonApplicationController::class);
     // Reasons
-    Route::resource('commonreasons', CommonReasonsController::class);
     // Application form
+    Route::resource('commonreasons', CommonReasonsController::class);
+    // Employee Reports
+    Route::resource('employeereports', EmployeeReportsController::class);
+
     Route::get('application_form', 'ApplicationController@application_form');
     // Get Max GPF Number
     Route::get('getLastApplicationNo', 'ProvidingAccountController@getLastApplicationNo');
