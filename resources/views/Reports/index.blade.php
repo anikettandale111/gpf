@@ -37,11 +37,11 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="card-box ">
-              <form class="form-group" >
+              <form class="form-group report_validate" action="{{url('employeereports.store')}}" method="post">
                 @csrf
                 <div class="col-sm-5">
                   <label>{{trans  ('language.th_providing_b_n_n_no')}}</label>
-                  <input class="allow-number form-control" type="text" name="employee_gpf_num" id="employee_gpf_num">
+                  <input class="allow-numbers form-control" type="text" name="employee_gpf_num" id="employee_gpf_num">
                 </div>
                 <div class="col-sm-5">
                   <label>{{trans  ('language.report_type')}}</label>
@@ -53,8 +53,8 @@
                   </select>
                 </div>
                 <div class="col-sm-2" style="margin-top:25px;">
-                  <button type="button" class="btn btn-success" >{{trans('language.btn_save')}}</button>
-                  <button type="button" class="btn btn-secondary" >{{trans('language.btn_cancel')}}</button>
+                  <button type="submit" class="btn btn-success" >{{trans('language.btn_view_report')}}</button>
+                  <button type="button" class="btn btn-secondary report_clear" >{{trans('language.btn_cancel')}}</button>
                 </div>
               </form>
             </div>
@@ -65,3 +65,6 @@
   </div>
 </div>
 @endsection
+@push('custom-scripts')
+<script type="text/javascript" src="{{URL('js/employeereports.js')}}"></script>
+@endpush

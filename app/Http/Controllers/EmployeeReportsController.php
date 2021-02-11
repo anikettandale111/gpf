@@ -29,4 +29,13 @@ class EmployeeReportsController extends Controller
     {
         return view('Reports/index');
     }
+    public function store(Request $request){
+      if($request->view_report_type == 1){
+
+      } else if ($request->view_report_type == 2){
+
+      } else if ($request->view_report_type == 3){
+
+      }
+    }
 }

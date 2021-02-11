@@ -38,6 +38,7 @@ return [
   'btn_save' => 'जतन करा',
   'btn_cancel' => 'रद्द करा',
   'btn_action' => 'क्रिया',
+  'btn_view_report' => 'अहवाल बघा',
   // Table Districts
   'th_districts_no' => 'क्रमांक',
   'th_districts_name_en' => 'जिल्हा  नाव इंग्लिश ',
