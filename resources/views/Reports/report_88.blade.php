@@ -1,75 +1,70 @@
-
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <!-- Meta, title, CSS, favicons, etc. -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="icon" href="{{asset('asset/images/favicon.ico') }}" type="image/ico" />
-  <title>GPF </title>
-  <!-- Bootstrap -->
-  <link href=" {{ asset('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href=" {{ asset('css/main.css') }}" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link href="{{asset('asset/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-   <link href="{{asset('asset/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
-  <link href="{{asset('asset/build/css/custom.min.css')}}" rel="stylesheet">
-  <!-- Datatables -->
-  <link href="{{asset('asset/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{asset('asset/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{asset('asset/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{asset('asset/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{asset('asset/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
-  <link  href="{{asset('asset/css/sweetalert2.min.css')}}" rel="stylesheet">
-  <script src="{{asset('asset/js/jquery-1.11.1.min.js') }}"></script>
-  <script src="{{asset('asset/js/sweetalert2.all.min.js') }}"></script>
-  <script src="{{asset('asset/js/jquery.validate.min.js') }}"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{asset('asset/images/favicon.ico') }}" type="image/ico" />
+    <title>GPF </title>
+    <!-- Bootstrap -->
+    <link href=" {{ asset('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/main.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{asset('asset/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('asset/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+    <link href="{{asset('asset/build/css/custom.min.css')}}" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="{{asset('asset/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('asset/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('asset/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('asset/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('asset/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('asset/css/sweetalert2.min.css')}}" rel="stylesheet">
+    <script src="{{asset('asset/js/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{asset('asset/js/sweetalert2.all.min.js') }}"></script>
+    <script src="{{asset('asset/js/jquery.validate.min.js') }}"></script>
 
 
-<style>
-    table,
-    th,
-    td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        border-color: black;
-        color: black;
-    }
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            border-color: black;
+        }
 
-    th,
-    td {
-        padding: 15px;
-    }
+        th,
+        td {
+            padding: 8px;
+        }
 
-    h4,
-    h2,
-    label {
-        color: black;
+        * {
+            color: black;
+        }
 
-    }
+        h4 {
 
-    h4 {
+            font-size: 12px;
+        }
 
-        font-size: 12px;
-    }
-
-    .x_title {
-        border-bottom: 2px solid #101011;
-        padding: 1px 5px 6px;
-        margin-bottom: 10px;
-    }
-</style>
+        .x_title {
+            border-bottom: 2px solid #101011;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
+
 <body class="nav-md">
-<div class="row">
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_content">
                 <div class="row">
                     <div class="col-md-2">
-                        <img  src="{{asset('asset/images/zp-nashik-bharti.jpg') }}" width="120"></img>
+                        <img src="{{asset('asset/images/zp-nashik-bharti.jpg') }}" width="120"></img>
                     </div>
                     <div class="col-md-8" style="text-align: center;">
                         <h2> <b>जिल्हा परिषद नाशिक </b> </h2>
@@ -86,10 +81,10 @@
                                 <div class="col-md-2 lg-4">
                                     <label> खाते क्रमांक :- ०१०६७४ </label>
                                 </div>
-                                <div class="col-md-8" style="text-align: center;">
-                                    <label> कर्मचाऱ्याचे नाव :- श्री . भास्कर सदाशिव आहेर </label>
+                                <div class="col-md-7" style="text-align: center;">
+                                    <label> कर्मचाऱ्याचे नाव :- श्री . भास्कर सदाशिव आहेर भास्कर सदाशिव आहेर </label>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3 lg-4" style="text-align:end;">
                                     <label>पदनाम :- ग्राम विस्तार अधि.</label>
                                 </div>
                                 <div class="col-md-6">
@@ -123,6 +118,114 @@
                                     </tr>
                                 </tbody>
                                 <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>12000 </th>
+                                        <th>0</th>
+                                        <th>0</th>
+                                        <th>1200</th>
+                                        <th>0</th>
+                                        <th></th>
+                                    </tr>
                                     <tr>
                                         <th></th>
                                         <th>12000 </th>
@@ -183,8 +286,8 @@
                                 <label> अक्षरी रु . अकरा लाख दहा हजार तीनशे अठ्ठेचाळीस फक्त </label>
                             </div>
 
-                            <div class="col-md-12 mt-3" style="border: 1px solid black;">
-                                <h4 class="text-center mt-3" style="border: 1px solid black;padding-block: 10px;"> <b>७ वा वेतन आयोग फरक जमा </b></h4>
+                            <div class="col-md-12 mt-2">
+                                <h4 class="text-center mt-3" style="border: 1px solid black;padding-block: 8px;"> <b>७ वा वेतन आयोग फरक जमा </b></h4>
                                 <table style="width:100%">
                                     <thead>
                                         <tr>
@@ -201,26 +304,26 @@
                                     </thead>
                                     <tbody>
                                         <tr>
+                                            <td>2313</td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
+                                            <td>2313</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -228,10 +331,8 @@
                             </div>
 
                             <div class="col-md-12 mt-12" style="text-align:end;">
-                               <br>
-                               <br>
-                               <br>
-                               <br>
+                                <br>
+                                <br>
                                 <h2>
                                     उपमुख्य लेखा वा वित्त अधिकारी</h2>
                                 <h2>
@@ -249,34 +350,20 @@
             </div>
         </div>
     </div>
-</div>
+
 </body>
 <script src="{{asset('asset/vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 <!-- FastClick -->
 <script src="{{asset('asset/vendors/fastclick/lib/fastclick.js') }}"></script>
 <!-- NProgress -->
 <script src="{{asset('asset/vendors/nprogress/nprogress.js') }}"></script>
-<!-- Chart.js -->
-<!-- <script src="{{asset('asset/vendors/Chart.js/dist/Chart.min.js') }}"></script> -->
-<!-- gauge.js -->
-<!-- <script src="{{asset('asset/vendors/gauge.js/dist/gauge.min.js') }}"></script> -->
-<!-- bootstrap-progressbar -->
 <script src="{{asset('asset/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
 <!-- iCheck -->
 <script src="{{asset('asset/vendors/iCheck/icheck.min.js') }}"></script>
 <!-- Skycons -->
 <script src="{{asset('asset/vendors/skycons/skycons.js') }}"></script>
 <!-- Flot -->
-<script src="{{asset('asset/vendors/Flot/jquery.flot.js') }}"></script>
-<script src="{{asset('asset/vendors/Flot/jquery.flot.pie.js') }}"></script>
-<script src="{{asset('asset/vendors/Flot/jquery.flot.time.js') }}"></script>
-<script src="{{asset('asset/vendors/Flot/jquery.flot.stack.js') }}"></script>
-<script src="{{asset('asset/vendors/Flot/jquery.flot.resize.js') }}"></script>
 <!-- Flot plugins -->
-<script src="{{asset('asset/vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
-<script src="{{asset('asset/vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
-<script src="{{asset('asset/vendors/flot.curvedlines/curvedLines.js') }}"></script>
-<!-- DateJS -->
 <script src="{{asset('asset/vendors/DateJS/build/date.js') }}"></script>
 <!-- JQVMap -->
 <script src="{{asset('asset/vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
@@ -288,21 +375,5 @@
 <!-- Custom Theme Scripts -->
 <script src="{{asset('asset/build/js/custom.min.js') }}"></script>
 <!-- Datatables -->
-<script src="{{asset('asset/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{asset('asset/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-<script src="{{asset('asset/vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{asset('asset/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
-<script src="{{asset('asset/vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
-<script src="{{asset('asset/vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{asset('asset/vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{asset('asset/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
-<script src="{{asset('asset/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
-<script src="{{asset('asset/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{asset('asset/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
-<script src="{{asset('asset/vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
-<script src="{{asset('asset/vendors/jszip/dist/jszip.min.js') }}"></script>
-<script src="{{asset('asset/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
-<script src="{{asset('asset/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
-<script type="text/javascript" src="{{asset('asset/scripts/main.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/commonfunctions.js')}}"></script>
+
 </html>
