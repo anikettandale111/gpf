@@ -27,7 +27,7 @@ class EmployeeReportsController extends Controller
 
     public function index()
     {
-        return view('Reports/index');
+        return view('Reports/report_88');
     }
     public function store(Request $request){
       if($request->view_report_type == 1){
