@@ -43,7 +43,8 @@
                                             <td id="taluka_name_mar_{{$taluka->tid}}">{{$taluka->taluka_name_mar}}</td>
                                             <td>
                                             <i class=" fa fa-edit icon-edit" onclick="geteditdata('{{$taluka->tid}}','{{$taluka->did}}')"></i>
-                                            <i class="fa fa-trash icon-trash" data-id="{{$taluka->tid}}" onclick="deleteConfirmation('{{$taluka->tid}}')"></i></tr>
+                                            <i class="fa fa-trash icon-trash trash" data-id="{{$taluka->tid}}" ></i>
+                                        </tr>
                                         @endforeach
                                         @endif
                                     </tbody>

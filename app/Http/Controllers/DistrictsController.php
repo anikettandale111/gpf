@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Illuminate\Support\Facades\DB;
-
+use  App\District;
 class DistrictsController extends Controller
 {
     /**
@@ -48,9 +48,7 @@ class DistrictsController extends Controller
       DB::table('districts')->where('dsitrict_id', $request->district_id)->update(['district_name_en'=>$request->district_name_en,'district_name_mar'=>$request->district_name_mar]);
       Session::flash('success', 'District Updated successfully.');
     }
-    public function destroy(Request $request)
-    {
-      DB::table('districts')->where('dsitrict_id', $request->district_id)->delete();
-      Session::flash('danger', 'District Deleted successfully.');
-    }
+    public function destroy(Request $request){
+        return District::where('cat_id', $request->cat_id)->delete();
+}
 }
