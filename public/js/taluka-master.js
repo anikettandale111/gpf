@@ -37,58 +37,25 @@ function geteditdata(tid,did) {
     $('#district_id').val(did);
 
 }
-function deleteConfirmation(id) {
-    var id = $('.icon-trash').attr("data-id");
-    $.post("taluka/destroy",{"_token": $('meta[name="csrf-token"]').attr('content'),"_method":"DELETE",'cr_id':id}, function( data ) {
-        location.reload();
-    });
-    // $.ajax({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         url: 'taluka/destroy',
-    //         type: 'DELETE',
-    //         data: {id:id},
-    //         success: function(results) {
 
-    //             $('#'+id).remove();
-    //         }
-    //     });
-
-        return false;
-    swal({
-        title: "Delete?",
-        text: "Please  and then confirm!",
-        type: "warning",
-        showCancelButton: !0,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: !0
+$(document).on('click','.trash',function(){
+    var id =$(this).attr('data-id');
+    var v_token = "{{csrf_token()}}";
+    var params = {_method: 'DELETE', _token: v_token};
 
 
-    }).then(function(e)  {
-        if (e.value === true) {
-            var id = $('.icon-trash').attr("data-id");
         $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'DELETE',
-                url: 'taluka/destroy/',
-                data: {id:id},
-                dataType: 'JSON',
-                success: function(results) {
+          url: "taluka/destroy" ,
+          type: 'DELETE',
+          data: params,
+          success: function (data) {
 
-                    $('#'+id).remove();
-                }
-            });
-        } else {
-                e.dismiss;
+
         }
-        }, function(dismiss) {
-            return false;
     });
-}
-function deleteid(id){
 
-}
+
+
+
+});
+

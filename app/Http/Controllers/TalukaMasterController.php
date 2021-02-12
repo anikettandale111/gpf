@@ -54,11 +54,10 @@ class TalukaMasterController extends Controller
         // return redirect()->back();
         return back()->with('info',$msg);
     }
-    public function destroy($id)
+    public function destroy(Request $request)
     {
 
-        Taluka::find($id)->delete();
-        return ['status' => 'success'];
+        return Taluka::where('id', $request->id)->delete();
     }
 
 }

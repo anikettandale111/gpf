@@ -6,13 +6,6 @@
     <div class="x_panel">
       <div class="x_title">
         <h2>{{trans('language.ms_districts')}} </h2>
-        <ul class="nav navbar-right panel_toolbox">
-          <li>
-            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-          </li>
-          <li><a class="close-link"><i class="fa fa-close"></i></a>
-          </li>
-        </ul>
         <div class="clearfix"></div>
         @if ($message = Session::get('danger'))
         <div class="alert alert-danger alert-block">
@@ -111,13 +104,42 @@ function editDistrict(rowid){
   $('#district_id').val(rowid);
   $('#district_name_en').val($('.dist_name_en_'+rowid).text());
   $('#district_name_mar').val($('.dist_name_mar_'+rowid).text());
+
 }
 function deleteDistrict(rowid){
-  if(confirm('Are you sure to delete this ?')){
-    $.post("districts/destroy",{"_token": "{{ csrf_token() }}","_method":"DELETE",'district_id':rowid}, function( data ) {
-      location.reload();
-    });
-  }
+
+  event.preventDefault(); // prevent form submit
+  var form = event.target.form; // storing the form
+  swal({
+      title: "Are you sure?",
+      // text: "But you will still be able to retrieve this file.",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel please!",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajaxSetup({
+            headers:
+                {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+        });
+        $.ajax({
+          url: "districts.destroy",
+          type: 'POST',
+          data: {cat_id:catid, "_method": 'DELETE'},
+          dataType: 'JSON',
+          success: function (data) {
+          swal("Success", "District deleted successfully :)", "success");
+
+        }});
+      } else {
+        swal("Cancelled", "Your imaginary file is safe :)", "error");
+      }
+  });
 }
 </script>
 @endsection
