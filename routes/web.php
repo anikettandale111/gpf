@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/languagechange/{locale}', 'HomeController@languagechange')->name('languagechange');
+Route::get('/yearchange/{year}', 'HomeController@yearchange')->name('yearchange');
 
 Auth::routes();
 Route::middleware('auth')->group(function () {
@@ -111,6 +112,7 @@ Route::middleware('auth')->group(function () {
     Route::get('getLastApplicationNumber', 'CommonApplicationController@getLastApplicationNumber');
     Route::get('getuserdetailsbygpfno', 'CommonApplicationController@getuserdetailsbygpfno');
     // Common Application Forms
+    Route::any('testpdf', 'CommonApplicationController@testpdf');
     Route::get('listcommonforms', 'CommonApplicationController@listcommonforms');
     Route::get('viewapplication/{id?}', 'CommonApplicationController@viewapplication');
     Route::resource('commonforms', CommonApplicationController::class);

@@ -21,6 +21,12 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        if(session('year') !== null){
+
+        } else {
+          session()->put('year', date("Y",strtotime("-1 year")).'-'.date("Y"));
+        }
+
     }
 
     /**
@@ -119,6 +125,11 @@ class HomeController extends Controller
     {
         App::setLocale($locale);
         session()->put('locale', $locale);
+        return true;
+    }
+    public function yearchange($year)
+    {
+        session()->put('year', $year);
         return true;
     }
 }

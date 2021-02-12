@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Smalot;
 use App;
 use Session;
 use DB;
+use Excel;
 use App\ApplicationsForms;
 use App\ganrate;
 
@@ -118,11 +119,76 @@ class CommonApplicationController extends Controller
   }
   public function testpdf(Request $request){
     if(isset($request->test_pdf)){
+      /* READ EXCEL FILE START */
+        $p = $request->file('test_pdf')->store('Files');
+        // $path = $request->file('test_pdf')->getRealPath();
+        $data = Excel::toArray('',$p);
+        if(count($data[0])){
+          echo '<pre>';
+          $getcount = count($data[0]);
+          for($i=0;$getcount > $i;$i++){
+              if($data[0][1]){
+                if (strpos($data[0][$i][1], 'NZPGPF') !== false) {
+                    // print_r($data[0][$i]);
+                    $j=$i;
+                    $k=$i;
+                    $data[0][$i][1];
+                    if(strpos($data[0][$i][1], 'NZPGPF') !== true){
+                     echo $data[0][$i][1].$data[0][($j+1)][1];
+                      // echo '------------------------------------------';
+                    }
+                    echo "<br>";
+                }else{
+                  // print_r($data[0][$i]);
+                  // echo '######################################################';
+                }
+              }
+          }
+        }
+        die();
+      /* READ EXCEL FILE END */
+
+      /* API CODE SAMPLE START */
+      // $pdf_file = $request->test_pdf;
+      // if (!is_readable($pdf_file)) {
+      //   print("Error: file does not exist or is not readable: $pdf_file\n");
+      //   return;
+      // }
+      // $c = curl_init();
+      // $cfile = curl_file_create($pdf_file, 'application/pdf');
+      // $apikey = '9ckfvsg6cwop'; // from https://pdftables.com/api
+      // curl_setopt($c, CURLOPT_URL, "https://pdftables.com/api?key=$apikey&format=html");
+      // curl_setopt($c, CURLOPT_POSTFIELDS, array('file' => $cfile));
+      // curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+      // curl_setopt($c, CURLOPT_FAILONERROR,true);
+      // curl_setopt($c, CURLOPT_ENCODING, "gzip,deflate");
+      // $result = curl_exec($c);
+      // if (curl_errno($c) > 0) {
+      //   print('Error calling PDFTables: '.curl_error($c).PHP_EOL);
+      // } else {
+      //   // save the CSV we got from PDFTables to a file
+      //   $file = fopen('converttest.html', 'w');
+      //   file_put_contents ('files/'.$file, $result);
+      //   $request->file('files/'.$file)->store();
+      // }
+      // print_r($result);
+      // curl_close($c);
+      // die();
+      /* API CODE SAMPLE END */
+
+
+      /* SAMLOT PDF PARCER CODE SAMPLE START */
       $parser = new \Smalot\PdfParser\Parser();
       $pdf    = $parser->parseFile($request->file('test_pdf'));
-      $details = $pdf->getDetails();
+      // $details = $pdf->getDetails();
+      // $text =  $pdf->getSectionsText();
       $pages = $pdf->getPages();
-      $text = $pdf->getText();
+      $page     = $pages[0];
+      $text_two = nl2br($page->getText());
+      $content  = $page->getText();
+      // $out      = $content;
+
+      /* SAMLOT PDF PARCER CODE SAMPLE END */
     }
     return view('testpdf');
   }

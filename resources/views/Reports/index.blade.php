@@ -37,7 +37,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="card-box ">
-              <form class="form-group report_validate" action="{{url('employeereports.store')}}" method="post">
+              <form class="form-group report_validate" action="{{url('employeereports')}}" method="post">
                 @csrf
                 <div class="col-sm-5">
                   <label>{{trans  ('language.th_providing_b_n_n_no')}}</label>

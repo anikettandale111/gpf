@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" href="{{asset('asset/images/favicon.ico') }}" type="image/ico" />
-  <title>GPF </title>
+  <title>{{ config('app.name') }}</title>
   <!-- Bootstrap -->
   <link href=" {{ asset('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href=" {{ asset('css/main.css') }}" rel="stylesheet">
@@ -171,9 +171,11 @@
     <div class="nav_menu">
       <div class="nav toggle">
         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+
       </div>
       <nav class="nav navbar-nav">
         <ul class=" navbar-right">
+
           <li class="nav-item ">
             <a class="nav-link" href="#" onclick="changelanguage('{{trans('language.test_language')}}')" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -195,6 +197,16 @@
               @csrf
             </form>
           </div>
+        </li>
+        <li class="nav-item ">
+          <form>
+            <select id="yearChage" name="yearChage" class="form-control" onchange="setyear(this.value)">
+              <option selected disabled>Change Year</option>
+              <option value="2020-2021">2020-2021</option>
+              <option value="2019-2020">2019-2020</option>
+              <option value="2018-2019">2018-2019</option>
+            </select>
+          </form>
         </li>
       </ul>
     </nav>
@@ -286,6 +298,16 @@ function changelanguage(lang){
   $.ajax({
     type:'GET',
     url:'/languagechange/'+lang,
+    data:{"_token": "{{ csrf_token() }}"},
+    success:function(data){
+      location.reload();
+    }
+  });
+}
+function setyear(yearval){
+  $.ajax({
+    type:'GET',
+    url:'/yearchange/'+yearval,
     data:{"_token": "{{ csrf_token() }}"},
     success:function(data){
       location.reload();

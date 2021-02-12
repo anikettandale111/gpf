@@ -15,8 +15,9 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.4",
-        "yajra/laravel-datatables-oracle": "^9.15",
-        "smalot/pdfparser": "*"
+        "maatwebsite/excel": "^3.1",
+        "smalot/pdfparser": "*",
+        "yajra/laravel-datatables-oracle": "^9.15"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

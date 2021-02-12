@@ -8,26 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{asset('asset/images/favicon.ico') }}" type="image/ico" />
-    <title>GPF </title>
+    <title>{{ config('app.name') }} </title>
     <!-- Bootstrap -->
     <link href=" {{ asset('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/main.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{asset('asset/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{asset('asset/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
     <link href="{{asset('asset/build/css/custom.min.css')}}" rel="stylesheet">
-    <!-- Datatables -->
-    <link href="{{asset('asset/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{asset('asset/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{asset('asset/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{asset('asset/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{asset('asset/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{asset('asset/css/sweetalert2.min.css')}}" rel="stylesheet">
-    <script src="{{asset('asset/js/jquery-1.11.1.min.js') }}"></script>
-    <script src="{{asset('asset/js/sweetalert2.all.min.js') }}"></script>
-    <script src="{{asset('asset/js/jquery.validate.min.js') }}"></script>
-
-
     <style>
         table,
         th,
@@ -72,26 +59,26 @@
                         <h2> <b>सन ( २०१९ - २०२०)</b> </h2>
                     </div>
                     <div class="col-md-2">
-                        <h2>१३/०१/२०२१ ११:३८:३६ AM</h2>
+                        <h2>{{date('d/m/Y h:i:s')}}</h2>
                     </div>
                     <div class="col-sm-12">
                         <div class="card-box ">
                             <div class="card-box ">
                                 <div class="x_title"></div>
                                 <div class="col-md-2 lg-4">
-                                    <label> खाते क्रमांक :- ०१०६७४ </label>
+                                    <label> खाते क्रमांक :- {{$result[0]->inital_gpf_number}} </label>
                                 </div>
                                 <div class="col-md-7" style="text-align: center;">
-                                    <label> कर्मचाऱ्याचे नाव :- श्री . भास्कर सदाशिव आहेर भास्कर सदाशिव आहेर </label>
+                                    <label> कर्मचाऱ्याचे नाव :- {{$result[0]->employee_name}}</label>
                                 </div>
                                 <div class="col-md-3 lg-4" style="text-align:end;">
-                                    <label>पदनाम :- ग्राम विस्तार अधि.</label>
+                                    <label>पदनाम :- {{$result[0]->designation_name}}</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>तालुका / मुख्यालयाचे नाव :-निफाड </label>
+                                    <label>तालुका / मुख्यालयाचे नाव :- {{$result[0]->taluka_name}}</label>
                                 </div>
                                 <div class="col-md-6 " style="text-align: end;">
-                                    <label>विभाग /कार्यालयाचे नाव :- ग्रामसेवा (ग्राप)</label>
+                                    <label>विभाग /कार्यालयाचे नाव :- {{$result[0]->department_name}}</label>
                                 </div>
                             </div>
                             <table style="width:100%">
@@ -352,28 +339,4 @@
     </div>
 
 </body>
-<script src="{{asset('asset/vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-<!-- FastClick -->
-<script src="{{asset('asset/vendors/fastclick/lib/fastclick.js') }}"></script>
-<!-- NProgress -->
-<script src="{{asset('asset/vendors/nprogress/nprogress.js') }}"></script>
-<script src="{{asset('asset/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
-<!-- iCheck -->
-<script src="{{asset('asset/vendors/iCheck/icheck.min.js') }}"></script>
-<!-- Skycons -->
-<script src="{{asset('asset/vendors/skycons/skycons.js') }}"></script>
-<!-- Flot -->
-<!-- Flot plugins -->
-<script src="{{asset('asset/vendors/DateJS/build/date.js') }}"></script>
-<!-- JQVMap -->
-<script src="{{asset('asset/vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
-<script src="{{asset('asset/vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
-<script src="{{asset('asset/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
-<!-- bootstrap-daterangepicker -->
-<script src="{{asset('asset/vendors/moment/min/moment.min.js') }}"></script>
-<script src="{{asset('asset/vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-<!-- Custom Theme Scripts -->
-<script src="{{asset('asset/build/js/custom.min.js') }}"></script>
-<!-- Datatables -->
-
 </html>

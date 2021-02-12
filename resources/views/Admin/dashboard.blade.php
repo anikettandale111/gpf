@@ -11,7 +11,13 @@
       </div>
       <div class="left_header ml-auto">
         <form>
-          <label for="yearChage">वर्ष बदला</label><select id="yearChage" name="yearChage" class="form-control"><option value="2020-2021">2020-2021</option><option value="2019-2020">2019-2020</option><option value="2018-2019">2018-2019</option></select>
+          <label for="yearChage">वर्ष बदला</label>
+          <select id="yearChage" name="yearChage" class="form-control" onchange="setyear(this.value)">
+            <option selected disabled>Change Year</option>
+            <option value="2020-2021">2020-2021</option>
+            <option value="2019-2020">2019-2020</option>
+            <option value="2018-2019">2018-2019</option>
+          </select>
         </form>
       </div>
     </div>
@@ -1355,4 +1361,3 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 @endpush
-
