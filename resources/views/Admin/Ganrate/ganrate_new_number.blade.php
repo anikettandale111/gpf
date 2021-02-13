@@ -175,9 +175,9 @@
                       <tr>
                         <th> {{trans('language.th_providing_no')}} </th>
                         <th> {{trans('language.th_providing_application_number')}} </th>
+                        <th> {{trans('language.th_providing_application_date')}} </th>
                         <th> {{trans('language.th_providing_name')}} </th>
                         <th> {{trans('language.th_providing_department')}} </th>
-                        <th> {{trans('language.th_providing_designation')}} </th>
                         <th> {{trans('language.th_providing_designation')}} </th>
                         <th> {{trans('language.th_providing_status')}}</th>
                         <!-- <th> {{trans('language.th_providing_date_of_birth')}} </th>
@@ -197,12 +197,12 @@
                       <tr id="{{$temp->id}}">
                         <td>{{$loop->index+1}}</td>
                         <!-- <td>{{$temp->classification_name_mar}}</td> -->
-                        <td>{{$temp->inital_letter}} {{$temp->app_no}}</td>
+                        <td>{{$temp->app_no}}</td>
+                        <td>{{date("d-m-Y",strtotime($temp->created_at))}}</td>
                         <td>{{$temp->employee_name}}</td>
                         <td>{{$temp->department_name_mar}}</td>
                         <td>{{$temp->designation_name_mar}}</td>
-                        <td>{{date('d/m/Y',strtotime($temp->created_at))}}</td>
-                        <td>{{date('d/m/Y',strtotime($temp->created_at))}}</td>
+                        <td>{{getApplicationStatus($temp->app_status)}}</td>
                         <!-- <td>{{$temp->date_of_birth}}</td>
                         <td>{{$temp->joining_date}}</td>
                         <td>{{$temp->retirement_date}}</td>
@@ -223,7 +223,6 @@
                           <!-- <a href="{{url('assigned_gpf_number',$temp->id)}}" target="_blank">
                             <button type="button" class="btn btn-success "><i class="fa fa-eye" aria-hidden="true"></i>
                             </button></a> -->
-                            <button>
                           </td>
                         </tr>
                         @endforeach

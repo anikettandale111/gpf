@@ -91,6 +91,7 @@ return [
   'th_providing_classification'=>'वर्गीकरण',
   'th_providing_select_classification'=>'वर्गीकरण निवडा',
   'th_providing_application_number'=>'अर्ज क्रमांक',
+  'th_providing_application_date'=>'अर्ज दिनांक',
   'th_providing_b_n_n_no'=>'भ.नि.नि क्रमांक',
   'th_providing_employee_seva_number'=>'कर्मचारी सेवार्थ क्रमांक',
   'th_providing_taluka'=>'तालुका',

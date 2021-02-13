@@ -113,6 +113,7 @@ Route::middleware('auth')->group(function () {
     Route::get('getuserdetailsbygpfno', 'CommonApplicationController@getuserdetailsbygpfno');
     // Common Application Forms
     Route::any('testpdf', 'CommonApplicationController@testpdf');
+    Route::any('testjson', 'CommonApplicationController@testjson');
     Route::get('listcommonforms', 'CommonApplicationController@listcommonforms');
     Route::get('viewapplication/{id?}', 'CommonApplicationController@viewapplication');
     Route::resource('commonforms', CommonApplicationController::class);

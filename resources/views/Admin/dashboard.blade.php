@@ -29,7 +29,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><img src="{{asset('asset/images/taluka_icon.png')}}" /></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>40</span></div>
+                  <div class="widget-numbers"><span>{{App\Taluka::count()}}</span></div>
                   <!-- <div class="widget-subheading">Last year expenses</div> -->
                 </div>
                 <div class="widget-content-right">
@@ -43,7 +43,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><img src="{{asset('asset/images/department_icon.png')}}" /></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>405</span></div>
+                  <div class="widget-numbers"><span>{{App\Department::count()}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading">एकूण विभाग</div>
@@ -56,7 +56,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><img src="{{asset('asset/images/employees.png')}}" /></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>40000</span></div>
+                  <div class="widget-numbers"><span>{{App\Employee::count()}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading">एकूण कर्मचारी संख्या</div>
@@ -69,7 +69,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><img src="{{asset('asset/images/zp_officer.png')}}" /></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>24050</span></div>
+                  <div class="widget-numbers"><span>{{App\Employee::where('classification_id','=','2')->count()}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading">जिल्हा परिषद कर्मचारी संख्या</div>
@@ -82,7 +82,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><img src="{{asset('asset/images/teacher.png')}}" /></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>15950</span></div>
+                  <div class="widget-numbers"><span>{{App\Employee::where('classification_id','=','1')->count()}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading">शिक्षक संख्या</div>
@@ -103,7 +103,10 @@
                 <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                   <div class="widget-content-icon"><img src="{{asset('asset/images/fund_icon.png')}}" /></div>
                   <div class="widget-content-left">
-                    <div class="widget-numbers"><span><i class="fas fa-rupee-sign"></i>15950</span></div>
+                    <div class="widget-numbers">
+                      <span><i class="fas fa-rupee-sign"></i>{{amount_inr_format(App\Employee::sum('opening_balance'))}}</span>
+                    </div>
+                    {{convertToIndianCurrency(App\Employee::sum('opening_balance'))}}
                   </div>
                   <div class="widget-content-right">
                     <div class="widget-heading"><b>एकूण जमा निधी</b></div>
