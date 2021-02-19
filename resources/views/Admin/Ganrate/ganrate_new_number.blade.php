@@ -23,18 +23,12 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="new_application_gpf_no" >{{trans('language.th_providing_application_number')}}</label>
-                <div class="row">
-                  <div class="col-sm-2">
-                    <input id="inital_letter" type="text" class="form-control app_number" name="inital_letter" readonly>
-                  </div>
-                  <div class="col-sm-10">
-                    <input id="new_application_gpf_no" type="text" class="form-control @error('new_application_gpf_no') is-invalid @enderror" name="new_application_gpf_no" value="{{ old('new_application_gpf_no') }}" placeholder="Enter The GPF Number" readonly>
-                  </div>
-                </div>
+                  <input id="inital_letter" type="hidden" class="form-control app_number" name="inital_letter" readonly>
+                    <input id="new_application_gpf_no" type="text" class="form-control @error('new_application_gpf_no') is-invalid @enderror" name="new_application_gpf_no" value="{{ old('new_application_gpf_no') }}" placeholder="{{trans('language.th_providing_application_number')}}" readonly>
               </div>
               <div class="form-group col-md-4">
                 <label > {{trans('language.th_providing_employee_seva_number')}} <span class="required"></span></label>
-                <input class="form-control" type="text" name="employee_id" id="employee_id" required='required'>
+                <input class="form-control" type="text" name="employee_id" id="employee_id" required='required' placeholder="{{trans('language.th_providing_employee_seva_number')}}">
               </div>
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_taluka')}}</label>
@@ -57,7 +51,7 @@
 
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_name')}}</label>
-                <input type="text" name="employee_name" class="form-control @error('name') is-invalid @enderror" id="employee_name" value="{{ old('name') }}" required autocomplete="off" autofocus>
+                <input type="text" name="employee_name" class="form-control @error('name') is-invalid @enderror" id="employee_name" value="{{ old('name') }}" required autocomplete="off" autofocus placeholder="{{trans('language.th_providing_name')}}">
               </div>
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_designation')}}</label>
@@ -91,23 +85,31 @@
               </div>
               <div class="form-group col-md-4">
                 <label > {{trans('language.th_providing_branch')}} <span class="required"></span></label>
-                <input class="form-control" type="text" name="branch_location" id="branch_location" required='required'>
+                <input class="form-control" type="text" name="branch_location" id="branch_location" required='required' placeholder="{{trans('language.th_providing_branch')}}">
               </div>
               <div class="form-group col-md-4">
                 <label > {{trans('language.th_providing_i_f_s_c_code')}} <span class="required"></span></label>
-                <input class="form-control" type="text" name="IFSC_code" id="IFSC_code" required='required'>
+                <input class="form-control" type="text" name="IFSC_code" id="IFSC_code" required='required' placeholder="{{trans('language.th_providing_i_f_s_c_code')}}">
               </div>
               <div class="form-group col-md-4">
                 <label for="taluka" >{{trans('language.th_providing_account_no')}}</label>
-                <input name="bank_account_no" class="allow-numbers form-control @error('bank_account_no') is-invalid @enderror" id="account_no" value="{{ old('bank_account_no') }}" required autocomplete="off" autofocus>
+                <input name="bank_account_no" class="allow-numbers form-control @error('bank_account_no') is-invalid @enderror" id="account_no" value="{{ old('bank_account_no') }}" required autocomplete="off" autofocus placeholder="{{trans('language.th_providing_account_no')}}">
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_opening_balance')}}</label>
-                <input type="text" name="opening_balance" class="allow-numbers form-control @error('opening_balance') is-invalid @enderror" id="opening_balance" value="{{ old('opening_balance') }}" required autocomplete="off" autofocus>
+                <div class="row">
+                  <div class="col-sm-6">
+                  Add Opening Balance ?
+                  <input type="checkbox" id="check_opening_balance" >
+                  </div>
+                    <div class="col-sm-6">
+                      <input type="text" name="opening_balance" class="allow-numbers form-control @error('opening_balance') is-invalid @enderror" id="opening_balance" value="0" required autocomplete="off" autofocus placeholder="{{trans('language.th_opening_balance')}}" readonly>
+                    </div>
               </div>
+            </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_letter_no')}}</label>
-                <input type="text" name="c_v_letter" class="form-control @error('c_v_letter') is-invalid @enderror" id="c_v_letter" value="{{ old('c_v_letter') }}" required autocomplete="off" autofocus>
+                <input type="text" name="c_v_letter" class="form-control @error('c_v_letter') is-invalid @enderror" id="c_v_letter" value="{{ old('c_v_letter') }}" required autocomplete="off" autofocus placeholder="{{trans('language.th_providing_letter_no')}}">
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_whether_to_a_n')}}</label><br>
@@ -132,9 +134,9 @@
               </div>
             </div>
 
-            <div class="col-md-4 mb-0">
-              <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary"> <i class="fa fa-floppy-o"> </i>
+            <div class="col-md-12 mb-0">
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-primary float-right"> <i class="fa fa-floppy-o"> </i>
                   {{trans('language.btn_save')}}
                 </button>
               </div>
@@ -197,7 +199,7 @@
                       <tr id="{{$temp->id}}">
                         <td>{{$loop->index+1}}</td>
                         <!-- <td>{{$temp->classification_name_mar}}</td> -->
-                        <td>{{$temp->app_no}}</td>
+                        <td>{{$temp->inital_letter.$temp->app_no}}</td>
                         <td>{{date("d-m-Y",strtotime($temp->created_at))}}</td>
                         <td>{{$temp->employee_name}}</td>
                         <td>{{$temp->department_name_mar}}</td>
@@ -278,7 +280,13 @@
           yes: " Want to provide account number?",
         }
       });
-
+      $("#check_opening_balance").change(function() {
+          if(this.checked) {
+            $('#opening_balance').attr("readonly", false);
+          } else {
+            $('#opening_balance').attr("readonly", true);
+          }
+      });
     });
 
     function deleteConfirmation(id) {

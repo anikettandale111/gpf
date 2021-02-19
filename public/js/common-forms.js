@@ -61,12 +61,12 @@ $(document).ready(function() {
     }
   });
   $("#gpf_no").keypress(function (e) {
-    if($(this).val().length == 6) {
-      $(this).val($(this).val().slice(0, 6));
+    if($(this).val().length == 5) {
+      $(this).val($(this).val().slice(0, 5));
         return false;
     }
     var lg = parseInt($(this).val().length);
-    if(lg == 5){
+    if(lg == 4){
       setTimeout(function(){
         getdetails();
       },200);
@@ -121,7 +121,10 @@ function getdetails(){
 }
 function diff_year_month_day(dt1, dt2)
  {
-   if(dt1 != "" && dt1 != ""){
+   let current_datetime = dt1;
+  let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+  console.log(formatted_date);
+   if(dt1 !== null && dt1 !== null){
      var From_date = new Date(dt1);
      var To_date = new Date(dt2);
      var diff_date =  From_date - To_date ;

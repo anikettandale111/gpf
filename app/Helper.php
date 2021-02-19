@@ -67,3 +67,7 @@ function convertToIndianCurrency($number) {
   function getApplicationStatus($status){
     return ($status == 0)?'Pending':(($status == 1)?'Approved':'Rejected');
   }
+  function digitChange($value){
+    $count = strlen($value);
+    return str_replace(["0","1","2","3","4","5","6","7","8","9"],["०","१","२","३","४","५","६","७","८","९"],$value);
+  }

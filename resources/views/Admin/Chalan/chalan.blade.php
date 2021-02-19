@@ -3,26 +3,6 @@
   <div class="row">
     <div class="col-md-12 col-sm-12 ">
       <div class="x_panel">
-        @if ($message = Session::get('danger_insert'))
-        <div class="alert alert-danger alert-block">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>{{ $message }}</strong>
-        </div>
-        @endif
-
-        @if ($message = Session::get('success_insert'))
-        <div class="alert alert-success alert-block">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>{{ $message }}</strong>
-        </div>
-        @endif
-
-        @if ($message = Session::get('info_insert'))
-        <div class="alert alert-info alert-block">
-          <button type="button" class="close" data-dismiss="alert">×</button>
-          <strong>{{ $message }}</strong>
-        </div>
-        @endif
         <div class="x_title">
           <h2>{{trans('language.h_trend')}}   </h2>
           <div class="clearfix"></div>

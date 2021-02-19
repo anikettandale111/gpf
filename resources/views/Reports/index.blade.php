@@ -37,7 +37,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="card-box ">
-              <form class="form-group report_validate" action="{{url('employeereports')}}" method="post">
+              <form class="form-group report_validate" action="{{url('employeereports')}}" method="post" target="_blank">
                 @csrf
                 <div class="col-sm-5">
                   <label>{{trans  ('language.th_providing_b_n_n_no')}}</label>
@@ -47,9 +47,9 @@
                   <label>{{trans  ('language.report_type')}}</label>
                   <select class="form-control" name="view_report_type" id="view_report_type">
                     <option value="" selected disabled></option>
-                    <option value="1">{{trans('language.report_emp_namuna_88')}}</option>
-                    <option value="2">{{trans('language.report_emp_namuna_79')}}</option>
-                    <option value="3">{{trans('language.report_emp_namuna_231')}}</option>
+                    <option value="1">{{trans('language.gpf_khate_utaran_niyam_231')}}</option>
+                    <option value="2">{{trans('language.gpf_khatevahi_namuna_88_niyam_231')}}</option>
+                    <option value="3">{{trans('language.gpf_bruhpatrak_naumna_89_niyam_231')}}</option>
                   </select>
                 </div>
                 <div class="col-sm-2" style="margin-top:25px;">

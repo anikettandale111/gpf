@@ -4,18 +4,6 @@
 <div class="row">
   <div class="col-md-12 col-sm-12 ">
     <div class="x_panel">
-      @if ($message = Session::get('info'))
-      <div class="alert alert-info alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>{{ $message }}</strong>
-      </div>
-      @endif
-      @if ($message = Session::get('danger'))
-      <div class="alert alert-danger alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>{{ $message }}</strong>
-      </div>
-      @endif
       <div class="x_title">
         <h2>चलन </h2>
         <div class="clearfix"></div>
@@ -24,7 +12,6 @@
         <br />
         <form class="form-horizontal form-label-left new_form" action="{{url('chalan_insert')}}" method="POST" enctype="multipart/form-data" novalidate id="Trend_add">
           {{csrf_field()}}
-
           <div class="form-row">
             <div class="form-group col-md-6">
               <div class="col-md-6 col-sm-3 ">
@@ -39,7 +26,6 @@
                   foreach (range($latest_year, $earliest_year) as $i) {
                     echo '<option value="' . $i . '"' . ($i === $currently_selected ? ' selected="selected"' : '') . '>' . $i . '</option>';
                   }
-
                   ?>
                 </select>
               </div>
@@ -47,20 +33,17 @@
                 <label for="first-name"> चलन दिनांक </label>
                 <select type="text" id="chalan_no" name="chalan_no" required="required" class="form-control chalan_no">
                   <option selected="" value=""> -- Select -- </option>
-
                   @foreach ($month as $temp)
                   <option value="{{$temp->id}}">{{$temp->month_name_mar}}</option>
                   @endforeach
                 </select>
               </div>
-
             </div>
             <div class="form-group col-md-6">
               <div class="col-md-6 col-sm-3 ">
                 <label for="first-name"> चलन क्रमांक </label>
-                <select type="text" id="app_no" name="app_no" required="required" class="form-control app_no" style="margin-top: 7px;">
+                <select type="text" id="app_no" name="app_no" required="required" class="form-control app_no" >
                   <option selected="" value=""> -- Select -- </option>
-
                   @for($i=1; $i <= 300; $i++) <option value="{{$i}}">{{$i}}</option>
                   @endfor
                 </select>
@@ -69,19 +52,13 @@
                 <label for="middle-name">तालूका निवडा </label>
                 <select id="taluka" class="form-control taluka" type="text" name="taluka">
                   <option value=""> -- Select -- </option>
-
                   @foreach ($taluka as $temp)
-
                   <option value="{{$temp->id}}" >{{$temp->taluka_name_mar}}</option>
-
                   @endforeach
                 </select>
               </div>
             </div>
-
-
             <div class="form-group col-md-6">
-
               <div class="form-group col-md-6">
                 <label for="middle-name">वर्गीकरण </label>
                 <select id="classification" class="form-control" type="text" name="classification">
@@ -122,22 +99,28 @@
                 <input id="user_designation_id" class="form-control" type="hidden" name="user_designation_id">
               </div>
             </div>
-
             <div class="form-group col-md-6">
+              <div class="col-md-6">
+                <label for="middle-name">कर्मचारी विभाग </label>
+                <input id="user_department" class="form-control" type="text" name="user_department" readonly>
+                <input id="user_department_id" class="form-control" type="hidden" name="user_department_id">
+              </div>
               <div class="col-md-6">
                 <label for="middle-name">वर्गणी </label>
                 <input id="deposit_amt" class="form-control deposit add" type="number" name="deposit_amt" required>
               </div>
+            </div>
+            <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">अग्रिम परतावा </label>
                 <input id="refund" class="form-control refund add" type="number" name="refund" value="0">
               </div>
-            </div>
-            <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">थकबाकी </label>
                 <input id="pending_amt" class="form-control pending_amt add" type="number" name="pending_amt" value="0">
               </div>
+            </div>
+            <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">एकुण </label>
                 <input id="total" class="form-control" type="number" name="total" readonly>
@@ -289,9 +272,11 @@ function getdetails(){
         $('#user_name').val(results[0].employee_name);
         $('#user_id').val(results[0].id);
         $('#user_bank_id').val(results[0].bank_id);
-        $('#user_designation_id').val(results[0].designation_id);
-        $('#user_empid').val(results[0].employee_id);
         $('#user_designation').val(results[0].designation_name);
+        $('#user_designation_id').val(results[0].designation_id);
+        $('#user_department').val(results[0].department_name);
+        $('#user_department_id').val(results[0].department_id);
+        $('#user_empid').val(results[0].employee_id);
         $('#user_bank').val(results[0].bank_name);
         $('#user_bank_account_no').val(results[0].bank_account_no);
         $('#user_bank_location').val(results[0].branch_location);

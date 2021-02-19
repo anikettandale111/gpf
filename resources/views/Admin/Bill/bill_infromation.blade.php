@@ -8,28 +8,6 @@
             <div class="x_panel">
                 <div class=" mt-3">
                     <h2>बिल माहिती </h2>
-
-                    <div class="clearfix"></div>
-                    @if ($message = Session::get('danger'))
-                    <div class="alert alert-danger alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>{{ $message }}</strong>
-                    </div>
-                    @endif
-
-                    @if ($message = Session::get('success'))
-                    <div class="alert alert-success alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>{{ $message }}</strong>
-                    </div>
-                    @endif
-
-                    @if ($message = Session::get('info'))
-                    <div class="alert alert-info alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>{{ $message }}</strong>
-                    </div>
-                    @endif
                 </div>
                 <div class="x_content">
                     <form class="form-horizontal form-label-left" id="bill_vali" method="POST" enctype="multipart/form-data" novalidate action="{{url('bill_insert')}}">

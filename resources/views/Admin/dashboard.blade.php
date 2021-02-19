@@ -106,7 +106,6 @@
                     <div class="widget-numbers">
                       <span><i class="fas fa-rupee-sign"></i>{{amount_inr_format(App\Employee::sum('opening_balance'))}}</span>
                     </div>
-                    {{convertToIndianCurrency(App\Employee::sum('opening_balance'))}}
                   </div>
                   <div class="widget-content-right">
                     <div class="widget-heading"><b>एकूण जमा निधी</b></div>
