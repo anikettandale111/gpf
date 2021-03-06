@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Illuminate\Support\Facades\DB;
+use App\Classification;
 
 class EmployeeReportsController extends Controller
 {
@@ -27,7 +28,8 @@ class EmployeeReportsController extends Controller
 
   public function index()
   {
-    return view('Reports/index');
+    $classification=Classification::all();
+    return view('Reports/index',compact('classification'));
   }
   public function store(Request $request){
     $lang = app()->getLocale();
@@ -42,12 +44,14 @@ class EmployeeReportsController extends Controller
       LEFT JOIN master_month mm ON mm.id=emc.emc_month
       LEFT JOIN taluka tl ON tl.id=emc.taluka_id
       LEFT JOIN classifications clf ON clf.id=emc.classification_id
-      WHERE emc.gpf_number='.$request->employee_gpf_num.'
-      AND emc.emc_year=2017
+      WHERE emc.gpf_number="'.$request->employee_gpf_num_inital.$request->employee_gpf_num.'"
+      AND emc.emc_year=2021
       ORDER BY emc.emc_month');
+      print_r($query);dd();
       $result = DB::select($query);
       $employee_name = DB::raw('SELECT employee_name,opening_balance FROM master_employee WHERE gpf_no='.$request->employee_gpf_num.' LIMIT 1');
       $emp_name = DB::select($employee_name);
+
       return view('Reports/gpf_khate_utaran_niyam_231',compact('result','emp_name'));
     } else if ($request->view_report_type == 2){
       $query = DB::raw('SELECT CONCAT(clf.inital_letter,emc.gpf_number) AS inital_gpf_number,emc.emc_month,emc.emc_year,mm.month_name_'.$lang.' AS month_name,
@@ -59,8 +63,8 @@ class EmployeeReportsController extends Controller
       LEFT JOIN master_month mm ON mm.id=emc.emc_month
       LEFT JOIN taluka tl ON tl.id=emc.taluka_id
       LEFT JOIN classifications clf ON clf.id=emc.classification_id
-      WHERE emc.gpf_number='.$request->employee_gpf_num.'
-      AND emc.emc_year=2017
+      WHERE emc.gpf_number='.$request->employee_gpf_num_inital.$request->employee_gpf_num.'
+      AND emc.emc_year=2021
       ORDER BY emc.emc_month');
       $result = DB::select($query);
       $employee_name = DB::raw('SELECT employee_name,opening_balance FROM master_employee WHERE gpf_no='.$request->employee_gpf_num.' LIMIT 1');
@@ -76,8 +80,8 @@ class EmployeeReportsController extends Controller
       LEFT JOIN master_month mm ON mm.id=emc.emc_month
       LEFT JOIN taluka tl ON tl.id=emc.taluka_id
       LEFT JOIN classifications clf ON clf.id=emc.classification_id
-      WHERE emc.gpf_number='.$request->employee_gpf_num.'
-      AND emc.emc_year=2017
+      WHERE emc.gpf_number='.$request->employee_gpf_num_inital.$request->employee_gpf_num.'
+      AND emc.emc_year=2021
       ORDER BY emc.emc_month');
       $result = DB::select($query);
       $employee_name = DB::raw('SELECT employee_name,opening_balance FROM master_employee WHERE gpf_no='.$request->employee_gpf_num.' LIMIT 1');

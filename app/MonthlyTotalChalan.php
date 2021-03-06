@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class deposit extends Model
+class MonthlyTotalChalan extends Model
 {
-    protected $table = 'deposits';
-
+    protected $table = 'tbl_monthly_total_chalan';
     protected $fillable = [
 
            "year","chalan_no","App_no","trend_no","chalan_date","classification","total_waste",

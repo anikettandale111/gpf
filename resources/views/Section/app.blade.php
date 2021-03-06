@@ -123,7 +123,8 @@
             <li><a><i class="fa fa-bug"></i> {{trans('language.monthly_bill_expensess')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{url('chalan')}}">{{trans('language.monthly_bill_chalan')}}</a></li>
-                <li><a href="{{url('monthly_chalan')}}">{{trans('language.monthly_bill_chalan_khatanvai')}}</a></li>
+                <!-- <li><a href="{{url('monthly_chalan')}}">{{trans('language.monthly_bill_chalan_khatanvai')}}</a></li> -->
+                <li><a href="{{url('subscription')}}">{{trans('language.monthly_bill_chalan_khatanvai')}}</a></li>
               </ul>
             </li>
             <li><a href="{{url('customer_registration')}}"><i class="fa fa-table"></i> {{trans('language.h_basic_employee_information')}} </a></li>

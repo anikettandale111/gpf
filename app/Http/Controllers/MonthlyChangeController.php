@@ -23,7 +23,6 @@ class MonthlyChangeController extends Controller
             "classifications.id as cid",
             "classifications.classification_name_mar",
             "master_month.month_name_mar",
-
          )
          ->leftJoin("taluka", "taluka.id", "=","deposits.taluka")
          ->leftJoin("classifications", "classifications.id", "=", "deposits.classification")
@@ -39,8 +38,7 @@ class MonthlyChangeController extends Controller
 
   public function deposit_insert_data(Request $request)
   {
-      $req = deposit::select('primary_number')->latest()->first();
-
+    $req = deposit::select('primary_number')->latest()->first();
     $res = deposit::where(['chalan_no'=>$request->chalan_no,'app_no'=>$request->app_no,'year'=>$request->year])->get();
     if(count($res) == 0)
     {

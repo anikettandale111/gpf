@@ -135,9 +135,7 @@ return [
     'th_trend_the_amount_of_hearing'=>'The Amount Of Hearing',
     'th_trend_total_waste'=>'Total Waste',
     'th_trend_shera'=>'Shera',
-
     //User registration
-
     'h_user_registration'=>'User Registration',
     'th_user_registration_s_no'=>'Sr.No',
     'th_user_registration_name'=>'Name',
@@ -148,8 +146,4 @@ return [
     'th_user_registration_taluka'=>'Taluka',
     'th_user_registration_department'=>'Department',
     'th_user_registration_created'=>'Created',
-
-
-
-
 ];

@@ -39,7 +39,15 @@
             <div class="card-box ">
               <form class="form-group report_validate" action="{{url('employeereports')}}" method="post" target="_blank">
                 @csrf
-                <div class="col-sm-5">
+                <div class="col-sm-2">
+                  <label>प्रकार निवडा</label>
+                  <select class="form-control" name="employee_gpf_num_inital" id="employee_gpf_num_inital">
+                    @foreach($classification AS $row)
+                    <option value="{{$row->inital_letter}}">{{$row->classification_name_mar}}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-sm-3">
                   <label>{{trans  ('language.th_providing_b_n_n_no')}}</label>
                   <input class="allow-numbers form-control" type="text" name="employee_gpf_num" id="employee_gpf_num">
                 </div>

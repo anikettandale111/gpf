@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Monthly Change
-    Route::get('chalan', 'MonthlyChangeController@index');
+    // Route::get('chalan', 'MonthlyChangeController@index');
     Route::post('deposit_insert_data', 'MonthlyChangeController@deposit_insert_data');
     Route::get('checkprv', 'MonthlyChangeController@deposit_insert_data');
     Route::post('deposit_delete/{id}', 'MonthlyChangeController@destroy');
@@ -122,12 +122,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('commonreasons', CommonReasonsController::class);
     // Employee Reports
     Route::resource('employeereports', EmployeeReportsController::class);
+    // Chalan Controller
+    Route::get('chalandetails', 'ChalanController@chalandetails');
+    Route::resource('chalan', ChalanController::class);
+    // Chalan Controller
+    Route::post('chalanTableDetails', 'SubscriptionController@chalanTableDetails');
+    Route::resource('subscription', SubscriptionController::class);
 
     Route::get('application_form', 'ApplicationController@application_form');
     // Get Max GPF Number
     Route::get('getLastApplicationNo', 'ProvidingAccountController@getLastApplicationNo');
     Route::get('genarate_view/{id}', 'ProvidingAccountController@genarate_view');
-
     Route::get('master_employee_view', 'MasteremployeeController@master_employee_view');
 
 

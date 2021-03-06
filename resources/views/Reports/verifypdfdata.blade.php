@@ -22,6 +22,7 @@
                 <thead>
                   <tr>
                     <th>Sr.No.</th>
+                    <th>Checkbox</th>
                     <th>{{trans('language.fr_common_gpf_no')}}</th>
                     <th>{{trans('language.fr_common_user_name')}}</th>
                     <th>Pay DP</th>
@@ -40,9 +41,10 @@
                     @foreach($insert AS $row)
                       <tr>
                         <td>{{$i++}}</td>
+                        <td><input type="checkbox" name="selectRows[]" data-id="$row['data_two_1']"></td>
                         <td>{{$row['data_two_1']}}</td>
-                        <td>{{if($row['data_two_2'] !== '')$row['data_two_3']}}</td>
-                        <td>{{$row['data_two_4']}}</td>
+                        <td>{{($row['data_two_2'] !== '')?$row['data_two_2']:$row['data_two_3']}}</td>
+                        <td>{{trim($row['data_two_4'])}}</td>
                         <td>{{$row['data_two_5']}}</td>
                         <td>{{$row['data_two_6']}}</td>
                         <td>{{$row['data_two_7']}}</td>
