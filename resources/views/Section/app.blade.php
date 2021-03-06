@@ -97,7 +97,7 @@
                     <li><a href="javascript:;">{{trans('language.ms_staff')}}</a></li>
                     <li><a href="javascript:;">{{trans('language.ms_employee')}}</a></li>
                     <li><a href="{{url('commonreasons')}}">{{trans('language.ms_reason_for_accounts')}}</a></li>
-                    <li><a href="javascript:;">{{trans('language.ms_gpf_number_master')}}</a></li>
+                    <li><a href="{{url('user_registration')}}">{{trans('language.register_users')}}</a></li>
                     <li><a href="{{url('Year')}}">{{trans('language.yearly_intrest_paid_form')}}</a></li>
                   </ul>
                 </li>
@@ -129,7 +129,7 @@
             </li>
             <li><a href="{{url('customer_registration')}}"><i class="fa fa-table"></i> {{trans('language.h_basic_employee_information')}} </a></li>
             <!-- <li><a href="{{url('nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद</a></li> -->
-            <li><a href="{{url('user_registration')}}"> <i class="fa fa-users"></i>{{trans('language.register_users')}}</a></li>
+
             <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>{{trans('language.7_pay_commission_paid')}}</a></li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.bill_expensess_report')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">

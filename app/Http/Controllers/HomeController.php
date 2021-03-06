@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Taluka;
 use App\Department;
 use App\User;
+use App\Role;
+use App\Designation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
@@ -61,6 +63,8 @@ class HomeController extends Controller
             ->latest()->get();
         $data['taluka'] = Taluka::all();
         $data['department'] = Department::all();
+        $data['role'] = Role::where("role_status",1)->pluck("role_name","id");
+        $data['designation'] = Designation::pluck("designation_name_en","id");
 
 
         return view('Admin.user_registration', $data);
@@ -70,7 +74,9 @@ class HomeController extends Controller
         $users = User::where('id', '=', $id)->first();
         $taluka = DB::Select(DB::raw('select * from taluka'));
         $department = DB::Select(DB::raw('select * from departments'));
-        return view('Admin.user_registration_edit', compact("users", "taluka", "department"));
+        $role = Role::where("role_status",1)->pluck("role_name","id");
+        $designation = Designation::pluck("designation_name_en","id");
+        return view('Admin.user_registration_edit', compact("users", "taluka", "department","role",'designation'));
     }
     public function Registration_Delete($id, $para)
     {

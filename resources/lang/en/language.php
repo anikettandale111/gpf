@@ -146,4 +146,6 @@ return [
     'th_user_registration_taluka'=>'Taluka',
     'th_user_registration_department'=>'Department',
     'th_user_registration_created'=>'Created',
+    'designation' => 'Designation',
+    'role' => 'Role',
 ];

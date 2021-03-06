@@ -109,6 +109,32 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="designation" class="col-md-4 col-form-label text-md-right">{{trans('language.designation')}}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="designation">
+                                    <option value="">--Select--</option>
+                                    @foreach($designation as $k => $v)
+                                        <option value="{{$v}}">{{$v}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="role" class="col-md-4 col-form-label text-md-right">{{trans('language.role')}}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="role">
+                                    <option value="">--Select--</option>
+                                    @foreach($role as $k => $v)
+                                        <option value="{{$v}}">{{$v}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="taluka" class="col-md-4 col-form-label text-md-right">{{trans('language.th_user_registration_department')}}</label>
 
                             <div class="col-md-6">
