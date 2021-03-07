@@ -9,15 +9,9 @@ class MasteremployeeController extends Controller
 {
  public function master_employee_view()
  {
-    $data['master_employee_view'] = Masteremployee::select(
-        "master_employee.*",
-        "departments.department_name_mar",
-        "taluka.taluka_name_mar",
-        "classifications.classification_name_mar",
-        "classifications.inital_letter",
-        "designations.designation_name_mar",
-        "bank.bank_name_mar",
-        )
+    $data['master_employee_view'] = Masteremployee::select("master_employee.*","departments.department_name_mar",
+                          "taluka.taluka_name_mar","classifications.classification_name_mar","classifications.inital_letter",
+                          "designations.designation_name_mar","bank.bank_name_mar",)
         ->leftJoin("departments", "departments.id", "=", "master_employee.department_id")
         ->leftJoin("taluka", "taluka.id", "=", "master_employee.taluka_id")
         ->leftJoin("classifications", "classifications.id", "=", "master_employee.classification_id")

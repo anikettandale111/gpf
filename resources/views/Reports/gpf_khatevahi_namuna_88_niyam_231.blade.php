@@ -72,13 +72,13 @@
                   <label> कर्मचाऱ्याचे नाव :- {{$emp_name[0]->employee_name}}</label>
                 </div>
                 <div class="col-md-3 lg-4" style="text-align:end;">
-                  <label>पदनाम :- {{$result[0]->designation_name}}</label>
+                  <label>पदनाम :- {{$emp_name[0]->designation_name}}</label>
                 </div>
                 <div class="col-md-6">
-                  <label>तालुका / मुख्यालयाचे नाव :- {{$result[0]->taluka_name}}</label>
+                  <label>तालुका / मुख्यालयाचे नाव :- {{$emp_name[0]->taluka_name}}</label>
                 </div>
                 <div class="col-md-6 " style="text-align: end;">
-                  <label>विभाग /कार्यालयाचे नाव :- {{$result[0]->department_name}}</label>
+                  <label>विभाग /कार्यालयाचे नाव :- {{$emp_name[0]->department_name}}</label>
                 </div>
               </div>
               <table style="width:100%">
@@ -100,10 +100,19 @@
                   $total_three = 0;
                   $total_four = 0;
                   $total_five = 0;
+                  $total_intrest = 0;
                   $total = $emp_name[0]->opening_balance;
                   @endphp
                   @if(count($result))
                   @foreach($result as $row)
+
+                  @if(count($roi_result))
+                    @foreach($roi_result AS $rowroi)
+                      @if($rowroi->to_month == $row->monthid)
+                        @php $total_intrest += (($total * $rowroi->percent) / 12) @endphp
+                      @endif
+                    @endforeach
+                  @endif
                   <tr>
                     <td>{{$row->month_name.'-'.digitChange($row->emc_year)}}</td>
                     <td>{{digitChange($row->monthly_contrubition)}}</td>
@@ -118,6 +127,7 @@
                     $total_three = $total_three+$row->monthly_other;
                     $total_four = $total_four+$row->monthly_received;
                     $total_five = $total_five+$row->loan_amonut;
+                    $total_intrest=$emp_name[0]->opening_balance+$total;
                     @endphp
                   </tr>
                   @endforeach
@@ -130,7 +140,7 @@
                     <th>{{digitChange($total_two)}}</th>
                     <th>{{digitChange($total_four)}}</th>
                     <th>{{digitChange($total_three)}}</th>
-                    <th>{{digitChange($total_five)}}</th>
+                    <th>{{digitChange($total)}}</th>
                     <th></th>
                   </tr>
                 </tfoot>
@@ -167,7 +177,17 @@
                   <tr>
                     <td>जमा रक्कम </td>
                     <td>{{digitChange($emp_name[0]->opening_balance+$total_one+$total_two)}}</td>
-                    <td rowspan="3" colspan="6"></td>
+                    <td colspan="3">व्याजदर
+                      {{getMonthName(4)}}
+                      @if(count($roi_result))
+                        @foreach($roi_result AS $rowroi)
+                            {{getMonthName($rowroi->to_month)}}
+                            {{$rowroi->percent}}
+                        @endforeach
+                        {{getMonthName(3)}}
+                      @endif
+                    </td>
+                    <td colspan="3"></td>
                   </tr>
                   <tr>
                     <td>वर्षातील काढून घेतलेल्या रकमा </td>

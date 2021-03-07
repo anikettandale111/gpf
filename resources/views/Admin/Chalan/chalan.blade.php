@@ -11,6 +11,7 @@
         <br />
         <form   class="validatedForm" action="{{url('chalan')}}" method="POST"  enctype="multipart/form-data" novalidate>
           {{csrf_field()}}
+          <input type="hidden" id="chalan_sr_id" class="form-control" name="chalan_sr_id" >
           <div class="form-row">
             <div class="form-group col-md-6">
               <div class="col-md-6 col-sm-3 ">
@@ -20,19 +21,32 @@
                 $earliest_year = 2020;
                 $latest_year = date('Y');
                 @endphp
-                <select name="year" id="year" class="form-control">
+                <select name="chalan_year" id="chalan_year" class="form-control">
                   <option value="">-- निवडा वर्ष --</option>
-                  <?php
-                  foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                    echo '<option value="'.$i.'"'.($i === $currently_selected ? ' selected="selected"' : '').'>'.$i.'</option>';
-                  }
-                  ?>
+                  @foreach ( range( $latest_year, $earliest_year ) as $i )
+                  <option value="{{$i}}" "{{($i === $currently_selected) ? 'selected':''}}"  >{{$i}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-md-6 col-sm-3 ">
+                <label for="middle-name">{{trans('language.th_trend_date')}}</label>
+                <input type="date" id="chalan_date" class="form-control" name="chalan_date" >
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <div class="col-md-6 col-sm-3 ">
+                <label>{{trans('language.th_trend_s_no')}}</label>
+                <select type="text" id="chalan_serial_no" name="chalan_serial_no" required="required" class="form-control ">
+                  <option value="" selected disabled>-- निवडा  क्रमांक --</option>
+                  @for($i=1; $i <= 300; $i++)
+                  <option value="{{$i}}">{{$i}}</option>
+                  @endfor
                 </select>
               </div>
               <div class="col-md-6 col-sm-3 ">
                 <label  for="first-name"> {{trans('language.th_trend_no')}}  </label>
-                <select type="text" id="chalan_no"  name="chalan_no" required="required" class="form-control ">
-                  <option value="">-- निवडा चलन क्रमांक --</option>
+                <select type="text" id="chalan_month"  name="chalan_month" required="required" class="form-control ">
+                  <option value="">-- चलन महिना --</option>
                   @foreach ($month as $month)
                   <option value="{{$month->id}}">{{$month->month_name_mar}}</option>
                   @endforeach
@@ -41,17 +55,17 @@
             </div>
             <div class="form-group col-md-6">
               <div class="col-md-6 col-sm-3 ">
-                <label></label>
-                <select type="text" id="app_no" name="app_no" required="required" class="form-control " style="margin-top: 7px;">
-                  <option value="">-- निवडा  क्रमांक --</option>
-                  @for($i=1; $i <= 300; $i++)
-                  <option value="{{$i}}">{{$i}}</option>
-                  @endfor
+                <label for="middle-name">{{trans('language.th_trend_classification')}} </label>
+                <select id="classification_type" class="form-control" type="text" name="classification_type">
+                  <option value="">-- निवडा  वर्गीकरण --</option>
+                  @foreach ($classification as $classification)
+                  <option value="{{$classification->id}}">{{$classification->classification_name_mar}}</option>
+                  @endforeach
                 </select>
               </div>
-              <div class="form-group col-md-6">
+              <div class="col-md-6 col-sm-3 ">
                 <label for="middle-name">{{trans('language.th_trend_taluka')}}</label>
-                <select id="taluka" class="form-control" type="text" name="taluka">
+                <select id="chalan_taluka" class="form-control" type="text" name="chalan_taluka">
                   <option value="">-- निवडा  तालूका --</option>
                   @foreach ($taluka as $taluka)
                   <option value="{{$taluka->id}}">{{$taluka->taluka_name_mar}}</option>
@@ -60,28 +74,13 @@
               </div>
             </div>
             <div class="form-group col-md-6">
-              <div class="form-group col-md-6">
-                <label for="middle-name">{{trans('language.th_trend_classification')}} </label>
-                <select id="middle-name" class="form-control" type="text" name="classification">
-                  <option value="">-- निवडा  वर्गीकरण --</option>
-                  @foreach ($classification as $classification)
-                  <option value="{{$classification->id}}">{{$classification->classification_name_mar}}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-sm-3 ">
                 <label for="middle-name">{{trans('language.th_trend_the_amount_of_hearing')}} </label>
-                <input id="amount" class="form-control" type="number" name="amount">
+                <input id="chalan_amount" class="form-control" type="number" name="chalan_amount">
               </div>
-            </div>
-            <div class="form-group col-md-6">
-              <div class="col-md-6">
-                <label for="middle-name">{{trans('language.th_trend_total_waste')}}</label>
-                <input id="middle-name" class="form-control" type="text" name="total_waste" value="0">
-              </div>
-              <div class="col-md-6">
+              <div class="col-md-6 col-sm-3 ">
                 <label for="middle-name">{{trans('language.th_trend_shera')}}  </label>
-                <textarea id="Shera" class="form-control" type="text" name="shera" cols="5" rows="2"></textarea>
+                <textarea id="chalan_remark" class="form-control" type="text" name="chalan_remark" cols="5" rows="2"></textarea>
               </div>
             </div>
             <div class="form-group col-md-12">
@@ -116,7 +115,7 @@
                     <th>{{trans('language.th_trend_taluka')}} </th>
                     <th>{{trans('language.th_trend_classification')}}  </th>
                     <th>{{trans('language.th_trend_the_amount_of_hearing')}} </th>
-                    <th>{{trans('language.th_trend_total_waste')}}  </th>
+                    <!-- <th>{{trans('language.th_trend_total_waste')}}  </th> -->
                     <th>{{trans('language.th_trend_shera')}}</th>
                     <!-- <th>{{trans('language.btn_action')}}</th> -->
                   </tr>

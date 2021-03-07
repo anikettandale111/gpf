@@ -18,12 +18,11 @@ class ChalanController extends Controller
     $data ['classification']=Classification::all();
     $data ['taluka']=Taluka::all();
     if($request->ajax()){
-      $deposits=MonthlyTotalChalan::select("tbl_monthly_total_chalan.*","tbl_monthly_total_chalan.created_at AS crateddate","tbl_monthly_total_chalan.id as deposit_id","taluka.id as  tid","taluka.taluka_name_mar as taluka_name","classifications.id as cid","classifications.classification_name_mar","master_month.month_name_mar",)
+      $deposits=MonthlyTotalChalan::select("tbl_monthly_total_chalan.*","tbl_monthly_total_chalan.created_at AS crateddate","tbl_monthly_total_chalan.id as chalan_id","taluka.id as  tid","taluka.taluka_name_mar as taluka_name","classifications.id as cid","classifications.classification_name_mar","master_month.month_name_mar",)
       ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
       ->leftJoin("classifications", "classifications.id", "=", "tbl_monthly_total_chalan.classification")
-      ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_no")
+      ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id")
       ->latest()->get();
-
       return datatables()->of($deposits)
       ->addIndexColumn()
       ->addColumn('action', function ($row) {
@@ -37,28 +36,28 @@ class ChalanController extends Controller
     return view ("Admin.Chalan.chalan", $data);
   }
   public function store(Request $request){
-    $req = MonthlyTotalChalan::select('primary_number')->latest()->first();
-    $res = MonthlyTotalChalan::where(['chalan_no'=>$request->chalan_no,'app_no'=>$request->app_no,'year'=>$request->year])->get();
-    if(count($res) == 0)
-    {
-      $Newdeposit = new deposit($request->all());
-      $Newdeposit->chalan_no=$request->chalan_no;
-      $Newdeposit->app_no=$request->app_no;
-      if(empty($req)) {
-        $number = "001111";
+    // $req = MonthlyTotalChalan::select('primary_number')->latest()->first();
+    $res = MonthlyTotalChalan::where(['chalan_month_id'=>$request->chalan_month,'chalan_serial_no'=>$request->chalan_serial_no,'year'=>$request->chalan_year,'taluka'=>$request->chalan_taluka])->get();
+    $monthName = month::select('month_name_mar')->where('id',$request->chalan_month)->first();
+    if(count($res) == 0) {
+      $data['year'] = $request->chalan_year;
+      $data['chalan_date'] = $request->chalan_date;
+      $data['classification'] = $request->classification_type;
+      $data['taluka'] = $request->chalan_taluka;
+      $data['amount'] = $request->chalan_amount;
+      $data['remark'] = $request->chalan_remark;
+      $data['chalan_month_id'] = $request->chalan_month;
+      $data['chalan_serial_no'] = $request->chalan_serial_no;
+      $data['chalan_date'] = $request->chalan_date;
+      $data['chalan_no'] = $monthName->month_name_mar.' '.$request->chalan_serial_no;
+      $data['total_waste'] = 0;
+      if($request->chalan_sr_id > 0){
+        MonthlyTotalChalan::where('id',$request->chalan_sr_id)->update($data);
+        $msg ='Chalan Details Updated Successfully';
       } else {
-        $number = str_pad($req->primary_number + 1, 5, 0, STR_PAD_LEFT);
+        MonthlyTotalChalan::insertGetId($data);
+        $msg ='Chalan Details Saved Successfully';
       }
-      $Newdeposit->primary_number=$number;
-      $Newdeposit->year=$request->year;
-      $Newdeposit->classification=$request->classification;
-      $Newdeposit->total_waste=$request->total_waste;
-      $Newdeposit->taluka=$request->taluka;
-      $Newdeposit->amount=$request->amount;
-      $Newdeposit->diff_amount= $request->diff_amount;
-      $Newdeposit->shera=$request->shera;
-      $Newdeposit->save();
-      $msg =' Data Saved Successfully';
     } else {
       $msg =' Chalan Already Exists with same details';
     }
@@ -73,17 +72,17 @@ class ChalanController extends Controller
     dd();
     if(!empty($deposits->chalan_id))
     {
-        $lang = app()->getLocale();
-        $res = MasterMonthlySubscription::select('master_emp_monthly_contribution.*','users.name','me.employee_name',
-                'tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mm.month_name_'.$lang.' AS month_name')
-               ->where('master_emp_monthly_contribution.challan_id',$deposits->chalan_id)
-               ->leftjoin('users','users.id','=','master_emp_monthly_contribution.modifed_by')
-               ->leftjoin('master_employee AS me','me.gpf_no','=','master_emp_monthly_contribution.gpf_number')
-               ->leftjoin('taluka AS tl','tl.id','=','master_emp_monthly_contribution.taluka_id')
-               ->leftjoin('departments AS dp','dp.id','=','master_emp_monthly_contribution.emc_dept_id')
-               ->leftjoin('designations AS dg','dg.id','=','master_emp_monthly_contribution.emc_desg_id')
-               ->leftjoin('master_month AS mm','mm.id','=','master_emp_monthly_contribution.emc_month')
-               ->latest()->get();
+      $lang = app()->getLocale();
+      $res = MasterMonthlySubscription::select('master_emp_monthly_contribution.*','users.name','me.employee_name',
+      'tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mm.month_name_'.$lang.' AS month_name')
+      ->where('master_emp_monthly_contribution.challan_id',$deposits->chalan_id)
+      ->leftjoin('users','users.id','=','master_emp_monthly_contribution.modifed_by')
+      ->leftjoin('master_employee AS me','me.gpf_no','=','master_emp_monthly_contribution.gpf_number')
+      ->leftjoin('taluka AS tl','tl.id','=','master_emp_monthly_contribution.taluka_id')
+      ->leftjoin('departments AS dp','dp.id','=','master_emp_monthly_contribution.emc_dept_id')
+      ->leftjoin('designations AS dg','dg.id','=','master_emp_monthly_contribution.emc_desg_id')
+      ->leftjoin('master_month AS mm','mm.id','=','master_emp_monthly_contribution.emc_month')
+      ->latest()->get();
     }
     return ['amt'=>$deposits,'chalan'=>$res];
   }

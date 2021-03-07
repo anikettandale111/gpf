@@ -48,8 +48,8 @@ $(document).ready(function() {
         name: 'Month Name'
       },
       {
-        data: 'primary_number',
-        name: 'Primary Number'
+        data: 'chalan_id',
+        name: 'Chalan Number'
       },
       {
         data: 'crateddate',
@@ -67,13 +67,13 @@ $(document).ready(function() {
         data: 'amount',
         name: 'Amount'
       },
+      // {
+      //   data: 'total_waste',
+      //   name: 'Total Waste'
+      // },
       {
-        data: 'total_waste',
-        name: 'Total Waste'
-      },
-      {
-        data: 'shera',
-        name: 'Shera'
+        data: 'remark',
+        name: 'Remark'
       },
       // {
       //   data: 'action',

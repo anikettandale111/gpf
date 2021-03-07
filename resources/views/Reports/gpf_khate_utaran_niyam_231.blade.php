@@ -72,13 +72,13 @@
                   <label> कर्मचाऱ्याचे नाव :- {{$emp_name[0]->employee_name}}</label>
                 </div>
                 <div class="col-md-3 lg-4" style="text-align:end;">
-                  <label>पदनाम :- {{$result[0]->designation_name}}</label>
+                  <label>पदनाम :- {{$emp_name[0]->designation_name}}</label>
                 </div>
                 <div class="col-md-6">
-                  <label>तालुका / मुख्यालयाचे नाव :- {{$result[0]->taluka_name}}</label>
+                  <label>तालुका / मुख्यालयाचे नाव :- {{$emp_name[0]->taluka_name}}</label>
                 </div>
                 <div class="col-md-6 " style="text-align: end;">
-                  <label>विभाग /कार्यालयाचे नाव :- {{$result[0]->department_name}}</label>
+                  <label>विभाग /कार्यालयाचे नाव :- {{$emp_name[0]->department_name}}</label>
                 </div>
               </div>
               <table style="width:100%">
