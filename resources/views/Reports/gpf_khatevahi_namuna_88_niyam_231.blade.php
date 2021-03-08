@@ -1,6 +1,6 @@
 @if(count($rqo_result))
   @foreach($rqo_result AS $rqo)
-    @if($rqo->gpf_number > 0)
+    @if(isset($rqo->gpf_number) && $rqo->gpf_number > 0)
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -367,10 +367,10 @@
               </table>
 
               <div class="col-md-12 mt-3">
-                <label> दिनांक ३१ मार्च २०२० - अखेर शिल्लक रक्कम रु . {{digitChange($rqo->opening_balance+$total_one+$total_two)}} </label>
+                <label> दिनांक ३१ मार्च २०२० - अखेर शिल्लक रक्कम रु . {{digitChange($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)}} </label>
               </div>
               <div class="col-md-12">
-                <label> अक्षरी रु .{{convertToIndianCurrency($rqo->opening_balance+$total_one+$total_two)}} </label>
+                <label> अक्षरी रु .{{convertToIndianCurrency($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)}} </label>
               </div>
 
               <div class="col-md-12 mt-2">
