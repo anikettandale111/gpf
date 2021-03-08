@@ -11,7 +11,7 @@ use App\Department;
 use App\Designation;
 use App\Masteremployee;
 use Illuminate\Support\Facades\DB;
-use App\vetan;
+use App\Vetan;
 
 class VetanController extends Controller
 {

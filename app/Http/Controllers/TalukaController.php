@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\taluka;
+use App\Taluka;
 use App\Year;
 use Auth;
 use App\Customer;
-use App\master;
+use App\Master;
 use App\department;
 use App\designation;
 use App\classification;
-use App\month;
+use App\Month;
 use DB;
 use App\District;
 

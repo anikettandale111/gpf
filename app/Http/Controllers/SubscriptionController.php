@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Taluka;
-use App\month;
+use App\Month;
 use App\Classification;
 use App\Chalan;
 use App\MasterMonthlySubscription;
 use DataTable;
-use App\deposit;
+use App\Deposit;
 
 class SubscriptionController extends Controller {
   public function index(Request $request) {

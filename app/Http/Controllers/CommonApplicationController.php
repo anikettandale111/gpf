@@ -10,7 +10,7 @@ use Session;
 use DB;
 use Excel;
 use App\ApplicationsForms;
-use App\ganrate;
+use App\Ganrate;
 
 class CommonApplicationController extends Controller
 {

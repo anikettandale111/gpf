@@ -84,7 +84,7 @@ class EmployeeReportsController extends Controller
         ->join('departments AS dp','dp.department_code','me.department_id')
         ->join('designations AS dg','dg.id','me.designation_id')
         // ->where(['mgt.gpf_number' =>$erow->gpf_no, 'mgt.financial_year'=>"2019-2020"])
-        ->where(['me.taluka_id' =>16, 'mgt.financial_year'=>"2019-2020"])
+        ->where(['me.taluka_id' =>12, 'mgt.financial_year'=>"2019-2020"])
         ->groupBy('mgt.employee_id');
         $rqo_result = $query_one->get();
         // $otherInstall[] = DB::table('master_vetan_ayog_received AS va')

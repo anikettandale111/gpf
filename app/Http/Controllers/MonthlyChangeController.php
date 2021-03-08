@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\deposit;
+use App\Deposit;
 use App\Taluka;
-use App\month;
+use App\Month;
 use App\Classification;
 use App\Chalan;
 use Illuminate\Support\Facades\Auth;
