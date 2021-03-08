@@ -166,7 +166,17 @@
                   <tr>
                     <td>जमा रक्कम </td>
                     <td>{{digitChange($emp_name[0]->opening_balance+$total_one+$total_two)}}</td>
-                    <td rowspan="3" colspan="6"></td>
+                    <td colspan="3">व्याजदर
+                      {{getMonthName(4)}}
+                      @if(count($roi_result))
+                      @foreach($roi_result AS $rowroi)
+                      {{getMonthName($rowroi->to_month)}}
+                      {{$rowroi->percent}}
+                      @endforeach
+                      {{getMonthName(3)}}
+                      @endif
+                    </td>
+                    <td colspan="3"></td>
                   </tr>
                   <tr>
                     <td>वर्षातील काढून घेतलेल्या रकमा </td>
@@ -200,15 +210,15 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>2313</td>
-                      <td>2313</td>
-                      <td>2313</td>
-                      <td>2313</td>
-                      <td>2313</td>
-                      <td>2313</td>
-                      <td>2313</td>
-                      <td>2313</td>
-                      <td>2313</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
                     </tr>
                   </tbody>
                 </table>
@@ -218,16 +228,24 @@
               <div class="col-md-12 mt-12" style="text-align:end;">
                 <br>
                 <br>
-                <h2>
-                  उपमुख्य लेखा वा वित्त अधिकारी</h2>
-                  <h2>
-                    जिल्हा परिषद नाशिक
-                  </h2>
-                  <div class="row">
-                    <h2>
-                      <b> टीप :- </b> वरील हिशोबामध्ये काही तफावत आढळल्यास १५ दिवसांच्या आत नाशिक परिषद वित्त विभागाशी आपल्या खातेप्रमुखामार्त संपर्क साधावा .
-                    </h2>
+                <div class="row" style="text-align:center;">
+                  <div class="col-md-4 mt-4">
+                    <h2> खाते उतारा बनवणाराची सही</h2>
+                    <h2> </h2>
                   </div>
+                  <div class="col-md-4 mt-4">
+                    <h2> खाते उतारा तपासणाराची सही </h2>
+                    <h2>  </h2>
+                  </div>
+                  <div class="col-md-4 mt-4">
+                    <h2> उपमुख्य लेखा वा वित्त अधिकारी</h2>
+                    <h2> जिल्हा परिषद नाशिक </h2>
+                  </div>
+                </div>
+                <div class="row">
+                  <h2>
+                    <b> टीप :- </b> वरील हिशोबामध्ये काही तफावत आढळल्यास १५ दिवसांच्या आत नाशिक परिषद वित्त विभागाशी आपल्या खातेप्रमुखामार्त संपर्क साधावा .
+                  </h2>
                 </div>
               </div>
             </div>
@@ -235,6 +253,7 @@
         </div>
       </div>
     </div>
+  </div>
 
-  </body>
-  </html>
+</body>
+</html>
