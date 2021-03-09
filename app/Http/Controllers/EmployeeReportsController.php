@@ -57,7 +57,7 @@ class EmployeeReportsController extends Controller
                       ->join('taluka AS tl','tl.id','me.taluka_id')
                       ->join('departments AS dp','dp.department_code','me.department_id')
                       ->join('designations AS dg','dg.id','me.designation_id')
-                      ->where(['me.taluka_id' =>16, 'mgt.financial_year'=>"2019-2020"])
+                      ->where(['me.taluka_id' =>1, 'mgt.financial_year'=>"2019-2020"])
                       ->groupBy('mgt.employee_id');
       $rqo_result = $query_one->get();
       return view('Reports/gpf_khatevahi_namuna_88_niyam_231',compact('rqo_result','roi_result','month_name'));
