@@ -125,8 +125,8 @@
                   <th>मासिक वर्गणी </th>
                   <th> कर्ज वसुली हप्ता</th>
                   <th>इतर जमा </th>
-                  <th>एकूण जमा </th>
                   <th> कर्ज रक्कम</th>
+                  <th>एकूण जमा </th>
                   <th>शेरा </th>
                 </tr>
                 <thead>
@@ -159,8 +159,8 @@
                       <td>{{digitChange($rqo->$monthly_contrubition)}}</td>
                       <td>{{digitChange($rqo->$loan_installment)}}</td>
                       <td>{{digitChange($total_ins_amt)}}</td>
-                      <td>{{digitChange($total += ($rqo->$monthly_contrubition))}}</td>
                       <td>{{digitChange($rqo->$loan_amonut)}}</td>
+                      <td>{{digitChange($total += ($rqo->$monthly_contrubition-$rqo->$loan_amonut))}}</td>
                       <td></td>
                     </tr>
                     @php
@@ -345,7 +345,7 @@
                   </tr>
                   <tr>
                     <td>जमा रक्कम </td>
-                    <td>{{digitChange($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)}}</td>
+                    <td>{{digitChange(($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)-$total_four)}}</td>
                     <td colspan="3">व्याजदर
                       {{getMonthName(4)}}
                       @if(count($roi_result))
@@ -360,16 +360,16 @@
                   </tr>
                   <tr>
                     <td>वर्षातील काढून घेतलेल्या रकमा </td>
-                    <td>0</td>
+                    <td>{{digitChange($total_four)}}</td>
                   </tr>
                 </tbody>
               </table>
 
               <div class="col-md-12 mt-3">
-                <label> दिनांक ३१ मार्च २०२० - अखेर शिल्लक रक्कम रु . {{digitChange($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)}} </label>
+                <label> दिनांक ३१ मार्च २०२० - अखेर शिल्लक रक्कम रु . {{digitChange(($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)-$total_four)}} </label>
               </div>
               <div class="col-md-12">
-                <label> अक्षरी रु .{{convertToIndianCurrency($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)}} </label>
+                <label> अक्षरी रु .{{convertToIndianCurrency(($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)-$total_four)}} </label>
               </div>
 
               <div class="col-md-12 mt-2">

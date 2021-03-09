@@ -1,8 +1,9 @@
-<html>
+<html lang="en">
 <head>
   <link href=" {{ URL('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href=" {{ URL('css/main.css') }}" rel="stylesheet">
   <link href="{{URL('asset/build/css/custom.min.css')}}" rel="stylesheet">
+  <meta charset="UTF-8">
   <style>
   table,
   th,
@@ -229,7 +230,7 @@
                       {{$rowroi->percent}}
                       @endforeach
                       {{getMonthName(3)}}
-                      @endif</td><td colspan="3"></td></tr><tr><td>वर्षातील काढून घेतलेल्या रकमा </td><td>{{$total_four}}</td></tr></tbody></table><div class="col-md-12 mt-3"><label> दिनांक ३१ मार्च २०२० - अखेर शिल्लक रक्कम रु . {{digitChange(($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)-$total_four)}} </label></div><div class="col-md-12">  <label> अक्षरी रु .{{convertToIndianCurrency($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)}} </label></div><div class="col-md-12 mt-2"><h4 class="text-center mt-3" style="border: 1px solid black;padding-block: 8px;"> <b>७ वा वेतन आयोग फरक जमा </b></h4><table style="width:100%"><thead><tr><th>हप्ता नं </th><th> महिना / वर्ष</th><th> व्याज देय दिनांक</th><th> रक्कम </th><th> वर्ष १ व्याज </th><th> वर्ष २ व्याज </th><th> एकूण व्याज </th><th>वार्षिक जमा</th><th>अनाहरणीय </th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table><br></div><div class="col-md-12 mt-12" style="text-align:end;"><br><br><div class="row" style="text-align:center;"><div class="col-md-4 mt-4"><h2> खाते उतारा बनवणाराची सही</h2><h2> </h2></div><div class="col-md-4 mt-4"><h2> खाते उतारा तपासणाराची सही </h2><h2></h2></div><div class="col-md-4 mt-4"><h2> उपमुख्य लेखा वा वित्त अधिकारी</h2><h2> जिल्हा परिषद नाशिक </h2></div></div><div class="row"><h2><b> टीप :- </b> वरील हिशोबामध्ये काही तफावत आढळल्यास १५ दिवसांच्या आत नाशिक परिषद वित्त विभागाशी आपल्या खातेप्रमुखामार्त संपर्क साधावा .</h2></div></div></div></div></div></div></div></div><p>&nbsp;</p>
+                      @endif</td><td colspan="3"></td></tr><tr><td>वर्षातील काढून घेतलेल्या रकमा </td><td>{{digitChange($total_four)}}</td></tr></tbody></table><div class="col-md-12 mt-3"><label> दिनांक ३१ मार्च २०२० - अखेर शिल्लक रक्कम रु . {{digitChange(($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)-$total_four)}} </label></div><div class="col-md-12">  <label> अक्षरी रु .{{convertToIndianCurrency(($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)-$total_four)}} </label></div><div class="col-md-12 mt-2"><h4 class="text-center mt-3" style="border: 1px solid black;padding-block: 8px;"> <b>७ वा वेतन आयोग फरक जमा </b></h4><table style="width:100%"><thead><tr><th>हप्ता नं </th><th> महिना / वर्ष</th><th> व्याज देय दिनांक</th><th> रक्कम </th><th> वर्ष १ व्याज </th><th> वर्ष २ व्याज </th><th> एकूण व्याज </th><th>वार्षिक जमा</th><th>अनाहरणीय </th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table><br></div><div class="col-md-12 mt-12" style="text-align:end;"><br><br><div class="row" style="text-align:center;"><div class="col-md-4 mt-4"><h2> खाते उतारा बनवणाराची सही</h2><h2> </h2></div><div class="col-md-4 mt-4"><h2> खाते उतारा तपासणाराची सही </h2><h2></h2></div><div class="col-md-4 mt-4"><h2> उपमुख्य लेखा वा वित्त अधिकारी</h2><h2> जिल्हा परिषद नाशिक </h2></div></div><div class="row"><h2><b> टीप :- </b> वरील हिशोबामध्ये काही तफावत आढळल्यास १५ दिवसांच्या आत नाशिक परिषद वित्त विभागाशी आपल्या खातेप्रमुखामार्त संपर्क साधावा .</h2></div></div></div></div></div></div></div></div><p>&nbsp;</p>
 @endif
 @endforeach
 @endif
