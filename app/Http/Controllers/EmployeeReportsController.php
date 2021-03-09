@@ -35,18 +35,7 @@ class EmployeeReportsController extends Controller
     $lang = app()->getLocale();
     $year = session()->get('year');
     if($request->view_report_type == 1){
-      // $query = DB::raw('SELECT CONCAT(clf.inital_letter,emc.gpf_number) AS inital_gpf_number,emc.emc_month,emc.emc_year,mm.month_name_'.$lang.' AS month_name,
-      // dp.department_name_'.$lang.' AS department_name,dg.designation_name_'.$lang.' AS designation_name,tl.taluka_name_'.$lang.' AS taluka_name,emc.monthly_contrubition,
-      // emc.monthly_received,emc.loan_amonut,emc.monthly_other,emc.remark,emc.loan_installment
-      // FROM master_emp_monthly_contribution emc
-      // LEFT JOIN departments dp ON dp.id=emc.emc_dept_id
-      // LEFT JOIN designations dg ON dg.id=emc.emc_desg_id
-      // LEFT JOIN master_month mm ON mm.id=emc.emc_month
-      // LEFT JOIN taluka tl ON tl.id=emc.taluka_id
-      // LEFT JOIN classifications clf ON clf.id=emc.classification_id
-      // WHERE emc.gpf_number="'.$request->employee_gpf_num.'"
-      // AND emc.emc_year=2018
-      // ORDER BY emc.emc_month');
+
       $query = DB::raw('SELECT CONCAT(clf.inital_letter,emc.gpf_number) AS inital_gpf_number,emc.emc_month,emc.emc_year,
                         mm.month_name_'.$lang.' AS month_name,SUM(emc.monthly_contrubition) AS monthly_contrubition,SUM(emc.monthly_received) AS monthly_received,SUM(emc.loan_amonut) AS loan_amonut,SUM(emc.monthly_other) AS monthly_other,emc.remark,emc.loan_installment,
                         mm.id AS monthid FROM master_emp_monthly_contribution emc
@@ -78,7 +67,7 @@ class EmployeeReportsController extends Controller
       // foreach($emp_number AS $erow){
         // if(isset($erow->gpf_no) && $erow->gpf_no > 0){
         $query_one = DB::table('master_employee AS me')
-        ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance')
+        ->select('mgt.gpf_number', 'opening_balance', 'month_april_other', 'month_may_other', 'month_june_other', 'month_july_other', 'month_aug_other', 'month_september_other', 'month_octomber_other', 'month_november_other', 'month_december_other', 'month_jan_other', 'month_feb_other', 'month_march_other', 'month_april_recive', 'month_may_recive', 'month_june_recive', 'month_july_recive', 'month_aug_recive', 'month_september_recive', 'month_octomber_recive', 'month_november_recive', 'month_december_recive', 'month_jan_recive', 'month_feb_recive', 'month_march_recive', 'month_april_loan', 'month_may_loan', 'month_june_loan', 'month_july_loan', 'month_aug_loan', 'month_september_loan', 'month_octomber_loan', 'month_november_loan', 'month_december_loan', 'month_jan_loan', 'month_feb_loan', 'month_march_loan', 'month_jan_loan_emi', 'month_feb_loan_emi', 'month_march_loan_emi', 'month_april_loan_emi', 'month_may_loan_emi', 'month_june_loan_emi', 'month_july_loan_emi', 'month_aug_loan_emi', 'month_september_loan_emi', 'month_octomber_loan_emi', 'month_november_loan_emi', 'month_december_loan_emi', 'remark', 'month_april_contri', 'month_may_contri', 'month_june_contri', 'month_july_contri', 'month_aug_contri', 'month_september_contri', 'month_octomber_contri', 'month_november_contri', 'month_december_contri', 'month_jan_contri', 'month_feb_contri', 'month_march_contri','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance')
         ->join('master_gpf_transaction AS mgt','mgt.employee_id','me.id')
         ->join('taluka AS tl','tl.id','me.taluka_id')
         ->join('departments AS dp','dp.department_code','me.department_id')
