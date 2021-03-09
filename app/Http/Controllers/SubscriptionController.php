@@ -38,6 +38,7 @@ class SubscriptionController extends Controller {
       $data['monthly_other'] = 0;
       $data['loan_amonut'] = $request->refund;
       $data['modifed_by'] = Auth::id();
+      print_r($data);dd();
       $create = MasterMonthlySubscription::insert($data);
       return ['status'=>'Success','message'=>' Data Successfully Added'];
     } else {

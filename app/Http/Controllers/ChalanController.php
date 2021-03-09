@@ -64,12 +64,12 @@ class ChalanController extends Controller
     return redirect()->back()->with(session()->flash('msg', $msg));
   }
   public function chalandetails(Request $request){
-    $data['chalan_no'] = $request->chalan_month;
+    $data['chalan_month_id'] = $request->chalan_month;
     $data['year'] = $request->year;
-    $data['app_no'] = $request->chalan_number;
-    $deposits=MonthlyTotalChalan::select('id as chalan_id','amount','primary_number','diff_amount','taluka','classification')->where($data)->first();
+    $data['chalan_serial_no'] = $request->chalan_number;
+    // $deposits=MonthlyTotalChalan::select('id as chalan_id','amount','primary_number','diff_amount','taluka','classification')->where($data)->first();
+    $deposits=MonthlyTotalChalan::select('id as chalan_id','amount','year','chalan_month_id','chalan_serial_no','diff_amount','taluka','classification')->where($data)->first();
     $res = '';
-    dd();
     if(!empty($deposits->chalan_id))
     {
       $lang = app()->getLocale();
