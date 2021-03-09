@@ -223,7 +223,7 @@
                   @php  $total_intrest = round(($total*$roi_result[0]->percent)/12); @endphp
                   @endif<tr><td>वर्षातील जमा रकमेवर व्याज </td><td>{{digitChange($total_intrest)}}</td><td colspan="3"> ६ वा वेतन हप्ता रक्कम एकूण </td><td colspan="3">{{digitChange($total_ins_amt)}}</td>
                   </tr>
-                  <tr><td>जमा रक्कम </td><td>{{digitChange(($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)-$total_four}}</td><td colspan="3">व्याजदर {{getMonthName(4)}} @if(count($roi_result))
+                  <tr><td>जमा रक्कम </td><td>{{digitChange(($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)-$total_four)}}</td><td colspan="3">व्याजदर {{getMonthName(4)}} @if(count($roi_result))
                       @foreach($roi_result AS $rowroi)
                       {{getMonthName($rowroi->to_month)}}
                       {{$rowroi->percent}}
