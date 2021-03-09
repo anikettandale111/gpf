@@ -1,8 +1,6 @@
-@if(count($rqo_result))
-@foreach($rqo_result AS $rqo)
-    @if(isset($rqo->gpf_number) && $rqo->gpf_number > 0)
 <html>
 <head>
+  <link href=" {{ asset('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{asset('asset/build/css/custom.min.css')}}" rel="stylesheet">
   <style>
   table,
@@ -27,9 +25,16 @@
     border-bottom: 2px solid #101011;
     margin-bottom: 10px;
   }
+  @media print {
+  p {page-break-after: always;}
+ }
   </style>
 </head>
-<body class="nav-md"><div class="col-md-12 col-sm-12 "><div class="x_panel"><div class="x_content"><div class="row">      <div class="col-md-2"><img src="{{asset('asset/images/zp-nashik-bharti.jpg') }}" width="120"></img></div><div class="col-md-8" style="text-align: center;"><h2><b>जिल्हा परिषद नाशिक </b></h2><h2> <b>भविष्य निर्वाह निधी खातेवही नमुना नं. ८८ (नियम २३१ ) </b></h2><!-- <h2> <b>सन ({{digitChange(session()->get('year'))}})</b> </h2> --><h2> <b>सन ({{digitChange('2019-2020')}})</b> </h2></div><div class="col-md-2"><h2>{{digitChange(date('d/m/Y h:i:s'))}}</h2></div><div class="col-sm-12"><div class="card-box "><div class="card-box "><div class="x_title"></div><div class="col-md-2 lg-4"> <label> खाते क्रमांक :- {{digitChange($rqo->gpf_number)}} </label></div><div class="col-md-7" style="text-align: center;"> <label> कर्मचाऱ्याचे नाव :- {{$rqo->employee_name}}</label></div><div class="col-md-3 lg-4" style="text-align:end;"><label>पदनाम :- {{$rqo->designation_name}}</label></div><div class="col-md-6"><label>तालुका / मुख्यालयाचे नाव :- {{$rqo->taluka_name}}</label></div><div class="col-md-6 " style="text-align: end;"><label>विभाग /कार्यालयाचे नाव :- {{$rqo->department_name}}</label></div></div>@php $otherInstall = DB::table('master_vetan_ayog_received AS va')->select('va.instalment','va.DiffAmt','va.Interest')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>2019])->get();
+<body class="nav-md">
+@if(count($rqo_result))
+@foreach($rqo_result AS $rqo)
+    @if(isset($rqo->gpf_number) && $rqo->gpf_number > 0)
+<div class="col-md-12 col-sm-12 "><div class="x_panel"><div class="x_content"><div class="row">      <div class="col-md-2"><img src="{{asset('asset/images/zp-nashik-bharti.jpg') }}" width="120"></img></div><div class="col-md-8" style="text-align: center;"><h2><b>जिल्हा परिषद नाशिक </b></h2><h2> <b>भविष्य निर्वाह निधी खातेवही नमुना नं. ८८ (नियम २३१ ) </b></h2><!-- <h2> <b>सन ({{digitChange(session()->get('year'))}})</b> </h2> --><h2> <b>सन ({{digitChange('2019-2020')}})</b> </h2></div><div class="col-md-2"><h2>{{digitChange(date('d/m/Y h:i:s'))}}</h2></div><div class="col-sm-12"><div class="card-box "><div class="card-box "><div class="x_title"></div><div class="col-md-2 lg-4"> <label> खाते क्रमांक :- {{digitChange($rqo->gpf_number)}} </label></div><div class="col-md-7" style="text-align: center;"> <label> कर्मचाऱ्याचे नाव :- {{$rqo->employee_name}}</label></div><div class="col-md-3 lg-4" style="text-align:end;"><label>पदनाम :- {{$rqo->designation_name}}</label></div><div class="col-md-6"><label>तालुका / मुख्यालयाचे नाव :- {{$rqo->taluka_name}}</label></div><div class="col-md-6 " style="text-align: end;"><label>विभाग /कार्यालयाचे नाव :- {{$rqo->department_name}}</label></div></div>@php $otherInstall = DB::table('master_vetan_ayog_received AS va')->select('va.instalment','va.DiffAmt','va.Interest')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>2019])->get();
                 $tcount = count($otherInstall);
                 $ins_one = 0;
                 $ins_two = 0;
@@ -223,7 +228,8 @@
                       {{$rowroi->percent}}
                       @endforeach
                       {{getMonthName(3)}}
-                      @endif</td><td colspan="3"></td></tr><tr><td>वर्षातील काढून घेतलेल्या रकमा </td><td>0</td></tr></tbody></table><div class="col-md-12 mt-3"><label> दिनांक ३१ मार्च २०२० - अखेर शिल्लक रक्कम रु . {{digitChange($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)}} </label></div><div class="col-md-12">  <label> अक्षरी रु .{{convertToIndianCurrency($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)}} </label></div><div class="col-md-12 mt-2"><h4 class="text-center mt-3" style="border: 1px solid black;padding-block: 8px;"> <b>७ वा वेतन आयोग फरक जमा </b></h4><table style="width:100%"><thead><tr><th>हप्ता नं </th><th> महिना / वर्ष</th><th> व्याज देय दिनांक</th><th> रक्कम </th><th> वर्ष १ व्याज </th><th> वर्ष २ व्याज </th><th> एकूण व्याज </th><th>वार्षिक जमा</th><th>अनाहरणीय </th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table><br></div><div class="col-md-12 mt-12" style="text-align:end;"><br><br><div class="row" style="text-align:center;"><div class="col-md-4 mt-4"><h2> खाते उतारा बनवणाराची सही</h2><h2> </h2></div><div class="col-md-4 mt-4"><h2> खाते उतारा तपासणाराची सही </h2><h2></h2></div><div class="col-md-4 mt-4"><h2> उपमुख्य लेखा वा वित्त अधिकारी</h2><h2> जिल्हा परिषद नाशिक </h2></div></div><div class="row"><h2><b> टीप :- </b> वरील हिशोबामध्ये काही तफावत आढळल्यास १५ दिवसांच्या आत नाशिक परिषद वित्त विभागाशी आपल्या खातेप्रमुखामार्त संपर्क साधावा .</h2></div></div></div></div></div></div></div></div></body></html>
+                      @endif</td><td colspan="3"></td></tr><tr><td>वर्षातील काढून घेतलेल्या रकमा </td><td>0</td></tr></tbody></table><div class="col-md-12 mt-3"><label> दिनांक ३१ मार्च २०२० - अखेर शिल्लक रक्कम रु . {{digitChange($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)}} </label></div><div class="col-md-12">  <label> अक्षरी रु .{{convertToIndianCurrency($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest)}} </label></div><div class="col-md-12 mt-2"><h4 class="text-center mt-3" style="border: 1px solid black;padding-block: 8px;"> <b>७ वा वेतन आयोग फरक जमा </b></h4><table style="width:100%"><thead><tr><th>हप्ता नं </th><th> महिना / वर्ष</th><th> व्याज देय दिनांक</th><th> रक्कम </th><th> वर्ष १ व्याज </th><th> वर्ष २ व्याज </th><th> एकूण व्याज </th><th>वार्षिक जमा</th><th>अनाहरणीय </th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table><br></div><div class="col-md-12 mt-12" style="text-align:end;"><br><br><div class="row" style="text-align:center;"><div class="col-md-4 mt-4"><h2> खाते उतारा बनवणाराची सही</h2><h2> </h2></div><div class="col-md-4 mt-4"><h2> खाते उतारा तपासणाराची सही </h2><h2></h2></div><div class="col-md-4 mt-4"><h2> उपमुख्य लेखा वा वित्त अधिकारी</h2><h2> जिल्हा परिषद नाशिक </h2></div></div><div class="row"><h2><b> टीप :- </b> वरील हिशोबामध्ये काही तफावत आढळल्यास १५ दिवसांच्या आत नाशिक परिषद वित्त विभागाशी आपल्या खातेप्रमुखामार्त संपर्क साधावा .</h2></div></div></div></div></div></div></div></div><p>&nbsp;</p>
 @endif
 @endforeach
 @endif
+</body></html>
