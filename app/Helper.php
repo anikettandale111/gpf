@@ -48,7 +48,7 @@ function convertToIndianCurrency($number) {
       $number = floor($no % $divider);
       $no = floor($no / $divider);
       $i += $divider == 10 ? 1 : 2;
-      if ($number) {
+      if ($number >=0) {
         $plural = (($counter = count($str)) && $number > 9) ? 's' : null;
         $str [] = ($number < 21) ? $words[$number] . ' ' . $digits[$counter] . $plural : $words[floor($number / 10) * 10] . ' ' . $words[$number % 10] . ' ' . $digits[$counter] . $plural;
       } else {
@@ -60,6 +60,7 @@ function convertToIndianCurrency($number) {
     $paise = ($decimal) ? "And Paise " . ($words[$decimal - $decimal%10]) ." " .($words[$decimal%10])  : '';
     return ($Rupees ? 'Rupees ' . $Rupees : '') . $paise . " Only";
   }
+
   function amount_inr_format($amount) {
     $fmt = new \NumberFormatter($locale = 'en_IN', NumberFormatter::DECIMAL);
     return $fmt->format($amount);

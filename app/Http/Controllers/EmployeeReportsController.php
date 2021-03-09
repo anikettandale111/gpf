@@ -84,7 +84,7 @@ class EmployeeReportsController extends Controller
         ->join('departments AS dp','dp.department_code','me.department_id')
         ->join('designations AS dg','dg.id','me.designation_id')
         // ->where(['mgt.gpf_number' =>$erow->gpf_no, 'mgt.financial_year'=>"2019-2020"])
-        ->where(['me.taluka_id' =>12, 'mgt.financial_year'=>"2019-2020"])
+        ->where(['me.taluka_id' =>16, 'mgt.financial_year'=>"2019-2020"])
         ->groupBy('mgt.employee_id');
         $rqo_result = $query_one->get();
         // $otherInstall[] = DB::table('master_vetan_ayog_received AS va')
@@ -93,7 +93,7 @@ class EmployeeReportsController extends Controller
         // ->first();
       //   }
       // }
-      return view('Reports/gpf_khatevahi_namuna_88_niyam_231',compact('rqo_result','roi_result','month_name','roi'));
+      return view('Reports/gpf_khatevahi_namuna_88_niyam_231',compact('rqo_result','roi_result','month_name'));
     } else if ($request->view_report_type == 3){
       $query = DB::raw('SELECT CONCAT(clf.inital_letter,emc.gpf_number) AS inital_gpf_number,emc.emc_month,emc.emc_year,mm.month_name_'.$lang.' AS month_name,
       dp.department_name_'.$lang.' AS department_name,dg.designation_name_'.$lang.' AS designation_name,tl.taluka_name_'.$lang.' AS taluka_name,emc.monthly_contrubition,
@@ -114,5 +114,28 @@ class EmployeeReportsController extends Controller
       $roi_result = DB::select($roi);
       return view('Reports/gpf_bruhpatrak_naumna_89_niyam_231',compact('result','emp_name','roi_result'));
     }
+  }
+  public function getAllEmpKhatevahi(){
+    $lang = app()->getLocale();
+    $roi_result = DB::table('master_rate_interest AS ri')
+            ->select('ri.percent','ri.to_month','mm.month_name_mar')
+            ->leftjoin('master_month AS mm','mm.id','=','ri.to_month')
+            ->where('ri.year_to','2019')
+            ->get();
+    $month_name = DB::table('master_month')
+                  ->select(DB::raw('month_name_'.$lang.' AS month_name'),'transaction_month AS trans_month')
+                  ->orderBy('order_by')
+                  ->get();
+    $rqo_result = [];
+    $query_one = DB::table('master_employee AS me')
+                  ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance')
+                  ->join('master_gpf_transaction AS mgt','mgt.employee_id','me.id')
+                  ->join('taluka AS tl','tl.id','me.taluka_id')
+                  ->join('departments AS dp','dp.department_code','me.department_id')
+                  ->join('designations AS dg','dg.id','me.designation_id')
+                  ->where(['me.taluka_id' =>3, 'mgt.financial_year'=>"2019-2020"])
+                  ->groupBy('mgt.employee_id');
+    $rqo_result = $query_one->get();
+    return view('Reports/gpf_khatevahi_namuna_88_niyam_231',compact('rqo_result','roi_result','month_name'));
   }
 }

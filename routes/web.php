@@ -121,6 +121,7 @@ Route::middleware('auth')->group(function () {
     // Application form
     Route::resource('commonreasons', CommonReasonsController::class);
     // Employee Reports
+    Route::get('getAllEmpKhatevahi', 'EmployeeReportsController@getAllEmpKhatevahi');
     Route::resource('employeereports', EmployeeReportsController::class);
     // Chalan Controller
     Route::get('chalandetails', 'ChalanController@chalandetails');
