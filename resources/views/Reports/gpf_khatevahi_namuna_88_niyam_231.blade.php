@@ -1,6 +1,7 @@
 <html>
 <head>
   <link href=" {{ asset('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href=" {{ asset('css/main.css') }}" rel="stylesheet">
   <link href="{{asset('asset/build/css/custom.min.css')}}" rel="stylesheet">
   <style>
   table,
