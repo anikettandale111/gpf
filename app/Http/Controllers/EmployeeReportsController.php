@@ -98,7 +98,7 @@ class EmployeeReportsController extends Controller
                   ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance',"c.inital_letter")
                   ->join('master_gpf_transaction AS mgt','mgt.employee_id','me.id')
                   ->join('taluka AS tl','tl.id','me.taluka_id')
-                  ->join('taluka AS tl','tl.id','me.taluka_id')
+
                   ->join('classifications AS c','c.id','me.classification_id')
                   ->join('departments AS dp','dp.department_code','me.department_id')
                   ->join('designations AS dg','dg.id','me.designation_id')
