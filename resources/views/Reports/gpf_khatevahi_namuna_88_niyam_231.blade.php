@@ -90,7 +90,7 @@
                     @endphp<tr><td>{{$month->month_name}}</td><td>{{digitChange($rqo->$monthly_contrubition)}}</td><td>{{digitChange($rqo->$loan_installment)}}</td><td>{{digitChange($rqo->$monthly_contrubition+$rqo->$loan_installment)}}</td><td>{{digitChange($rqo->$loan_amonut)}}</td><td>{{digitChange($total += ($rqo->$monthly_contrubition - $rqo->$loan_amonut))}}</td><td></td></tr>@php
                       $total_one += $rqo->$monthly_contrubition;
                       $total_two += $rqo->$loan_installment;
-                      $total_six += $total_five;
+                      $total_six += $total;
                       $total_three += ($rqo->$monthly_contrubition+$rqo->$loan_installment);
                       $total_four += $rqo->$loan_amonut;
                       $total_gpf['contribution'][$month->trans_month] = $rqo->$monthly_contrubition;
