@@ -75,6 +75,7 @@
                   $total_three = 0;
                   $total_four = 0;
                   $total_five = 0;
+                  $total_six = 0;
                   $total_intrest = 0;
                   @endphp
                   @foreach($month_name AS $month)
@@ -89,6 +90,7 @@
                     @endphp<tr><td>{{$month->month_name}}</td><td>{{digitChange($rqo->$monthly_contrubition)}}</td><td>{{digitChange($rqo->$loan_installment)}}</td><td>{{digitChange($rqo->$monthly_contrubition+$rqo->$loan_installment)}}</td><td>{{digitChange($rqo->$loan_amonut)}}</td><td>{{digitChange($total += ($rqo->$monthly_contrubition - $rqo->$loan_amonut))}}</td><td></td></tr>@php
                       $total_one += $rqo->$monthly_contrubition;
                       $total_two += $rqo->$loan_installment;
+                      $total_six += $total_five;
                       $total_three += ($rqo->$monthly_contrubition+$rqo->$loan_installment);
                       $total_four += $rqo->$loan_amonut;
                       $total_gpf['contribution'][$month->trans_month] = $rqo->$monthly_contrubition;
@@ -97,7 +99,7 @@
                       $total_gpf['monthly_received'][$month->trans_month] = $rqo->$monthly_received;
                       $total_gpf['loan_amonut'][$month->trans_month] = $rqo->$loan_amonut;
                     @endphp
-                  @endforeach</tbody><tfoot><tr><th></th><th>{{digitChange($total_one)}}</th><th>{{digitChange($total_two)}}</th><th>{{digitChange($total_three)}}</th><th>{{digitChange($total_four)}}</th><th>{{digitChange($total)}}</th><th></th></tr></tfoot></table><table style="width:100%"><tbody><tr><th> १ एप्रिल २०१९ - ची सुरवातीचा शिल्लक</th><th> {{digitChange($rqo->opening_balance)}}</th><th> ६ वा वेतन हप्ता </th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr><tr><td>वर्षातील एकूण जमा ( वर्णी व कर्ज हप्ता ) </td><td>{{digitChange($total_one)}}</td><td>रक्कम</td><td>{{digitChange($ins_one)}}</td><td>{{digitChange($ins_two)}}</td><td>{{digitChange($ins_thre)}}</td><td>{{digitChange($ins_four)}}</td><td>{{digitChange($ins_five)}}</td></tr>@php
+                  @endforeach</tbody><tfoot><tr><th></th><th>{{digitChange($total_one)}}</th><th>{{digitChange($total_two)}}</th><th>{{digitChange($total_three)}}</th><th>{{digitChange($total_four)}}</th><th>{{digitChange($total_six)}}</th><th></th></tr></tfoot></table><table style="width:100%"><tbody><tr><th> १ एप्रिल २०१९ - ची सुरवातीचा शिल्लक</th><th> {{digitChange($rqo->opening_balance)}}</th><th> ६ वा वेतन हप्ता </th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr><tr><td>वर्षातील एकूण जमा ( वर्णी व कर्ज हप्ता ) </td><td>{{digitChange($total_one)}}</td><td>रक्कम</td><td>{{digitChange($ins_one)}}</td><td>{{digitChange($ins_two)}}</td><td>{{digitChange($ins_thre)}}</td><td>{{digitChange($ins_four)}}</td><td>{{digitChange($ins_five)}}</td></tr>@php
                     $total_masik=0;
                     $i=0;
                     $start_month=0;
