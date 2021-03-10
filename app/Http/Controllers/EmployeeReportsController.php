@@ -82,7 +82,7 @@ class EmployeeReportsController extends Controller
       return view('Reports/gpf_bruhpatrak_naumna_89_niyam_231',compact('result','emp_name','roi_result'));
     }
   }
-  public function getAllEmpKhatevahi(){
+  public function getAllEmpKhatevahi(Request $request){
     $lang = app()->getLocale();
     $roi_result = DB::table('master_rate_interest AS ri')
             ->select('ri.percent','ri.to_month','mm.month_name_mar')
@@ -98,11 +98,10 @@ class EmployeeReportsController extends Controller
                   ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance',"c.inital_letter")
                   ->join('master_gpf_transaction AS mgt','mgt.employee_id','me.id')
                   ->join('taluka AS tl','tl.id','me.taluka_id')
-
                   ->join('classifications AS c','c.id','me.classification_id')
                   ->join('departments AS dp','dp.department_code','me.department_id')
                   ->join('designations AS dg','dg.id','me.designation_id')
-                  ->where(['me.taluka_id' =>16, 'mgt.financial_year'=>"2019-2020"])
+                  ->where(['me.taluka_id' =>$request->taluka_id, 'mgt.financial_year'=>"2019-2020"])
                   ->groupBy('mgt.employee_id')->orderBy("me.gpf_no");
     $rqo_result = $query_one->get();
     return view('Reports/gpf_khatevahi_namuna_88_niyam_231',compact('rqo_result','roi_result','month_name'));
