@@ -97,6 +97,7 @@
                 $ins_five = 0;
                 $html = '';
                 $total_ins_amt = 0;
+                $total_ins_amt_one = 0;
                 $total_ins_interest = 0;
                 @endphp
                 @if($tcount)
@@ -113,6 +114,7 @@
                       @php $ins_five = (isset($otherInstall[$j]->DiffAmt))?$otherInstall[$j]->DiffAmt:'0' @endphp
                     @endif
                     @php
+                      $total_ins_amt_one += (isset($otherInstall[$j]->DiffAmt))?$otherInstall[$j]->DiffAmt:0;
                       $total_ins_amt += (isset($otherInstall[$j]->DiffAmt))?$otherInstall[$j]->DiffAmt:0;
                       $total_ins_interest += (isset($otherInstall[$j]->Interest))?$otherInstall[$j]->Interest:0;
                     @endphp
@@ -158,21 +160,22 @@
                       <td>{{$month->month_name}}</td>
                       <td>{{digitChange($rqo->$monthly_contrubition)}}</td>
                       <td>{{digitChange($rqo->$loan_installment)}}</td>
-                      <td>{{digitChange($total_ins_amt)}}</td>
+                      <td>{{digitChange($total_ins_amt_one)}}</td>
                       <td>{{digitChange($rqo->$loan_amonut)}}</td>
-                      <td>{{digitChange($total += ($rqo->$monthly_contrubition-$rqo->$loan_amonut))}}</td>
+                      <td>{{digitChange($total += (($rqo->$monthly_contrubition+$total_ins_amt_one)-$rqo->$loan_amonut))}}</td>
                       <td></td>
                     </tr>
                     @php
                       $total_one += $rqo->$monthly_contrubition;
                       $total_two += $rqo->$loan_installment;
-                      $total_three += ($rqo->$monthly_contrubition+$rqo->$loan_installment);
+                      $total_three += ($rqo->$monthly_contrubition+$rqo->$loan_installment+$total_ins_amt_one);
                       $total_four += $rqo->$loan_amonut;
                       $total_gpf['contribution'][$month->trans_month] = $rqo->$monthly_contrubition;
                       $total_gpf['loan_installment'][$month->trans_month] = $rqo->$loan_installment;
                       $total_gpf['monthly_other'][$month->trans_month] = $rqo->$monthly_other;
                       $total_gpf['monthly_received'][$month->trans_month] = $rqo->$monthly_received;
                       $total_gpf['loan_amonut'][$month->trans_month] = $rqo->$loan_amonut;
+                      $total_ins_amt_one = 0;
                     @endphp
                   @endforeach
                 </tbody>
@@ -181,7 +184,7 @@
                     <th></th>
                     <th>{{digitChange($total_one)}} </th>
                     <th>{{digitChange($total_two)}}</th>
-                    <th>{{digitChange($total_three)}}</th>
+                    <th>{{digitChange($total_ins_amt)}}</th>
                     <th>{{digitChange($total_four)}}</th>
                     <th>{{digitChange($total)}}</th>
                     <th></th>
