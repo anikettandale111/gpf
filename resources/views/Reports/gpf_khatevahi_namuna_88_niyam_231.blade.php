@@ -90,7 +90,7 @@
                     $loan_amonut = $month->trans_month.'_loan';
                     $six_pay = $month->trans_month.'_six_pay';
                     $seven_pay = $month->trans_month.'_seven_pay';
-                    @endphp<tr><td>{{$month->month_name}}</td><td class="amounttext">{{digitChange($rqo->$monthly_contrubition)}}</td><td class="amounttext">{{digitChange($rqo->$loan_installment)}}</td><td class="amounttext">{{digitChange($rqo->$monthly_contrubition+$rqo->$loan_installment)}}</td><td class="amounttext">{{digitChange($rqo->$loan_amonut)}}</td><td class="amounttext">{{digitChange($total += ($rqo->$monthly_contrubition - $rqo->$loan_amonut))}}</td><td></td></tr>@php
+                    @endphp<tr><td>{{$month->month_name}} - {{digitChange(($key < 9)?(date('y')-2):date('y')-1)}}</td><td class="amounttext">{{digitChange($rqo->$monthly_contrubition)}}</td><td class="amounttext">{{digitChange($rqo->$loan_installment)}}</td><td class="amounttext">{{digitChange($rqo->$monthly_contrubition+$rqo->$loan_installment)}}</td><td class="amounttext">{{digitChange($rqo->$loan_amonut)}}</td><td class="amounttext">{{digitChange($total += ($rqo->$monthly_contrubition - $rqo->$loan_amonut))}}</td><td></td></tr>@php
                       $total_one += $rqo->$monthly_contrubition;
                       $total_two += $rqo->$loan_installment;
                       $total_six += $total;

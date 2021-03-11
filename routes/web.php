@@ -122,6 +122,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('commonreasons', CommonReasonsController::class);
     // Employee Reports
     Route::get('getAllEmpKhatevahi', 'EmployeeReportsController@getAllEmpKhatevahi');
+    Route::get('getAllEmpKhateUtara', 'EmployeeReportsController@getAllEmpKhateUtara');
     Route::resource('employeereports', EmployeeReportsController::class);
     // Chalan Controller
     Route::get('chalandetails', 'ChalanController@chalandetails');
