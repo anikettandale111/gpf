@@ -314,7 +314,7 @@
                     @else
                     @php  $total_intrest = round(($total*$roi_result[0]->percent)/12); @endphp
                     @endif
-                    @endforeach
+
                     <tr >
                       <td>{{$rqo->inital_letter}}{{digitChange($rqo->gpf_number)}}</td>
                       <td>{{$rqo->employee_name}}</td>
@@ -350,6 +350,7 @@
                     @endforeach
                       <td colspan="6"> </td>
                     </tr>
+                    @endforeach
                 </tbody>
               </table>
             </div>
