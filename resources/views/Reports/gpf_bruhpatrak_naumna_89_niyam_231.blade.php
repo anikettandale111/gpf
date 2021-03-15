@@ -52,7 +52,7 @@
       <div class="x_content">
         <div class="row">
           <div class="col-md-2">
-            <label> नाशिक </label>
+            <label> नाशिक जिल्हा</label>
           </div>
           <div class="col-md-2">
             <img src="{{asset('asset/images/zp-nashik-bharti.jpg') }}" width="120"></img>
@@ -118,10 +118,10 @@
                     <td>20</td>
                     <td>21</td>
                   </tr>
-                  <tr>
-                    <td colspan="21"><center> प्राथ शिक्षक NASHIK</center></td>
-                  </tr>
                   @foreach($rqo_result AS $rqo)
+                  <tr>
+                    <td colspan="21"><center> {{$rqo->department_name}} {{$rqo->taluka_name}}</center></td>
+                  </tr>
                   @php $otherInstall = DB::table('master_vetan_ayog_received AS va')->select('va.instalment','va.DiffAmt','va.Interest')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>2019])->get();
                   $tcount = count($otherInstall);
                   $ins_one = 0;
