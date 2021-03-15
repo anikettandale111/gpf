@@ -81,7 +81,7 @@
                   $total_six = 0;
                   $total_intrest = 0;
                   @endphp
-                  @foreach($month_name AS $month)
+                  @foreach($month_name AS $key => $month)
                     @php
                     $monthly_contrubition = $month->trans_month.'_contri';
                     $loan_installment = $month->trans_month.'_loan_emi';
