@@ -152,8 +152,8 @@ return [
   'th_basic_employee_account_no'=>'खाते क्र.',
   // Trend
   'h_trend'=>'चलन',
-  'th_trend_s_no'=>'क्रमांक',
-  'th_trend_year'=>'वर्ष',
+  'th_trend_s_no'=>'चलन क्रमांक',
+  'th_trend_year'=>'चलन वर्ष',
   'th_trend_no'=>' चलन महिना',
   'th_trend_date'=>' चलन दिनांक',
   'th_trend_taluka'=>'तालुका',

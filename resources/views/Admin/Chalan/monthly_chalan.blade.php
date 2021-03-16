@@ -21,7 +21,7 @@
                 $earliest_year = 2020;
                 $latest_year = date('Y');
                 @endphp
-                <select class="form-control year" name="selected_year" id="selected_year">
+                <select class="form-control year getchalan" name="selected_year" id="selected_year">
                   <?php
                   foreach (range($latest_year, $earliest_year) as $i) {
                     echo '<option value="' . $i . '"' . ($i === $currently_selected ? ' selected="selected"' : '') . '>' . $i . '</option>';
@@ -31,7 +31,7 @@
               </div>
               <div class="col-md-6 col-sm-3 ">
                 <label for="first-name"> चलन दिनांक </label>
-                <select type="text" id="chalan_month" name="chalan_month" required="required" class="form-control chalan_no">
+                <select type="text" id="chalan_month" name="chalan_month" required="required" class="form-control chalan_no getchalan">
                   <option selected="" value=""> -- Select -- </option>
                   @foreach ($month as $temp)
                   <option value="{{$temp->id}}">{{$temp->month_name_mar}}</option>
@@ -42,7 +42,7 @@
             <div class="form-group col-md-6">
               <div class="col-md-6 col-sm-3 ">
                 <label for="first-name"> चलन क्रमांक </label>
-                <select type="text" id="chalan_number" name="chalan_number" required="required" class="form-control app_no" >
+                <select type="text" id="chalan_number" name="chalan_number" required="required" class="form-control app_no getchalan" >
                   <option selected="" value=""> -- Select -- </option>
                   @for($i=1; $i <= 300; $i++) <option value="{{$i}}">{{$i}}</option>
                   @endfor
@@ -51,7 +51,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="middle-name">तालूका निवडा </label>
-                <select id="taluka_id" class="form-control taluka" type="text" name="taluka_id">
+                <select id="taluka_id" class="form-control taluka" type="text" name="taluka_id" readonly>
                   <option value=""> -- Select -- </option>
                   @foreach ($taluka as $temp)
                   <option value="{{$temp->id}}" >{{$temp->taluka_name_mar}}</option>
@@ -62,7 +62,7 @@
             <div class="form-group col-md-6">
               <div class="form-group col-md-6">
                 <label for="middle-name">वर्गीकरण </label>
-                <select id="classification_id" class="form-control" type="text" name="classification_id">
+                <select id="classification_id" class="form-control" type="text" name="classification_id" readonly>
                   <option value=""> -- Select -- </option>
                   @foreach ($classification as $temp)
                   <option value="{{$temp->id}}">{{$temp->classification_name_mar}}</option>
@@ -76,12 +76,11 @@
                 <input type="hidden" name="primary_number" class="form-control primary_number" readonly>
               </div>
             </div>
-
-
             <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">रकमेतील फरक </label>
                 <input id="diffrence_amount" class="form-control" type="text" name="diffrence_amount" readonly>
+                <input id="diffrence_amount_duplicate" class="form-control" type="hidden" name="diffrence_amount_duplicate">
               </div>
               <div class="col-md-6">
                 <label for="middle-name">भ.नि.नि.क्रमांक </label>
@@ -108,17 +107,17 @@
               </div>
               <div class="col-md-6">
                 <label for="middle-name">वर्गणी </label>
-                <input id="deposit_amt" class="form-control deposit add" type="number" name="deposit_amt" required>
+                <input id="deposit_amt" class="form-control deposit add calculation" type="number" name="deposit_amt" required>
               </div>
             </div>
             <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">अग्रिम परतावा </label>
-                <input id="refund" class="form-control refund add" type="number" name="refund" value="0">
+                <input id="refund" class="form-control refund add calculation" type="number" name="refund" value="0">
               </div>
               <div class="col-md-6">
                 <label for="middle-name">थकबाकी </label>
-                <input id="pending_amt" class="form-control pending_amt add" type="number" name="pending_amt" value="0">
+                <input id="pending_amt" class="form-control pending_amt add calculation" type="number" name="pending_amt" value="0">
               </div>
             </div>
             <div class="form-group col-md-6">
@@ -126,14 +125,14 @@
                 <label for="middle-name">एकुण </label>
                 <input id="total_monthly_pay" class="form-control" type="number" name="total_monthly_pay" readonly>
               </div>
-              <div class="col-md-6" style="margin-top:30px;">
-                <label for="middle-name"></label>
-                <div class="col-md-6">
-                  <button type="submit" class="btn btn-success submit" style="width:100%;">Submit</button>
-                </div>
-                <div class="col-md-6">
-                  <button class="btn btn-primary" type="button" style="width:100%;">Cancel</button>
-                </div>
+            </div>
+            <div class="col-md-6" style="margin-top:30px;">
+              <label for="middle-name"></label>
+              <div class="col-md-6">
+                <button type="submit" class="btn btn-success submit" style="width:100%;font-size:20px;">Submit</button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-primary" type="button" style="width:100%;font-size:20px;">Cancel</button>
               </div>
             </div>
           </div>

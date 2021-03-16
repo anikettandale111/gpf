@@ -11,6 +11,7 @@ use App\Chalan;
 use App\MasterMonthlySubscription;
 use DataTable;
 use App\Deposit;
+use App\MonthlyTotalChalan;
 
 class SubscriptionController extends Controller {
   public function index(Request $request) {
@@ -38,8 +39,12 @@ class SubscriptionController extends Controller {
       $data['monthly_other'] = 0;
       $data['loan_amonut'] = $request->refund;
       $data['modifed_by'] = Auth::id();
-      print_r($data);dd();
       $create = MasterMonthlySubscription::insert($data);
+      if($create){
+        $chalan_id = $request->chalan_id;
+        $diffrence_amount = $request->diffrence_amount;
+        $updateRes = MonthlyTotalChalan::where(['id'=>$chalan_id,])->update(['diff_amount'=>$diffrence_amount]);
+      }
       return ['status'=>'Success','message'=>' Data Successfully Added'];
     } else {
       return ['status' =>'warning' ,'message'=>'Data Already exist'];

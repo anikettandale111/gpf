@@ -122,7 +122,7 @@
                   <tr>
                     <td colspan="21"><center> {{$rqo->department_name}} {{$rqo->taluka_name}}</center></td>
                   </tr>
-                  @php $otherInstall = DB::table('master_vetan_ayog_received AS va')->select('va.instalment','va.DiffAmt','va.Interest')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>2019])->get();
+                  @php $otherInstall = DB::table('master_vetan_ayog_received AS va')->select('va.instalment','va.DiffAmt','va.Interest','va.Mnt')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>2019])->get();
                   $tcount = count($otherInstall);
                   $ins_one = 0;
                   $ins_two = 0;
@@ -130,6 +130,7 @@
                   $ins_four = 0;
                   $ins_five = 0;
                   $html = '';
+                  $total_ins_amt_month = 0;
                   $total_ins_amt = 0;
                   $total_ins_interest = 0;
                   @endphp
@@ -149,6 +150,7 @@
                       @php
                         $total_ins_amt += (isset($otherInstall[$j]->DiffAmt))?$otherInstall[$j]->DiffAmt:0;
                         $total_ins_interest += (isset($otherInstall[$j]->Interest))?$otherInstall[$j]->Interest:0;
+                        $total_ins_amt_month = $otherInstall[$j]->Mnt;
                       @endphp
                       @endfor
                   @endif
@@ -319,12 +321,14 @@
                       <td>{{$rqo->inital_letter}}{{digitChange($rqo->gpf_number)}}</td>
                       <td>{{$rqo->employee_name}}</td>
                       <td>{{digitChange($opening_balance)}}</td>
+
                     @foreach($month_name AS $key => $month)
+                      @php   $monthly_contrubition = $month->trans_month.'_contri'; @endphp
                       <td class="amounttext">{{digitChange($rqo->$monthly_contrubition)}}</td>
                     @endforeach
                       <td> {{digitChange($total_one)}}</td>
                       <td>{{digitChange($total_intrest)}}</td>
-                      <td> {{digitChange($opening_balance)}} + {{digitChange($total_one)}} + {{digitChange($total_intrest)}} </td>
+                      <td> {{digitChange($opening_balance)}} + {{digitChange($total_one)}} + {{digitChange($total_intrest)}} = {{digitChange($opening_balance+$total_one+$total_intrest)}}</td>
                       <td>{{digitChange($total_four)}}</td>
                       <td>{{digitChange(($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_ins_interest+$total_intrest)-$total_four)}}</td>
                       <td></td>
@@ -332,23 +336,29 @@
                     <tr>
                     <td colspan="3"></td>
                     @foreach($month_name AS $key => $month)
-                      <td class="amounttext">@if($key == 0) {{digitChange($total_four)}} @else {{digitChange(0)}} @endif</td>
+                      @php   $loan_amonut = $month->trans_month.'_loan'; @endphp
+                      <td class="amounttext">{{digitChange($rqo->$loan_amonut)}}</td>
                     @endforeach
+                      <td>{{digitChange($total_four)}} </td>
                       <td colspan="6"> </td>
                     </tr>
                     <tr>
                     <td colspan="3"></td>
                     @foreach($month_name AS $key => $month)
+                      @php $loan_installment = $month->trans_month.'_loan_emi'; @endphp
                       <td class="amounttext">@if($key == 0) {{digitChange($rqo->$loan_installment)}} @else {{digitChange(0)}} @endif</td>
                     @endforeach
-                      <td colspan="6"> </td>
+                      <td >{{digitChange($total_two)}} </td>
+                      <td colspan="5"> </td>
                     </tr>
                     <tr>
                     <td colspan="3"></td>
                     @foreach($month_name AS $key => $month)
-                      <td class="amounttext">@if($key == 0) {{digitChange($total_ins_amt)}} @else {{digitChange(0)}} @endif</td>
+                      <td class="amounttext">@if($key == ($total_ins_amt_month-4)) {{digitChange($total_ins_amt)}} @else {{digitChange(0)}} @endif</td>
                     @endforeach
-                      <td colspan="6"> </td>
+                      <td >{{digitChange($total_ins_amt)}} </td>
+                      <td >{{digitChange($total_ins_interest)}} </td>
+                      <td colspan="4"></td>
                     </tr>
                     @endforeach
                 </tbody>

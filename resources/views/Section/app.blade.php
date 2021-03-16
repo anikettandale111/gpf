@@ -94,8 +94,8 @@
                     <li><a href="{{url('designation')}}">{{trans('language.ms_designations')}}</a></li>
                     <li><a href="{{url('classification')}}">{{trans('language.ms_classification')}}</a></li>
                     <li><a href="{{url('bank')}}">{{trans('language.ms_bank')}}</a></li>
-                    <li><a href="javascript:;">{{trans('language.ms_staff')}}</a></li>
-                    <li><a href="javascript:;">{{trans('language.ms_employee')}}</a></li>
+                    <li><a href="#">{{trans('language.ms_staff')}}</a></li>
+                    <li><a href="#">{{trans('language.ms_employee')}}</a></li>
                     <li><a href="{{url('commonreasons')}}">{{trans('language.ms_reason_for_accounts')}}</a></li>
                     <li><a href="{{url('user_registration')}}">{{trans('language.register_users')}}</a></li>
                     <li><a href="{{url('Year')}}">{{trans('language.yearly_intrest_paid_form')}}</a></li>
@@ -105,7 +105,7 @@
                   <ul class="nav child_menu">
                     <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li>
                     <li><a href="{{url('commonforms')}}">{{trans('language.fr_common_application_form')}}</a></li>
-                    <!-- <li><a href="javascript:;">{{trans('language.fr_application_form_amount_withdrawn')}}</a></li> -->
+                    <!-- <li><a href="#">{{trans('language.fr_application_form_amount_withdrawn')}}</a></li> -->
                     <li><a href="{{url('closed_account')}}">{{trans('language.fr_application_form_account_close')}}</a></li>
                   </ul>
                 </li>
@@ -184,11 +184,11 @@
           </a>
         </li>
         <li class="nav-item dropdown open" style="padding-left: 15px;">
-          <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+          <a href="#" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
             <img src="{{asset ('asset/images/img.jpg ')}}" alt="">{{ Auth::user()->name }}
           </a>
           <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item"  href="javascript:;"> Profile</a>
+            <a class="dropdown-item"  href="#"> Profile</a>
             <a class="dropdown-item"  href="{{url('/change_pwd')}}"> Change Password</a>
             <a class="dropdown-item"  href="{{ route('logout') }}"
             onclick="event.preventDefault();document.getElementById('logout-form').submit();">

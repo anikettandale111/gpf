@@ -46,7 +46,7 @@ $(document).ready(function(){
     }
   });
 })
-$(document).on('change', '.app_no', function(e) {
+$('.getchalan').change( function(e) {
   year = $('.year').val();
   chalan_month = $('#chalan_month').val();
   chalan_number = $('#chalan_number').val();
@@ -71,11 +71,12 @@ $("#gpf_account_id").keypress(function (e) {
   if(lg == 4){
     setTimeout(function(){
       getdetails();
-    },200);
+    },100);
   }
 });
 
 function subscriptionSubmit(){
+  $('.submit').hide();
   $.ajax({
     type: 'POST',
     url: "subscription",
@@ -85,42 +86,47 @@ function subscriptionSubmit(){
       year = $('.year').val();
       chalan_month = $('#chalan_month').val();
       chalan_number = $('#chalan_number').val();
-      getChalanDetails(year,chalan_month,chalan_number)
+      $('.submit').show();
+      getChalanDetails(year,chalan_month,chalan_number);
     }
   })
 }
 
-$(document).on('keyup', '.add', function(e) {
-
-  chalan_amount = $('.chalan_amount').val();
-  deposit = $('.deposit').val();
-  refund = $('.refund').val();
-  pending_amt = $('.pending_amt').val();
-  new_diffrence_amount = $('#diffrence_amount').val();
-  if(parseFloat(deposit) > parseFloat(chalan_amount)){
-    swal("WARNING", "Deposit Amount not greater than chalan amount");
-    return false;
-  }
-  if(parseFloat(refund) > parseFloat(chalan_amount)){
-    swal("WARNING", "Refund Amount not greater than chalan amount");
-    return false;
-  }
-  if(parseFloat(pending_amt) > parseFloat(chalan_amount)){
-    swal("WARNING", "Pending Amount not greater than chalan amount");
-    return false;
-  }
-  var total = parseFloat(deposit) + parseFloat(refund) + parseFloat(pending_amt);
-  if(parseFloat(total) > parseFloat(chalan_amount)){
-    swal("WARNING", "Total Amount is not greater than chalan amount");
-    return false;
-  }
-  $('#total_monthly_pay').val(total);
-  var diff_amt = parseFloat(chalan_amount) - total;
-  if(diff_amt <= 0){
-    $('#diffrence_amount').val('0');
-  }else{
-    $('#diffrence_amount').val(diff_amt);
-  }
+$('.calculation').keypress( function(e) {
+  setTimeout(function(){
+    $('#diffrence_amount').val(parseInt($('#diffrence_amount_duplicate').val()));
+    chalan_amount = parseInt($('.chalan_amount').val());
+    deposit = parseInt($('.deposit').val());
+    refund = parseInt($('.refund').val());
+    pending_amt = parseInt($('.pending_amt').val());
+    new_diffrence_amount = parseInt($('#diffrence_amount').val());
+    if(deposit >= 0 && refund >= 0 && pending_amt >= 0){
+      if(deposit > chalan_amount){
+        swal("WARNING", "Deposit Amount not greater than chalan amount");
+        return false;
+      }
+      if(refund > chalan_amount){
+        swal("WARNING", "Refund Amount not greater than chalan amount");
+        return false;
+      }
+      if(pending_amt > chalan_amount){
+        swal("WARNING", "Pending Amount not greater than chalan amount");
+        return false;
+      }
+      var total = deposit + refund + pending_amt;
+      if(total > new_diffrence_amount){
+        swal("WARNING", "Total Amount is not greater than chalan amount");
+        return false;
+      }
+      $('#total_monthly_pay').val(total);
+      var diff_amt = new_diffrence_amount - total;
+      if(parseInt(diff_amt) <= 0){
+        $('#diffrence_amount').val(0);
+      }else{
+        $('#diffrence_amount').val(parseInt(diff_amt));
+      }
+    }
+  },100);
 });
 
 function getdetails(){
@@ -176,10 +182,16 @@ function getChalanDetails(year,chalan_month,chalan_number){
     type: 'GET',
     success: function(res) {
       if (res.amt != null) {
+        if(parseInt(res.amt.diff_amount) <= 0){
+          $('.submit').hide();
+          swal("WARNING", "Chalan Amount allready distributed",'warning');
+          return false;
+        }
         $('#chalan_id').val(res.amt.chalan_id);
         $('.chalan_amount').val(res.amt.amount);
         $('.primary_number').val(res.amt.primary_number);
         $('#diffrence_amount').val(res.amt.diff_amount);
+        $('#diffrence_amount_duplicate').val(res.amt.diff_amount);
         $('#taluka_id').val(res.amt.taluka);
         $('#classification_id').val(res.amt.classification);
         $('.submit').show();
@@ -195,7 +207,6 @@ function getChalanDetails(year,chalan_month,chalan_number){
         }
         $('.appaend_table').html(str);
       } else {
-        $('.year').val('');
         $('#chalan_no').val('');
         $('.app_no').val('');
         $('.chalan_amount').val(0);

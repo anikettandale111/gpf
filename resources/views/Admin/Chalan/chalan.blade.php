@@ -22,7 +22,7 @@
                 $latest_year = date('Y');
                 @endphp
                 <select name="chalan_year" id="chalan_year" class="form-control">
-                  <option value="">-- निवडा वर्ष --</option>
+                  <option value="">-- वर्ष निवडा --</option>
                   @foreach ( range( $latest_year, $earliest_year ) as $i )
                   <option value="{{$i}}" "{{($i === $currently_selected) ? 'selected':''}}"  >{{$i}}</option>
                   @endforeach
@@ -37,7 +37,7 @@
               <div class="col-md-6 col-sm-3 ">
                 <label>{{trans('language.th_trend_s_no')}}</label>
                 <select type="text" id="chalan_serial_no" name="chalan_serial_no" required="required" class="form-control ">
-                  <option value="" selected disabled>-- निवडा  क्रमांक --</option>
+                  <option value="" selected disabled>-- चलन क्रमांक निवडा --</option>
                   @for($i=1; $i <= 300; $i++)
                   <option value="{{$i}}">{{$i}}</option>
                   @endfor

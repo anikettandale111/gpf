@@ -45,6 +45,7 @@ class ChalanController extends Controller
       $data['classification'] = $request->classification_type;
       $data['taluka'] = $request->chalan_taluka;
       $data['amount'] = $request->chalan_amount;
+      $data['diff_amount'] = $request->chalan_amount;
       $data['remark'] = $request->chalan_remark;
       $data['chalan_month_id'] = $request->chalan_month;
       $data['chalan_serial_no'] = $request->chalan_serial_no;
@@ -68,20 +69,23 @@ class ChalanController extends Controller
     $data['year'] = $request->year;
     $data['chalan_serial_no'] = $request->chalan_number;
     // $deposits=MonthlyTotalChalan::select('id as chalan_id','amount','primary_number','diff_amount','taluka','classification')->where($data)->first();
-    $deposits=MonthlyTotalChalan::select('id as chalan_id','amount','year','chalan_month_id','chalan_serial_no','diff_amount','taluka','classification')->where($data)->first();
+    $deposits = MonthlyTotalChalan::select('id as chalan_id','amount','year','chalan_month_id','chalan_serial_no',
+              'diff_amount','taluka','classification')
+              ->where($data)
+              ->first();
     $res = '';
     if(!empty($deposits->chalan_id))
     {
       $lang = app()->getLocale();
-      $res = MasterMonthlySubscription::select('master_emp_monthly_contribution.*','users.name','me.employee_name',
+      $res = MasterMonthlySubscription::select('master_emp_monthly_contribution_two.*','users.name','me.employee_name',
       'tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mm.month_name_'.$lang.' AS month_name')
-      ->where('master_emp_monthly_contribution.challan_id',$deposits->chalan_id)
-      ->leftjoin('users','users.id','=','master_emp_monthly_contribution.modifed_by')
-      ->leftjoin('master_employee AS me','me.gpf_no','=','master_emp_monthly_contribution.gpf_number')
-      ->leftjoin('taluka AS tl','tl.id','=','master_emp_monthly_contribution.taluka_id')
-      ->leftjoin('departments AS dp','dp.id','=','master_emp_monthly_contribution.emc_dept_id')
-      ->leftjoin('designations AS dg','dg.id','=','master_emp_monthly_contribution.emc_desg_id')
-      ->leftjoin('master_month AS mm','mm.id','=','master_emp_monthly_contribution.emc_month')
+      ->where('master_emp_monthly_contribution_two.challan_id',$deposits->chalan_id)
+      ->leftjoin('users','users.id','=','master_emp_monthly_contribution_two.modifed_by')
+      ->leftjoin('master_employee AS me','me.gpf_no','=','master_emp_monthly_contribution_two.gpf_number')
+      ->leftjoin('taluka AS tl','tl.id','=','master_emp_monthly_contribution_two.taluka_id')
+      ->leftjoin('departments AS dp','dp.id','=','master_emp_monthly_contribution_two.emc_dept_id')
+      ->leftjoin('designations AS dg','dg.id','=','master_emp_monthly_contribution_two.emc_desg_id')
+      ->leftjoin('master_month AS mm','mm.id','=','master_emp_monthly_contribution_two.emc_month')
       ->latest()->get();
     }
     return ['amt'=>$deposits,'chalan'=>$res];
