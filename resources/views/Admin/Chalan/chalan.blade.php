@@ -18,7 +18,7 @@
                 <label  for="Year"> {{trans('language.th_trend_year')}} </label>
                 @php
                 $currently_selected = date('Y');
-                $earliest_year = 2020;
+                $earliest_year = session()->get('from_year');
                 $latest_year = date('Y');
                 @endphp
                 <select name="chalan_year" id="chalan_year" class="form-control">

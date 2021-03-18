@@ -54,6 +54,8 @@
   </style>
 </head>
 <body class="nav-md">
+  <input type="hidden" name="sess_from_year" id="sess_from_year" value="{{session()->get('from_year')}}">
+  <input type="hidden" name="sess_to_year" id="sess_to_year" value="{{session()->get('to_year')}}">
   <div class="container body">
     <div class="main_container">
       <div class="col-md-3 left_col">
@@ -86,10 +88,11 @@
                 <li>
                   <a href="{{url('home')}}"><i class="fa fa-home"></i> {{trans('language.menu_home')}} </a>
                 </li>
+                @if(Auth::user()->id == 1 )
                 <li><a><i class="fa fa-bug"></i> {{trans('language.menu_master')}} <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="{{url('districts')}}">{{trans('language.ms_districts')}}</a></li>
-                    <li><a href="{{url('taluka   ')}}">{{trans('language.ms_taluka')}}</a></li>
+                    <li><a href="{{url('taluka')}}">{{trans('language.ms_taluka')}}</a></li>
                     <li><a href="{{url('department')}}">{{trans('language.ms_department')}}</a></li>
                     <li><a href="{{url('designation')}}">{{trans('language.ms_designations')}}</a></li>
                     <li><a href="{{url('classification')}}">{{trans('language.ms_classification')}}</a></li>
@@ -120,6 +123,10 @@
                 <li><a href="{{url('application_form')}}">कर्मचाऱ्याने कार्यालय  प्रमुखास अर्ज करणे </a></li>
               </ul>
             </li> -->
+            <li><a href="{{url('customer_registration')}}"><i class="fa fa-table"></i> {{trans('language.h_basic_employee_information')}} </a></li>
+            <!-- <li><a href="{{url('nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद</a></li> -->
+            <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>{{trans('language.7_pay_commission_paid')}}</a></li>
+            @endif
             <li><a><i class="fa fa-bug"></i> {{trans('language.monthly_bill_expensess')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{url('chalan')}}">{{trans('language.monthly_bill_chalan')}}</a></li>
@@ -127,10 +134,6 @@
                 <li><a href="{{url('subscription')}}">{{trans('language.monthly_bill_chalan_khatanvai')}}</a></li>
               </ul>
             </li>
-            <li><a href="{{url('customer_registration')}}"><i class="fa fa-table"></i> {{trans('language.h_basic_employee_information')}} </a></li>
-            <!-- <li><a href="{{url('nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद</a></li> -->
-
-            <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>{{trans('language.7_pay_commission_paid')}}</a></li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.bill_expensess_report')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{url('employeereports')}}"> {{trans('language.employee_account_stmt')}} </a></li>
@@ -199,16 +202,16 @@
             </form>
           </div>
         </li>
-        <li class="nav-item ">
+        <!-- <li class="nav-item ">
           <form>
             <select id="yearChage" name="yearChage" class="form-control" onchange="setyear(this.value)">
               <option selected disabled>Change Year</option>
-              <option value="2020-2021">2020-2021</option>
-              <option value="2019-2020">2019-2020</option>
-              <option value="2018-2019">2018-2019</option>
+              <option value="2020-2021" {{(session()->get('financial_year') == '2020-2021')?'selected':''}} >2020-2021</option>
+              <option value="2019-2020" {{(session()->get('financial_year') == '2019-2020')?'selected':''}}>2019-2020</option>
+              <option value="2018-2019" {{(session()->get('financial_year') == '2018-2019')?'selected':''}}>2018-2019</option>
             </select>
           </form>
-        </li>
+        </li> -->
       </ul>
     </nav>
   </div>
@@ -222,7 +225,7 @@
 
 <!-- footer content -->
 <footer>
-  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+  <div class="footer-copyright text-center py-3">© {{date('Y')}} Copyright:
     <a href="http://cdat.co.in/" target="_blank"> Cdat.co.in</a>
   </div>
   <div class="clearfix"></div>

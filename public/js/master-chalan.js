@@ -6,6 +6,30 @@ if (month < 10) month = "0" + month;
 if (day < 10) day = "0" + day;
 var today = year + "-" + month + "-" + day;
 
+$(document).ready(function(){
+  // var fullDate = new Date();
+  // var twoDigitMonth = ((fullDate.getMonth().length+1) === 1)? (fullDate.getMonth()+1) : '0' + (fullDate.getMonth()+1);
+  // var currentDate = fullDate.getDate() + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
+  // $("#chalan_date").attr('min', currentDate);
+  // $("#chalan_date").attr('max', currentDate);
+
+  var dtToday = new Date();
+
+   var month = dtToday.getMonth() + 1;
+   var day = dtToday.getDate();
+   var year = dtToday.getFullYear();
+   if(month < 10)
+       month = '0' + month.toString();
+   if(day < 10)
+       day = '0' + day.toString();
+       var from_year = $('#sess_from_year').val();
+       var to_year = $('#sess_to_year').val();
+       var minDate = from_year+'-04-01';
+       var maxDate = to_year + '-' + month + '-' + day;
+     $('#chalan_date').attr('min', minDate);
+     $('#chalan_date').attr('max', maxDate);
+
+})
 function deleteConfirmation(id) {
   swal({
     title: "Delete?",

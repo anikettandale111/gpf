@@ -1,6 +1,6 @@
    <!-- footer content -->
    <footer>
-          <div class="footer-copyright text-center py-3">© 2020 Copyright:
+          <div class="footer-copyright text-center py-3">© {{date('Y')}} Copyright:
             <a href="http://cdat.co.in/" target="_blank"> Cdat.co.in</a>
           </div>
           <div class="clearfix"></div>
@@ -11,7 +11,7 @@
     <!-- jQuery -->
     <!-- <script src="{{asset('asset/vendors/jquery/dist/jquery.min.js') }}"></script> -->
     <!-- Bootstrap -->
-  <script src="{{asset('asset/vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script> 
+  <script src="{{asset('asset/vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <!-- FastClick -->
     <script src="{{asset('asset/vendors/fastclick/lib/fastclick.js') }}"></script>
     <!-- NProgress -->
@@ -65,4 +65,3 @@
     <script src="{{asset('asset/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
   </body>
 </html>
-      

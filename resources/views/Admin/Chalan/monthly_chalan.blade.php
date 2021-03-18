@@ -18,7 +18,7 @@
                 <label for="Year"> वर्ष </label>
                 @php
                 $currently_selected = date('Y');
-                $earliest_year = 2020;
+                $earliest_year = session()->get('from_year');
                 $latest_year = date('Y');
                 @endphp
                 <select class="form-control year getchalan" name="selected_year" id="selected_year">
@@ -30,9 +30,9 @@
                 </select>
               </div>
               <div class="col-md-6 col-sm-3 ">
-                <label for="first-name"> चलन दिनांक </label>
+                <label for="first-name"> चलन महिना </label>
                 <select type="text" id="chalan_month" name="chalan_month" required="required" class="form-control chalan_no getchalan">
-                  <option selected="" value=""> -- Select -- </option>
+                  <option selected="" value=""> -- निवडा -- </option>
                   @foreach ($month as $temp)
                   <option value="{{$temp->id}}">{{$temp->month_name_mar}}</option>
                   @endforeach
@@ -43,7 +43,7 @@
               <div class="col-md-6 col-sm-3 ">
                 <label for="first-name"> चलन क्रमांक </label>
                 <select type="text" id="chalan_number" name="chalan_number" required="required" class="form-control app_no getchalan" >
-                  <option selected="" value=""> -- Select -- </option>
+                  <option selected="" value=""> -- निवडा -- </option>
                   @for($i=1; $i <= 300; $i++) <option value="{{$i}}">{{$i}}</option>
                   @endfor
                 </select>
@@ -52,7 +52,7 @@
               <div class="form-group col-md-6">
                 <label for="middle-name">तालूका निवडा </label>
                 <select id="taluka_id" class="form-control taluka" type="text" name="taluka_id" readonly>
-                  <option value=""> -- Select -- </option>
+                  <option selected="" value=""> -- निवडा -- </option>
                   @foreach ($taluka as $temp)
                   <option value="{{$temp->id}}" >{{$temp->taluka_name_mar}}</option>
                   @endforeach
@@ -63,7 +63,7 @@
               <div class="form-group col-md-6">
                 <label for="middle-name">वर्गीकरण </label>
                 <select id="classification_id" class="form-control" type="text" name="classification_id" readonly>
-                  <option value=""> -- Select -- </option>
+                  <option selected="" value=""> -- निवडा -- </option>
                   @foreach ($classification as $temp)
                   <option value="{{$temp->id}}">{{$temp->classification_name_mar}}</option>
 

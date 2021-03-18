@@ -21,15 +21,15 @@
                     <br />
                         <form class="form-horizontal form-label-left" action="{{url('/Year_Update')}}"
                         method="post"  enctype="multipart/form-data" >
-                            <input type="hidden" value="{{$yedit->id}}" name="id"> 
-                            {{csrf_field()}}     
+                            <input type="hidden" value="{{$yedit->id}}" name="id">
+                            {{csrf_field()}}
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">  आर्थिक वर्ष   <span class="required"> : </span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <select name="year" class="form-control">
                                     <option value="{{$yedit->year}}">{{$yedit->year}}</option>
                                     <?php
-                                    for($i=2020; $i == 2020;  $i++) 
+                                    for($i=session()->get('to_year'); $i == session()->get('to_year');  $i++)
                                         {?>
                                         <option value="<?php echo $i?>"><?php echo $i?>
                                         </option>
@@ -51,28 +51,28 @@
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">पासून <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <select class="form-control" name="from_month">
-                                        
+
                                     <option value="{{$yedit->from_month}}">{{$yedit->from_month}}</option>
-                                     
-                                       
-                                       
+
+
+
                                      @foreach ($Month as $month)
                                               <option>{{$month->name}}</option>
                                               @endforeach
-                                        
+
                                     </select>
                                 </div>
                             </div>
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align"> पर्यंत <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <select class="form-control" 
+                                    <select class="form-control"
                                     type="time" name="to_month" id="to_month" >
                                         <option value="{{$yedit->to_month}}">{{$yedit->to_month}}</option>
                                        @foreach ($Month as $month)
                                               <option>{{$month->name}}</option>
                                               @endforeach
-                                      
+
                                     </select>
                                 </div>
                             </div>
@@ -81,9 +81,9 @@
                                     <button type="submit" class="btn btn-success"> <i class="fa fa-floppy-o"></i> Save </button>
                                     <a href="{{url('Year')}}">
                                     <button class="btn btn-primary" type="button"> <i class="fa fa-sign-out" aria-hidden="true"></i> Cancle </button></a>
-                                </div>     
+                                </div>
                             </div>
-                        </form>     
+                        </form>
                     </div>
                 </div>
             </div>

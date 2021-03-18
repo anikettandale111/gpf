@@ -210,7 +210,7 @@ function getChalanDetails(year,chalan_month,chalan_number){
         $('#chalan_no').val('');
         $('.app_no').val('');
         $('.chalan_amount').val(0);
-        swal("WARNING", "Invalid GPF Number OR Does't Exits",'warning');
+        swal("WARNING", "Invalid Chalan Number OR Does't Exits",'warning');
         $('.submit').hide();
       }
       return false;
