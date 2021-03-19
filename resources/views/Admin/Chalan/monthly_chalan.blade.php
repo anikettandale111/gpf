@@ -51,7 +51,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="middle-name">तालूका निवडा </label>
-                <select id="taluka_id" class="form-control taluka" type="text" name="taluka_id" readonly>
+                <select id="taluka_id" class="form-control getchalan taluka" type="text" name="taluka_id">
                   <option selected="" value=""> -- निवडा -- </option>
                   @foreach ($taluka as $temp)
                   <option value="{{$temp->id}}" >{{$temp->taluka_name_mar}}</option>
@@ -147,16 +147,12 @@
       <div class="x_title">
         <h2>चलन </h2>
         <div class="clearfix"></div>
-
-
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
           <button type="button" class="close" data-dismiss="alert">×</button>
           <strong>{{ $message }}</strong>
         </div>
         @endif
-
-
       </div>
       <div class="x_content">
         <div class="row">
