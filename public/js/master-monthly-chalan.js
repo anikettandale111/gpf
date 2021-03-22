@@ -92,6 +92,7 @@ function subscriptionSubmit(){
       chalan_number = $('#chalan_number').val();
       chalan_taluka = $('#taluka_id').val();
       $('.submit').show();
+      $('.clearaftersubmit').val('');
       getChalanDetails(year,chalan_month,chalan_number,chalan_taluka);
     }
   })
@@ -203,9 +204,7 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
         str = '';
         if ((res.chalan).length) {
           var i = 1;
-          console.log(i);
           $(res.chalan).each(function(key, val) {
-            console.log(val);
             str += '<tr><td>' + i + '</td><td>' + val.emc_year + '</td><td>' + (val.month_name + val.challan_number) + '</td><td>' + val.taluka_name + '</td><td>' + val.gpf_number + '</td><td>' + val.employee_name + '</td><td>' + val.monthly_contrubition + '</td><td>' + val.loan_amonut + '</td><td>' + val.pending_amt + '</td><td>' + val.monthly_received + '</td><td>' + val.final_amt_diff + '</td><td>' + val.name + '</td></tr>';
             i++;
           });
@@ -220,6 +219,7 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
         $('#diffrence_amount_duplicate').val(0);
         swal("WARNING", "Invalid Chalan Number OR Does't Exits",'warning');
         $('.submit').hide();
+        $('.appaend_table').empty();
       }
       return false;
     }

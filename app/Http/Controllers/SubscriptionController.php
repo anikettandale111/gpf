@@ -38,7 +38,7 @@ class SubscriptionController extends Controller {
     });
   }
   public function index(Request $request) {
-    $data ['month']=month::orderBy('order_by')->get();
+    $data ['month']=Month::orderBy('order_by')->get();
     $data ['classification']=Classification::all();
     $data ['taluka']=Taluka::all();
     return view('Admin.chalan.monthly_chalan', $data);

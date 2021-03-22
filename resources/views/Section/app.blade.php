@@ -123,6 +123,7 @@
                 <li><a href="{{url('application_form')}}">कर्मचाऱ्याने कार्यालय  प्रमुखास अर्ज करणे </a></li>
               </ul>
             </li> -->
+            <li><a href="{{url('fileupload')}}"><i class="fa fa-table"></i> {{trans('language.chalan_files_upload')}} </a></li>
             <li><a href="{{url('customer_registration')}}"><i class="fa fa-table"></i> {{trans('language.h_basic_employee_information')}} </a></li>
             <!-- <li><a href="{{url('nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद</a></li> -->
             <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>{{trans('language.7_pay_commission_paid')}}</a></li>

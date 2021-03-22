@@ -20,6 +20,7 @@ return [
   'menu_forms_received' => 'नवीन आलेले अर्ज',
   'register_users' => 'वापरकर्ताची नोंद',
   '7_pay_commission_paid' => '७ व वेतन आयोग',
+  'chalan_files_upload' => 'मासिक चलन खतावणी फाइल अपलोड',
   'yearly_intrest_paid_form' => 'वार्षिक व्याज नोंद',
   'bill_expensess_report' => 'अहवाल',
   'monthly_bill_expensess' => 'मासिक बदल',

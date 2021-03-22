@@ -84,46 +84,46 @@
               </div>
               <div class="col-md-6">
                 <label for="middle-name">भ.नि.नि.क्रमांक </label>
-                <input id="gpf_account_id" class="form-control" type="text" name="gpf_account_id">
+                <input id="gpf_account_id" class="form-control clearaftersubmit" type="text" name="gpf_account_id">
               </div>
             </div>
             <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">कर्मचारी नाव </label>
-                <input id="user_name" class="form-control" type="text" name="user_name" readonly>
-                <input id="user_id" class="form-control" type="hidden" name="user_id">
+                <input id="user_name" class="form-control clearaftersubmit" type="text" name="user_name" readonly>
+                <input id="user_id" class="form-control clearaftersubmit" type="hidden" name="user_id">
               </div>
               <div class="col-md-6">
                 <label for="middle-name">कर्मचारी पदनाम </label>
-                <input id="user_designation" class="form-control" type="text" name="user_designation" readonly>
-                <input id="user_designation_id" class="form-control" type="hidden" name="user_designation_id">
+                <input id="user_designation" class="form-control clearaftersubmit" type="text" name="user_designation" readonly>
+                <input id="user_designation_id" class="form-control clearaftersubmit" type="hidden" name="user_designation_id">
               </div>
             </div>
             <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">कर्मचारी विभाग </label>
-                <input id="user_department" class="form-control" type="text" name="user_department" readonly>
-                <input id="user_department_id" class="form-control" type="hidden" name="user_department_id">
+                <input id="user_department" class="form-control clearaftersubmit" type="text" name="user_department" readonly>
+                <input id="user_department_id" class="form-control clearaftersubmit" type="hidden" name="user_department_id">
               </div>
               <div class="col-md-6">
                 <label for="middle-name">वर्गणी </label>
-                <input id="deposit_amt" class="form-control deposit add calculation" type="number" name="deposit_amt" required>
+                <input id="deposit_amt" class="form-control deposit add calculation clearaftersubmit" type="number" name="deposit_amt" required>
               </div>
             </div>
             <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">अग्रिम परतावा </label>
-                <input id="refund" class="form-control refund add calculation" type="number" name="refund" value="0">
+                <input id="refund" class="form-control refund add calculation clearaftersubmit" type="number" name="refund" value="0">
               </div>
               <div class="col-md-6">
                 <label for="middle-name">थकबाकी </label>
-                <input id="pending_amt" class="form-control pending_amt add calculation" type="number" name="pending_amt" value="0">
+                <input id="pending_amt" class="form-control pending_amt add calculation clearaftersubmit" type="number" name="pending_amt" value="0">
               </div>
             </div>
             <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">एकुण </label>
-                <input id="total_monthly_pay" class="form-control" type="number" name="total_monthly_pay" readonly>
+                <input id="total_monthly_pay" class="form-control" type="number clearaftersubmit" name="total_monthly_pay" readonly>
               </div>
             </div>
             <div class="col-md-6" style="margin-top:30px;">

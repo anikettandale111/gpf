@@ -113,9 +113,11 @@ Route::middleware('auth')->group(function () {
     // Common Application Forms
     Route::get('getLastApplicationNumber', 'CommonApplicationController@getLastApplicationNumber');
     Route::get('getuserdetailsbygpfno', 'CommonApplicationController@getuserdetailsbygpfno');
+    // Excel/PDFFile Upload For Monthly Subscription
+    Route::any('testjson', 'FileUploadController@testjson');
+    Route::any('testpdf', 'FileUploadController@testpdf');
+    Route::resource('fileupload', FileUploadController::class);
     // Common Application Forms
-    Route::any('testpdf', 'CommonApplicationController@testpdf');
-    Route::any('testjson', 'CommonApplicationController@testjson');
     Route::get('listcommonforms', 'CommonApplicationController@listcommonforms');
     Route::get('viewapplication/{id?}', 'CommonApplicationController@viewapplication');
     Route::resource('commonforms', CommonApplicationController::class);
@@ -128,6 +130,7 @@ Route::middleware('auth')->group(function () {
     Route::get('getAllEmpFormEN', 'EmployeeReportsController@getAllEmpFormEN');
     Route::resource('employeereports', EmployeeReportsController::class);
     // Chalan Controller
+    Route::get('chalanSubscriptionDetails', 'ChalanController@chalanSubscriptionDetails');
     Route::get('chalandetails', 'ChalanController@chalandetails');
     Route::resource('chalan', ChalanController::class);
     // Chalan Controller
