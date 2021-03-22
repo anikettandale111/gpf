@@ -59,13 +59,12 @@
                         <option value="{{$temp->month_name_mar}}">{{$temp->month_name_mar}}</option>
                         @endforeach
                     </select>
-
                 </div>
                 <div class="form-group col-md-4">
                     <label>{{trans('language.th_closing_last_due_year')}} <span class="required"></span></label>
                     @php
                     $currently_selected = date('Y');
-                    $earliest_year = 2020;
+                    $earliest_year = session()->get('from_year');
                     $latest_year = date('Y');
                     @endphp
                     <select name="last_due_year" class="form-control year">
@@ -74,7 +73,6 @@
                         <option value="{{$i}}" "{{($i === $currently_selected)?'selected' : ''}}">{{$i}}</option>';
                         @endforeach
                     </select>
-
                 </div>
                 <div class="form-group col-md-4">
                     <label>{{trans('language.th_closing_feet_interest_month')}} <span class="required"></span></label>
@@ -90,7 +88,7 @@
                     <label>{{trans('language.th_closing_feet_interest_payable_year')}}<span class="required"></span></label>
                     @php
                     $currently_selected = date('Y');
-                    $earliest_year = 2020;
+                    $earliest_year = session()->get('from_year');
                     $latest_year = date('Y');
                     @endphp
                     <select name="feet_interest_payable_year" class="form-control year">
@@ -115,7 +113,7 @@
                     <label>{{trans('language.th_closing_last_subscription_year')}} <span class="required"></span></label>
                     @php
                     $currently_selected = date('Y');
-                    $earliest_year = 2020;
+                    $earliest_year = session()->get('from_year');
                     $latest_year = date('Y');
                     @endphp
                     <select name="last_subscription_year" class="form-control year">

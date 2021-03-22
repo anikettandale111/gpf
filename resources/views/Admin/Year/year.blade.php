@@ -81,7 +81,7 @@
                                         <div class="col-md-6 col-lg-8">
                                           @php
                                       $currently_selected = date('Y');
-                                      $earliest_year = 2020;
+                                      $earliest_year = session()->get('from_year');
                                       $latest_year = date('Y');
                                       @endphp
                                       <select name="year" id="year" class="form-control">
@@ -113,7 +113,7 @@
                                         <div class="col-md-6 col-lg-8">
                                           @php
                                       $currently_selected = date('Y');
-                                      $earliest_year = 2020;
+                                      $earliest_year = session()->get('from_year');
                                       $latest_year = date('Y');
                                       @endphp
                                       <select name="year_to" id="year_to" class="form-control">

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\App;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Illuminate\Support\Facades\DB;
 use  App\District;
+use Config;
+
 class DistrictsController extends Controller
 {
     /**
@@ -16,7 +18,24 @@ class DistrictsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+      $this->middleware('auth');
+      if(session('from_year') !== null){
+
+      } else {
+        Session::put('from_year', date("Y",strtotime("-1 year")));
+        Session::put('to_year', date("Y"));
+        Session::put('financial_year', date("Y",strtotime("-1 year")).'-'.date("Y"));
+      }
+      $this->middleware(function ($request, $next) {
+        // fetch session and use it in entire class with constructor
+        $current_db = session('selected_database');
+        if(session('selected_database') == null){
+          $current_db = 'mysql';
+          Session::put('selected_database','mysql');
+        }
+        Config::set('database.default',$current_db);
+        return $next($request);
+      });
     }
 
     /**
@@ -37,7 +56,7 @@ class DistrictsController extends Controller
     {
       $districts = DB::table('districts')->where(['district_name_en'=>$request->district_name_en,'district_name_mar'=>$request->district_name_mar])->get();
       if(count($districts)){
-        Session::flash('info', 'District name allready exits.');
+        // Session::flash('info', 'District name allready exits.');
         return false;
       }
       DB::table('districts')->insert(['district_name_en'=>$request->district_name_en,'district_name_mar'=>$request->district_name_mar]);
@@ -46,7 +65,7 @@ class DistrictsController extends Controller
     public function update(Request $request)
     {
       DB::table('districts')->where('dsitrict_id', $request->district_id)->update(['district_name_en'=>$request->district_name_en,'district_name_mar'=>$request->district_name_mar]);
-      Session::flash('success', 'District Updated successfully.');
+      // Session::flash('success', 'District Updated successfully.');
     }
     public function destroy(Request $request){
         return District::where('cat_id', $request->cat_id)->delete();

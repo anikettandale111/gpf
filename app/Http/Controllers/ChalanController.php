@@ -10,11 +10,35 @@ use App\Chalan;
 use App\MasterMonthlySubscription;
 use App\MonthlyTotalChalan;
 use DataTable;
+use Session;
+use Config;
 
 class ChalanController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth');
+    if(session('from_year') !== null){
+
+    } else {
+      Session::put('from_year', date("Y",strtotime("-1 year")));
+      Session::put('to_year', date("Y"));
+      Session::put('financial_year', date("Y",strtotime("-1 year")).'-'.date("Y"));
+    }
+    $this->middleware(function ($request, $next) {
+      // fetch session and use it in entire class with constructor
+      $current_db = session('selected_database');
+      if(session('selected_database') == null){
+        $current_db = 'mysql';
+        Session::put('selected_database','mysql');
+      }
+      Config::set('database.default',$current_db);
+      return $next($request);
+    });
+  }
+
   public function index(Request $request) {
-    $data ['month']=month::all();
+    $data ['month']=month::orderBy('order_by')->get();
     $data ['classification']=Classification::all();
     $data ['taluka']=Taluka::all();
     if($request->ajax()){
@@ -22,8 +46,18 @@ class ChalanController extends Controller
       ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
       ->leftJoin("classifications", "classifications.id", "=", "tbl_monthly_total_chalan.classification")
       ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id")
+      ->where("tbl_monthly_total_chalan.year", session()->get('from_year'))
+      ->where("tbl_monthly_total_chalan.chalan_month_id", ">=", 4);
+      $deposits_two=MonthlyTotalChalan::select("tbl_monthly_total_chalan.*","tbl_monthly_total_chalan.created_at AS crateddate","tbl_monthly_total_chalan.id as chalan_id","taluka.id as  tid","taluka.taluka_name_mar as taluka_name","classifications.id as cid","classifications.classification_name_mar","master_month.month_name_mar",)
+      ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
+      ->leftJoin("classifications", "classifications.id", "=", "tbl_monthly_total_chalan.classification")
+      ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id")
+      ->where("tbl_monthly_total_chalan.year", session()->get('to_year'))
+      ->where("tbl_monthly_total_chalan.chalan_month_id", "<=", 3)
+      ->union($deposits)
       ->latest()->get();
-      return datatables()->of($deposits)
+
+      return datatables()->of($deposits_two)
       ->addIndexColumn()
       ->addColumn('action', function ($row) {
         $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id ="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editBill">Edit</a>';
@@ -68,6 +102,7 @@ class ChalanController extends Controller
     $data['chalan_month_id'] = $request->chalan_month;
     $data['year'] = $request->year;
     $data['chalan_serial_no'] = $request->chalan_number;
+    $data['taluka'] = $request->chalan_taluka;
     // $deposits=MonthlyTotalChalan::select('id as chalan_id','amount','primary_number','diff_amount','taluka','classification')->where($data)->first();
     $deposits = MonthlyTotalChalan::select('id as chalan_id','amount','year','chalan_month_id','chalan_serial_no',
               'diff_amount','taluka','classification')
@@ -89,5 +124,48 @@ class ChalanController extends Controller
       ->latest()->get();
     }
     return ['amt'=>$deposits,'chalan'=>$res];
+  }
+  public function chalanSubscriptionDetails(Request $request){
+    $data['chalan_month_id'] = $request->chalan_month;
+    $data['year'] = $request->year;
+    $data['chalan_serial_no'] = $request->chalan_number;
+    $data['taluka'] = $request->chalan_taluka;
+    // $deposits=MonthlyTotalChalan::select('id as chalan_id','amount','primary_number','diff_amount','taluka','classification')->where($data)->first();
+    $deposits = MonthlyTotalChalan::select('id as chalan_id','amount','year','chalan_month_id','chalan_serial_no',
+              'diff_amount','taluka','classification')
+              ->where($data)
+              ->first();
+    $res = '';
+    if(!empty($deposits->chalan_id))
+    {
+      $lang = app()->getLocale();
+      $res = MasterMonthlySubscription::select('master_emp_monthly_contribution_two.*','users.name','me.employee_name',
+      'tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mm.month_name_'.$lang.' AS month_name')
+      ->where('master_emp_monthly_contribution_two.challan_id',$deposits->chalan_id)
+      ->leftjoin('users','users.id','=','master_emp_monthly_contribution_two.modifed_by')
+      ->leftjoin('master_employee AS me','me.gpf_no','=','master_emp_monthly_contribution_two.gpf_number')
+      ->leftjoin('taluka AS tl','tl.id','=','master_emp_monthly_contribution_two.taluka_id')
+      ->leftjoin('departments AS dp','dp.id','=','master_emp_monthly_contribution_two.emc_dept_id')
+      ->leftjoin('designations AS dg','dg.id','=','master_emp_monthly_contribution_two.emc_desg_id')
+      ->leftjoin('master_month AS mm','mm.id','=','master_emp_monthly_contribution_two.emc_month')
+      ->latest()->get();
+      if($request->ajax()){
+        return datatables()->of($res)
+        ->addIndexColumn()
+        ->addColumn('action', function ($row) {
+          $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id ="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editBill">Edit</a>';
+          $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteBill">Delete</a>';
+          return $btn;
+        })
+        ->addColumn('total_contribution', function ($row) {
+          $total = $row->monthly_contrubition + $row->loan_installment + $row->monthly_other;
+          return $btn;
+        })
+        ->rawColumns(['action','total_contribution'])
+        ->make(true);
+      }
+    }else{
+      return [];
+    }
   }
 }

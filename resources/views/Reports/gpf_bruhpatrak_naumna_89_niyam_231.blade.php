@@ -60,7 +60,7 @@
           <div class="col-md-6" style="text-align: center;">
             <h2> <b>जिल्हा परिषद नाशिक </b> </h2>
             <h2> <b>भविष्य निर्वाह निधी वृहतपत्रक नमुना न ८९ (नियम २३१ )</b></h2>
-            <h2> <b>सन ( २०१९ - २०२०)</b> </h2>
+            <h2> <b>सन ( {{digitChange(session()->get('financial_year'))}})</b> </h2>
           </div>
           <div class="col-md-2">
             <h2> प्राथ शिक्षक </h2>
@@ -96,33 +96,34 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                    <td>7</td>
-                    <td>8</td>
-                    <td>9</td>
-                    <td>10</td>
-                    <td>11</td>
-                    <td>12</td>
-                    <td>13</td>
-                    <td>14</td>
-                    <td>15</td>
-                    <td>16</td>
-                    <td>17</td>
-                    <td>18</td>
-                    <td>19</td>
-                    <td>20</td>
-                    <td>21</td>
+                    <td>{{digitChange('1')}}</td>
+                    <td>{{digitChange('2')}}</td>
+                    <td>{{digitChange('3')}}</td>
+                    <td>{{digitChange('4')}}</td>
+                    <td>{{digitChange('5')}}</td>
+                    <td>{{digitChange('6')}}</td>
+                    <td>{{digitChange('7')}}</td>
+                    <td>{{digitChange('8')}}</td>
+                    <td>{{digitChange('9')}}</td>
+                    <td>{{digitChange('10')}}</td>
+                    <td>{{digitChange('11')}}</td>
+                    <td>{{digitChange('12')}}</td>
+                    <td>{{digitChange('13')}}</td>
+                    <td>{{digitChange('14')}}</td>
+                    <td>{{digitChange('15')}}</td>
+                    <td>{{digitChange('16')}}</td>
+                    <td>{{digitChange('17')}}</td>
+                    <td>{{digitChange('18')}}</td>
+                    <td>{{digitChange('19')}}</td>
+                    <td>{{digitChange('20')}}</td>
+                    <td>{{digitChange('21')}}</td>
                   </tr>
                   @foreach($rqo_result AS $rqo)
                   <tr>
                     <td colspan="21"><center> {{$rqo->department_name}} {{$rqo->taluka_name}}</center></td>
                   </tr>
-                  @php $otherInstall = DB::table('master_vetan_ayog_received AS va')->select('va.instalment','va.DiffAmt','va.Interest','va.Mnt')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>2019])->get();
+                  @php $otherInstall = DB::table('master_vetan_ayog_received AS va')->select('va.instalment',
+                  'va.DiffAmt','va.Interest','va.Mnt')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>session()->get('from_year')])->get();
                   $tcount = count($otherInstall);
                   $ins_one = 0;
                   $ins_two = 0;
@@ -284,12 +285,14 @@
                         @else
                           @php $percentage = $row->percent;
                           $total_masik = 0;
+                          $month_count = 0;
                           $total_con_two = $total_con; @endphp
                           @for($k=$row->to_month; $k <= 12 ; $k++)
-                          @php $acc_mm = $month_array[$k];
-                            $total_con_two += ($total_gpf['contribution'][$acc_mm] + $total_gpf['loan_installment'][$acc_mm] ) - $total_gpf['loan_amonut'][$acc_mm];
-                            $total_masik += $total_con_two;
-                            $month_count++;
+                            @php $acc_mm = $month_array[$k];
+                              $total_con_two +=($total_gpf['contribution'][$acc_mm]+$total_gpf['loan_installment'][$acc_mm])
+                               - $total_gpf['loan_amonut'][$acc_mm];
+                              $total_masik += $total_con_two;
+                              $month_count++;
                             @endphp
                           @endfor
                           @if($month_count < 12)

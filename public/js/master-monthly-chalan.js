@@ -50,6 +50,7 @@ $('.getchalan').change( function(e) {
   year = $('.year').val();
   chalan_month = $('#chalan_month').val();
   chalan_number = $('#chalan_number').val();
+  chalan_taluka = $('#taluka_id').val();
   // $("#wait").css("display", "block");
   if(year == ''){
     return false;
@@ -60,7 +61,10 @@ $('.getchalan').change( function(e) {
   if(chalan_number == ''){
     return false;
   }
-  getChalanDetails(year,chalan_month,chalan_number);
+  if(chalan_taluka == ''){
+    return false;
+  }
+  getChalanDetails(year,chalan_month,chalan_number,chalan_taluka);
 });
 $("#gpf_account_id").keypress(function (e) {
   if($(this).val().length == 5) {
@@ -86,8 +90,10 @@ function subscriptionSubmit(){
       year = $('.year').val();
       chalan_month = $('#chalan_month').val();
       chalan_number = $('#chalan_number').val();
+      chalan_taluka = $('#taluka_id').val();
       $('.submit').show();
-      getChalanDetails(year,chalan_month,chalan_number);
+      $('.clearaftersubmit').val('');
+      getChalanDetails(year,chalan_month,chalan_number,chalan_taluka);
     }
   })
 }
@@ -175,10 +181,10 @@ function diff_year_month_day(dt1, dt2)
     return years+" year(s) "+months+" month(s) "+days+" and day(s)";
   }
 }
-function getChalanDetails(year,chalan_month,chalan_number){
+function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
   $.ajax({
     url: "chalandetails",
-    data: {"_token": CSRF_TOKEN,'year': year,'chalan_month': chalan_month,'chalan_number': chalan_number},
+    data: {"_token": CSRF_TOKEN,'year': year,'chalan_month': chalan_month,'chalan_number': chalan_number,'chalan_taluka':chalan_taluka},
     type: 'GET',
     success: function(res) {
       if (res.amt != null) {
@@ -198,9 +204,7 @@ function getChalanDetails(year,chalan_month,chalan_number){
         str = '';
         if ((res.chalan).length) {
           var i = 1;
-          console.log(i);
           $(res.chalan).each(function(key, val) {
-            console.log(val);
             str += '<tr><td>' + i + '</td><td>' + val.emc_year + '</td><td>' + (val.month_name + val.challan_number) + '</td><td>' + val.taluka_name + '</td><td>' + val.gpf_number + '</td><td>' + val.employee_name + '</td><td>' + val.monthly_contrubition + '</td><td>' + val.loan_amonut + '</td><td>' + val.pending_amt + '</td><td>' + val.monthly_received + '</td><td>' + val.final_amt_diff + '</td><td>' + val.name + '</td></tr>';
             i++;
           });
@@ -210,8 +214,12 @@ function getChalanDetails(year,chalan_month,chalan_number){
         $('#chalan_no').val('');
         $('.app_no').val('');
         $('.chalan_amount').val(0);
-        swal("WARNING", "Invalid GPF Number OR Does't Exits",'warning');
+        $('#taluka_id').val('');
+        $('#diffrence_amount').val(0);
+        $('#diffrence_amount_duplicate').val(0);
+        swal("WARNING", "Invalid Chalan Number OR Does't Exits",'warning');
         $('.submit').hide();
+        $('.appaend_table').empty();
       }
       return false;
     }

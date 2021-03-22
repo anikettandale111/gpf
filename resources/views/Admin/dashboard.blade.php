@@ -10,15 +10,15 @@
         <p>भविष्य निर्वाह निधी  मध्ये आपले स्वागत आहे.</p>
       </div>
       <div class="left_header ml-auto">
-        <form>
+        <!-- <form>
           <label for="yearChage">वर्ष बदला</label>
           <select id="yearChage" name="yearChage" class="form-control" onchange="setyear(this.value)">
             <option selected disabled>Change Year</option>
-            <option value="2020-2021">2020-2021</option>
-            <option value="2019-2020">2019-2020</option>
-            <option value="2018-2019">2018-2019</option>
+            <option value="2020-2021" {{(session()->get('financial_year') == '2020-2021')?'selected':''}} >2020-2021</option>
+            <option value="2019-2020" {{(session()->get('financial_year') == '2019-2020')?'selected':''}}>2019-2020</option>
+            <option value="2018-2019" {{(session()->get('financial_year') == '2018-2019')?'selected':''}}>2018-2019</option>
           </select>
-        </form>
+        </form> -->
       </div>
     </div>
     <div class="row">
@@ -104,7 +104,7 @@
                   <div class="widget-content-icon"><img src="{{asset('asset/images/fund_icon.png')}}" /></div>
                   <div class="widget-content-left">
                     <div class="widget-numbers">
-                      <span><i class="fas fa-rupee-sign"></i>{{amount_inr_format(App\Employee::sum('opening_balance'))}}</span>
+                      <span><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</span>
                     </div>
                   </div>
                   <div class="widget-content-right">
@@ -119,15 +119,15 @@
                 <div class="bg-blocks">
                   <div class="row">
                     <div class="col-md-4">
-                      <h2 class="number"><i class="fas fa-rupee-sign"></i>46,690</h2>
+                      <h2 class="number"><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</h2>
                       <p class="block-heading">एकूण जमा व्याज</p>
                     </div>
                     <div class="col-md-4">
-                      <h2 class="number"><i class="fas fa-rupee-sign"></i>46,690</h2>
+                      <h2 class="number"><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</h2>
                       <p class="block-heading">एकूण निधी</p>
                     </div>
                     <div class="col-md-4">
-                      <h2 class="number"><i class="fas fa-rupee-sign"></i>46,690</h2>
+                      <h2 class="number"><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</h2>
                       <p class="block-heading">एकूण खर्च</p>
                     </div>
                   </div>
@@ -153,7 +153,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><i class="fas fa-wallet"></i></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>40</span></div>
+                  <div class="widget-numbers"><span>{{digitChange('0')}}</span></div>
                   <!-- <div class="widget-subheading">Last year expenses</div> -->
                 </div>
                 <div class="widget-content-right">
@@ -167,7 +167,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><i class="fas fa-wallet"></i></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>405</span></div>
+                  <div class="widget-numbers"><span>{{digitChange('0')}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading">आतापर्यंत जमा निधी</div>
@@ -180,7 +180,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><i class="fas fa-wallet"></i></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>40000</span></div>
+                  <div class="widget-numbers"><span>{{digitChange('0')}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading">अपेक्षित अग्रीम परतावा</div>
@@ -193,7 +193,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><i class="fas fa-wallet"></i></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>24050</span></div>
+                  <div class="widget-numbers"><span>{{digitChange('0')}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading">आतापर्यंत प्राप्त परतावा</div>
@@ -206,7 +206,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><i class="fas fa-wallet"></i></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>15950</span></div>
+                  <div class="widget-numbers"><span>{{digitChange('0')}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading">ना परतावा </div>
@@ -219,7 +219,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><i class="fas fa-wallet"></i></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>15950</span></div>
+                  <div class="widget-numbers"><span>{{digitChange('0')}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading">अंतिम परतावा</div>
@@ -232,7 +232,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon"><i class="fas fa-wallet"></i></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers"><span>15950</span></div>
+                  <div class="widget-numbers"><span>{{digitChange('0')}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading">एकूण खर्च</div>
@@ -246,7 +246,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon bg-transparent text-white no-shadow"><i class="fas fa-folder-open"></i></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers text-white"><span>15950</span></div>
+                  <div class="widget-numbers text-white"><span>{{digitChange('0')}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading text-white">अंतिम परतावा प्रकरणे </div>
@@ -259,7 +259,7 @@
               <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                 <div class="widget-content-icon bg-transparent text-white no-shadow"><i class="fas fa-folder-open"></i></div>
                 <div class="widget-content-left">
-                  <div class="widget-numbers text-white"><span>15950</span></div>
+                  <div class="widget-numbers text-white"><span>{{digitChange('0')}}</span></div>
                 </div>
                 <div class="widget-content-right">
                   <div class="widget-heading text-white">नापरतावा प्रकरणे </div>
@@ -293,7 +293,7 @@
                     <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                       <div class="widget-content-icon"><img src="{{asset('asset/images/fund_icon.png')}}"></div>
                       <div class="widget-content-left">
-                        <div class="widget-numbers"><span><i class="fas fa-rupee-sign"></i>15950</span></div>
+                        <div class="widget-numbers"><span><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</span></div>
                       </div>
                       <div class="widget-content-right">
                         <div class="widget-heading"><b>एकूण खर्च</b></div>
@@ -305,25 +305,25 @@
                       <div class="row normal-blocks-wrapper">
                         <div class="col-12 col-md-6 col-lg-3">
                           <a href="month_listing.html" class="card border-primary normal-blocks">
-                            <h2 class="number text-primary"><i class="fas fa-rupee-sign"></i>46,690</h2>
+                            <h2 class="number text-primary"><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</h2>
                             <p class="block-heading">अपेक्षित जमा</p>
                           </a>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                           <a href="month_listing.html" class="card border-success normal-blocks">
-                            <h2 class="number text-success"><i class="fas fa-rupee-sign"></i>46,690</h2>
+                            <h2 class="number text-success"><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</h2>
                             <p class="block-heading">आतापर्यंत जमा निधी</p>
                           </a>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                           <a href="month_listing.html"  class="card border-warning normal-blocks">
-                            <h2 class="number text-warning"><i class="fas fa-rupee-sign"></i>46,690</h2>
+                            <h2 class="number text-warning"><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</h2>
                             <p class="block-heading">अपेक्षित अग्रीम परतावा</p>
                           </a>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                           <a href="month_listing.html"  class="card border-info normal-blocks">
-                            <h2 class="number text-info"><i class="fas fa-rupee-sign"></i>46,690</h2>
+                            <h2 class="number text-info"><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</h2>
                             <p class="block-heading">आतापर्यंत प्राप्त परतावा</p>
                           </a>
                         </div>
@@ -331,15 +331,15 @@
                       <div class="bg-blocks">
                         <div class="row">
                           <a href="working_employee_listing.html" class="col-md-4">
-                            <h2 class="number">46,690</h2>
+                            <h2 class="number">{{digitChange('0')}}</h2>
                             <p class="block-heading">कार्यरत कर्मचारी संख्या</p>
                           </a>
                           <a href="repayment_employee_listing.html" class="col-md-4">
-                            <h2 class="number">46,690</h2>
+                            <h2 class="number">{{digitChange('0')}}</h2>
                             <p class="block-heading">निधी जमा केलेली कर्मचारी संख्या </p>
                           </a>
                           <a href="nopayment_employee_listing.html" class="col-md-4">
-                            <h2 class="number">46,690</h2>
+                            <h2 class="number">{{digitChange('0')}}</h2>
                             <p class="block-heading">निधी जमा न झालेली कर्मचारी संख्या</p>
                           </a>
                         </div>
@@ -352,7 +352,7 @@
                     <a href="#" data-toggle="modal" data-target="#" class="widget-content-wrapper">
                       <div class="widget-content-icon"><img src="{{asset('asset/images/fund_icon.png')}}"></div>
                       <div class="widget-content-left">
-                        <div class="widget-numbers"><span><i class="fas fa-rupee-sign"></i>10520</span></div>
+                        <div class="widget-numbers"><span><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</span></div>
                       </div>
                       <div class="widget-content-right">
                         <div class="widget-heading"><b>एकूण खर्च</b></div>
@@ -364,25 +364,25 @@
                       <div class="row normal-blocks-wrapper">
                         <div class="col-12 col-md-6 col-lg-3">
                           <a href="month_listing.html" class="card border-primary normal-blocks">
-                            <h2 class="number text-primary"><i class="fas fa-rupee-sign"></i>46,690</h2>
+                            <h2 class="number text-primary"><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</h2>
                             <p class="block-heading">अपेक्षित जमा</p>
                           </a>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                           <a href="month_listing.html" class="card border-success normal-blocks">
-                            <h2 class="number text-success"><i class="fas fa-rupee-sign"></i>46,690</h2>
+                            <h2 class="number text-success"><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</h2>
                             <p class="block-heading">आतापर्यंत जमा निधी</p>
                           </a>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                           <a href="month_listing.html"  class="card border-warning normal-blocks">
-                            <h2 class="number text-warning"><i class="fas fa-rupee-sign"></i>46,690</h2>
+                            <h2 class="number text-warning"><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</h2>
                             <p class="block-heading">अपेक्षित अग्रीम परतावा</p>
                           </a>
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                           <a href="month_listing.html"  class="card border-info normal-blocks">
-                            <h2 class="number text-info"><i class="fas fa-rupee-sign"></i>46,690</h2>
+                            <h2 class="number text-info"><i class="fas fa-rupee-sign"></i>{{digitChange('0')}}</h2>
                             <p class="block-heading">आतापर्यंत प्राप्त परतावा</p>
                           </a>
                         </div>
@@ -390,15 +390,15 @@
                       <div class="bg-blocks">
                         <div class="row">
                           <div class="col-md-4">
-                            <h2 class="number">46,690</h2>
+                            <h2 class="number">{{digitChange('0')}}</h2>
                             <p class="block-heading">कार्यरत कर्मचारी संख्या</p>
                           </div>
                           <div class="col-md-4">
-                            <h2 class="number">46,690</h2>
+                            <h2 class="number">{{digitChange('0')}}</h2>
                             <p class="block-heading">निधी जमा केलेली कर्मचारी संख्या </p>
                           </div>
                           <div class="col-md-4">
-                            <h2 class="number">46,690</h2>
+                            <h2 class="number">{{digitChange('0')}}</h2>
                             <p class="block-heading">निधी जमा न झालेली कर्मचारी संख्या</p>
                           </div>
                         </div>
