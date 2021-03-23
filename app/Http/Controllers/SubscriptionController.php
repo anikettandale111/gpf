@@ -41,7 +41,7 @@ class SubscriptionController extends Controller {
     $data ['month']=Month::orderBy('order_by')->get();
     $data ['classification']=Classification::all();
     $data ['taluka']=Taluka::all();
-    return view('Admin.chalan.monthly_chalan', $data);
+    return view('Admin.Chalan.monthly_chalan', $data);
   }
   public function store(Request $request){
     $res = MasterMonthlySubscription::where(['gpf_number'=>$request->gpf_account_id,'challan_id'=>$request->chalan_id])->get();
