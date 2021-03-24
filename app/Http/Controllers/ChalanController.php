@@ -153,13 +153,13 @@ class ChalanController extends Controller
         return datatables()->of($res)
         ->addIndexColumn()
         ->addColumn('action', function ($row) {
-          $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id ="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editBill">Edit</a>';
-          $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteBill">Delete</a>';
+          // $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id ="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editBill">Edit</a>';
+          $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteBill">Delete</a>';
           return $btn;
         })
         ->addColumn('total_contribution', function ($row) {
           $total = $row->monthly_contrubition + $row->loan_installment + $row->monthly_other;
-          return $btn;
+          return $total;
         })
         ->rawColumns(['action','total_contribution'])
         ->make(true);

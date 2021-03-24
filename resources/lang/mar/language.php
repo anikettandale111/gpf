@@ -152,6 +152,7 @@ return [
   'th_basic_employee_i_f_s_c_code'=>'आय. एफ.एस.सी.कोड',
   'th_basic_employee_account_no'=>'खाते क्र.',
   // Trend
+  'th_sr_no'=>'अनु क्रमांक',
   'h_trend'=>'चलन',
   'th_trend_s_no'=>'चलन क्रमांक',
   'th_trend_year'=>'चलन वर्ष',

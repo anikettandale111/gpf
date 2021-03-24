@@ -72,7 +72,7 @@ $(document).ready(function() {
         name: 'Month Name'
       },
       {
-        data: 'chalan_id',
+        data: 'chalan_serial_no',
         name: 'Chalan Number'
       },
       {

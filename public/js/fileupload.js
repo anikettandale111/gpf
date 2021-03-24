@@ -59,6 +59,28 @@ $(document).ready(function(){
   });
 });
 var fileDataTable = $('#file_upload_list').DataTable({
+  // footerCallback: function ( row, data, start, end, display ) {
+  //   var api = this.api(), data;
+  //   // Remove the formatting to get integer data for summation
+  //   var intVal = function ( i ) {
+  //     return typeof i === 'string' ?
+  //     i.replace(/[\$,]/g, '')*1 :
+  //     typeof i === 'number' ?
+  //     i : 0;
+  //   };
+  //   // Total over all pages
+  //   total = api.column( 6 ).data().reduce( function (a, b) {
+  //             return intVal(a) + intVal(b);
+  //           }, 0 );
+  //   // Total over this page
+  //   pageTotal = api.column( 6, { page: 'current'} ).data().reduce( function (a, b) {
+  //             return intVal(a) + intVal(b);
+  //           }, 0 );
+  //   // Update footer
+  //   $( api.column( 6 ).footer() ).html(
+  //       '$'+pageTotal +' ( $'+ total +' total)'
+  //     );
+  //   },
   processing: true,
   serverSide: true,
   ajax: {
@@ -66,11 +88,11 @@ var fileDataTable = $('#file_upload_list').DataTable({
     type: 'GET',
     data: function ( d ) {
       return $.extend( {}, d, {
-        "_token": CSRF_TOKEN,
-        'year': $('#year_id').val(),
-        'chalan_month': $('#month_id').val(),
-        'chalan_number':$('#chalan_serial_no').val(),
-        'chalan_taluka':$('#taluka_id').val()
+          "_token": CSRF_TOKEN,
+          'year': $('#year_id').val(),
+          'chalan_month': $('#month_id').val(),
+          'chalan_number':$('#chalan_serial_no').val(),
+          'chalan_taluka':$('#taluka_id').val(),
       } );
     },
   },
@@ -118,10 +140,10 @@ var fileDataTable = $('#file_upload_list').DataTable({
       data: 'total_contribution',
       name: 'total'
     },
-    // {
-    //   data: 'action',
-    //   name: 'Action'
-    // },
+    {
+      data: 'action',
+      name: 'Action'
+    },
     ]
 });
 function getChalanDetails(year,chalan_month,chalan_serial_no,chalan_taluka){
@@ -131,6 +153,7 @@ function getChalanDetails(year,chalan_month,chalan_serial_no,chalan_taluka){
     type: 'GET',
     success: function(res) {
       if (res.amt != null) {
+        $('#file_upload_list').DataTable().ajax.reload(null, false);
         $('.file-select').css('display','block');
         $('#chalan_id').val(res.amt.chalan_id);
         $('#chalan_number').val(res.amt.challan_number);

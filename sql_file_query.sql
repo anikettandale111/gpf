@@ -82,21 +82,60 @@ $emp_name = DB::select($employee_name);
 BEGIN
  UPDATE master_gpf_transaction
 	SET
+  month_april_contri=(month_april_contri+(CASE WHEN new.emc_month=4 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
+	month_may_contri=(month_may_contri+(CASE  WHEN new.emc_month=5 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
+	month_june_contri=(month_june_contri+(CASE  WHEN new.emc_month=6 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
+	month_july_contri=(month_july_contri+(CASE  WHEN new.emc_month=7 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
+	month_aug_contri=(month_aug_contri + (CASE  WHEN new.emc_month=8 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
+	month_september_contri=(month_september_contri+(CASE WHEN new.emc_month=9 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
+  month_octomber_contri=(month_octomber_contri+(CASE WHEN new.emc_month=10 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
+  month_november_contri=(month_november_contri+(CASE WHEN new.emc_month=11 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
+  month_december_contri=(month_december_contri+(CASE WHEN new.emc_month=12 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
+  month_jan_contri=(month_jan_contri + (CASE  WHEN new.emc_month=1 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
+  month_feb_contri=(month_feb_contri + (CASE  WHEN new.emc_month=2 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
+  month_march_contri=(month_march_contri+(CASE WHEN new.emc_month=3 AND emc.is_active=1 THEN new.monthly_contrubition ELSE 0 END)),
 
-    month_april_contri = (month_april_contri + (CASE  WHEN new.emc_month=4 THEN new.monthly_contrubition ELSE 0 END)),
-		month_may_contri = (month_may_contri + (CASE  WHEN new.emc_month=5 THEN new.monthly_contrubition ELSE 0 END)),
-		month_june_contri = (month_june_contri + (CASE  WHEN new.emc_month=6 THEN new.monthly_contrubition ELSE 0 END)),
-		month_july_contri = (month_july_contri + (CASE  WHEN new.emc_month=7 THEN new.monthly_contrubition ELSE 0 END)),
-		month_aug_contri = (month_aug_contri + (CASE  WHEN new.emc_month=8 THEN new.monthly_contrubition ELSE 0 END)),
-		month_september_contri = (month_september_contri + (CASE  WHEN new.emc_month=9 THEN new.monthly_contrubition ELSE 0 END)),
-    month_octomber_contri = (month_octomber_contri + (CASE  WHEN new.emc_month=10 THEN new.monthly_contrubition ELSE 0 END)),
-    month_november_contri = (month_november_contri + (CASE  WHEN new.emc_month=11 THEN new.monthly_contrubition ELSE 0 END)),
-    month_december_contri = (month_december_contri + (CASE  WHEN new.emc_month=12 THEN new.monthly_contrubition ELSE 0 END)),
-    month_jan_contri = (month_jan_contri + (CASE  WHEN new.emc_month=1 THEN new.monthly_contrubition ELSE 0 END)),
-    month_feb_contri = (month_feb_contri + (CASE  WHEN new.emc_month=2 THEN new.monthly_contrubition ELSE 0 END)),
-    month_march_contri = (month_march_contri + (CASE  WHEN new.emc_month=3 THEN new.monthly_contrubition ELSE 0 END)),
+  month_april_recive=(month_april_recive+(CASE WHEN new.emc_month=4 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+	month_may_recive=(month_may_recive+(CASE  WHEN new.emc_month=5 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+	month_june_recive=(month_june_recive+(CASE  WHEN new.emc_month=6 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+	month_july_recive=(month_july_recive+(CASE  WHEN new.emc_month=7 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+	month_aug_recive=(month_aug_recive + (CASE  WHEN new.emc_month=8 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+	month_september_recive=(month_september_recive+(CASE WHEN new.emc_month=9 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+  month_octomber_recive=(month_octomber_recive+(CASE WHEN new.emc_month=10 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+  month_november_recive=(month_november_recive+(CASE WHEN new.emc_month=11 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+  month_december_recive=(month_december_recive+(CASE WHEN new.emc_month=12 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+  month_jan_recive=(month_jan_recive + (CASE  WHEN new.emc_month=1 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+  month_feb_recive=(month_feb_recive + (CASE  WHEN new.emc_month=2 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+  month_march_recive=(month_march_recive+(CASE WHEN new.emc_month=3 AND emc.is_active=1 THEN new.monthly_received ELSE 0 END)),
+
+  month_april_loan_emi=(month_april_loan_emi+(CASE WHEN new.emc_month=4 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+	month_may_loan_emi=(month_may_loan_emi+(CASE  WHEN new.emc_month=5 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+	month_june_loan_emi=(month_june_loan_emi+(CASE  WHEN new.emc_month=6 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+	month_july_loan_emi=(month_july_loan_emi+(CASE  WHEN new.emc_month=7 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+	month_aug_loan_emi=(month_aug_loan_emi + (CASE  WHEN new.emc_month=8 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+	month_september_loan_emi=(month_september_loan_emi+(CASE WHEN new.emc_month=9 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+  month_octomber_loan_emi=(month_octomber_loan_emi+(CASE WHEN new.emc_month=10 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+  month_november_loan_emi=(month_november_loan_emi+(CASE WHEN new.emc_month=11 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+  month_december_loan_emi=(month_december_loan_emi+(CASE WHEN new.emc_month=12 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+  month_jan_loan_emi=(month_jan_loan_emi + (CASE  WHEN new.emc_month=1 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+  month_feb_loan_emi=(month_feb_loan_emi + (CASE  WHEN new.emc_month=2 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+  month_march_loan_emi=(month_march_loan_emi+(CASE WHEN new.emc_month=3 AND emc.is_active=1 THEN new.loan_installment ELSE 0 END)),
+
+  month_april_other=(month_april_other+(CASE WHEN new.emc_month=4 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END)),
+	month_may_other=(month_may_other+(CASE  WHEN new.emc_month=5 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END)),
+	month_june_other=(month_june_other+(CASE  WHEN new.emc_month=6 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END)),
+	month_july_other=(month_july_other+(CASE  WHEN new.emc_month=7 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END)),
+	month_aug_other=(month_aug_other + (CASE  WHEN new.emc_month=8 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END)),
+	month_september_other=(month_september_other+(CASE WHEN new.emc_month=9 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END)),
+  month_octomber_other=(month_octomber_other+(CASE WHEN new.emc_month=10 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END)),
+  month_november_other=(month_november_other+(CASE WHEN new.emc_month=11 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END)),
+  month_december_other=(month_december_other+(CASE WHEN new.emc_month=12 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END)),
+  month_jan_other=(month_jan_other + (CASE  WHEN new.emc_month=1 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END)),
+  month_feb_other=(month_feb_other + (CASE  WHEN new.emc_month=2 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END)),
+  month_march_other=(month_march_other+(CASE WHEN new.emc_month=3 AND emc.is_active=1 THEN new.monthly_other ELSE 0 END))
 
 	WHERE gpf_number = new.gpf_number ;
+  END
 
 /****************************************************************************************************************/
 ALTER TABLE `tbl_monthly_total_chalan` CHANGE `voucher_no` `chalan_month_id` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;

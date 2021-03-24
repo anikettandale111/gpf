@@ -205,7 +205,7 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
         if ((res.chalan).length) {
           var i = 1;
           $(res.chalan).each(function(key, val) {
-            str += '<tr><td>' + i + '</td><td>' + val.emc_year + '</td><td>' + (val.month_name + val.challan_number) + '</td><td>' + val.taluka_name + '</td><td>' + val.gpf_number + '</td><td>' + val.employee_name + '</td><td>' + val.monthly_contrubition + '</td><td>' + val.loan_amonut + '</td><td>' + val.pending_amt + '</td><td>' + val.monthly_received + '</td><td>' + val.final_amt_diff + '</td><td>' + val.name + '</td></tr>';
+            str += '<tr><td>' + i + '</td><td>' + val.emc_year + '</td><td>' + (val.month_name + val.challan_number) + '</td><td>' + val.taluka_name + '</td><td>' + val.gpf_number + '</td><td>' + val.employee_name + '</td><td>' + val.monthly_contrubition + '</td><td>' + val.loan_installment + '</td><td>' + val.monthly_other + '</td><td>' + (parseInt(val.monthly_contrubition) + parseInt(val.loan_installment) + parseInt(val.monthly_other)) + '</td><td>' + val.name + '</td></tr>';
             i++;
           });
         }

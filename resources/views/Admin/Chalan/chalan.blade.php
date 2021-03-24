@@ -108,7 +108,7 @@
               <table id="chalanTable" class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th>{{trans('language.th_trend_s_no')}} </th>
+                    <th>{{trans('language.th_sr_no')}} </th>
                     <th>{{trans('language.th_trend_no')}}</th>
                     <th>{{trans('language.th_trend_s_no')}} </th>
                     <th>{{trans('language.th_trend_date')}} </th>

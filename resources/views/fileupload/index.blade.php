@@ -119,6 +119,16 @@
                   <!-- <th>क्रीया </th> -->
                 </tr>
               </thead>
+              <tfoot>
+                   <tr>
+                        <th colspan="6">Total:</th>
+                        <th>0</th>
+                        <th>0</th>
+                        <th>0</th>
+                        <th>0</th>
+                        <th>Grant Total</th>
+                   </tr>
+               </tfoot>
             </table>
           </div>
         </div>
