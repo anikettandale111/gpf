@@ -176,7 +176,7 @@ function importFileSubmit(){
     formData.append('year_id', $('#year_id').val());
     formData.append('month_id', $('#month_id').val());
     formData.append('chalan_id', $('#chalan_id').val());
-    formData.append('chalan_number', $('#chalan_number').val());
+    formData.append('chalan_number', $('#chalan_serial_no').val());
     formData.append('taluka_id', $('#taluka_id').val());
     formData.append('classification_id', $('#classification_id').val());
     $.ajaxSetup({

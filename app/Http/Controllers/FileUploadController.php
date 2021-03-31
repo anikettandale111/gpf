@@ -106,11 +106,9 @@ class FileUploadController extends Controller
             if(isset($employee->employee_id) && $employee->employee_id !== ''){
               $userData[] = ['gpf_number' => $getData[$i][1],
               'classification_id' => $request->classification_id,
-              'classification_id' => $request->classification_id,
               'taluka_id' =>$request->taluka_id,
               'challan_id' => $request->chalan_id,
-              'challan_number' => $request->chalan_id,
-              'challan_number' => $request->chalan_id,
+              'challan_number' => $request->chalan_number,
               'emc_month' => $request->month_id,
               'emc_year' => $request->year_id,
               'emc_emp_id' => $employee->employee_id,
