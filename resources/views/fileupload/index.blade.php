@@ -99,38 +99,28 @@
         </div>
       </div>
     </div>
-    <div class="x_content">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="card-box table-responsive">
-            <table id="file_upload_list" class="table table-striped table-bordered " style="width:100% !important">
-              <thead>
-                <tr>
-                  <th> क्रं </th>
-                  <th>वर्ष </th>
-                  <th>चलन नंबर </th>
-                  <th>तालुका</th>
-                  <th>भ.नि.नि.क्रमांक</th>
-                  <th>कर्मचारी नाव</th>
-                  <th>वर्गणी</th>
-                  <th>अग्रिम परतावा</th>
-                  <th>थकबाकी</th>
-                  <th>ऐकून </th>
-                  <!-- <th>क्रीया </th> -->
-                </tr>
-              </thead>
-              <tfoot>
-                   <tr>
-                        <th colspan="6">Total:</th>
-                        <th>0</th>
-                        <th>0</th>
-                        <th>0</th>
-                        <th>0</th>
-                        <th>Grant Total</th>
-                   </tr>
-               </tfoot>
-            </table>
-          </div>
+  </div>
+  <div class="x_content">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card-box table-responsive">
+          <table id="file_upload_list" class="table table-striped table-bordered " style="width:100% !important">
+            <thead>
+              <tr>
+                <th> क्रं </th>
+                <th>वर्ष </th>
+                <th>चलन नंबर </th>
+                <th>तालुका</th>
+                <th>भ.नि.नि.क्रमांक</th>
+                <th>कर्मचारी नाव</th>
+                <th>वर्गणी</th>
+                <th>अग्रिम परतावा</th>
+                <th>थकबाकी</th>
+                <th>ऐकून </th>
+                <!-- <th>क्रीया </th> -->
+              </tr>
+            </thead>
+          </table>
         </div>
       </div>
     </div>

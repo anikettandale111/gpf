@@ -60,6 +60,7 @@ class SubscriptionController extends Controller {
       $data['monthly_contrubition'] = $request->deposit_amt;
       $data['loan_installment'] = $request->pending_amt;
       $data['monthly_other'] = 0;
+      $data['is_active'] = 0;
       $data['loan_amonut'] = $request->refund;
       $data['modifed_by'] = Auth::id();
       $create = MasterMonthlySubscription::insert($data);

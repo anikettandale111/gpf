@@ -1,13 +1,31 @@
 /****************************************************************************************************************/
 /****************************************************************************************************************/
+ALTER TABLE `master_gpf_transaction` ADD `partava_amt` DOUBLE(10,2) NOT NULL DEFAULT '0.00' AFTER `month_march_seven_pay`, ADD `partava_date` VARCHAR(30) NULL DEFAULT NULL AFTER `partava_amt`, ADD `partava_month` INT NULL DEFAULT NULL AFTER `partava_date`, ADD `na_partava_amt` DOUBLE(10,2) NOT NULL DEFAULT '0.00' AFTER `partava_month`, ADD `na_partava_date` VARCHAR(30) NULL DEFAULT NULL AFTER `na_partava_amt`, ADD `na_partava_month` INT NULL DEFAULT NULL AFTER `na_partava_date`, ADD `antim_adayi_amt` DOUBLE(10,2) NOT NULL DEFAULT '0.00' AFTER `na_partava_month`, ADD `antim_adayi_date` VARCHAR(30) NULL DEFAULT NULL AFTER `antim_adayi_amt`, ADD `antim_adayi_month` INT NULL DEFAULT NULL AFTER `antim_adayi_date`;
+
+
+ALTER TABLE `master_employee` ADD `antim_partava_status` TINYINT NOT NULL DEFAULT '0' COMMENT '0 Not Paid, 1 Paid' AFTER `is_active`;
+
+ALTER TABLE `tbl_master_withdrawal` ADD `remark` VARCHAR(200) NULL DEFAULT NULL AFTER `bill_id`;
+
+ALTER TABLE `master_gpf_transaction` ADD `withdraw_remark` VARCHAR(200) NULL DEFAULT NULL AFTER `antim_adayi_month`;
+
+UPDATE master_gpf_transaction AS gt
+LEFT JOIN tbl_master_withdrawal AS mw ON mw.gpf_no = gt.gpf_number SET
+gt.partava_amt = mw.partava_amt,
+gt.partava_date = mw.partava_date,
+gt.partava_month = CASE WHEN mw.partava_amt > 0 THEN mw.month_id ELSE 0 END,
+gt.na_partava_amt = mw.na_partava_amt,
+gt.na_partava_date = mw.na_partava_date,
+gt.na_partava_month = CASE WHEN mw.na_partava_amt > 0 THEN mw.month_id ELSE 0 END,
+gt.antim_adayi_amt = mw.antim_adayi_amt,
+gt.antim_adayi_date = mw.antim_adayi_date,
+gt.antim_adayi_month = CASE WHEN mw.antim_adayi_amt > 0 THEN mw.month_id ELSE 0 END
+WHERE gt.gpf_number = mw.gpf_no;
+
 /****************************************************************************************************************/
 UPDATE `master_emp_monthly_contribution` em,master_employee m SET em.gpf_number=m.employee_id WHERE RIGHT(em.gpf_number,4) = m.employee_id AND m.employee_id=6868
 
-
 UPDATE `master_emp_monthly_contribution` SET gpf_number=RIGHT(gpf_number,4) WHERE LENGTH(gpf_number) = 5
-
-
-
 
 SELECT CONCAT(emc.gpf_number) AS inital_gpf_number,emc.emc_month,emc.emc_year,mm.month_name_mar AS month_name, tl.taluka_name_mar AS taluka_name,SUM(emc.monthly_contrubition), emc.monthly_received,emc.loan_amonut,emc.monthly_other,emc.remark,emc.loan_installment
 FROM master_emp_monthly_contribution emc

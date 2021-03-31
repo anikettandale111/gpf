@@ -4,6 +4,7 @@ var year = $('.year').val();
 var chalan_month = $('#chalan_month').val();
 var chalan_number = $('#chalan_number').val();
 var chalan_taluka = $('#taluka_id').val();
+var fileDataTable;
 $(document).ready(function(){
   $('.file-select').css('display','none');
   $('.progress').css('display','none');
@@ -58,7 +59,7 @@ $(document).ready(function(){
     }
   });
 });
-var fileDataTable = $('#file_upload_list').DataTable({
+fileDataTable = $('#file_upload_list').DataTable({
   // footerCallback: function ( row, data, start, end, display ) {
   //   var api = this.api(), data;
   //   // Remove the formatting to get integer data for summation
@@ -135,10 +136,6 @@ var fileDataTable = $('#file_upload_list').DataTable({
     {
       data: 'monthly_other',
       name: 'Other'
-    },
-    {
-      data: 'total_contribution',
-      name: 'total'
     },
     {
       data: 'action',

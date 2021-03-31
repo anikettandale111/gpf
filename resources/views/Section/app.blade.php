@@ -123,7 +123,6 @@
                 <li><a href="{{url('application_form')}}">कर्मचाऱ्याने कार्यालय  प्रमुखास अर्ज करणे </a></li>
               </ul>
             </li> -->
-            <li><a href="{{url('customer_registration')}}"><i class="fa fa-table"></i> {{trans('language.h_basic_employee_information')}} </a></li>
             <!-- <li><a href="{{url('nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद</a></li> -->
             <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>{{trans('language.7_pay_commission_paid')}}</a></li>
             @endif
@@ -138,11 +137,20 @@
             <li><a><i class="fa fa-bug"></i> {{trans('language.bill_expensess_report')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{url('employeereports')}}"> {{trans('language.employee_account_stmt')}} </a></li>
+                <li><a href="{{url('closedaccountreports')}}"> {{trans('language.retired_employee_account_stmt')}} </a></li>
                 <!-- <li><a href="{{url('bill_information')}}"> {{trans('language.bill_expensess_info')}} </a></li> -->
                 <!-- <li><a href="{{url('closed_account')}}"> <i class="fa fa-users"></i>खाते बंद करणे  </a></li>
                 <li><a href="{{url('monthly_chalan')}}">मासिक चलन खतावणी</a></li> -->
               </ul>
             </li>
+            @if(Auth::user()->id == 1 )
+            <li><a><i class="fa fa-bug"></i> {{trans('language.menu_karmchari_namnirdeshan')}}  <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="{{url('accountclosed')}}"> {{trans('language.menu_form_namnirdeshan')}} </a></li>
+                <li><a href="{{url('accountclosed')}}"> {{trans('language.retired_employee_account_stmt')}} </a></li>
+              </ul>
+            </li>
+            @endif
           </ul>
         </div>
 
@@ -176,33 +184,31 @@
     <div class="nav_menu">
       <div class="nav toggle">
         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-
       </div>
       <nav class="nav navbar-nav">
         <ul class=" navbar-right">
-
-          <li class="nav-item ">
-            <a class="nav-link" href="#" onclick="changelanguage('{{trans('language.test_language')}}')" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-globe fa-fw"></i> {{(app()->getLocale()== "mar") ? 'English' : 'मराठी'}}
-          </a>
-        </li>
         <li class="nav-item dropdown open" style="padding-left: 15px;">
-          <a href="#" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+          <a href="javascript:void(0)" onclick="return false;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
             <img src="{{asset ('asset/images/img.jpg ')}}" alt="">{{ Auth::user()->name }}
           </a>
-          <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu dropdown-usermenu ">
             <a class="dropdown-item"  href="#"> Profile</a>
             <a class="dropdown-item"  href="{{url('/change_pwd')}}"> Change Password</a>
             <a class="dropdown-item"  href="{{ route('logout') }}"
             onclick="event.preventDefault();document.getElementById('logout-form').submit();">
             <i class="fa fa-sign-out pull-right"></i>
-            Log Out</a>
+            Log Out
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
               @csrf
-            </form>
-          </div>
+            </form></a>
+          </ul>
         </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="#" onclick="changelanguage('{{trans('language.test_language')}}')" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-globe fa-fw"></i> {{(app()->getLocale()== "mar") ? 'English' : 'मराठी'}}
+        </a>
+      </li>
         <!-- <li class="nav-item ">
           <form>
             <select id="yearChage" name="yearChage" class="form-control" onchange="setyear(this.value)">
@@ -219,7 +225,7 @@
 </div>
 <!-- /top navigation -->
 
-<div class="right_col" role="main">
+<div class="right_col" role="main" >
   @include('Section.flash_messages')
   @yield('content')
 </div>

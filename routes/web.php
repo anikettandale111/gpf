@@ -73,12 +73,6 @@ Route::middleware('auth')->group(function () {
     Route::post('vetan_new', 'VetanController@vetan_new');
     Route::post('vetan_Delete/{id}', 'VetanController@vetan_Delete');
 
-
-    Route::get('closed_account', 'AccountclosedController@index');
-    Route::post('account_Insert_Data', 'AccountclosedController@account_Insert_Data');
-    Route::post('account_new', 'AccountclosedController@account_new');
-    Route::post('account_Delete/{id}', 'AccountclosedController@account_Delete');
-
     //Bill No
     Route::get('bill_information', 'BillController@index');
     Route::post('bill_insert', 'BillController@bill_insert');
@@ -101,15 +95,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('bank', BankMasterController::class);
     // Year
     Route::resource('Year', YearController::class);
-    // Customer Registration
-    // Route::get('customer_registration', 'CustomerRegistrationController@index');
-    // Route::post('custmoer_insert_data', 'CustomerRegistrationController@custmoer_insert_data');
-    // Route::post('customer_delete/{id}', 'CustomerRegistrationController@customer_delete');
-    // Route::get('customer_edit/{id}', 'CustomerRegistrationController@customer_edit');
-    // Route::post('customer_update', 'CustomerRegistrationController@customer_update');
-    // Route::post('customer_new', 'CustomerRegistrationController@customer_new');
-
-    Route::resource('customer_registration', CustomerRegistrationController::class);
     // Common Application Forms
     Route::get('getLastApplicationNumber', 'CommonApplicationController@getLastApplicationNumber');
     Route::get('getuserdetailsbygpfno', 'CommonApplicationController@getuserdetailsbygpfno');
@@ -129,6 +114,7 @@ Route::middleware('auth')->group(function () {
     Route::get('getAllEmpKhateUtara', 'EmployeeReportsController@getAllEmpKhateUtara');
     Route::get('getAllEmpFormEN', 'EmployeeReportsController@getAllEmpFormEN');
     Route::resource('employeereports', EmployeeReportsController::class);
+    Route::resource('closedaccountreports', ClosedAccountReportsController::class);
     // Chalan Controller
     Route::get('chalanSubscriptionDetails', 'ChalanController@chalanSubscriptionDetails');
     Route::get('chalandetails', 'ChalanController@chalandetails');
@@ -141,7 +127,11 @@ Route::middleware('auth')->group(function () {
     // Get Max GPF Number
     Route::get('getLastApplicationNo', 'ProvidingAccountController@getLastApplicationNo');
     Route::get('genarate_view/{id}', 'ProvidingAccountController@genarate_view');
+    Route::post('approved_new_gpf_no', 'ProvidingAccountController@approved_new_gpf_no');
+    Route::post('reject_new_gpf_no', 'ProvidingAccountController@reject_new_gpf_no');
     Route::get('master_employee_view', 'MasteremployeeController@master_employee_view');
+
+    Route::resource('accountclosed',AccountclosedController::class);
 
 
 });

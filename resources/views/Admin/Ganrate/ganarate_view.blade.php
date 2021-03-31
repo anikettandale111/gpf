@@ -97,6 +97,33 @@
             <div class="col-sm-6"><span><a class="btn btn-success" href="{{asset('storage/'.$temp->attachment_four)}}" target="_blank"> View </a></span></div>
           </div>
         </div>
+        <hr>
+        @if($temp->app_status == 0)
+        <div class="form-group col-md-2">
+          <span>Status : <button type="button" class="btn btn-warning"> Pending</button></span>
+        </div>
+        <div class="form-group col-md-4">
+          <textarea class="form-control" name="application_remark" id="application_remark" rows="2" cols="80" placeholder="Additional Note "></textarea>
+        </div>
+        <div class="form-group col-md-4">
+          <div class="col-sm-6">
+            <button type="button" style="width:100%" class="btn btn-success" name="approve_application" id="approve_application" onclick="approvedButton('{{$temp->id}}')"> Approved </button>
+          </div>
+          <div class="col-sm-6">
+            <button type="button" style="width:100%" class="btn btn-danger" name="reject_application" id="reject_application" onclick="rejectdButton('{{$temp->id}}')"> Reject </button>
+          </div>
+        </div>
+        @elseif($temp->app_status == 1)
+        <div class="form-group col-md-4">
+          <span>Status : <button type="button" class="btn btn-success">  Approved </button></span>
+          <h3>{{$temp->remark}}</h3>
+        </div>
+        @elseif($temp->app_status == 2)
+        <div class="form-group col-md-4">
+          <span>Status : <button type="button" clas s="btn btn-danger">  Rejected </button></span>
+          <h3>{{$temp->remark}}</h3>
+        </div>
+        @endif
         @endforeach
         @endif
       </div>
@@ -105,3 +132,72 @@
 </div>
 </div>
 @endsection
+@push('custom-scripts')
+<script type="text/javascript">
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+function approvedButton(appId){
+  var add_note = $('#approve_application').val();
+  swal({
+    title: "Approved ?",
+    text: "Are you sure to assign GPF Number ?",
+    type: "warning",
+    showCancelButton: !0,
+    confirmButtonText: "Yes, Approved it!",
+    cancelButtonText: "No, Please Hold !",
+    reverseButtons: !0
+  }).then(function(e) {
+    if (e.value === true) {
+      $.ajax({
+        type: 'POST',
+        url: "{{url('/approved_new_gpf_no')}}",
+        data: {
+          _token: CSRF_TOKEN,
+          remark:$('#application_remark').val(),
+          appId:appId
+        },
+        dataType: 'JSON',
+        success: function(data) {
+          swal(data.status,data.message);
+        }
+      });
+    } else {
+      e.dismiss;
+    }
+  }, function(dismiss) {
+    return false;
+  })
+}
+function rejectdButton(appId){
+  var add_note = $('#approve_application').val();
+  swal({
+    title: "Reject ?",
+    text: "",
+    type: "warning",
+    showCancelButton: !0,
+    confirmButtonText: "Yes, Reject it!",
+    cancelButtonText: "No, Please Hold !",
+    reverseButtons: !0
+  }).then(function(e) {
+    if (e.value === true) {
+      $.ajax({
+        type: 'POST',
+        url: "{{url('/reject_new_gpf_no')}}",
+        data: {
+          _token: CSRF_TOKEN,
+          remark:$('#application_remark').val(),
+          appId:appId
+        },
+        dataType: 'JSON',
+        success: function(data) {
+          swal(data.status,data.message);
+        }
+      });
+    } else {
+      e.dismiss;
+    }
+  }, function(dismiss) {
+    return false;
+  })
+}
+</script>
+@endpush

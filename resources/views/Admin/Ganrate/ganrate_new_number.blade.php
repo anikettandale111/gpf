@@ -23,8 +23,8 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="new_application_gpf_no" >{{trans('language.th_providing_application_number')}}</label>
-                  <input id="inital_letter" type="hidden" class="form-control app_number" name="inital_letter" readonly>
-                    <input id="new_application_gpf_no" type="text" class="form-control @error('new_application_gpf_no') is-invalid @enderror" name="new_application_gpf_no" value="{{ old('new_application_gpf_no') }}" placeholder="{{trans('language.th_providing_application_number')}}" readonly>
+                <input id="inital_letter" type="hidden" class="form-control app_number" name="inital_letter" readonly>
+                <input id="new_application_gpf_no" type="text" class="form-control @error('new_application_gpf_no') is-invalid @enderror" name="new_application_gpf_no" value="{{ old('new_application_gpf_no') }}" placeholder="{{trans('language.th_providing_application_number')}}" readonly>
               </div>
               <div class="form-group col-md-4">
                 <label > {{trans('language.th_providing_employee_seva_number')}} <span class="required"></span></label>
@@ -99,14 +99,14 @@
                 <label for="name" >{{trans('language.th_opening_balance')}}</label>
                 <div class="row">
                   <div class="col-sm-6">
-                  Add Opening Balance ?
-                  <input type="checkbox" id="check_opening_balance" >
+                    Add Opening Balance ?
+                    <input type="checkbox" id="check_opening_balance" >
                   </div>
-                    <div class="col-sm-6">
-                      <input type="text" name="opening_balance" class="allow-numbers form-control @error('opening_balance') is-invalid @enderror" id="opening_balance" value="0" required autocomplete="off" autofocus placeholder="{{trans('language.th_opening_balance')}}" readonly>
-                    </div>
+                  <div class="col-sm-6">
+                    <input type="text" name="opening_balance" class="allow-numbers form-control @error('opening_balance') is-invalid @enderror" id="opening_balance" value="0" required autocomplete="off" autofocus placeholder="{{trans('language.th_opening_balance')}}" readonly>
+                  </div>
+                </div>
               </div>
-            </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_letter_no')}}</label>
                 <input type="text" name="c_v_letter" class="form-control @error('c_v_letter') is-invalid @enderror" id="c_v_letter" value="{{ old('c_v_letter') }}" required autocomplete="off" autofocus placeholder="{{trans('language.th_providing_letter_no')}}">
@@ -145,29 +145,6 @@
         </div>
 
         <div class="x_panel">
-          <div class="x_title">
-            <div class="clearfix"></div>
-            @if ($message = Session::get('danger'))
-            <div class="alert alert-danger alert-block">
-              <button type="button" class="close" data-dismiss="alert">×</button>
-              <strong>{{ $message }}</strong>
-            </div>
-            @endif
-
-            @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-block">
-              <button type="button" class="close" data-dismiss="alert">×</button>
-              <strong>{{ $message }}</strong>
-            </div>
-            @endif
-
-            @if ($message = Session::get('info'))
-            <div class="alert alert-info alert-block">
-              <button type="button" class="close" data-dismiss="alert">×</button>
-              <strong>{{ $message }}</strong>
-            </div>
-            @endif
-          </div>
           <div class="x_content">
             <div class="row">
               <div class="col-sm-12">
@@ -214,137 +191,137 @@
                         <td>{{$temp->bank_account_no}}</td>
                         <td>{{$temp->ifsc_code}}</td> -->
                         <td>
-                        <a href="{{url('genarate_view',$temp->id)}}"
-                           class="btn btn-info btn-flat btn-sm view-user"> View
+                          <a href="{{url('genarate_view',$temp->id)}}"
+                            class="btn btn-info btn-flat btn-sm view-user"> View
 
                           </a>
                           <!-- <button class="btn btn-danger btn-flat btn-sm remove-user" data-id="{{ $temp->id }}"
-                           data-action="{{ url('ganrate_Delete','$temp->id') }}" onclick="deleteConfirmation('{{$temp->id}}')">
-                           <i class="fa fa-trash"></i>
-                          </button> -->
-                          <!-- <a href="{{url('assigned_gpf_number',$temp->id)}}" target="_blank">
-                            <button type="button" class="btn btn-success "><i class="fa fa-eye" aria-hidden="true"></i>
-                            </button></a> -->
-                          </td>
-                        </tr>
-                        @endforeach
-                        @endif
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+                          data-action="{{ url('ganrate_Delete','$temp->id') }}" onclick="deleteConfirmation('{{$temp->id}}')">
+                          <i class="fa fa-trash"></i>
+                        </button> -->
+                        <!-- <a href="{{url('assigned_gpf_number',$temp->id)}}" target="_blank">
+                        <button type="button" class="btn btn-success "><i class="fa fa-eye" aria-hidden="true"></i>
+                      </button></a> -->
+                    </td>
+                  </tr>
+                  @endforeach
+                  @endif
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <script type="text/javascript">
-    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    $(document).ready(function() {
-      //jQuery code goes here
-      $('.validatedForm').validate({
-        rules: {
-          classification: {
-            required: true,
-          },
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+$(document).ready(function() {
+  //jQuery code goes here
+  $('.validatedForm').validate({
+    rules: {
+      classification: {
+        required: true,
+      },
 
-          taluka: "required",
-          department: "required",
-          name: "required",
-          designation: "required",
-          account_no: {
-            required: true,
-            digits: "required",
-          },
-          date_of_birthday: "required",
-          date_birth: "required",
-          date_dated: "required",
-          c_v_letter: "required",
-          yes: "required",
-        },
-        messages: {
-          classification: "Plese Select Classification",
+      taluka: "required",
+      department: "required",
+      name: "required",
+      designation: "required",
+      account_no: {
+        required: true,
+        digits: "required",
+      },
+      date_of_birthday: "required",
+      date_birth: "required",
+      date_dated: "required",
+      c_v_letter: "required",
+      yes: "required",
+    },
+    messages: {
+      classification: "Plese Select Classification",
 
-          taluka: "Plese Select Taluka",
-          department: "Plese Select Department",
-          name: "Plese Enter The Name",
-          designation: "Plese Select designation",
-          account_no: {
-            required: "Please Enter Account Number",
-          },
-          date_of_birthday: "Please Enter Birthday Date",
-          date_birth: "Please Enter Resume Date",
-          date_dated: "Please Enter Retirement  Date",
-          c_v_letter: "Please Enter C .v .a / c .shi. Letter no. Of PNS taluka ",
-          yes: " Want to provide account number?",
-        }
-      });
-      $("#check_opening_balance").change(function() {
-          if(this.checked) {
-            $('#opening_balance').attr("readonly", false);
-          } else {
-            $('#opening_balance').attr("readonly", true);
-          }
-      });
-    });
-
-    function deleteConfirmation(id) {
-      swal({
-        title: "Delete?",
-        text: "Please confirm!",
-        type: "warning",
-        showCancelButton: !0,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: !0
-
-      }).then(function(e) {
-
-        if (e.value === true) {
-
-          $.ajax({
-            type: 'POST',
-            url: "{{url('/ganrate_Delete')}}/" + id,
-            data: {
-              _token: CSRF_TOKEN
-            },
-            dataType: 'JSON',
-            success: function(results) {
-
-              $('#' + results.id).remove();
-            }
-          });
-
-        } else {
-          e.dismiss;
-        }
-
-      }, function(dismiss) {
-        return false;
-      })
-
+      taluka: "Plese Select Taluka",
+      department: "Plese Select Department",
+      name: "Plese Enter The Name",
+      designation: "Plese Select designation",
+      account_no: {
+        required: "Please Enter Account Number",
+      },
+      date_of_birthday: "Please Enter Birthday Date",
+      date_birth: "Please Enter Resume Date",
+      date_dated: "Please Enter Retirement  Date",
+      c_v_letter: "Please Enter C .v .a / c .shi. Letter no. Of PNS taluka ",
+      yes: " Want to provide account number?",
     }
-    $('.mySelect').on('change', function() {
-      var value = $(this);
-      var option = $('option:selected', this).attr('data-letter');
-      $('.app_number').val(option);
+  });
+  $("#check_opening_balance").change(function() {
+    if(this.checked) {
+      $('#opening_balance').attr("readonly", false);
+    } else {
+      $('#opening_balance').attr("readonly", true);
+    }
+  });
+});
+
+function deleteConfirmation(id) {
+  swal({
+    title: "Delete?",
+    text: "Please confirm!",
+    type: "warning",
+    showCancelButton: !0,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "No, cancel!",
+    reverseButtons: !0
+
+  }).then(function(e) {
+
+    if (e.value === true) {
+
       $.ajax({
-        type: 'GET',
-        url: "{{url('/getLastApplicationNo')}}",
+        type: 'POST',
+        url: "{{url('/ganrate_Delete')}}/" + id,
         data: {
           _token: CSRF_TOKEN
         },
+        dataType: 'JSON',
         success: function(results) {
-          if (results == null || results == '') {
-            var new_no = "{{Config::get('custom.gpf_no_prefix_text')}}"+1;
-          } else {
-            var new_no =  "{{Config::get('custom.gpf_no_prefix_text')}}"+(parseInt(results) + 1);
-          }
-          $('#new_application_gpf_no').val(new_no);
+
+          $('#' + results.id).remove();
         }
       });
-    });
 
-    </script>
-    @endsection
+    } else {
+      e.dismiss;
+    }
+
+  }, function(dismiss) {
+    return false;
+  })
+
+}
+$('.mySelect').on('change', function() {
+  var value = $(this);
+  var option = $('option:selected', this).attr('data-letter');
+  $('.app_number').val(option);
+  $.ajax({
+    type: 'GET',
+    url: "{{url('/getLastApplicationNo')}}",
+    data: {
+      _token: CSRF_TOKEN
+    },
+    success: function(results) {
+      if (results == null || results == '') {
+        var new_no = "{{Config::get('custom.gpf_no_prefix_text')}}"+1;
+      } else {
+        var new_no =  "{{Config::get('custom.gpf_no_prefix_text')}}"+(parseInt(results) + 1);
+      }
+      $('#new_application_gpf_no').val(new_no);
+    }
+  });
+});
+
+</script>
+@endsection

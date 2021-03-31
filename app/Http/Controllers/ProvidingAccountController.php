@@ -12,6 +12,7 @@ use App\Masteremployee;
 use App\GenerateApplication;
 use App\Taluka;
 use App\Bank;
+use Auth;
 
 class ProvidingAccountController extends Controller
 {
@@ -105,5 +106,19 @@ class ProvidingAccountController extends Controller
   }
   public function  genaratetrans() {
     return view ('genaratetrans');
+  }
+  public function approved_new_gpf_no(Request $request){
+    if(isset($request->appId) && $request->appId !== ''){
+      GenerateApplication::where('id',$request->appId)
+                              ->update(['app_status'=> 1,'remark'=> $request->remark,'modified_by'=>Auth::id()]);
+      return ['status'=>'success','message'=>'Application Approved Successfully'];
+    }
+  }
+  public function reject_new_gpf_no(Request $request){
+    if(isset($request->appId) && $request->appId !== ''){
+      GenerateApplication::where('id',$request->appId)
+                          ->update(['app_status'=> 1,'remark'=> $request->remark,'modified_by'=>Auth::id()]);
+      return ['status'=>'success','message'=>'Application Rejected Successfully'];
+    }
   }
 }

@@ -156,7 +156,7 @@
                       @endfor
                   @endif
                   @php
-                    $opening_balance = $rqo->opening_balance;
+                    $opening_balance = $rqo->opening_balance+ $total_ins_amt;
                     $intrest_rate = 8;
                     $total_gpf = [];
                     $total = $opening_balance;

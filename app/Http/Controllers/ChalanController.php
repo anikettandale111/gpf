@@ -126,6 +126,11 @@ class ChalanController extends Controller
     return ['amt'=>$deposits,'chalan'=>$res];
   }
   public function chalanSubscriptionDetails(Request $request){
+    if($request->chalan_month == ''){
+      $empty_res = [];
+      return datatables()->of($empty_res)
+      ->addIndexColumn()->make(true);
+    }
     $data['chalan_month_id'] = $request->chalan_month;
     $data['year'] = $request->year;
     $data['chalan_serial_no'] = $request->chalan_number;
@@ -157,11 +162,7 @@ class ChalanController extends Controller
           $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteBill">Delete</a>';
           return $btn;
         })
-        ->addColumn('total_contribution', function ($row) {
-          $total = $row->monthly_contrubition + $row->loan_installment + $row->monthly_other;
-          return $total;
-        })
-        ->rawColumns(['action','total_contribution'])
+        ->rawColumns(['action'])
         ->make(true);
       }
     }else{
