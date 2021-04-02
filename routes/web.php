@@ -73,13 +73,14 @@ Route::middleware('auth')->group(function () {
     Route::post('vetan_new', 'VetanController@vetan_new');
     Route::post('vetan_Delete/{id}', 'VetanController@vetan_Delete');
 
-    //Bill No
-    Route::get('bill_information', 'BillController@index');
-    Route::post('bill_insert', 'BillController@bill_insert');
-    Route::post('edit_bill','BillController@edit_bill');
-    Route::post('delete_bill','BillController@delete_bill');
-     // Get Max Bill Number
-     Route::get('getLastBillNO', 'BillController@getlast_billnumber');
+    // Get Max Bill Number
+    Route::get('getLastBillNO', 'AntimBillController@getlast_billnumber');
+    //Antim Bill Pryojan
+    Route::get('viewBillDetails/{id}', 'AntimBillController@viewBillDetails');
+    Route::resource('antimbill', AntimBillController::class);
+    //Antim Bill Pryojan Expenses
+    Route::get('getBillExpensesDetails', 'AntimBillExpensesController@getBillExpensesDetails');
+    Route::resource('antimbillexpenses', AntimBillExpensesController::class);
 
     // Districts
     Route::resource('districts', DistrictsController::class);

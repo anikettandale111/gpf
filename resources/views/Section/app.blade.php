@@ -143,13 +143,19 @@
                 <li><a href="{{url('monthly_chalan')}}">मासिक चलन खतावणी</a></li> -->
               </ul>
             </li>
-            @if(Auth::user()->id == 1 )
             <li><a><i class="fa fa-bug"></i> {{trans('language.menu_karmchari_namnirdeshan')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{url('accountclosed')}}"> {{trans('language.menu_form_namnirdeshan')}} </a></li>
                 <li><a href="{{url('accountclosed')}}"> {{trans('language.retired_employee_account_stmt')}} </a></li>
               </ul>
             </li>
+            <li><a><i class="fa fa-bug"></i> {{trans('language.menu_bill')}}  <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="{{url('antimbill')}}"> {{trans('language.menu_bill_information')}} </a></li>
+                <li><a href="{{url('antimbillexpenses')}}"> {{trans('language.menu_bill_expenses_information')}} </a></li>
+              </ul>
+            </li>
+            @if(Auth::user()->id == 1 )
             @endif
           </ul>
         </div>

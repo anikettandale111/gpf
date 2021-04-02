@@ -46,8 +46,6 @@ function deleteConfirmation(id) {
         confirmButtonText: "Yes, delete it!",
         cancelButtonText: "No, cancel!",
         reverseButtons: !0
-
-
     }).then(function(e)  {
         if (e.value === true) {
             var id = $('.icon-trash').attr("data-id");

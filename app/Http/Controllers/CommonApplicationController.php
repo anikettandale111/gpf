@@ -114,11 +114,13 @@ class CommonApplicationController extends Controller
     ->leftjoin('departments as dp','dp.department_code','=','me.department_id')
     ->leftjoin('designations as dg','dg.id','=','me.designation_id')
     ->leftjoin('classifications as cl','cl.id','=','me.classification_id')
+    ->leftjoin('employee_yearwise_opening_balance as yob','yob.gpf_no','=','me.gpf_no')
     ->leftjoin('taluka as tl','tl.id','=','me.taluka_id')
     ->select('me.employee_id','me.gpf_no','me.employee_name','me.joining_date','me.retirement_date',
     'me.total_service','me.bank_account_no','me.branch_location','me.ifsc_code','me.bank_id',
-    'me.department_id','me.designation_id','me.classification_id','me.id','bk.bank_name_'.$lang.' as bank_name','tl.taluka_name_'.$lang.' as taluka_name','dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','cl.classification_name_'.$lang.' as classification_name','cl.inital_letter',)
+    'me.department_id','me.designation_id','me.classification_id','me.id','bk.bank_name_'.$lang.' as bank_name','tl.taluka_name_'.$lang.' as taluka_name','dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','cl.classification_name_'.$lang.' as classification_name','cl.inital_letter','yob.opn_balance')
     ->where('me.gpf_no',$request->input_id)
+    ->where('yob.year',2020)
     ->get();
   }
   public function listcommonforms(){
