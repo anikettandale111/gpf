@@ -146,7 +146,7 @@
             <li><a><i class="fa fa-bug"></i> {{trans('language.menu_karmchari_namnirdeshan')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{url('accountclosed')}}"> {{trans('language.menu_form_namnirdeshan')}} </a></li>
-                <li><a href="{{url('accountclosed')}}"> {{trans('language.retired_employee_account_stmt')}} </a></li>
+                <!-- <li><a href="{{url('accountclosed')}}"> {{trans('language.retired_employee_account_stmt')}} </a></li> -->
               </ul>
             </li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.menu_bill')}}  <span class="fa fa-chevron-down"></span></a>
