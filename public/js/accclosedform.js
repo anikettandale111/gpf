@@ -124,6 +124,11 @@ function getDetails(){
         swal("WARNING", "Invalid GPF Number OR Does't Exits");
         $("#employee_gpf_num").focus();
         $("#employee_gpf_num").val('');
+        $("#user_name").val('');
+        $("#user_designation").val('');
+        $("#user_joining_date").val('');
+        $("#user_taluka_name").val('');
+        $("#user_department").val('');
       }
     }
   });
