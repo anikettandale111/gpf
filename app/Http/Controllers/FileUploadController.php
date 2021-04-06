@@ -14,6 +14,7 @@ use Config;
 use App\Month;
 use App\Masteremployee;
 use App\MasterMonthlySubscription;
+use App\MonthlyTotalChalan;
 use App\Taluka;
 use App\ApplicationsForms;
 use App\Ganrate;
@@ -60,6 +61,7 @@ class FileUploadController extends Controller
     return view('fileupload/index',compact('month','taluka'));
   }
   public function store(Request $request){
+
     $originalFileName = $request->file('usersFile')->getClientOriginalName();
     $md5Name = md5_file($request->file('usersFile')->getRealPath());
     $extension = $request->file('usersFile')->getClientOriginalExtension();
@@ -81,6 +83,7 @@ class FileUploadController extends Controller
     $userDataDuplicate = [];
     $employeeNotFound = [];
     $getData = $data[0];
+    $totalUsed = 0;
     $filename = date('dmyhis');
     for($i=2;$rowCount > $i;$i++){
       if($getData){
@@ -105,28 +108,28 @@ class FileUploadController extends Controller
             }
             if(isset($employee->employee_id) && $employee->employee_id !== ''){
               $userData[] = ['gpf_number' => $getData[$i][1],
-              'classification_id' => $request->classification_id,
-              'taluka_id' =>$request->taluka_id,
-              'challan_id' => $request->chalan_id,
-              'challan_number' => $request->chalan_number,
-              'emc_month' => $request->month_id,
-              'emc_year' => $request->year_id,
-              'emc_emp_id' => $employee->employee_id,
-              'emc_desg_id' => $employee->designation_id,
-              'emc_dept_id' => $employee->department_id,
-              'monthly_contrubition' => $getData[$i][3],
-              'loan_installment' => $getData[$i][4],
-              'monthly_received' => $getData[$i][5],
-              'remark' => $getData[$i][6],
-              'modifed_by' => Auth::id(),
-              ];
+                              'classification_id' => $request->classification_id,
+                              'taluka_id' =>$request->taluka_id,
+                              'challan_id' => $request->chalan_id,
+                              'challan_number' => $request->chalan_number,
+                              'emc_month' => $request->month_id,
+                              'emc_year' => $request->year_id,
+                              'emc_emp_id' => $employee->employee_id,
+                              'emc_desg_id' => $employee->designation_id,
+                              'emc_dept_id' => $employee->department_id,
+                              'monthly_contrubition' => $getData[$i][3],
+                              'loan_installment' => $getData[$i][4],
+                              'monthly_received' => $getData[$i][5],
+                              'remark' => $getData[$i][6],
+                              'modifed_by' => Auth::id(),
+                            ];
+              $totalUsed += (int)$getData[$i][3] + (int)$getData[$i][4] + (int)$getData[$i][5];
             }else{
               $employeeNotFound[] = ['gpf_number' => $getData[$i][1]];
             }
           }else{
             $userDataDuplicate[] = ['gpf_number' => $getData[$i][1],
-                                    'Employee Name' => $getData[$i][2],
-                                  ];
+                                    'Employee Name' => $getData[$i][2],];
           }
         }else{
           return ['status'=>'error','message'=>'Invalid Excel Column Count '];
@@ -134,10 +137,22 @@ class FileUploadController extends Controller
       }
     }
     if(count($userData) > 0){
-      $getstatus = MasterMonthlySubscription::insert($userData);
-      return ['status'=>'status','message'=>'Records Inserted Succesfully.','not_inserted'=>count($employeeNotFound),'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),'user_duplicate_gpf' =>$userDataDuplicate ];
-    }else{
-      return ['status'=>'duplicate','message'=>'Duplicate Data Found','not_inserted'=>count($employeeNotFound),'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),'user_duplicate_gpf' =>$userDataDuplicate];
+        $getDiffAmt = MonthlyTotalChalan::select('diff_amount')
+                      ->where(['id' => $request->chalan_id,'chalan_serial_no' => $request->chalan_number])
+                      ->first();
+        if((int)$getDiffAmt->diff_amount >= (int)$totalUsed){
+          MonthlyTotalChalan::where(['id' => $request->chalan_id])
+                              ->update(['diff_amount' => ($getDiffAmt->diff_amount-$totalUsed)]);
+          $getstatus = MasterMonthlySubscription::insert($userData);
+          return ['status'=>'status','message'=>'Records Inserted Succesfully.','not_inserted'=>count($employeeNotFound),
+          'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),
+          'user_duplicate_gpf' =>$userDataDuplicate ];
+        }else{
+            return ['status'=>'warning','message'=>'Chalan total amount does not matched'.$request->chalan_khatavani.'-'.$totalUsed];
+        }
+      }else{
+      return ['status'=>'duplicate','message'=>'Duplicate Data Found','not_inserted'=>count($employeeNotFound),
+      'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),'user_duplicate_gpf'=>$userDataDuplicate];
     }
   }
   return ['status'=>'error','message'=>'Invalid File. '];

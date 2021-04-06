@@ -168,6 +168,7 @@ return [
   'th_trend_the_amount_of_hearing'=>'ऐकून रक्कम',
   'th_trend_total_waste'=>'एकूण खलावली',
   'th_trend_shera'=>'शेरा',
+  'th_trend_file_selecte'=>'फाईल निवडा',
   //User registration
 
   'h_user_registration'=>'वापरकर्त्यांची नोंदणी',

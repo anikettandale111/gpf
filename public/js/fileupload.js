@@ -60,28 +60,29 @@ $(document).ready(function(){
   });
 });
 fileDataTable = $('#file_upload_list').DataTable({
-  // footerCallback: function ( row, data, start, end, display ) {
-  //   var api = this.api(), data;
-  //   // Remove the formatting to get integer data for summation
-  //   var intVal = function ( i ) {
-  //     return typeof i === 'string' ?
-  //     i.replace(/[\$,]/g, '')*1 :
-  //     typeof i === 'number' ?
-  //     i : 0;
-  //   };
-  //   // Total over all pages
-  //   total = api.column( 6 ).data().reduce( function (a, b) {
-  //             return intVal(a) + intVal(b);
-  //           }, 0 );
-  //   // Total over this page
-  //   pageTotal = api.column( 6, { page: 'current'} ).data().reduce( function (a, b) {
-  //             return intVal(a) + intVal(b);
-  //           }, 0 );
-  //   // Update footer
-  //   $( api.column( 6 ).footer() ).html(
-  //       '$'+pageTotal +' ( $'+ total +' total)'
-  //     );
-  //   },
+  footerCallback: function ( row, data, start, end, display ) {
+    var api = this.api(), data;
+    // Remove the formatting to get integer data for summation
+    var intVal = function ( i ) {
+      return typeof i === 'string' ?
+      i.replace(/[\$,]/g, '')*1 :
+      typeof i === 'number' ?
+      i : 0;
+    };
+    // Total over all pages
+    total = api.column( 9 ).data().reduce( function (a, b) {
+              return intVal(a) + intVal(b);
+            }, 0 );
+    // Total over this page
+    pageTotal = api.column( 9, { page: 'current'} ).data().reduce( function (a, b) {
+              return intVal(a) + intVal(b);
+            }, 0 );
+    // Update footer
+    $('#rowtotal').text(pageTotal);
+    $( api.column( 9 ).footer() ).html(
+        'Rs.'+pageTotal +' ( Rs.'+ total +' total)'
+      );
+    },
   processing: true,
   serverSide: true,
   ajax: {
@@ -138,8 +139,8 @@ fileDataTable = $('#file_upload_list').DataTable({
       name: 'Other'
     },
     {
-      data: 'action',
-      name: 'Action'
+      data: 'empTotal',
+      name: 'Total'
     },
     ]
 });
@@ -155,6 +156,7 @@ function getChalanDetails(year,chalan_month,chalan_serial_no,chalan_taluka){
         $('#chalan_id').val(res.amt.chalan_id);
         $('#chalan_number').val(res.amt.challan_number);
         $('#chalan_amount').val(res.amt.amount);
+        $('#chalan_khatavani').val(res.amt.diff_amount);
         $('#diffrence_amount').val(res.amt.diff_amount);
         $('#classification_id').val(res.amt.classification);
       } else {

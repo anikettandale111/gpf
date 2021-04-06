@@ -162,7 +162,10 @@ class ChalanController extends Controller
           $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteBill">Delete</a>';
           return $btn;
         })
-        ->rawColumns(['action'])
+        ->addColumn('empTotal', function ($row) {
+          return $total = $row->monthly_contrubition + $row->loan_installment + $row->monthly_received;
+        })
+        ->rawColumns(['empTotal','action'])
         ->make(true);
       }
     }else{

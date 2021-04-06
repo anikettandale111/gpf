@@ -42,14 +42,14 @@
                 <form class="form_users_excel_file" method="post" enctype="multipart/form-data">
                   <div class="row">
                     <div class="form-group col-sm-3">
-                      <label for="">Select Year</label>
+                      <label for="">{{trans('language.th_trend_year')}}</label>
                       <select class="form-control getchalan" name="year_id" id="year_id">
-                        <option value="2020">2020</option>
-                        <option value="2021">2021</option>
+                        <option value="{{(date('Y')-1)}}">{{(date('Y')-1)}}</option>
+                        <option value="{{date('Y')}}">{{date('Y')}}</option>
                       </select>
                     </div>
                     <div class="form-group col-sm-3">
-                      <label for="">Select Month</label>
+                      <label for="">{{trans('language.th_trend_no')}}</label>
                       <select class="form-control getchalan" name="month_id" id="month_id">
                         <option value="" selected disabled>{{'Select Option'}}</option>
                         @foreach($month AS $key => $m_row)
@@ -58,7 +58,7 @@
                       </select>
                     </div>
                     <div class="form-group col-sm-3">
-                      <label for="">Select Chalan Number</label>
+                      <label for="">{{trans('language.th_trend_s_no')}}</label>
                       <select class="form-control getchalan" name="chalan_serial_no" id="chalan_serial_no">
                         <option value="" selected disabled>{{'Select Option'}}</option>
                         @for($i=1;$i < 300 ;$i++)
@@ -67,7 +67,7 @@
                       </select>
                     </div>
                     <div class="form-group col-sm-3">
-                      <label for="">Select Taluka</label>
+                      <label for="">{{trans('language.th_trend_taluka')}}</label>
                       <select class="form-control getchalan" name="taluka_id" id="taluka_id">
                         <option value="" selected disabled>{{'Select Option'}}</option>
                         @foreach($taluka AS $key => $t_row)
@@ -76,11 +76,15 @@
                       </select>
                     </div>
                     <div class="form-group col-sm-3 file-select">
-                      <label for="">Chalan Amount</label>
+                      <label for="">{{trans('language.th_trend_the_amount_of_hearing')}}</label>
                       <input class="form-control" type="text" readonly name="chalan_amount" id="chalan_amount" >
                     </div>
                     <div class="form-group col-sm-3 file-select">
-                      <label for="">Select File</label>
+                      <label for="">{{trans('language.th_trend_total_waste')}}</label>
+                      <input class="form-control" type="text" readonly name="chalan_khatavani" id="chalan_khatavani" >
+                    </div>
+                    <div class="form-group col-sm-3 file-select">
+                      <label for="">{{trans('language.th_trend_total_waste')}}</label>
                       <input class="form-control" type="file" name="test_excel" id="test_excel" required>
                     </div>
                     <input type="hidden" class="form-control chalan_id" id="chalan_id" name="chalan_id">
@@ -120,6 +124,11 @@
                 <!-- <th>क्रीया </th> -->
               </tr>
             </thead>
+            <tfoot>
+              <tr>
+                <td colspan="10" id="rowtotal"> </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
