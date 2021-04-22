@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Session;
 use Illuminate\Support\Facades\DB;
 use Config;
 

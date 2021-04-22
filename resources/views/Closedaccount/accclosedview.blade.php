@@ -136,6 +136,12 @@
                 <label>{{trans('language.account_closed_ft_transfer')}}</label>
                 <input type="text" class="form-control" readonly value="{{$row->account_closed_ft_transfer}}">
               </div>
+              <div class="col-sm-3">
+                <a href="{{url('reportone').'/'.$row->form_id}}" class="btn btn-primary" target="_blank" >Report One</a>
+              </div>
+              <div class="col-sm-3">
+                <a href="{{url('reporttwo').'/'.$row->form_id}}" class="btn btn-primary" target="_blank" >Report Two</a>
+              </div>
               @endforeach
               @else
               <span><h4>Invalid Application ID</h4></span>

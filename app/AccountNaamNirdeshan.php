@@ -36,5 +36,6 @@ class AccountNaamNirdeshan extends Model
     'application_copy_kramanak_two',
     'application_copy_kramanak_three',
     'account_closed_ft_transfer',
+    'financial_year',
   ];
 }

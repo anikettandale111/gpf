@@ -52,13 +52,13 @@ class EmployeeReportsController extends Controller
   public function store(Request $request){
     $lang = app()->getLocale();
     $year = session()->get('year');
-    // $financial_year = "'".session()->get('financial_year')."'";
-    // $roi = DB::raw('SELECT ri.percent,ri.to_month,mm.month_name_mar FROM master_rate_interest AS ri LEFT JOIN master_month mm ON mm.id=ri.to_month WHERE year_to='.session()->get('to_year'));
-    // $roi_result = DB::select($roi);
-
-    $roi = DB::raw('SELECT ri.percent,ri.to_month,mm.month_name_mar FROM master_rate_interest AS ri LEFT JOIN master_month mm ON mm.id=ri.to_month WHERE year_to=2019');
+    $financial_year = "'".session()->get('financial_year')."'";
+    $roi = DB::raw('SELECT ri.percent,ri.to_month,mm.month_name_mar FROM master_rate_interest AS ri LEFT JOIN master_month mm ON mm.id=ri.to_month WHERE year_to='.session()->get('to_year'));
     $roi_result = DB::select($roi);
-    $financial_year = '2019-2020'; // Only for previous year
+
+    // $roi = DB::raw('SELECT ri.percent,ri.to_month,mm.month_name_mar FROM master_rate_interest AS ri LEFT JOIN master_month mm ON mm.id=ri.to_month WHERE year_to=2019');
+    // $roi_result = DB::select($roi);
+    // $financial_year = '2019-2020'; // Only for previous year
     $month_name = DB::table('master_month')->select(DB::raw('month_name_'.$lang.' AS month_name'),'transaction_month AS trans_month')->orderBy('order_by')->get();
     $rqo_result = [];
     if($request->view_report_type == 1){
@@ -101,8 +101,8 @@ class EmployeeReportsController extends Controller
     }
   }
   public function getAllEmpKhatevahi(Request $request){
-    $financial_year = '2019-2020';
-    //use for current year $financial_year = "'".session()->get('financial_year')."'";
+    // $financial_year = '2019-2020'; //use for Previous Year
+    $financial_year = "'".session()->get('financial_year')."'"; //use for current year
     $lang = app()->getLocale();
     $roi_result = DB::table('master_rate_interest AS ri')
             ->select('ri.percent','ri.to_month','mm.month_name_mar')
@@ -127,8 +127,8 @@ class EmployeeReportsController extends Controller
     return view('Reports/gpf_khatevahi_namuna_88_niyam_231',compact('rqo_result','roi_result','month_name'));
   }
   public function getAllEmpKhateUtara(Request $request){
-    $financial_year = '2019-2020';
-    //use for current year $financial_year = "'".session()->get('financial_year')."'";
+    // $financial_year = '2019-2020'; //use for Previous Year
+    $financial_year = "'".session()->get('financial_year')."'"; //use for current year
     $lang = app()->getLocale();
     $roi_result = DB::table('master_rate_interest AS ri')
             ->select('ri.percent','ri.to_month','mm.month_name_mar')
@@ -153,8 +153,8 @@ class EmployeeReportsController extends Controller
     return view('Reports/gpf_khate_utaran_niyam_231',compact('rqo_result','roi_result','month_name'));
   }
   public function getAllEmpFormEN(Request $request){
-    $financial_year = '2019-2020';
-    //use for current year $financial_year = "'".session()->get('financial_year')."'";
+    // $financial_year = '2019-2020'; //use for Previous Year
+    $financial_year = "'".session()->get('financial_year')."'"; //use for current year
     $lang = app()->getLocale();
     $roi_result = DB::table('master_rate_interest AS ri')
             ->select('ri.percent','ri.to_month','mm.month_name_mar')

@@ -5,15 +5,21 @@ $(document).ready(function() {
     rules: {
       bill_no: "required",
       bill_date: "required",
-      amount: "required",
       bill_check: "required",
-      check_date: "required",
-      check_no: "required"
+      check_date: {
+        required: function(element){
+          return $("#bill_check_three:checked").val() == 3;
+        }
+      },
+      check_no: {
+        required: function(element){
+          return $("#bill_check_three:checked").val() == 3;
+        }
+      },
     },
     messages: {
       bill_no: "Please Enter The Bill No",
       bill_date: "Please Enter The Bill Date",
-      amount: "Please Enter The Amount",
       bill_check: "Please Enter The Bill Check",
       check_date: "Please Enter The Check Date",
       check_no: "Please Enter The Check No"
@@ -21,6 +27,17 @@ $(document).ready(function() {
     submitHandler: function(form) {
       antimBillSubmit();
     }
+  });
+  $('#bill_no').change(function(){
+    var billno = $(this).val();
+    $.ajax({
+      type: 'POST',
+      url: "get_bill_amount",
+      data: { _token: CSRF_TOKEN, billno:billno},
+      success: function(results) {
+        $('#amount').val(results.amount);
+      }
+    });
   });
   $('.cancel_submit').click(function() {
     $('#bill_no').val('');
@@ -33,9 +50,7 @@ $(document).ready(function() {
   $.ajax({
     type: 'GET',
     url: "getLastBillNO",
-    data: {
-      _token: CSRF_TOKEN
-    },
+    data: { _token: CSRF_TOKEN },
     success: function(results) {
       if (results == null) {
         var new_no = "{{Config::get('custom.gpf_bill_number')}}";

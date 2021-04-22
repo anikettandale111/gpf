@@ -24,27 +24,31 @@
               </div>
               <div class="col-md-4">
                 <label class="col-form-label"> रक्कम <span class="required"></span></label>
-                <input class="form-control" class='date' type="number" name="amount" id="amount" required='required'>
+                <input class="form-control" class='date' type="number" name="amount" id="amount" value="0" readonly='readonly'>
               </div>
               <div class="col-md-4">
                 <label class="col-form-label"> Select Option </label><br>
                 <div class="col-md-6">
-                  <input type="radio" class="check" name="bill_check" id="bill_check_one" value="1">
+                  <input type="radio" class="check" name="bill_check" id="bill_check_one" value="1" checked>
+                  <label for="vehicle1"> बिल स्थिती चालू </label>
+                </div>
+                <div class="col-md-6">
+                  <input type="radio" class="check" name="bill_check" id="bill_check_two" value="2">
                   <label for="vehicle1"> बिल बंद करणे </label>
                 </div>
                 <div class="col-md-6">
-                  <input type="radio" class="check" name="bill_check" id="bill_check_two" value="0">
+                  <input type="radio" class="check" name="bill_check" id="bill_check_three" value="3">
                   <label for="vehicle1"> धनादेश तपशील </label><br>
                 </div>
                 <span class="required"></span>
               </div>
               <div class="col-md-4">
                 <label class="col-form-label"> धनादेश दिनांक <span class="required"></span></label>
-                <input class="form-control" class='date' type="date" name="check_date" id="check_date" required='required'>
+                <input class="form-control" class='date' type="date" name="check_date" id="check_date" >
               </div>
               <div class="col-md-4">
                 <label class="col-form-label"> धनादेश क्रमांक <span class="required"></span></label>
-                <input class="form-control" class='date' type="text" name="check_no" id="check_no" required='required'>
+                <input class="form-control" class='date' type="text" name="check_no" id="check_no" >
               </div>
               <div class="ln_solid"></div>
               <div class="col-md-6 offset-12">

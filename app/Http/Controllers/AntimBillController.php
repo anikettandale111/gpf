@@ -19,11 +19,11 @@ class AntimBillController extends Controller
       ->addColumn('action', function ($row) {
         $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id ="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editBill">Edit</a>';
         // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteBill">Delete</a>';
-        $btn = $btn . ' <a href="viewBillDetails/'.$row->id.'" target="_blank" class="btn btn-secondary btn-sm">ViewDetails</a>';
+        $btn = $btn . ' <a href="get_bill_report/'.$row->id.'" target="_blank" class="btn btn-secondary btn-sm">ViewDetails</a>';
         return $btn;
       })
       ->addColumn('bill_status', function ($row) {
-        return ($row->bill_check)?'चालू स्थिती':'बंद स्थिती';
+        return ($row->bill_check == 1 )?'चालू स्थिती':(($row->bill_check == 2 )?'बंद स्थिती':'धनादेश तपशील');
       })
       ->rawColumns(['action','bill_status'])
       ->make(true);
@@ -64,15 +64,22 @@ class AntimBillController extends Controller
     return Bill::max("bill_no");
   }
   public function show(Request $req){
-    return Bill::where('id',$req->id)->first();
+    $billDetails = Bill::where('id',$req->id)->first();
+    $billExpenses = BillExpenses::where('bill_id',$req->id)->sum('required_rakkam');
+    $billDetails['bill_expenses_total'] = $billExpenses;
+    return $billDetails;
   }
   public function delete_bill(Request $req){
     return Bill::where('id',$req->id)->delete();
-
   }
   public function viewBillDetails($id){
     $bill = Bill::where('id',$id)->get();
     $billExpenses = BillExpenses::where('bill_id',$id)->get();
     return view('Admin/AntimBill/billdetails',compact('bill','billExpenses'));
+  }
+  public function get_bill_amount(Request $request){
+    $billExpenses = BillExpenses::where('bill_number',$request->billno)
+                    ->sum('required_rakkam');
+    return ['status'=>'success','amount'=>$billExpenses];
   }
 }

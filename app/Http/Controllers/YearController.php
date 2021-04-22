@@ -5,19 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Year;
 use App\Month;
+use DB;
 
 class YearController extends Controller
 {
     public function index()
     {
-        $data['Year']=Year::select(
-        'master_rate_interest.*',
-        'master_month.month_name_mar as from_month_text',
-        'mm.month_name_mar as to_month_text',
-        )
-        ->leftJoin("master_month", "master_month.id", "=", "master_rate_interest.from_month")
-        ->leftJoin("master_month as mm", "mm.id", "=", "master_rate_interest.to_month")
-        ->latest()->get();
+        $query=DB::raw('SELECT `master_rate_interest`.*, `mmo`.`month_name_mar` as `from_month_text`, `mmt`.`month_name_mar` as `to_month_text` FROM `master_rate_interest` left join `master_month` AS `mmo` ON `mmo`.`id` = `master_rate_interest`.`from_month` left join `master_month` AS `mmt` ON `mmt`.`id` = `master_rate_interest`.`to_month` order by `created_at` desc');
+        $data['Year'] = DB::select($query);
         $data['Month']=Month::all();
         return view('Admin.Year.year', $data);
     }

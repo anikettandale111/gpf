@@ -45,10 +45,12 @@ Route::middleware('auth')->group(function () {
     Route::post('submit_change_pwd', 'HomeController@submit_change_pwd');
 
     // user registration
-    Route::get('user_registration', 'HomeController@user_registration');
-    Route::get('user_registration_Edit/{id}', 'HomeController@user_registration_Edit');
-    Route::post('user_registration_update', 'HomeController@update_req');
-    Route::get('Registration_Delete/{id}/{para}', 'HomeController@Registration_Delete');
+    Route::resource('user_registration', UserRegistrationController::class);
+
+    // Route::get('user_registration', 'HomeController@user_registration');
+    // Route::get('user_registration_Edit/{id}', 'HomeController@user_registration_Edit');
+    // Route::post('user_registration_update', 'HomeController@update_req');
+    // Route::get('Registration_Delete/{id}/{para}', 'HomeController@Registration_Delete');
 
     // create registration
     Route::post('create_register', 'HomeController@create_register');
@@ -73,10 +75,13 @@ Route::middleware('auth')->group(function () {
     Route::post('vetan_new', 'VetanController@vetan_new');
     Route::post('vetan_Delete/{id}', 'VetanController@vetan_Delete');
 
+    // Get Bill Rport Amount
+    Route::get('get_bill_report/{id?}', 'AntimBillExpensesController@get_bill_report');
+    // Get Bill Total Amount
+    Route::post('get_bill_amount', 'AntimBillController@get_bill_amount');
     // Get Max Bill Number
     Route::get('getLastBillNO', 'AntimBillController@getlast_billnumber');
-    //Antim Bill Pryojan
-    Route::get('viewBillDetails/{id}', 'AntimBillController@viewBillDetails');
+
     Route::resource('antimbill', AntimBillController::class);
     //Antim Bill Pryojan Expenses
     Route::get('getBillExpensesDetails', 'AntimBillExpensesController@getBillExpensesDetails');
@@ -132,6 +137,8 @@ Route::middleware('auth')->group(function () {
     Route::post('reject_new_gpf_no', 'ProvidingAccountController@reject_new_gpf_no');
     Route::get('master_employee_view', 'MasteremployeeController@master_employee_view');
 
+    Route::get('reportone/{id}', 'AccountclosedController@reportone');
+    Route::get('reporttwo/{id}', 'AccountclosedController@reporttwo');
     Route::resource('accountclosed',AccountclosedController::class);
 
 

@@ -1,7 +1,9 @@
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-var table = '';
+var table;
+var expensesFileData;
 $(document).ready(function() {
-  $('#antim_bill_expensess').validate({
+  $('.loader').css('display','none');
+  $('.antim_bill_expensess').validate({
     rules: {
       bill_no:"required",
       employee_gpf_num:"required",
@@ -36,6 +38,8 @@ $(document).ready(function() {
       billExpensesSubmit();
     }
   });
+  $('.file_upload_div').css('display','none');
+  $('.single_entry_div').css('display','none');
   $('#bill_no').change(function(){
     var billID=$(this).val();
     var billnumber = $('#bill_no option:selected').text();
@@ -46,7 +50,7 @@ $(document).ready(function() {
       success: function(data) {
         $('#bill_row_id').val(data.id);
         $('#bill_date').val(data.bill_date);
-        $('#amount').val(data.amount);
+        $('#amount').val(data.bill_expenses_total);
         $('#check_date').val(data.check_date);
         $('#check_no').val(data.check_no);
         // $('#bill_check').val(data.bill_check);
@@ -71,6 +75,18 @@ $(document).ready(function() {
         getDetails();
       },100);
     }
+  });
+  $('.file_upload').click(function(){
+    $('.single_entry_div').removeClass('btn-secondary');
+    $(this).addClass('btn-info');
+    $('.file_upload_div').css('display','block');
+    $('.single_entry_div').css('display','none');
+  });
+  $('.single_entry').click(function(){
+    $('.file_upload_div').removeClass('btn-secondary');
+    $(this).addClass('btn-info');
+    $('.file_upload_div').css('display','none');
+    $('.single_entry_div').css('display','block');
   });
 });
 function getDetails(){
@@ -104,15 +120,44 @@ function getDetails(){
     }
   });
 }
+
 function billExpensesSubmit(){
+  $('.loader').css('display','block');
+  var formData = new FormData();
+  formData.append('employee_expenses_file', $('#employee_expenses_file')[0].files[0]);
+  formData.append('bill_no', $('#bill_no').val());
+  formData.append('bill_number', $('#bill_number').val());
+  formData.append('bill_date', $('#bill_date').val());
+  formData.append('amount', $('#amount').val());
+  formData.append('employee_gpf_num', $('#employee_gpf_num').val());
+  formData.append('user_name', $('#user_name').val());
+  formData.append('user_designation', $('#user_designation').val());
+  formData.append('user_taluka_name', $('#user_taluka_name').val());
+  formData.append('user_department', $('#user_department').val());
+  formData.append('shillak_rakkam', $('#shillak_rakkam').val());
+  formData.append('loan_agrim_niyam', $('#loan_agrim_niyam').val());
+  formData.append('required_rakkam', $('#required_rakkam').val());
+  formData.append('if_installment_no', $('#if_installment_no').val());
+  formData.append('bank_name', $('#bank_name').val());
+  formData.append('bank_ifsc_name', $('#bank_ifsc_name').val());
+  formData.append('bank_acc_number', $('#bank_acc_number').val());
+
+  $.ajaxSetup({
+    headers:
+    {'X-CSRF-TOKEN': CSRF_TOKEN}
+  });
   $.ajax({
-    type: 'POST',
     url: "antimbillexpenses",
-    data: $("#antim_bill_expensess").serialize(),
+    type: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
     success: function (data) {
       swal(data.status,data.message);
+      $('.loader').css('display','none');
       $('.make_empty').val();
       table.ajax.reload();
+
     }
   });
 }
@@ -124,8 +169,8 @@ table = $('#myTable').DataTable({
     type: 'GET',
     data: function ( d ) {
       return $.extend( {}, d, {
-          "_token": CSRF_TOKEN,
-          'id': $('#bill_no').val(),
+        "_token": CSRF_TOKEN,
+        'id': $('#bill_no').val(),
       } );
     },
   },

@@ -12,13 +12,15 @@ use App\Designation;
 use App\Classification;
 use App\Month;
 use App\AccountNaamNirdeshan;
+use Session;
 use Illuminate\Support\Facades\DB;
 
 class AccountclosedController extends Controller
 {
   public function index(){
     $lang = app()->getLocale();
-    $receivedForms = AccountNaamNirdeshan::get();
+    $financial_year = session()->get('financial_year');
+    $receivedForms = AccountNaamNirdeshan::where('financial_year',$financial_year)->get();
     return view('Closedaccount/accclosedform',compact('receivedForms'));
   }
   public function create(){
@@ -28,6 +30,7 @@ class AccountclosedController extends Controller
     return view('Closedaccount/accclosedformcreate',compact('month_data','desg_data'));
   }
   public function store(Request $request){
+    $financial_year = session()->get('financial_year');
     $form_data = [
       'form_type' => $request->form_type,
       'employee_gpf_num' => ($request->employee_gpf_num)?$request->employee_gpf_num:'',
@@ -40,6 +43,8 @@ class AccountclosedController extends Controller
       'applicant_name' => ($request->applicant_name)?$request->applicant_name:'',
       'applicantion_date' => ($request->applicantion_date)?$request->applicantion_date:'',
       'gat_vikas_adhikari_no' => ($request->gat_vikas_adhikari_no)?$request->gat_vikas_adhikari_no:'',
+      'closing_balance' => ($request->closing_balance)?$request->closing_balance:'',
+      'retirment_date' => ($request->retirment_date)?$request->retirment_date:'',
       'zp_adhikari_no' => ($request->zp_adhikari_no)?$request->zp_adhikari_no:'',
       'antim_pryojan' => ($request->antim_pryojan)?$request->antim_pryojan:'',
       'antim_pay_month' => ($request->antim_pay_month)?$request->antim_pay_month:'',
@@ -57,6 +62,7 @@ class AccountclosedController extends Controller
       'application_copy_kramanak_two' => ($request->application_copy_kramanak_two)?$request->application_copy_kramanak_two:'',
       'application_copy_kramanak_three' => ($request->application_copy_kramanak_three)?$request->application_copy_kramanak_three:'',
       'account_closed_ft_transfer' => ($request->account_closed_ft_transfer)?$request->account_closed_ft_transfer:'',
+      'financial_year' => $financial_year,
     ];
     $result_id = AccountNaamNirdeshan::insert($form_data);
     if($result_id > 0){
@@ -68,5 +74,13 @@ class AccountclosedController extends Controller
   public function show($id){
     $viewapplication = AccountNaamNirdeshan::where('form_id',$id)->get();
     return view('Closedaccount/accclosedview',compact('viewapplication'));
+  }
+  public function reportOne($id){
+    $viewapplication = AccountNaamNirdeshan::where('form_id',$id)->first();
+    return view('Closedaccount/aadeshone',compact('viewapplication'));
+  }
+  public function reportTwo($id){
+    $viewapplication = AccountNaamNirdeshan::where('form_id',$id)->first();
+    return view('Closedaccount/aadeshtwo',compact('viewapplication'));
   }
 }

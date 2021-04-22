@@ -1,3 +1,12 @@
+
+/****************************************************************************************************************/
+ALTER TABLE `bill_information` CHANGE `check_date` `check_date` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL, CHANGE `check_no` `check_no` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bill_information` CHANGE `bill_check` `bill_check` TINYINT(5) NOT NULL DEFAULT '1' COMMENT '1 Inprocess,2 Completed,3 Check';
+ALTER TABLE `tbl_account_naam_nirdeshan_forms` ADD `financial_year` VARCHAR(10) NOT NULL AFTER `remark`;
+ALTER TABLE `tbl_account_naam_nirdeshan_forms` ADD `closing_balance` DOUBLE(10,2) NULL AFTER `zp_adhikari_no`, ADD `retirment_date` DATE NULL AFTER `closing_balance`;
+ALTER TABLE `tbl_account_naam_nirdeshan_forms` CHANGE `closing_balance` `closing_balance` DOUBLE(10,2) NULL DEFAULT '0';
+
 /****************************************************************************************************************/
 UPDATE master_gpf_transaction AS gt
 LEFT JOIN tbl_master_withdrawal AS mw ON mw.gpf_no = gt.gpf_number SET

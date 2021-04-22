@@ -226,6 +226,8 @@ return [
   'account_closed_fo_applicantion_date' => 'अर्जाची दिनांक',
   'account_closed_fo_gat_vikas_adhikari_no' => 'ग .वि .अ/ ग .शि. अ .पं.स तालुका यांचे पत्र क्',
   'account_closed_fo_zp_adhikari_no' => 'मा.मू.का.अ.जि.प. यांचे आदेश क्रमांक',
+  'account_closed_fo_closing_balance' => 'एकूण जमा रक्कम',
+  'account_closed_fo_retirment_date' => 'निवृत्तीची दिनांक',
   'account_closed_fo_antim_pryojan' => 'अंतिमचे प्रयोजन',
   'account_closed_fo_antim_pay_month' => 'अंतिम व्याज देय महिना',
   'account_closed_fo_antim_pay_year' => 'अंतिम व्याज देय वर्ष',

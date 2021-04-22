@@ -1,5 +1,28 @@
 @extends('Section.app')
+<style>
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-right: 16px solid green;
+  border-bottom: 16px solid red;
+  border-left: 16px solid pink;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
 
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
 @section('content')
 
 <div class="">
@@ -9,11 +32,16 @@
         <div class=" mt-3">
           <h2>बीलातील खर्च माहिती </h2>
         </div>
+        @if(session()->has('message'))
+          <div class="alert-success">
+              {{ session()->get('message') }}
+          </div>
+        @endif
         <div class="clearfix"></div>
         <hr>
+        <div class="loader" style="display:none"></div>
         <div class="x_content">
-          <form class="form-horizontal" id="antim_bill_expensess" method="POST" >
-            @csrf
+          <form class="antim_bill_expensess" method="post" enctype="multipart/form-data">
             <div class="row">
               <div class="col-md-4">
                 <label class="col-form-label"> बिल नं.<span class="required"></span></label>
@@ -35,71 +63,62 @@
                 <label class="col-form-label"> रक्कम <span class="required"></span></label>
                 <input class="form-control" class='date' name="amount" id="amount" readonly>
               </div>
-              <!-- <div class="col-md-4">
-                <label class="col-form-label"> Select Option </label><br>
-                <div class="col-md-6">
-                  <input type="radio" class="check" name="bill_check" id="bill_check_one" value="1">
-                  <label for="vehicle1"> बिल बंद करणे </label>
-                </div>
-                <div class="col-md-6">
-                  <input type="radio" class="check" name="bill_check" id="bill_check_two" value="0">
-                  <label for="vehicle1"> धनादेश तपशील </label>
-                </div>
-                <span class="required"></span>
+              <div class="col-md-6 mt-2">
+                <label class="btn btn-secondary file_upload" style="width:100%" > File Uplaod </label>
               </div>
-              <div class="col-md-4">
-                <label class="col-form-label"> धनादेश दिनांक <span class="required"></span></label>
-                <input class="form-control" name="check_date" id="check_date" readonly>
+              <div class="col-md-6 mt-2">
+                <label class="btn btn-secondary single_entry" style="width:100%"> Add Single Entry</label>
               </div>
-              <div class="col-md-4">
-                <label class="col-form-label"> धनादेश क्रमांक <span class="required"></span></label>
-                <input class="form-control"  name="check_no" id="check_no" readonly>
-              </div> -->
-              <div class="col-md-4">
+              <div class="col-md-4 file_upload_div">
+                <label for="">{{trans('language.fr_common_gpf_no')}}</label>
+                <input type="file" class="form-control"  name="employee_expenses_file" id="employee_expenses_file" >
+              </div>
+
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.fr_common_gpf_no')}}</label>
                 <input class="form-control make_empty"  name="employee_gpf_num" id="employee_gpf_num" >
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.fr_common_user_name')}}</label>
                 <input class="form-control make_empty"  name="user_name" id="user_name" readonly>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.fr_common_user_designation')}}</label>
                 <input class="form-control make_empty"  name="user_designation" id="user_designation" readonly>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_registration_taluka')}}</label>
                 <input class="form-control make_empty"  name="user_taluka_name" id="user_taluka_name" readonly>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_registration_department')}}</label>
                 <input class="form-control make_empty"  name="user_department" id="user_department" readonly>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_shillak_rakkam')}}</label>
                 <input class="form-control make_empty"  name="shillak_rakkam" id="shillak_rakkam" readonly>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_loan_agrim_niyam')}}</label>
                 <input class="form-control make_empty"  name="loan_agrim_niyam" id="loan_agrim_niyam" placeholder="0" >
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_required_rakkam')}}</label>
                 <input class="form-control make_empty"  name="required_rakkam" id="required_rakkam" placeholder="0" >
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_loan_instlment_numbers')}}</label>
                 <input class="form-control make_empty" type="number" name="if_installment_no" id="if_installment_no" min="0" max="120" value="0">
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_bank_name')}}</label>
                 <input class="form-control make_empty"  name="bank_name" id="bank_name" placeholder="Bank Name" >
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_bank_ifsc_name')}}</label>
                 <input class="form-control make_empty"  name="bank_ifsc_name" id="bank_ifsc_name" value="0">
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_bank_acc_number')}}</label>
                 <input class="form-control make_empty"  name="bank_acc_number" id="bank_acc_number" value="0">
               </div>
@@ -107,11 +126,8 @@
               <div class="clearfix"></div>
               <hr>
               <div class="col-md-4">
-                <button type="submit" class="btn btn-success" style="width:100%"> <i class="fa fa-floppy-o"></i> Save </button>
-              </div>
-              <div class="col-md-4">
-                <button type="button" class="btn btn-primary cancel_submit" style="width:100%">
-                  <i class="fa fa-sign-out" aria-hidden="true"></i> Cancel
+                <button type="submit" name="button" class="btn btn-success" style="width:100%">
+                  <i class="fa fa-floppy-o"></i> Save
                 </button>
               </div>
           </form>

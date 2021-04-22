@@ -194,7 +194,7 @@
       <nav class="nav navbar-nav">
         <ul class=" navbar-right">
         <li class="nav-item dropdown open" style="padding-left: 15px;">
-          <a href="javascript:void(0)" onclick="return false;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+          <a href="#" onclick="return false;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
             <img src="{{asset ('asset/images/img.jpg ')}}" alt="">{{ Auth::user()->name }}
           </a>
           <ul class="dropdown-menu dropdown-usermenu ">
