@@ -12,6 +12,9 @@ use DataTables;
 class AntimBillController extends Controller
 {
   public function index(Request $request){
+    // $query = DB::raw('SELECT bi.*,SUM(be.required_rakkam) bill_expenses_total FROM bill_information AS bi RIGHT JOIN bill_expenses_information AS be ON be.bill_id=bi.id');
+    // $data = DB::select($query);
+    // dd($data);
     if ($request->ajax()) {
       $data = Bill::latest()->get();
       return datatables()->of($data)
@@ -21,6 +24,9 @@ class AntimBillController extends Controller
         // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteBill">Delete</a>';
         $btn = $btn . ' <a href="get_bill_report/'.$row->id.'" target="_blank" class="btn btn-secondary btn-sm">ViewDetails</a>';
         return $btn;
+      })
+      ->addColumn('bill_expenses_total', function ($row) {
+        return BillExpenses::where('bill_id',$row->id)->sum('required_rakkam');
       })
       ->addColumn('bill_status', function ($row) {
         return ($row->bill_check == 1 )?'चालू स्थिती':(($row->bill_check == 2 )?'बंद स्थिती':'धनादेश तपशील');

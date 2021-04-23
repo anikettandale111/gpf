@@ -140,7 +140,7 @@ table = $('#myTable').DataTable({
     name: 'bill_date'
   },
   {
-    data: 'amount',
+    data: 'bill_expenses_total',
     name: 'amount'
   },
   {

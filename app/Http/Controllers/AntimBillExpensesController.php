@@ -58,6 +58,9 @@ class AntimBillExpensesController extends Controller
               if($check_duplicate == null){
                 if(isset($getData[$i][0]) && $getData[$i][0] !== ''){
                   $lang = 'mar';
+                  $tg = mb_strtoupper($getData[$i][0]);
+                  str_replace('P','',$tg);
+                  $emp_gpf_no = (int)$tg;
                   $employee = DB::table('master_employee as me')
                   ->leftjoin('bank as bk','bk.id','=','me.bank_id')
                   ->leftjoin('departments as dp','dp.department_code','=','me.department_id')
@@ -66,7 +69,7 @@ class AntimBillExpensesController extends Controller
                   ->leftjoin('employee_yearwise_opening_balance as yob','yob.gpf_no','=','me.gpf_no')
                   ->select('me.employee_name','tl.taluka_name_'.$lang.' as taluka_name',
                   'dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','yob.opn_balance' )
-                  ->where('me.gpf_no',substr($getData[$i][0], 1))
+                  ->where('me.gpf_no',$emp_gpf_no)
                   ->first();
                   if($employee !== null ){
                     $u_data['bill_id'] = $request->bill_no;
