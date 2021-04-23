@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Bill;
+use App\Taluka;
 use App\BillExpenses;
 use DataTables;
 use Excel;
@@ -67,21 +68,23 @@ class AntimBillExpensesController extends Controller
                   'dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','yob.opn_balance' )
                   ->where('me.gpf_no',substr($getData[$i][0], 1))
                   ->first();
-                  $u_data['bill_id'] = $request->bill_no;
-                  $u_data['gpf_no'] = substr($getData[$i][0], 1);
-                  $u_data['bill_number'] = $request->bill_number;
-                  $u_data['user_name'] = $employee->employee_name;
-                  $u_data['user_designation'] = $employee->designation_name;
-                  $u_data['user_department'] = $employee->department_name;
-                  $u_data['user_taluka_name'] = $employee->taluka_name;
-                  $u_data['loan_agrim_niyam'] = $getData[$i][3];
-                  $u_data['shillak_rakkam'] = $employee->opn_balance;
-                  $u_data['required_rakkam'] = $getData[$i][2];
-                  $u_data['bank_name'] = $getData[$i][6];
-                  $u_data['bank_ifsc_name'] = $getData[$i][7];
-                  $u_data['bank_acc_number'] = $getData[$i][8];
-                  $u_data['if_installment_no'] = $getData[$i][8];
-                  $userData[] = $u_data;
+                  if($employee !== null ){
+                    $u_data['bill_id'] = $request->bill_no;
+                    $u_data['gpf_no'] = substr($getData[$i][0], 1);
+                    $u_data['bill_number'] = $request->bill_number;
+                    $u_data['user_name'] = $employee->employee_name;
+                    $u_data['user_designation'] = $employee->designation_name;
+                    $u_data['user_department'] = $employee->department_name;
+                    $u_data['user_taluka_name'] = $employee->taluka_name;
+                    $u_data['loan_agrim_niyam'] = $getData[$i][3];
+                    $u_data['shillak_rakkam'] = $employee->opn_balance;
+                    $u_data['required_rakkam'] = $getData[$i][2];
+                    $u_data['bank_name'] = $getData[$i][6];
+                    $u_data['bank_ifsc_name'] = $getData[$i][7];
+                    $u_data['bank_acc_number'] = $getData[$i][8];
+                    $u_data['if_installment_no'] = $getData[$i][8];
+                    $userData[] = $u_data;
+                  }
                 }
                 if(isset($employee->employee_id) && $employee->employee_id !== ''){
                   $totalUsed += (int)$getData[$i][3] + (int)$getData[$i][4] + (int)$getData[$i][5];
@@ -169,8 +172,9 @@ class AntimBillExpensesController extends Controller
     return ['status'=>'success','message'=>'Row Deleted Successfully'];
   }
   public function get_bill_report($billid){
+    $talukaData = Taluka::select('taluka_name_mar AS taluka_name')->get();
     $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$billid)->first();
     $billExpensesReport = BillExpenses::where('bill_id',$billid)->orderBy('user_taluka_name')->get();
-    return view('Admin.AntimBill.billreportone',compact('billExpensesReport','billDetails'));
+    return view('Admin.AntimBill.billreportone',compact('billExpensesReport','billDetails','talukaData'));
   }
 }

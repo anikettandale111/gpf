@@ -71,9 +71,18 @@
                   <th>प्राधिकारी अधिकारी</th>
                 </tr>
               </thead>
+                @php
+                  $talukatotal = 0;
+                  $alltotal = 0;
+                @endphp
                 <tbody>
                   @if(count($billExpensesReport))
                     @foreach($billExpensesReport AS $key => $expenses)
+                    @foreach($talukaData AS $tal_row)
+                      @if($tal_row->taluka_name == $expenses->user_taluka_name)
+                      <tr>
+                        <td colspan="8">{{$expenses->user_taluka_name}}</td>
+                      </tr>
                       <tr>
                         <td>{{($key+1)}}</td>
                         <td>{{$expenses->user_name}}<br>{{$expenses->user_designation}}<br>{{$expenses->user_taluka_name}}</td>
@@ -83,6 +92,12 @@
                         <td>{{$expenses->bank_name}}<br>{{$expenses->bank_ifsc_name}}<br>{{$expenses->bank_acc_number}}  </td>
                         <td>{{('DY .CA & FO')}}</td>
                       </tr>
+                      @php
+                        $talukatotal += $expenses->shillak_rakkam;
+                        $alltotal += $expenses->shillak_rakkam;
+                      @endphp
+                      @endif
+                    @endforeach
                     @endforeach
                   @endif
                 </tbody>
