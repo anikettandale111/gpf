@@ -53,6 +53,7 @@ function getDetails(){
         $('#user_joining_date').val(results[0].joining_date);
         $('#user_retirment_date').val(results[0].retirement_date);
         $('#user_taluka_name').val(results[0].taluka_name);
+        getBalances();
       } else {
         swal("WARNING", "Invalid GPF Number OR Does't Exits");
         $("#employee_gpf_num").focus();
@@ -63,6 +64,25 @@ function getDetails(){
         $("#user_taluka_name").val('');
         $("#user_department").val('');
       }
+    }
+  });
+}
+function getBalances(){
+  $.ajax({
+    type: 'GET',
+    url: "../getUserBalances",
+    data: {_token: CSRF_TOKEN,input_id:$("#employee_gpf_num").val()},
+    success: function (results) {
+      var cur_year = new Date().getFullYear();
+      var rakkam_two = $('#shillak_rakkam_two').data('curdate');
+      var rakkam_one = $('#shillak_rakkam_one').data('curdate');
+
+      // if(rakkam_two == prv_two_year){
+      //   $('#shillak_rakkam_two').val();
+      // }
+      // if(prv_one_year == rakkam_one){
+      //   $('#shillak_rakkam_one').val();
+      // }
     }
   });
 }

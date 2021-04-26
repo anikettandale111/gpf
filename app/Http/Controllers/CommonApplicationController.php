@@ -145,4 +145,8 @@ class CommonApplicationController extends Controller
       return redirect()->back();
     }
   }
+  public function getUserBalances(Request $request){
+    $query = DB::raw('SELECT year,opn_balance,close_balance FROM employee_yearwise_opening_balance WHERE gpf_no='.$request->input_id.' ORDER BY op_id DESC LIMIT 3');
+    return DB::select($query);
+  }
 }

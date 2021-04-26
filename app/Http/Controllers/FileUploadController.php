@@ -70,6 +70,7 @@ class FileUploadController extends Controller
     $data = Excel::toArray('',$file);
     $rowCount = count($data[0]);
     $duplicateData = [];
+    $totalUsed = 0;
     $setColumnArray = [0 => 'Sr.No' ,
                       1 => 'NZP No.' ,
                       2 => 'Teacher Name' ,
@@ -83,7 +84,6 @@ class FileUploadController extends Controller
     $userDataDuplicate = [];
     $employeeNotFound = [];
     $getData = $data[0];
-    $totalUsed = 0;
     $filename = date('dmyhis');
     for($i=2;$rowCount > $i;$i++){
       if($getData){

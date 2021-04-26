@@ -105,6 +105,7 @@ Route::middleware('auth')->group(function () {
     // Common Application Forms
     Route::get('getLastApplicationNumber', 'CommonApplicationController@getLastApplicationNumber');
     Route::get('getuserdetailsbygpfno', 'CommonApplicationController@getuserdetailsbygpfno');
+    Route::get('getUserBalances', 'CommonApplicationController@getUserBalances');
     // Excel/PDFFile Upload For Monthly Subscription
     Route::any('testjson', 'FileUploadController@testjson');
     Route::any('testpdf', 'FileUploadController@testpdf');
@@ -142,5 +143,5 @@ Route::middleware('auth')->group(function () {
     Route::get('reporttwo/{id}', 'AccountclosedController@reporttwo');
     Route::resource('accountclosed',AccountclosedController::class);
 
-    Route::resource('employee',EmployeeController::class);  
+    Route::resource('employee',EmployeeController::class);
 });
