@@ -123,7 +123,7 @@ class FileUploadController extends Controller
                               'remark' => $getData[$i][6],
                               'modifed_by' => Auth::id(),
                             ];
-              $totalUsed += (int)$getData[$i][3] + (int)$getData[$i][4] + (int)$getData[$i][5];
+              $totalUsed += (int)$getData[$i][5];
             }else{
               $employeeNotFound[] = ['gpf_number' => $getData[$i][1]];
             }
