@@ -149,7 +149,7 @@ class FileUploadController extends Controller
           'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),
           'user_duplicate_gpf' =>$userDataDuplicate ];
         }else{
-            return ['status'=>'warning','message'=>'Chalan total amount does not matched ' $m.' -- '.$request->chalan_khatavani.'-'.$totalUsed];
+            return ['status'=>'warning','message'=>'Chalan total amount does not matched '.$m.' -- '.$request->chalan_khatavani.'-'.$totalUsed];
         }
       }else{
       return ['status'=>'duplicate','message'=>'Duplicate Data Found','not_inserted'=>count($employeeNotFound),
