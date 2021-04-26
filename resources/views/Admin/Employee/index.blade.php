@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="card-box ">
-              <form class="form-group account_closed" method="post">
+              <form class="form-group balance_update" method="post">
                 @csrf
                 <div class="col-sm-3">
                   <label>{{trans('language.fr_common_gpf_no')}}</label>

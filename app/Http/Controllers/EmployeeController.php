@@ -53,4 +53,17 @@ class EmployeeController extends Controller
   {
     return view('Admin.Employee.index');
   }
+  public function updateBalance(Request $request){
+    $data['shillak_rakkam_two'] = $request->shillak_rakkam_two;
+    $data['shillak_rakkam_one'] = $request->shillak_rakkam_one;
+    $data['year_one'] = $request->year_one;
+    $data['year_two'] = $request->year_two;
+    $queryOne = DB::raw('UPDATE employee_yearwise_opening_balance SET opn_balance='.$request->shillak_rakkam_one.'
+            WHERE gpf_no='.$request->employee_gpf_num.' AND year='.$request->year_one );
+    $resOne = DB::update($queryOne);
+    $queryTwo = DB::raw('UPDATE employee_yearwise_opening_balance SET opn_balance='.$request->shillak_rakkam_two.'
+            WHERE gpf_no='.$request->employee_gpf_num.' AND year='.$request->year_two );
+    $resTwo = DB::update($queryTwo);
+    return ['status'=>'success','message'=>'User Balances Updated Succesfully'];
+  }
 }

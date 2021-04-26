@@ -1,6 +1,6 @@
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 $(document).ready(function(){
-  $('.account_closed').validate({
+  $('.balance_update').validate({
     rules : {
       employee_gpf_num:'required',
       user_name:'required',
@@ -8,6 +8,8 @@ $(document).ready(function(){
       user_joining_date:'required',
       user_taluka_name:'required',
       user_department:'required',
+      shillak_rakkam_two:'required',
+      shillak_rakkam_one:'required',
     },
     messages : {
       employee_gpf_num:'Employee GPF Number Required',
@@ -16,9 +18,11 @@ $(document).ready(function(){
       user_joining_date:'Employee Joining Required',
       user_taluka_name:'Employee Taluka_ Required',
       user_department:'Employee Department Required',
+      shillak_rakkam_two:'Employee Opening Balance Required',
+      shillak_rakkam_one:'Employee Opening Balance Required',
     },
     submitHandler: function(form) {
-      accountClosedForm();
+      balanceUpdateForm();
     }
   });
      $("#employee_gpf_num").keypress(function (e) {
@@ -76,22 +80,29 @@ function getBalances(){
       var cur_year = new Date().getFullYear();
       var rakkam_two = $('#shillak_rakkam_two').data('curdate');
       var rakkam_one = $('#shillak_rakkam_one').data('curdate');
-
-      // if(rakkam_two == prv_two_year){
-      //   $('#shillak_rakkam_two').val();
-      // }
-      // if(prv_one_year == rakkam_one){
-      //   $('#shillak_rakkam_one').val();
-      // }
+      for(var i=0;i < results.length;i++){
+        if(results[i].year == rakkam_one){
+          $('#shillak_rakkam_one').val(results[i].opn_balance);
+        }
+        if(results[i].year == rakkam_two){
+          $('#shillak_rakkam_two').val(results[i].opn_balance);
+        }
+      }
     }
   });
 }
 
-function accountClosedForm(){
+function balanceUpdateForm(){
+    var shillak_rakkam_two = $('#shillak_rakkam_two').val();
+    var shillak_rakkam_one = $('#shillak_rakkam_one').val();
+    var year_one = $('#shillak_rakkam_one').data('curdate');
+    var year_two = $('#shillak_rakkam_two').data('curdate');
+    var employee_gpf_num = $('#employee_gpf_num').val();
   $.ajax({
     type: 'POST',
-    url: "accountclosed",
-    data: $('.account_closed').serialize(),
+    url: "../updateBalance",
+    data: {_token: CSRF_TOKEN,shillak_rakkam_two:shillak_rakkam_two,shillak_rakkam_one:shillak_rakkam_one,year_one:year_one,
+            year_two:year_two,employee_gpf_num:employee_gpf_num},
     success: function (results) {
       swal(results.status,results.message);
     }

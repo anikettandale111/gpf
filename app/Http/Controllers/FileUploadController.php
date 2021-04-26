@@ -140,7 +140,6 @@ class FileUploadController extends Controller
         $getDiffAmt = MonthlyTotalChalan::select('diff_amount')
                       ->where(['id' => $request->chalan_id,'chalan_serial_no' => $request->chalan_number])
                       ->first();
-        $m = (int)$getDiffAmt->diff_amount .'>= '.(int)$totalUsed;
         if((int)$getDiffAmt->diff_amount >= (int)$totalUsed){
           MonthlyTotalChalan::where(['id' => $request->chalan_id])
                               ->update(['diff_amount' => ($getDiffAmt->diff_amount-$totalUsed)]);
@@ -149,7 +148,7 @@ class FileUploadController extends Controller
           'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),
           'user_duplicate_gpf' =>$userDataDuplicate ];
         }else{
-            return ['status'=>'warning','message'=>'Chalan total amount does not matched '.$m.' -- '.$request->chalan_khatavani.'-'.$totalUsed];
+            return ['status'=>'warning','message'=>'Chalan total amount does not matched'.$request->chalan_khatavani.'-'.$totalUsed];
         }
       }else{
       return ['status'=>'duplicate','message'=>'Duplicate Data Found','not_inserted'=>count($employeeNotFound),

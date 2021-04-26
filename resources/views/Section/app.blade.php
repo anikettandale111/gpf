@@ -156,6 +156,9 @@
                 <li><a href="{{url('billreports')}}"> {{trans('language.menu_bill_reports')}} </a></li>
               </ul>
             </li>
+            <li>
+              <a href="{{url('employee')}}"><i class="fa fa-home"></i> {{trans('language.form_employee_update')}} </a>
+            </li>
             @if(Auth::user()->id == 1 )
             @endif
           </ul>
