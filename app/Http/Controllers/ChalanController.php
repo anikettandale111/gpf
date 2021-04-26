@@ -163,7 +163,7 @@ class ChalanController extends Controller
           return $btn;
         })
         ->addColumn('empTotal', function ($row) {
-          return $total = $row->monthly_contrubition + $row->loan_installment + $row->monthly_received;
+          return $total = $row->monthly_received;
         })
         ->rawColumns(['empTotal','action'])
         ->make(true);

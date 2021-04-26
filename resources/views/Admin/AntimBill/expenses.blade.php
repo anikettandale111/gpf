@@ -30,7 +30,7 @@
     <div class="col-md-12 col-sm-12">
       <div class="x_panel">
         <div class=" mt-3">
-          <h2>बीलातील खर्च माहिती </h2>
+          <h2>{{trans('language.menu_bill_expenses_information')}}</h2>
         </div>
         @if(session()->has('message'))
           <div class="alert-success">
@@ -46,8 +46,8 @@
               <div class="col-md-4">
                 <label class="col-form-label"> बिल नं.<span class="required"></span></label>
                 <select class="form-control" class='optional' name="bill_no" id="bill_no">
-                  @if(count($billDetails))
                   <option value="" selected disabled>बिल क्रमांक निवडा</option>
+                  @if(count($billDetails))
                     @foreach($billDetails AS $billRow)
                       <option value="{{$billRow->id}}">{{$billRow->bill_no}}</option>
                     @endforeach

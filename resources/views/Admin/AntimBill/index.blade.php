@@ -7,7 +7,7 @@
     <div class="col-md-12 col-sm-12">
       <div class="x_panel">
         <div class=" mt-3">
-          <h2>बिल माहिती </h2>
+          <h2>{{trans('language.menu_bill_information')}}</h2>
         </div>
         <div class="x_content">
           <form class="form-horizontal form-label-left" id="antim_bill_form" method="POST" >
@@ -61,28 +61,28 @@
           </form>
         </div>
       </div>
-      <div class="x_content">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card-box table-responsive">
-              <table id="myTable" class="table table-hover table-bordered" cellspacing="0" width="100%">
-                <thead>
-                  <th> क्रं </th>
-                  <th>बिल नं</th>
-                  <th>बिल दिनांक </th>
-                  <th>रक्कम </th>
-                  <th>बिल स्थिती</th>
-                  <th>धनादेश दिनांक</th>
-                  <th>धनादेश क्रमांक </th>
-                  <th>action</th>
-                </thead>
-              </table>
-            </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card-box table-responsive">
+            <table id="myTable" class="table table-hover table-bordered" cellspacing="0" width="100%">
+              <thead>
+                <th> क्रं </th>
+                <th>बिल नं</th>
+                <th>बिल दिनांक </th>
+                <th>रक्कम </th>
+                <th>बिल स्थिती</th>
+                <th>धनादेश दिनांक</th>
+                <th>धनादेश क्रमांक </th>
+                <th>action</th>
+              </thead>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 @endsection
 @push('custom-scripts')

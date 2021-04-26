@@ -86,6 +86,7 @@ Route::middleware('auth')->group(function () {
     //Antim Bill Pryojan Expenses
     Route::get('getBillExpensesDetails', 'AntimBillExpensesController@getBillExpensesDetails');
     Route::resource('antimbillexpenses', AntimBillExpensesController::class);
+    Route::resource('billreports', BillReportsController::class);
 
     // Districts
     Route::resource('districts', DistrictsController::class);
@@ -141,5 +142,5 @@ Route::middleware('auth')->group(function () {
     Route::get('reporttwo/{id}', 'AccountclosedController@reporttwo');
     Route::resource('accountclosed',AccountclosedController::class);
 
-
+    Route::resource('employee',EmployeeController::class);  
 });

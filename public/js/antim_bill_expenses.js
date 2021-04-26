@@ -88,6 +88,16 @@ $(document).ready(function() {
     $('.file_upload_div').css('display','none');
     $('.single_entry_div').css('display','block');
   });
+  $('#loan_agrim_niyam').on('keypress focusout',function(){
+    setTimeout(function(){
+        var loanAgrim = $('#loan_agrim_niyam').val().toLowerCase();
+        if(loanAgrim == 'final'){
+          $('#shillak_rakkam').removeAttr('readonly');
+        }else{
+          $('#shillak_rakkam').attr('readonly', true);
+        }
+    },100);
+  });
 });
 function getDetails(){
   $.ajax({

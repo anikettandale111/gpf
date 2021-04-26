@@ -153,6 +153,7 @@
               <ul class="nav child_menu">
                 <li><a href="{{url('antimbill')}}"> {{trans('language.menu_bill_information')}} </a></li>
                 <li><a href="{{url('antimbillexpenses')}}"> {{trans('language.menu_bill_expenses_information')}} </a></li>
+                <li><a href="{{url('billreports')}}"> {{trans('language.menu_bill_reports')}} </a></li>
               </ul>
             </li>
             @if(Auth::user()->id == 1 )
@@ -193,8 +194,8 @@
       </div>
       <nav class="nav navbar-nav">
         <ul class=" navbar-right">
-        <li class="nav-item dropdown open" style="padding-left: 15px;">
-          <a href="#" onclick="return false;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+        <li class="dropdown" style="padding-left: 15px;">
+          <a href="#" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
             <img src="{{asset ('asset/images/img.jpg ')}}" alt="">{{ Auth::user()->name }}
           </a>
           <ul class="dropdown-menu dropdown-usermenu ">
@@ -306,6 +307,12 @@
 
 @stack('custom-scripts')
 <script>
+$(document).ready(function(){
+  $('.dropdown').on('click',function(){
+    $('.dropdown').addClass('show');
+    $('.dropdown-usermenu').addClass('show');
+  })
+});
 function changelanguage(lang){
   if(lang == 'English'){
     lang="mar";

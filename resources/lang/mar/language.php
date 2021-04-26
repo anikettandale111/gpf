@@ -271,4 +271,6 @@ return [
   'menu_bill'=> 'बिल',
   'menu_bill_information'=> 'बिल माहिती',
   'menu_bill_expenses_information'=> 'बीलातील खर्च माहिती',
+  'menu_bill_reports'=> 'बील माहिती रिपोर्ट्स',
+  'form_employee_update'=> 'कर्मचारी माहिती',
 ];

@@ -177,7 +177,8 @@ class AntimBillExpensesController extends Controller
   public function get_bill_report($billid){
     $talukaData = Taluka::select('taluka_name_mar AS taluka_name')->get();
     $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$billid)->first();
-    $billExpensesReport = BillExpenses::where('bill_id',$billid)->orderBy('user_taluka_name')->get();
-    return view('Admin.AntimBill.billreportone',compact('billExpensesReport','billDetails','talukaData'));
+    $billid = $billid;
+    // $billExpensesReport = BillExpenses::where('bill_id',$billid)->orderBy('user_taluka_name')->get();
+    return view('Admin.AntimBill.billreportone',compact('billid','billDetails','talukaData'));
   }
 }
