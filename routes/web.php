@@ -144,5 +144,7 @@ Route::middleware('auth')->group(function () {
     Route::get('reporttwo/{id}', 'AccountclosedController@reporttwo');
     Route::resource('accountclosed',AccountclosedController::class);
 
+    Route::get('getEmployeeDetails', 'EmployeeController@getEmployeeDetails');
     Route::resource('employee',EmployeeController::class);
+
 });

@@ -42,7 +42,7 @@ $(document).ready(function(){
 function getDetails(){
   $.ajax({
     type: 'GET',
-    url: "../getuserdetailsbygpfno",
+    url: "../getEmployeeDetails",
     data: {_token: CSRF_TOKEN,input_id:$("#employee_gpf_num").val()},
     success: function (results) {
       if(results.length){
