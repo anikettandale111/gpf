@@ -16,6 +16,7 @@ class BillExpenses extends Model
       "user_designation",
       "user_department",
       "user_taluka_name",
+      "loan_agrim_pryojan",
       "loan_agrim_niyam",
       "shillak_rakkam",
       "required_rakkam",

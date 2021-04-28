@@ -100,8 +100,8 @@ use App\BillExpenses;
                         <tr>
                           <td>{{($key+1)}}</td>
                           <td>{{$expenses->user_name}}<br>{{$expenses->user_designation}}<br>{{$expenses->user_taluka_name}}</td>
+                          <td>{{$expenses->loan_agrim_pryojan}}</td>
                           <td>{{$expenses->loan_agrim_niyam}}</td>
-                          <td>{{$expenses->bill_id}}</td>
                           <td>{{digitChange(amount_inr_format($expenses->shillak_rakkam))}}<hr>
                               <br>{{digitChange(amount_inr_format($expenses->required_rakkam))}}</td>
                           <td>{{$expenses->bank_name}}<br>{{$expenses->bank_ifsc_name}}<br>{{$expenses->bank_acc_number}}  </td>

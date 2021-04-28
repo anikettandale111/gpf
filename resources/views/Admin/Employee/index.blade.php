@@ -38,11 +38,11 @@
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.th_user_shillak_rakkam')}} {{date('Y')-2}}</label>
-                  <input type="text" class="form-control" name="shillak_rakkam_two" id="shillak_rakkam_two" data-curdate="{{date('Y')-2}}">
+                  <input type="text" class="form-control allow-numbers" name="shillak_rakkam_two" id="shillak_rakkam_two" data-curdate="{{date('Y')-2}}">
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.th_user_shillak_rakkam')}} {{date('Y')-1}}</label>
-                  <input type="text" class="form-control" name="shillak_rakkam_one" id="shillak_rakkam_one" data-curdate="{{date('Y')-1}}">
+                  <input type="text" class="form-control allow-numbers" name="shillak_rakkam_one" id="shillak_rakkam_one" data-curdate="{{date('Y')-1}}">
                 </div>
                 <div class="col-sm-3 mt-3">
                   <button type="submit" class="btn btn-success" style="width:100%" name="button" id="button">Save</button>

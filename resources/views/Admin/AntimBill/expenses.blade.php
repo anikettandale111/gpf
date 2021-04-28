@@ -99,6 +99,10 @@
                 <input class="form-control make_empty"  name="shillak_rakkam" id="shillak_rakkam" readonly>
               </div>
               <div class="col-md-4 single_entry_div">
+                <label for="">{{trans('language.th_user_loan_pryojan')}}</label>
+                <input class="form-control make_empty"  name="loan_agrim_pryojan" id="loan_agrim_pryojan" placeholder="रक्कम काढायचे कारण" >
+              </div>
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_loan_agrim_niyam')}}</label>
                 <input class="form-control make_empty"  name="loan_agrim_niyam" id="loan_agrim_niyam" placeholder="0" >
               </div>

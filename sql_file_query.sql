@@ -1,3 +1,8 @@
+/****************************************************************************************************************/
+ALTER TABLE `bill_expenses_information` ADD `loan_agrim_pryojan` VARCHAR(255) NULL DEFAULT NULL AFTER `user_taluka_name`;
+
+
+
 
 /****************************************************************************************************************/
 ALTER TABLE `bill_information` CHANGE `check_date` `check_date` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL, CHANGE `check_no` `check_no` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;

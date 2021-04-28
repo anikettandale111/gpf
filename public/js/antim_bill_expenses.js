@@ -98,6 +98,15 @@ $(document).ready(function() {
         }
     },100);
   });
+  $('#employee_expenses_file').change(function(){
+    // var ext = $("#employee_expenses_file").val().split('.').pop();
+    var fileExtension = ['xls', 'csv', 'xlsx'];
+        if ($.inArray($("#employee_expenses_file").val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            swal("warning","Only formats are allowed : "+fileExtension.join(', '));
+            $("#employee_expenses_file").val('');
+            return false;
+        }
+  });
 });
 function getDetails(){
   $.ajax({

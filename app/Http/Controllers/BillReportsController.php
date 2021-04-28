@@ -18,17 +18,31 @@ class BillReportsController extends Controller
   }
   public function show(Request $request){
     $html = '';
+    $billid = $request->bill_id;
     if($request->reportNo == 1){
       $talukaData = Taluka::select('taluka_name_mar AS taluka_name')->get();
       $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
-      $billid = $request->bill_id;
-      $html .= view('Admin.AntimBill.billreportone',compact('billid','billDetails','talukaData'))->render();
+      $html .= view('Admin.BillReports.report75',compact('billid','billDetails','talukaData'))->render();
     }
     if($request->reportNo == 2){
-      $talukaData = Taluka::select('id','taluka_name_mar AS taluka_name')->get();
       $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
-      $billid = $request->bill_id;
-      $html .= view('Admin.AntimBill.billreportone',compact('billid','billDetails','talukaData'))->render();
+      $billExpenses = BillExpenses::where('bill_id',$request->bill_id)->sum('required_rakkam');
+      $html .= view('Admin.BillReports.report188',compact('billid','billDetails','billExpenses'))->render();
+    }
+    if($request->reportNo == 3){
+      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
+      $billExpenses = BillExpenses::where('bill_id',$request->bill_id)->sum('required_rakkam');
+      $html .= view('Admin.BillReports.compslip',compact('billid','billDetails','billExpenses'))->render();
+    }
+    if($request->reportNo == 4){
+      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
+      $billExpenses = BillExpenses::where('bill_id',$request->bill_id)->sum('required_rakkam');
+      $html .= view('Admin.BillReports.order',compact('billid','billDetails','billExpenses'))->render();
+    }
+    if($request->reportNo == 5){
+      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
+      $billExpenses = BillExpenses::where('bill_id',$request->bill_id)->sum('required_rakkam');
+      $html .= view('Admin.BillReports.testfile',compact('billid','billDetails','billExpenses'))->render();
     }
     return ['html' => $html];
   }

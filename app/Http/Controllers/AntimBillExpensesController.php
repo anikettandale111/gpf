@@ -59,18 +59,17 @@ class AntimBillExpensesController extends Controller
                 if(isset($getData[$i][0]) && $getData[$i][0] !== ''){
                   $lang = 'mar';
                   $tg = mb_strtoupper($getData[$i][0]);
-                  str_replace('P','',$tg);
-                  $emp_gpf_no = (int)$tg;
+                  $tg = str_replace('P','',$tg);
                   $employee = DB::table('master_employee as me')
-                  ->leftjoin('bank as bk','bk.id','=','me.bank_id')
-                  ->leftjoin('departments as dp','dp.department_code','=','me.department_id')
-                  ->leftjoin('designations as dg','dg.id','=','me.designation_id')
-                  ->leftjoin('taluka as tl','tl.id','=','me.taluka_id')
-                  ->leftjoin('employee_yearwise_opening_balance as yob','yob.gpf_no','=','me.gpf_no')
-                  ->select('me.employee_name','tl.taluka_name_'.$lang.' as taluka_name',
-                  'dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','yob.opn_balance' )
-                  ->where('me.gpf_no',$emp_gpf_no)
-                  ->first();
+                                ->leftjoin('bank as bk','bk.id','=','me.bank_id')
+                                ->leftjoin('departments as dp','dp.department_code','=','me.department_id')
+                                ->leftjoin('designations as dg','dg.id','=','me.designation_id')
+                                ->leftjoin('taluka as tl','tl.id','=','me.taluka_id')
+                                ->leftjoin('employee_yearwise_opening_balance as yob','yob.gpf_no','=','me.gpf_no')
+                                ->select('me.employee_name','tl.taluka_name_'.$lang.' as taluka_name',
+                                'dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','yob.opn_balance' )
+                                ->where('me.gpf_no',(int)$tg)
+                                ->first();
                   if($employee !== null ){
                     $u_data['bill_id'] = $request->bill_no;
                     $u_data['gpf_no'] = substr($getData[$i][0], 1);
@@ -80,12 +79,13 @@ class AntimBillExpensesController extends Controller
                     $u_data['user_department'] = $employee->department_name;
                     $u_data['user_taluka_name'] = $employee->taluka_name;
                     $u_data['loan_agrim_niyam'] = $getData[$i][3];
+                    $u_data['loan_agrim_pryojan'] = $getData[$i][5];
                     $u_data['shillak_rakkam'] = $employee->opn_balance;
                     $u_data['required_rakkam'] = $getData[$i][2];
                     $u_data['bank_name'] = $getData[$i][6];
                     $u_data['bank_ifsc_name'] = $getData[$i][7];
                     $u_data['bank_acc_number'] = $getData[$i][8];
-                    $u_data['if_installment_no'] = $getData[$i][8];
+                    $u_data['if_installment_no'] = $getData[$i][9];
                     $userData[] = $u_data;
                   }
                 }
@@ -134,6 +134,7 @@ class AntimBillExpensesController extends Controller
       $data['user_department'] = $request->user_department;
       $data['user_taluka_name'] = $request->user_taluka_name;
       $data['loan_agrim_niyam'] = $request->loan_agrim_niyam;
+      $data['loan_agrim_pryojan'] = $request->loan_agrim_pryojan;
       $data['shillak_rakkam'] = $request->shillak_rakkam;
       $data['required_rakkam'] = $request->required_rakkam;
       $data['bank_name'] = $request->bank_name;

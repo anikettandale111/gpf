@@ -9,12 +9,22 @@ $(document).ready(function(){
   $('.file-select').css('display','none');
   $('.progress').css('display','none');
   $('.loader').css('display','none');
+
+  $('#test_excel').change(function(){
+    // var ext = $("#test_excel").val().split('.').pop();
+    var fileExtension = ['xls', 'csv', 'xlsx'];
+        if ($.inArray($("#test_excel").val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            swal("warning","Only formats are allowed : "+fileExtension.join(', '));
+            $("#test_excel").val('');
+            return false;
+        }
+  });
   $('.getchalan').change(function(){
     var year = $('#year_id').val();
     var chalan_month = $('#month_id').val();
     var chalan_serial_no = $('#chalan_serial_no').val();
     var chalan_taluka = $('#taluka_id').val();
-    if(year == null){
+    if(year == null)  {
       return false;
     }
     if(chalan_month == null){
