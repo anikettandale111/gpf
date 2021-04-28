@@ -96,7 +96,7 @@
               </div>
               <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_shillak_rakkam')}}</label>
-                <input class="form-control make_empty"  name="shillak_rakkam" id="shillak_rakkam" readonly>
+                <input class="form-control make_empty"  name="shillak_rakkam" id="shillak_rakkam">
               </div>
               <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_loan_pryojan')}}</label>

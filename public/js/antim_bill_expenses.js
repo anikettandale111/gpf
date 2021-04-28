@@ -126,7 +126,6 @@ function getDetails(){
         $('#user_joining_date').val(results[0].joining_date);
         $('#user_retirment_date').val(results[0].retirement_date);
         $('#user_taluka_name').val(results[0].taluka_name);
-
         $('#bank_acc_number').val(results[0].bank_account_no);
         $('#bank_name').val(results[0].bank_name);
         $('#bank_ifsc_name').val(results[0].ifsc_code);
