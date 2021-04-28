@@ -105,6 +105,7 @@ function balanceUpdateForm(){
             year_two:year_two,employee_gpf_num:employee_gpf_num},
     success: function (results) {
       swal(results.status,results.message);
+      $('.clearfield').val('');
     }
   });
 }

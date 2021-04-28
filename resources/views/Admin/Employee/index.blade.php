@@ -14,35 +14,35 @@
                 @csrf
                 <div class="col-sm-3">
                   <label>{{trans('language.fr_common_gpf_no')}}</label>
-                  <input type="text" class="form-control" name="employee_gpf_num" id="employee_gpf_num" value="">
+                  <input type="text" class="form-control clearfield" name="employee_gpf_num" id="employee_gpf_num" value="">
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.fr_common_user_name')}}</label>
-                  <input type="text" class="form-control" name="user_name" id="user_name" readonly>
+                  <input type="text" class="form-control clearfield" name="user_name" id="user_name" readonly>
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.fr_common_user_designation')}}</label>
-                  <input type="text" class="form-control" name="user_designation" id="user_designation" readonly>
+                  <input type="text" class="form-control clearfield" name="user_designation" id="user_designation" readonly>
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.fr_common_user_joining_date')}}</label>
-                  <input type="text" class="form-control" name="user_joining_date" id="user_joining_date" readonly>
+                  <input type="text" class="form-control clearfield" name="user_joining_date" id="user_joining_date" readonly>
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.th_user_registration_taluka')}}</label>
-                  <input type="text" class="form-control" name="user_taluka_name" id="user_taluka_name" readonly>
+                  <input type="text" class="form-control clearfield" name="user_taluka_name" id="user_taluka_name" readonly>
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.th_user_registration_department')}}</label>
-                  <input type="text" class="form-control" name="user_department" id="user_department" readonly>
+                  <input type="text" class="form-control clearfield" name="user_department" id="user_department" readonly>
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.th_user_shillak_rakkam')}} {{date('Y')-2}}</label>
-                  <input type="text" class="form-control allow-numbers" name="shillak_rakkam_two" id="shillak_rakkam_two" data-curdate="{{date('Y')-2}}">
+                  <input type="text" class="form-control clearfield allow-numbers" name="shillak_rakkam_two" id="shillak_rakkam_two" data-curdate="{{date('Y')-2}}">
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.th_user_shillak_rakkam')}} {{date('Y')-1}}</label>
-                  <input type="text" class="form-control allow-numbers" name="shillak_rakkam_one" id="shillak_rakkam_one" data-curdate="{{date('Y')-1}}">
+                  <input type="text" class="form-control clearfield allow-numbers" name="shillak_rakkam_one" id="shillak_rakkam_one" data-curdate="{{date('Y')-1}}">
                 </div>
                 <div class="col-sm-3 mt-3">
                   <button type="submit" class="btn btn-success" style="width:100%" name="button" id="button">Save</button>
