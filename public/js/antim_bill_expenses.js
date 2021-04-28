@@ -70,7 +70,7 @@ $(document).ready(function() {
       return false;
     }
     var lg = parseInt($(this).val().length);
-    if(lg == 4){
+    if(lg >= 4){
       setTimeout(function(){
         getDetails();
       },100);
