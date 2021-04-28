@@ -42,7 +42,7 @@ class BillReportsController extends Controller
     if($request->reportNo == 5){
       $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
       $billExpenses = BillExpenses::where('bill_id',$request->bill_id)->sum('required_rakkam');
-      $html .= view('Admin.BillReports.testfile',compact('billid','billDetails','billExpenses'))->render();
+      $html .= view('Admin.BillReports.mtr52a',compact('billid','billDetails','billExpenses'))->render();
     }
     return ['html' => $html];
   }

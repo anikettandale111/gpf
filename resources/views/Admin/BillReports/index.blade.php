@@ -22,19 +22,19 @@
             </div>
             <div class="col-md-10 mt-4">
               <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="report_one"> Report One </button >
+                <button class="btn btn-secondary" style="width:100%" id="report_one"> Report 75 </button >
               </div>
               <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="report_two"> Report Two </button >
+                <button class="btn btn-secondary" style="width:100%" id="report_two"> Report 188 </button >
               </div>
               <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="report_three"> Report Three </button >
+                <button class="btn btn-secondary" style="width:100%" id="report_three"> Computer Slip </button >
               </div>
               <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="report_four"> Report Four </button >
+                <button class="btn btn-secondary" style="width:100%" id="report_four"> Order </button >
               </div>
               <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="report_five"> Report Five </button >
+                <button class="btn btn-secondary" style="width:100%" id="report_five"> MTR-52 </button >
               </div>
               <div class="col-md-2">
                 <button class="btn btn-secondary" style="width:100%" id="print_report"> Print Report </button >

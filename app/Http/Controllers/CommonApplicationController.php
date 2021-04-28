@@ -119,8 +119,8 @@ class CommonApplicationController extends Controller
     ->select('me.employee_id','me.gpf_no','me.employee_name','me.joining_date','me.retirement_date',
     'me.total_service','me.bank_account_no','me.branch_location','me.ifsc_code','me.bank_id',
     'me.department_id','me.designation_id','me.classification_id','me.id','bk.bank_name_'.$lang.' as bank_name','tl.taluka_name_'.$lang.' as taluka_name','dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','cl.classification_name_'.$lang.' as classification_name','cl.inital_letter','yob.opn_balance')
-    ->where('me.gpf_no',$request->input_id)
-    // ->orWhere('me.employee_id',$request->input_id)
+    ->Where('me.employee_id',$request->input_id)
+    // ->where('me.gpf_no',$request->input_id)
     ->where('yob.year',2020)
     ->get();
   }
