@@ -75,7 +75,7 @@ class CommonApplicationController extends Controller
     $data['user_account_stmt'] = $request->file('user_account_stmt')->store('Files');
     $data['qualify_status'] = $request->user_qualify_criteria;
     $data['total_service_period'] = $request->user_total_work;
-    $data['user_joining_date'] = $r equest->user_joining_date;
+    $data['user_joining_date'] = $request->user_joining_date;
     $data['retritment_date'] = $request->user_retirment_date;
 
     ApplicationsForms::insert($data);
