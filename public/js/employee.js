@@ -1,5 +1,7 @@
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+var table = '';
 $(document).ready(function(){
+
   $('.balance_update').validate({
     rules : {
       employee_gpf_num:'required',
@@ -25,18 +27,18 @@ $(document).ready(function(){
       balanceUpdateForm();
     }
   });
-     $("#employee_gpf_num").keypress(function (e) {
-       if($(this).val().length == 5) {
-         $(this).val($(this).val().slice(0, 5));
-         return false;
-       }
-       var lg = parseInt($(this).val().length);
-       if(lg == 4){
-         setTimeout(function(){
-           getDetails();
-         },100);
-       }
-     });
+  $("#employee_gpf_num").keypress(function (e) {
+    if($(this).val().length == 5) {
+      $(this).val($(this).val().slice(0, 5));
+      return false;
+    }
+    var lg = parseInt($(this).val().length);
+    if(lg == 4){
+      setTimeout(function(){
+        getDetails();
+      },100);
+    }
+  });
 });
 
 function getDetails(){
@@ -93,19 +95,52 @@ function getBalances(){
 }
 
 function balanceUpdateForm(){
-    var shillak_rakkam_two = $('#shillak_rakkam_two').val();
-    var shillak_rakkam_one = $('#shillak_rakkam_one').val();
-    var year_one = $('#shillak_rakkam_one').data('curdate');
-    var year_two = $('#shillak_rakkam_two').data('curdate');
-    var employee_gpf_num = $('#employee_gpf_num').val();
+  var shillak_rakkam_two = $('#shillak_rakkam_two').val();
+  var shillak_rakkam_one = $('#shillak_rakkam_one').val();
+  var year_one = $('#shillak_rakkam_one').data('curdate');
+  var year_two = $('#shillak_rakkam_two').data('curdate');
+  var employee_gpf_num = $('#employee_gpf_num').val();
   $.ajax({
     type: 'POST',
     url: "../updateBalance",
     data: {_token: CSRF_TOKEN,shillak_rakkam_two:shillak_rakkam_two,shillak_rakkam_one:shillak_rakkam_one,year_one:year_one,
-            year_two:year_two,employee_gpf_num:employee_gpf_num},
-    success: function (results) {
-      swal(results.status,results.message);
-      $('.clearfield').val('');
-    }
+      year_two:year_two,employee_gpf_num:employee_gpf_num},
+      success: function (results) {
+        swal(results.status,results.message);
+        $('.clearfield').val('');
+      }
+    });
+  }
+  function getEmployeeDetails(){
+
+    table = $('#employeeTable').DataTable({
+      // processing: true,
+      serverSide: true,
+      ajax: "employee_list",
+      columns: [{
+        data: 'DT_RowIndex',
+        name: 'DT_RowIndex'
+      },
+      {
+        data: 'gpf_no',
+        name: 'GPF No.'
+      },
+      {
+        data: 'employee_name',
+        name: 'Employee Name'
+      },
+      {
+        data: 'taluka_name',
+        name: 'Taluka Name'
+      },
+      {
+        data: 'designation_name',
+        name: 'Designation'
+      },
+      {
+        data: 'department_name',
+        name: 'Department'
+      }
+    ]
   });
 }

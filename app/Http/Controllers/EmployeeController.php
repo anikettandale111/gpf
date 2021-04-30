@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Session;
+use DataTable;
 
 class EmployeeController extends Controller
 {
@@ -49,7 +50,7 @@ class EmployeeController extends Controller
   *
   * @return \Illuminate\Contracts\Support\Renderable
   */
-  public function index()
+  public function index(Request $request)
   {
     return view('Admin.Employee.index');
   }
@@ -98,5 +99,21 @@ class EmployeeController extends Controller
     ->where('me.gpf_no',$request->input_id)
     ->orWhere('me.employee_id',$request->input_id)
     ->get();
+  }
+  public function getEmployeeList(Request $request){
+    if($request->ajax()){
+      $lang = app()->getLocale();
+      $emp_data = DB::table('master_employee as me')
+        ->leftjoin('departments as dp','dp.department_code','=','me.department_id')
+        ->leftjoin('designations as dg','dg.id','=','me.designation_id')
+        ->leftjoin('classifications as cl','cl.id','=','me.classification_id')
+        ->leftjoin('taluka as tl','tl.id','=','me.taluka_id')
+        ->select('me.employee_id','me.gpf_no','me.employee_name','me.id','tl.taluka_name_'.$lang.' as taluka_name','dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','cl.classification_name_'.$lang.' as classification_name','cl.inital_letter')
+        ->get();
+      return datatables()->of($emp_data)
+        ->addIndexColumn()
+        ->make(true);
+    }
+    return view('Admin.Master.employee');
   }
 }

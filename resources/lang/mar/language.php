@@ -63,6 +63,8 @@ return [
   'th_reasons_name_mar'=>'कारण मराठी',
   'th_reasons_description_en'=>'कारण वर्णन इंग्लिश',
   'th_reasons_description_mar'=>'कारण वर्णन मराठी',
+  'th_reasons_withdrawn_percent'=>'रक्कम काढावयाचे %',
+  'th_reasons_status'=>'स्थिती',
   'th_reasons_action'=>'Action',
   'form_reasons'=>'Reason',
   // Table Department
@@ -240,7 +242,7 @@ return [
   'common_form_type_option_zero' => 'अर्जाचा प्रकार निवडा',
   'common_form_type_option_one' => 'परतावा',
   'common_form_type_option_two' => 'ना-परतावा',
-  'common_form_type_option_thee' => 'अग्रिम परतावा',
+  'common_form_type_option_three' => 'अग्रिम परतावा',
   'common_form_type_option_four' => 'ठेव संलग्न',
 
   // Common Forms Qualify

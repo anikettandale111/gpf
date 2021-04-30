@@ -67,7 +67,7 @@
               </div>
               <div class="form-group col-md-4">
                 <div class="col-sm-6"><label for="user_reason_withdrawn" class="col-form-label ">{{trans('language.fr_common_user_reason_withdrawn')}} : </label></div>
-                <div class="col-sm-6"><span> {{$applicationsData->application_reason}} </span></div>
+                <div class="col-sm-6"><span> {{$applicationsData->reason_name}} </span></div>
               </div>
               <div class="form-group col-md-4">
                 <div class="col-sm-6"><label for="user_proof" class="col-form-label ">{{trans('language.fr_common_user_proof')}} : </label></div>

@@ -98,7 +98,7 @@
                     <li><a href="{{url('classification')}}">{{trans('language.ms_classification')}}</a></li>
                     <li><a href="{{url('bank')}}">{{trans('language.ms_bank')}}</a></li>
                     <li><a href="#">{{trans('language.ms_staff')}}</a></li>
-                    <li><a href="#">{{trans('language.ms_employee')}}</a></li>
+                    <li><a href="{{url('employee_list')}}">{{trans('language.ms_employee')}}</a></li>
                     <li><a href="{{url('commonreasons')}}">{{trans('language.ms_reason_for_accounts')}}</a></li>
                     <li><a href="{{url('user_registration')}}">{{trans('language.register_users')}}</a></li>
                     <li><a href="{{url('Year')}}">{{trans('language.yearly_intrest_paid_form')}}</a></li>
@@ -126,6 +126,20 @@
             <!-- <li><a href="{{url('nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद</a></li> -->
             <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>{{trans('language.7_pay_commission_paid')}}</a></li>
             @endif
+            <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms')}} <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li>
+                <li><a href="{{url('commonforms')}}">{{trans('language.fr_common_application_form')}}</a></li>
+                <!-- <li><a href="#">{{trans('language.fr_application_form_amount_withdrawn')}}</a></li> -->
+                <!-- <li><a href="{{url('closed_account')}}">{{trans('language.fr_application_form_account_close')}}</a></li> -->
+              </ul>
+            </li>
+            <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms_received')}} <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="{{url('listcommonforms')}}">{{trans('language.fr_common_application_form_list')}}</a></li>
+                <!-- <li><a href="{{url('testpdf')}}">Test Pdf</a></li> -->
+              </ul>
+            </li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.monthly_bill_expensess')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{url('chalan')}}">{{trans('language.monthly_bill_chalan')}}</a></li>

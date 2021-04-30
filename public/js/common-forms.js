@@ -63,7 +63,7 @@ $(document).ready(function() {
   $("#gpf_no").keypress(function (e) {
     if($(this).val().length == 5) {
       $(this).val($(this).val().slice(0, 5));
-        return false;
+      return false;
     }
     var lg = parseInt($(this).val().length);
     if(lg == 4){
@@ -104,7 +104,8 @@ function getdetails(){
         $('#user_designation_id').val(results[0].designation_id);
         $('#user_empid').val(results[0].employee_id);
         $('#user_designation').val(results[0].designation_name);
-        $('#user_bank').val(results[0].bank_name);
+        $('#user_department_id').val(results[0].department_id);
+        $('#user_bank').val((results[0].bank_name)?results[0].bank_name:'-');
         $('#user_bank_account_no').val(results[0].bank_account_no);
         $('#user_bank_location').val(results[0].branch_location);
         $('#user_bank_ifsc').val(results[0].ifsc_code);
@@ -120,18 +121,28 @@ function getdetails(){
   });
 }
 function diff_year_month_day(dt1, dt2)
- {
-   let current_datetime = dt1;
-  let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
-  console.log(formatted_date);
-   if(dt1 !== null && dt1 !== null){
-     var From_date = new Date(dt1);
-     var To_date = new Date(dt2);
-     var diff_date =  From_date - To_date ;
-     var years = Math.floor(diff_date/31536000000);
-     var months = Math.floor((diff_date % 31536000000)/2628000000);
-     var days = Math.floor(((diff_date % 31536000000) % 2628000000)/86400000);
-     return years+" year(s) "+months+" month(s) "+days+" and day(s)";
-   }
+{
+  // let current_datetime = dt1;
+  // let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+  // console.log(formatted_date);
+  if(dt1 !== null && dt1 !== null){
+    var From_date = new Date(dt1);
+    var To_date = new Date(dt2);
+    var diff_date =  From_date - To_date ;
+    var years = Math.floor(diff_date/31536000000);
+    var months = Math.floor((diff_date % 31536000000)/2628000000);
+    var days = Math.floor(((diff_date % 31536000000) % 2628000000)/86400000);
+    return years+" year(s) "+months+" month(s) "+days+" and day(s)";
+  }
 
- }
+}
+function calculateAmount(reason_id_percent){
+  var str = reason_id_percent.split("_");
+  var reason_id = str[0];
+  var reason_percent = str[1];
+  var total_amount = $('#user_total_amount').val();
+  calcPerc = (total_amount/100) * reason_percent,
+  withdrawAmt = calcPerc.toFixed();
+  $('#user_withdrawn_amount').val(withdrawAmt);
+  $('#user_withdrawn_amount').attr('readonly',true);
+}

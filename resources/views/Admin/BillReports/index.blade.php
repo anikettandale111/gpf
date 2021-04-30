@@ -37,13 +37,13 @@
                 <button class="btn btn-secondary" style="width:100%" id="report_five"> MTR-52 </button >
               </div>
               <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="print_report"> Print Report </button >
+                <button class="btn btn-secondary" style="width:100%" id="print_report" onClick="printDiv()"> Print Report </button >
               </div>
             </div>
           </div>
           <hr>
           <div class="row report_div">
-            <iframe id="iframe" width="100%" height="600px"></iframe>
+            <iframe name="iframe" id="iframe" width="100%" height="600px"></iframe>
           </div>
         </div>
       </div>
@@ -53,4 +53,5 @@
 @endsection
 @push('custom-scripts')
   <script type="text/javascript" src="{{URL('js/bill_report_master.js')}}"></script>
+  <script type="text/javascript" src="//jasonday.github.io/printThis/printThis.js"></script>
 @endpush

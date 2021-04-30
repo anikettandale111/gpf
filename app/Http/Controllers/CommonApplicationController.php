@@ -47,7 +47,7 @@ class CommonApplicationController extends Controller
   * @return \Illuminate\Contracts\Support\Renderable
   */
   public function index() {
-    $reasons = DB::table('common_reasons')->get();
+    $reasons = DB::table('common_reasons')->where('reason_status',1)->get();
     return view('Application/commonform',compact('reasons'));
   }
   public function store(Request $request) {
@@ -58,6 +58,7 @@ class CommonApplicationController extends Controller
     $data['user_name'] = $request->user_name;
     $data['user_designation'] = $request->user_designation;
     $data['user_designation_id'] = $request->user_designation_id;
+    $data['user_department_id'] = $request->user_department_id;
     $data['bank_id'] = $request->user_bank_id;
     $data['bank_account_no'] = $request->user_bank_account_no;
     $data['bank_name'] = $request->user_bank;
@@ -66,14 +67,15 @@ class CommonApplicationController extends Controller
     $data['total_amount'] = $request->user_total_amount;
     $data['required_amount'] = $request->user_withdrawn_amount;
     $data['application_type'] = $request->user_type_of_request;
-    $data['application_reason'] = $request->user_reason_withdrawn;
+      $reasonData = explode('_',$request->user_reason_withdrawn);
+    $data['application_reason'] = $reasonData[0];
     if($request->user_proof)
     $data['reason_proof'] = $request->file('user_proof')->store('Files');
     if($request->user_account_stmt)
     $data['user_account_stmt'] = $request->file('user_account_stmt')->store('Files');
     $data['qualify_status'] = $request->user_qualify_criteria;
     $data['total_service_period'] = $request->user_total_work;
-    $data['user_joining_date'] = $request->user_joining_date;
+    $data['user_joining_date'] = $r equest->user_joining_date;
     $data['retritment_date'] = $request->user_retirment_date;
 
     ApplicationsForms::insert($data);
@@ -133,12 +135,13 @@ class CommonApplicationController extends Controller
       $lang = app()->getLocale();
       $applicationsData = DB::table('application_forms as af')
       ->join('bank as bk','bk.id','=','af.bank_id')
-      ->join('departments as dp','dp.id','=','af.user_department_id')
+      ->join('departments as dp','dp.department_code','=','af.user_department_id')
       ->join('designations as dg','dg.id','=','af.user_designation_id')
+      ->join('common_reasons as cr','cr.cr_id','=','af.application_reason')
       ->select('af.user_empid','af.app_form_id','af.gpf_no','af.user_empid','af.user_name','af.user_joining_date',
       'af.retritment_date','af.total_service_period','af.bank_account_no','af.bank_branch','af.bank_ifsc','af.bank_id',
       'af.user_department_id','af.user_designation_id','af.app_form_id','af.application_type','af.application_reason',
-      'af.reason_proof','af.total_amount','af.required_amount','af.qualify_status','af.user_account_stmt','bk.bank_name_'.$lang.' as bank_name','dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name')
+      'af.reason_proof','af.total_amount','af.required_amount','af.qualify_status','af.user_account_stmt','bk.bank_name_'.$lang.' as bank_name','dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','cr.reason_name_'.$lang.' as reason_name')
       ->where('af.app_form_id',$id)
       ->first();
       return view('Application/viewcommonapp',compact('applicationsData'));

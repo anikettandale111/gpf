@@ -1,6 +1,7 @@
 /****************************************************************************************************************/
 ALTER TABLE `bill_expenses_information` ADD `loan_agrim_pryojan` VARCHAR(255) NULL DEFAULT NULL AFTER `user_taluka_name`;
-
+ALTER TABLE `common_reasons` ADD `withdrawn+percent` DOUBLE(10,2) NOT NULL DEFAULT '0' AFTER `reason_description_mar`;
+ALTER TABLE `common_reasons` CHANGE `withdrawn+percent` `withdrawn_percent` DOUBLE(10,2) NOT NULL DEFAULT '0.00';
 
 
 

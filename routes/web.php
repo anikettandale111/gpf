@@ -115,7 +115,7 @@ Route::middleware('auth')->group(function () {
     Route::get('listcommonforms', 'CommonApplicationController@listcommonforms');
     Route::get('viewapplication/{id?}', 'CommonApplicationController@viewapplication');
     Route::resource('commonforms', CommonApplicationController::class);
-    // Reasons
+    // Reasons3
     // Application form
     Route::resource('commonreasons', CommonReasonsController::class);
     // Employee Reports
@@ -145,6 +145,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('accountclosed',AccountclosedController::class);
 
     Route::get('getEmployeeDetails', 'EmployeeController@getEmployeeDetails');
+    Route::get('employee_list', 'EmployeeController@getEmployeeList');
     Route::resource('employee',EmployeeController::class);
 
 });
