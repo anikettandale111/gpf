@@ -54,19 +54,19 @@
                 $withdraw_month = 0;
                 $withdraw_key = 0;
                 @endphp
-                @if($rqo->partava_amt > 0 )
+                @if(isset($rqo->partava_amt) && $rqo->partava_amt > 0 )
                   @php
                     $withdraw_amt = $rqo->partava_amt;
                     $withdraw_remark = $rqo->withdraw_remark;
                     $withdraw_month = $rqo->partava_month;
                   @endphp
-                @elseif($rqo->na_partava_amt > 0 )
+                @elseif(isset($rqo->na_partava_amt) && $rqo->na_partava_amt > 0 )
                   @php
                     $withdraw_amt = $rqo->na_partava_amt;
                     $withdraw_remark = $rqo->withdraw_remark;
                     $withdraw_month = $rqo->na_partava_month;
                   @endphp
-                @elseif($rqo->antim_adayi_amt)
+                @elseif(isset($rqo->antim_adayi_amt) && $rqo->antim_adayi_amt)
                   @php
                     $withdraw_amt = $rqo->antim_adayi_amt;
                     $withdraw_remark = $rqo->withdraw_remark;

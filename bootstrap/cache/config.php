@@ -1,16 +1,16 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'GPF',
+    'name' => 'Laravel',
     'env' => 'local',
     'debug' => true,
-    'url' => 'http://localhost',
+    'url' => 'http://gpf.cdaat.in/',
     'asset_url' => NULL,
     'timezone' => 'UTC',
     'locale' => 'mar',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:xkqVzhkmVYgCruTYaMlil+thAotEEJYHdACsUznDPo0=',
+    'key' => 'base64:EhAjwnTHBfttD5zRalCzQwxre/hRe7xKAStSHx2+K0I=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -180,7 +180,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'E:\\xampp\\htdocs\\gpf\\storage\\framework/cache/data',
+        'path' => '/var/www/html/gpf/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -219,7 +219,7 @@
         'endpoint' => NULL,
       ),
     ),
-    'prefix' => 'gpf_cache',
+    'prefix' => 'laravel_cache',
   ),
   'cors' => 
   array (
@@ -262,7 +262,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'cdat_gpf_2020-2021',
+        'database' => 'gpf',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -270,11 +270,11 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
-        'database' => 'cdat_gpf_2020-2021',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'gpf',
+        'username' => 'election',
+        'password' => 'Cdat@2021',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -290,11 +290,11 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
         'database' => 'cdat_gpf_2020-2021',
-        'username' => 'root',
-        'password' => '',
+        'username' => 'election',
+        'password' => 'Cdat@2021',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -310,11 +310,11 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
         'database' => 'cdat_gpf_2019-2020',
-        'username' => 'root',
-        'password' => '',
+        'username' => 'election',
+        'password' => 'Cdat@2021',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -330,11 +330,11 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
         'database' => 'cdat_gpf_2018-2019',
-        'username' => 'root',
-        'password' => '',
+        'username' => 'election',
+        'password' => 'Cdat@2021',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -350,11 +350,11 @@
       array (
         'driver' => 'pgsql',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
-        'database' => 'cdat_gpf_2020-2021',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'gpf',
+        'username' => 'election',
+        'password' => 'Cdat@2021',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -365,11 +365,11 @@
       array (
         'driver' => 'sqlsrv',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
-        'database' => 'cdat_gpf_2020-2021',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'gpf',
+        'username' => 'election',
+        'password' => 'Cdat@2021',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -382,7 +382,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'gpf_database_',
+        'prefix' => 'laravel_database_',
       ),
       'default' => 
       array (
@@ -502,7 +502,7 @@
     ),
     'temporary_files' => 
     array (
-      'local_path' => 'E:\\xampp\\htdocs\\gpf\\storage\\framework/laravel-excel',
+      'local_path' => '/var/www/html/gpf/storage/framework/laravel-excel',
       'remote_disk' => NULL,
       'remote_prefix' => NULL,
       'force_resync_remote' => NULL,
@@ -517,13 +517,13 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'E:\\xampp\\htdocs\\gpf\\storage\\app/public/',
+        'root' => '/var/www/html/gpf/storage/app/public/',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'E:\\xampp\\htdocs\\gpf\\storage\\app/public',
-        'url' => 'http://localhost/storage',
+        'root' => '/var/www/html/gpf/storage/app/public',
+        'url' => 'http://gpf.cdaat.in//storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -538,7 +538,7 @@
     ),
     'links' => 
     array (
-      'E:\\xampp\\htdocs\\gpf\\public\\storage' => 'E:\\xampp\\htdocs\\gpf\\storage\\app/public',
+      '/var/www/html/gpf/public/storage' => '/var/www/html/gpf/storage/app/public',
     ),
   ),
   'hashing' => 
@@ -572,13 +572,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'E:\\xampp\\htdocs\\gpf\\storage\\logs/laravel.log',
+        'path' => '/var/www/html/gpf/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'E:\\xampp\\htdocs\\gpf\\storage\\logs/laravel.log',
+        'path' => '/var/www/html/gpf/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -628,7 +628,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'E:\\xampp\\htdocs\\gpf\\storage\\logs/laravel.log',
+        'path' => '/var/www/html/gpf/storage/logs/laravel.log',
       ),
     ),
   ),
@@ -640,8 +640,8 @@
       'smtp' => 
       array (
         'transport' => 'smtp',
-        'host' => 'smtp.mailtrap.io',
-        'port' => '2525',
+        'host' => 'mailhog',
+        'port' => '1025',
         'encryption' => NULL,
         'username' => NULL,
         'password' => NULL,
@@ -668,14 +668,14 @@
     'from' => 
     array (
       'address' => NULL,
-      'name' => 'GPF',
+      'name' => 'Laravel',
     ),
     'markdown' => 
     array (
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'E:\\xampp\\htdocs\\gpf\\resources\\views/vendor/mail',
+        0 => '/var/www/html/gpf/resources/views/vendor/mail',
       ),
     ),
   ),
@@ -753,7 +753,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'E:\\xampp\\htdocs\\gpf\\storage\\framework/sessions',
+    'files' => '/var/www/html/gpf/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -762,7 +762,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'gpf_session',
+    'cookie' => 'laravel_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,
@@ -773,9 +773,9 @@
   array (
     'paths' => 
     array (
-      0 => 'E:\\xampp\\htdocs\\gpf\\resources\\views',
+      0 => '/var/www/html/gpf/resources/views',
     ),
-    'compiled' => 'E:\\xampp\\htdocs\\gpf\\storage\\framework\\views',
+    'compiled' => '/var/www/html/gpf/storage/framework/views',
     'expires' => true,
   ),
   'flare' => 

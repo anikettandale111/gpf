@@ -58,7 +58,7 @@ class EmployeeReportsController extends Controller
 
     // $roi = DB::raw('SELECT ri.percent,ri.to_month,mm.month_name_mar FROM master_rate_interest AS ri LEFT JOIN master_month mm ON mm.id=ri.to_month WHERE year_to=2019');
     // $roi_result = DB::select($roi);
-    $financial_year = '2019-2020'; // Only for previous year
+    $financial_year = '2020-2021'; // Only for previous year
     $month_name = DB::table('master_month')->select(DB::raw('month_name_'.$lang.' AS month_name'),'transaction_month AS trans_month')->orderBy('order_by')->get();
     $rqo_result = [];
     if($request->view_report_type == 1){
