@@ -52,6 +52,8 @@
 </div>
 @endsection
 @push('custom-scripts')
-  <script type="text/javascript" src="{{URL('js/bill_report_master.js')}}"></script>
-  <script type="text/javascript" src="//jasonday.github.io/printThis/printThis.js"></script>
+<script type="text/javascript" src="{{URL('js/bill_report_master.js')}}"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
+<!-- <script type="text/javascript" src="//jasonday.github.io/printThis/printThis.js"></script> -->
+
 @endpush

@@ -50,17 +50,9 @@
   .pull-right{
     margin-right: 80px;
   }
-  @media screen,print
-  {
-    .test {
-      background:#0F0;
-      width:500px;
-      height:200px;
-    }
-  }
   </style>
 </head>
-<body class="nav-md" style="margin-left:20%;margin-right:20%;">
+<body class="nav-md" style="margin-left:5%;margin-right:5%;">
   <div class="col-md-12 col-sm-12 " >
     <div class="x_panel">
       <div class="x_content">

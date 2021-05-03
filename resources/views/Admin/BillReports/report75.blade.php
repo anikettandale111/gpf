@@ -40,20 +40,13 @@
     border-bottom: 2px solid #101011;
     margin-bottom: 10px;
   }
-  @media screen,print
-  {
-    .test {
-              background:#0F0;
-              width:500px;
-              height:200px;
-          }
-  }
+
   </style>
 </head>
 @php
 use App\BillExpenses;
 @endphp
-<body class="nav-md" style="margin-left:20%;margin-right:20%;">
+<body class="nav-md" >
   <div class="col-md-12 col-sm-12 " >
     <div class="x_panel">
       <div class="x_content">
@@ -82,54 +75,54 @@ use App\BillExpenses;
                   <th>प्राधिकारी अधिकारी</th>
                 </tr>
               </thead>
+              @php
+              $alltotal = 0;
+              $billExpensesReport;
+              @endphp
+              <tbody>
+                @foreach($talukaData AS $tal_row)
                 @php
-                  $alltotal = 0;
-                  $billExpensesReport;
+                $billExpensesReport = BillExpenses::where(['bill_id'=>$billid,'user_taluka_name'=>$tal_row->taluka_name])->get();
+                $talukatotal = 0;
                 @endphp
-                <tbody>
-                  @foreach($talukaData AS $tal_row)
-                    @php
-                      $billExpensesReport = BillExpenses::where(['bill_id'=>$billid,'user_taluka_name'=>$tal_row->taluka_name])->get();
-                      $talukatotal = 0;
-                    @endphp
-                    @if(count($billExpensesReport))
-                        <tr>
-                          <td colspan="7"><center>म.गट विकास अधिकारी,पंचायत समिती ,{{ $tal_row->taluka_name}}</center></td>
-                        </tr>
-                      @foreach($billExpensesReport AS $key => $expenses)
-                        <tr>
-                          <td>{{($key+1)}}</td>
-                          <td>{{$expenses->user_name}}<br>{{$expenses->user_designation}}<br>{{$expenses->user_taluka_name}}</td>
-                          <td>{{$expenses->loan_agrim_pryojan}}</td>
-                          <td>{{$expenses->loan_agrim_niyam}}</td>
-                          <td>{{digitChange(amount_inr_format($expenses->shillak_rakkam))}}<hr>
-                              <br>{{digitChange(amount_inr_format($expenses->required_rakkam))}}</td>
-                          <td>{{$expenses->bank_name}}<br>{{$expenses->bank_ifsc_name}}<br>{{$expenses->bank_acc_number}}  </td>
-                          <td>{{('DY .CA & FO')}}</td>
-                        </tr>
-                        @php $talukatotal = $talukatotal + $expenses->required_rakkam @endphp
-                        @php $alltotal = $alltotal + $expenses->required_rakkam @endphp
-                      @endforeach
-                        <tr>
-                          <td colspan="4"></td>
-                          <td>ऐकूण - {{digitChange(amount_inr_format($talukatotal))}}</td>
-                          <td colspan="2"></td>
-                        </tr>
-                    @endif
+                @if(count($billExpensesReport))
+                <tr>
+                  <td colspan="7"><center>म.गट विकास अधिकारी,पंचायत समिती ,{{ $tal_row->taluka_name}}</center></td>
+                </tr>
+                @foreach($billExpensesReport AS $key => $expenses)
+                <tr>
+                  <td>{{($key+1)}}</td>
+                  <td>{{$expenses->user_name}}<br>{{$expenses->user_designation}}<br>{{$expenses->user_taluka_name}}</td>
+                  <td>{{$expenses->loan_agrim_pryojan}}</td>
+                  <td>{{$expenses->loan_agrim_niyam}}</td>
+                  <td>{{digitChange(amount_inr_format($expenses->shillak_rakkam))}}<hr>
+                    <br>{{digitChange(amount_inr_format($expenses->required_rakkam))}}</td>
+                    <td>{{$expenses->bank_name}}<br>{{$expenses->bank_ifsc_name}}<br>{{$expenses->bank_acc_number}}  </td>
+                    <td>{{('DY .CA & FO')}}</td>
+                  </tr>
+                  @php $talukatotal = $talukatotal + $expenses->required_rakkam @endphp
+                  @php $alltotal = $alltotal + $expenses->required_rakkam @endphp
                   @endforeach
-                        <tr>
-                          <td colspan="1">ऐकूण - रुपये </td>
-                          <td colspan="6">{{digitChange(amount_inr_format($alltotal))}}<hr><br>Total {{convertToIndianCurrency($alltotal)}}</td>
-                        </tr>
-                        <tr>
-                          <td colspan="7" style="text-align:right"> मुख्य लेखा व वित्त अधिकारी <br>जिल्हा परिषद, नाशिक </td>
-                        </tr>
+                  <tr>
+                    <td colspan="4"></td>
+                    <td>ऐकूण - {{digitChange(amount_inr_format($talukatotal))}}</td>
+                    <td colspan="2"></td>
+                  </tr>
+                  @endif
+                  @endforeach
+                  <tr>
+                    <td colspan="1">ऐकूण - रुपये </td>
+                    <td colspan="6">{{digitChange(amount_inr_format($alltotal))}}<hr><br>Total {{convertToIndianCurrency($alltotal)}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="7" style="text-align:right"> मुख्य लेखा व वित्त अधिकारी <br>जिल्हा परिषद, नाशिक </td>
+                  </tr>
                 </tbody>
-            </table>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
-</html>
+  </body>
+  </html>

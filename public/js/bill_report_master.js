@@ -20,6 +20,7 @@ $(document).ready(function(){
     bill_id = $('#bill_no').val();
     getReport(bill_id,5);
   });
+  var doc = new jsPDF();
 });
 var $iframe = $('#iframe');
 function getReport(bill_id,reportNo){
@@ -36,19 +37,22 @@ function getReport(bill_id,reportNo){
           $iframe.contents().find("body").empty();
           $iframe.contents().find("body").append(results.html);
       });
-          var body = results.html;
-          var newWin = document.getElementById('iframe').contentWindow;
-          newWin.document.write(body);
-          newWin.document.close(); //important!
-          newWin.focus(); //IE fix
-          newWin.print();
+      $("#iframe").get(0).contentWindow.print();
+
+      // printDiv(results.html,'ReportTitle');
+          // var body = results.html;
+          // var newWin = document.getElementById('iframe').contentWindow;
+          // newWin.document.write(body);
+          // newWin.document.close(); //important!
+          // newWin.focus(); //IE fix
+          // newWin.print();
 
       // $('.report_div').empty();
       // $('.report_div').append(results.html);
     }
   });
 }
-function printDiv(){
+function printDivOne(){
   // setTimeout(() => {
   //   window.frames["iframe"].focus();
   //   window.frames["iframe"].print();
@@ -61,4 +65,21 @@ function printDiv(){
       newWin.focus(); //IE fix
       newWin.print();
   }
+}
+function saveDiv(divId, title) {
+  doc.fromHTML(`<html><head><title>${title}</title></head><body>` + document.getElementById(divId).innerHTML + `</body></html>`);
+  doc.save('div.pdf');
+}
+function printDiv(htmlContent,title) {
+  console.log(htmlContent);
+  let mywindow = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
+  // mywindow.document.write(`<html><head><title>${title}</title>`);
+  // mywindow.document.write('</head><body >');
+  mywindow.document.write(''+htmlContent+'');
+  // mywindow.document.write('</body></html>');
+  mywindow.document.close(); // necessary for IE >= 10
+  mywindow.focus(); // necessary for IE >= 10*/
+  mywindow.print();
+  mywindow.close();
+  return true;
 }
