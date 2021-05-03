@@ -252,7 +252,7 @@
                       @else
                         @php $percentage = $row->percent;
                         $total_masik = 0;
-
+                        $month_count=0;
                         $total_con_two = $total_con; @endphp
                         @for($k=$row->to_month; $k <= 12 ; $k++)
                         @php $acc_mm = $month_array[$k];
