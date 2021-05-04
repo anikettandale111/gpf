@@ -17,7 +17,12 @@
 @php $html_designations .= '<option value="'.$desg->desg_id.'-'.$desg->designation_name.'">'.$desg->designation_name.'</option>'; @endphp
 @endforeach
 @for($i=0;$i < 5;$i++)
-@php $html_year .= '<option value="'.($current_year-$i).'">'.($current_year-$i).'</option>'; @endphp
+  @if($i==0)
+  @php  $html_year .= '<option value="'.($current_year+1).'">'.($current_year+1).'</option>'; @endphp
+  @php  $html_year .= '<option value="'.($current_year).'">'.($current_year).'</option>'; @endphp
+  @else
+  @php $html_year .= '<option value="'.($current_year-$i).'">'.($current_year-$i).'</option>'; @endphp
+  @endif
 @endfor
 <div class="row">
   <div class="col-md-12 col-sm-12 ">

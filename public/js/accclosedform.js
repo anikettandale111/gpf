@@ -1,4 +1,6 @@
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+var hostname = window.location.origin;
+
 $(document).ready(function(){
   $('.account_closed').validate({
     rules : {
@@ -105,7 +107,7 @@ $(document).ready(function(){
 function getDetails(){
   $.ajax({
     type: 'GET',
-    url: "../getuserdetailsbygpfno",
+    url: hostname+"/getuserdetailsbygpfno",
     data: {_token: CSRF_TOKEN,input_id:$("#employee_gpf_num").val()},
     success: function (results) {
       if(results.length){
@@ -137,7 +139,7 @@ function getDetails(){
 function accountClosedForm(){
   $.ajax({
     type: 'POST',
-    url: "accountclosed",
+    url: hostname+"/accountclosed",
     data: $('.account_closed').serialize(),
     success: function (results) {
       swal(results.status,results.message);
