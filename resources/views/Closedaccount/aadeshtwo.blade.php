@@ -73,7 +73,6 @@
         <p> सविनय सादर, </p>
 
         <p> १. मा.गट विकास अधिकारी, पंचायत समिती देवळा जिल्हा परिषद नाशिक यांचे कडून योग्य त्या फेरसदर पूर्ततेस्थव पत्र क्र.पंसदे/साप्रवि/आस्था-१/४२९/२०२१ दिनाक ०१/०४/२०२१ अन्यवे विषयात नमूद प्रकरण अंतिम अदाईसाठी इकडील कार्यालयास प्राप्त झाले आहे. </p>
-        {{dd($viewapplication)}}
         <p> २. {{$viewapplication->user_name}}  हुद्या  {{$viewapplication->user_designation}}  हे नाशिक जिल्हा परिषद सेवेत असताना दि. {{digitChange($viewapplication->retirment_date)}} रोजी नियम वयोमानाने सेवानिवृत्त झालेले आहेत. जि.प.नाशिक कडिल भ.नि.नि. खाते क्रमांक {{digitChange($viewapplication->employee_gpf_num)}} वर माहे {{$viewapplication->antim_pay_month}} {{digitChange($viewapplication->antim_pay_year)}} अखेर व्याजासह रक्कम {{digitChange($viewapplication->closing_balance)}} /- अक्षरी रक्कम {{convertToIndianCurrency($viewapplication->closing_balance)}} रुपये शिल्लक आहे. सदर खातेची मागील सन २०१४-१५ पासून तपासणी केली असून अवलोकनार्थ सादर. </p>
 
         <p> ३. तरी आता सदरची अंतिमरीत्या अदा करावयाची रक्कम {{$viewapplication->user_name}}  हुद्या  {{$viewapplication->user_designation}} यांचे नावे मंजूर करण्यास हरकत नाही. असे मत आहे. </p>
