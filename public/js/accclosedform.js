@@ -143,6 +143,7 @@ function accountClosedForm(){
     data: $('.account_closed').serialize(),
     success: function (results) {
       swal(results.status,results.message);
+      location.href = hostname+"/accountclosed";
     }
   });
 }
