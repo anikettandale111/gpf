@@ -72,13 +72,13 @@ class FileUploadController extends Controller
     $duplicateData = [];
     $totalUsed = 0;
     $setColumnArray = [0 => 'Sr.No' ,
-                      1 => 'NZP No.' ,
-                      2 => 'Teacher Name' ,
-                      3 => 'Amount' ,
-                      4 => 'Lone' ,
-                      5 => 'Total' ,
-                      6 => 'Remark'
-                    ];
+    1 => 'NZP No.' ,
+    2 => 'Teacher Name' ,
+    3 => 'Amount' ,
+    4 => 'Lone' ,
+    5 => 'Total' ,
+    6 => 'Remark'
+  ];
   if($rowCount > 0){
     $userData = [];
     $userDataDuplicate = [];
@@ -89,12 +89,13 @@ class FileUploadController extends Controller
       if($getData){
         $com_res = array_diff_assoc($setColumnArray,$getData[1]);
         if(count($com_res) == 0){
-          $checkData = ['gpf_number' => $getData[$i][1],
-              'taluka_id' =>$request->taluka_id,
-              'challan_id' => $request->chalan_id,
-              'emc_month' => $request->month_id,
-              'emc_year' => $request->year_id,
-            ];
+          if((int)$getData[$i][1] > 0){
+            $checkData = ['gpf_number' => $getData[$i][1],
+            'taluka_id' =>$request->taluka_id,
+            'challan_id' => $request->chalan_id,
+            'emc_month' => $request->month_id,
+            'emc_year' => $request->year_id,
+          ];
           // $checkData = ['gpf_number' => '17667',
           //     'taluka_id' =>2,
           //     'challan_id' => 16330,
@@ -108,54 +109,55 @@ class FileUploadController extends Controller
             }
             if(isset($employee->employee_id) && $employee->employee_id !== ''){
               $userData[] = ['gpf_number' => $getData[$i][1],
-                              'classification_id' => $request->classification_id,
-                              'taluka_id' =>$request->taluka_id,
-                              'challan_id' => $request->chalan_id,
-                              'challan_number' => $request->chalan_number,
-                              'emc_month' => $request->month_id,
-                              'emc_year' => $request->year_id,
-                              'emc_emp_id' => $employee->employee_id,
-                              'emc_desg_id' => $employee->designation_id,
-                              'emc_dept_id' => $employee->department_id,
-                              'monthly_contrubition' => $getData[$i][3],
-                              'loan_installment' => $getData[$i][4],
-                              'monthly_received' => $getData[$i][5],
-                              'remark' => $getData[$i][6],
-                              'modifed_by' => Auth::id(),
-                            ];
-              $totalUsed += (int)$getData[$i][5];
-            }else{
-              $employeeNotFound[] = ['gpf_number' => $getData[$i][1]];
-            }
+              'classification_id' => $request->classification_id,
+              'taluka_id' =>$request->taluka_id,
+              'challan_id' => $request->chalan_id,
+              'challan_number' => $request->chalan_number,
+              'emc_month' => $request->month_id,
+              'emc_year' => $request->year_id,
+              'emc_emp_id' => $employee->employee_id,
+              'emc_desg_id' => $employee->designation_id,
+              'emc_dept_id' => $employee->department_id,
+              'monthly_contrubition' => $getData[$i][3],
+              'loan_installment' => $getData[$i][4],
+              'monthly_received' => $getData[$i][5],
+              'remark' => $getData[$i][6],
+              'modifed_by' => Auth::id(),
+            ];
+            $totalUsed += (int)$getData[$i][5];
           }else{
-            $userDataDuplicate[] = ['gpf_number' => $getData[$i][1],
-                                    'Employee Name' => $getData[$i][2],];
+            $employeeNotFound[] = ['gpf_number' => $getData[$i][1]];
           }
         }else{
-          return ['status'=>'error','message'=>'Invalid Excel Column Count '];
+          $userDataDuplicate[] = ['gpf_number' => $getData[$i][1],
+          'Employee Name' => $getData[$i][2],];
         }
       }
-    }
-    if(count($userData) > 0){
-        $getDiffAmt = MonthlyTotalChalan::select('diff_amount')
-                      ->where(['id' => $request->chalan_id,'chalan_serial_no' => $request->chalan_number])
-                      ->first();
-        if((int)$getDiffAmt->diff_amount >= (int)$totalUsed){
-          MonthlyTotalChalan::where(['id' => $request->chalan_id])
-                              ->update(['diff_amount' => ($getDiffAmt->diff_amount-$totalUsed)]);
-          $getstatus = MasterMonthlySubscription::insert($userData);
-          return ['status'=>'status','message'=>'Records Inserted Succesfully.','not_inserted'=>count($employeeNotFound),
-          'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),
-          'user_duplicate_gpf' =>$userDataDuplicate ];
-        }else{
-            return ['status'=>'warning','message'=>'Chalan total amount does not matched'.$request->chalan_khatavani.'-'.$totalUsed];
-        }
-      }else{
-      return ['status'=>'duplicate','message'=>'Duplicate Data Found','not_inserted'=>count($employeeNotFound),
-      'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),'user_duplicate_gpf'=>$userDataDuplicate];
+    }else{
+      return ['status'=>'error','message'=>'Invalid Excel Column Count '];
     }
   }
-  return ['status'=>'error','message'=>'Invalid File. '];
+}
+if(count($userData) > 0){
+  $getDiffAmt = MonthlyTotalChalan::select('diff_amount')
+  ->where(['id' => $request->chalan_id,'chalan_serial_no' => $request->chalan_number])
+  ->first();
+  if((int)$getDiffAmt->diff_amount >= (int)$totalUsed){
+    MonthlyTotalChalan::where(['id' => $request->chalan_id])
+    ->update(['diff_amount' => ($getDiffAmt->diff_amount-$totalUsed)]);
+    $getstatus = MasterMonthlySubscription::insert($userData);
+    return ['status'=>'status','message'=>'Records Inserted Succesfully.','not_inserted'=>count($employeeNotFound),
+    'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),
+    'user_duplicate_gpf' =>$userDataDuplicate ];
+  }else{
+    return ['status'=>'warning','message'=>'Chalan total amount does not matched'.$request->chalan_khatavani.'-'.$totalUsed];
+  }
+}else{
+  return ['status'=>'duplicate','message'=>'Duplicate Data Found','not_inserted'=>count($employeeNotFound),
+  'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),'user_duplicate_gpf'=>$userDataDuplicate];
+}
+}
+return ['status'=>'error','message'=>'Invalid File. '];
 }
 public function testpdf(Request $request){
   if(isset($request->test_pdf)){
