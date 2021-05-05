@@ -26,9 +26,6 @@ Route::get('/yearchange/{year}', 'HomeController@yearchange')->name('yearchange'
 Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
-
-
-
     // Monthly Change
     // Route::get('chalan', 'MonthlyChangeController@index');
     Route::post('deposit_insert_data', 'MonthlyChangeController@deposit_insert_data');
@@ -39,7 +36,6 @@ Route::middleware('auth')->group(function () {
     Route::get('monthly_chalan', 'MonthlyChangeController@monthly_chalan');
     Route::post('get_chalan_amount', 'MonthlyChangeController@get_chalan_amount');
     Route::post('chalan_insert', 'MonthlyChangeController@chalan_insert');
-
 
     Route::get('change_pwd', 'HomeController@change_pwd');
     Route::post('submit_change_pwd', 'HomeController@submit_change_pwd');
