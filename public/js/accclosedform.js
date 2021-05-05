@@ -1,6 +1,5 @@
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 var hostname = window.location.origin;
-
 $(document).ready(function(){
   $('.account_closed').validate({
     rules : {
