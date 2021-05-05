@@ -126,6 +126,7 @@ class AntimBillExpensesController extends Controller
         return ['status'=>'warning','message'=>'Duplicate Data Found'];
         // return redirect()->back()->with('message','Duplicate Data Found');
       }
+
       $data['bill_id'] = $request->bill_no;
       $data['gpf_no'] = $request->employee_gpf_num;
       $data['bill_number'] = $request->bill_number;

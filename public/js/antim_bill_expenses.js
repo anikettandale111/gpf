@@ -12,6 +12,7 @@ $(document).ready(function() {
       user_department:"required",
       user_taluka_name:"required",
       loan_agrim_niyam:"required",
+      loan_agrim_pryojan:"required",
       shillak_rakkam:"required",
       required_rakkam:"required",
       bank_name:"required",
@@ -27,6 +28,7 @@ $(document).ready(function() {
       user_department:"Please Filed User Department",
       user_taluka_name:"Please Filed User Taluka Name",
       loan_agrim_niyam:"Please Filed Loan Agrim Niyam",
+      loan_agrim_pryojan:"Please Filed Loan Agrim Pryojan",
       shillak_rakkam:"Please Filed Shillak Rakkam",
       required_rakkam:"Please Filed Required Rakkam",
       bank_name:"Please Filed Bank Name",
@@ -154,6 +156,7 @@ function billExpensesSubmit(){
   formData.append('user_department', $('#user_department').val());
   formData.append('shillak_rakkam', $('#shillak_rakkam').val());
   formData.append('loan_agrim_niyam', $('#loan_agrim_niyam').val());
+  formData.append('loan_agrim_pryojan', $('#loan_agrim_pryojan').val());
   formData.append('required_rakkam', $('#required_rakkam').val());
   formData.append('if_installment_no', $('#if_installment_no').val());
   formData.append('bank_name', $('#bank_name').val());

@@ -69,15 +69,15 @@
                   <input type="text" class="form-control" name="user_department" id="user_department" readonly>
                 </div>
                 <div class="clearfix"></div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 mt-3">
                   <button type="button" class="btn btn-secondary form_one_show" style="width:100%" name="button">{{trans('language.account_closed_fo_name')}}</button>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 mt-3">
                   <button type="button" class="btn btn-secondary form_two_show" style="width:100%" name="button">{{trans('language.account_closed_ft_name')}}</button>
                 </div>
                 <div class="clearfix"></div>
+                <input type="hidden" class="form-control" name="form_type" id="form_type" >
                 <div class="col-sm-3 form_one">
-                  <input type="hidden" class="form-control form_one_val" name="form_type" id="form_type" >
                   <label>{{trans('language.account_closed_fo_relation')}}</label>
                   <select class="form-control form_one_val" name="applicant_relation" id="applicant_relation" >
                     <option value="self">स्वतः</option>
@@ -112,10 +112,10 @@
                         <option value="death">{{trans('language.antim_pryojan_reason_five')}}</option>
                       </select>
                     </div>
-                    <div class="col-sm-3 form_one">
+                      <input type="hidden" class="form-control form_one_val" name="fo_closing_balance" id="fo_closing_balance" value="0">
+                    <!-- <div class="col-sm-3 form_one">
                       <label>{{trans('language.account_closed_fo_closing_balance')}}</label>
-                      <input type="text" class="form-control form_one_val" name="fo_closing_balance" id="fo_closing_balance" value="0">
-                    </div>
+                    </div> -->
                     <div class="col-sm-3 form_one">
                       <label>{{trans('language.account_closed_fo_retirment_date')}}</label>
                       <input type="date" class="form-control form_one_val" name="fo_retirment_date" id="fo_retirment_date" >
@@ -158,9 +158,13 @@
                       </select>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="col-sm-3 form_one">
-                      <button type="submit" class="btn btn-success" name="button">{{trans('language.btn_save')}}</button>
-                      <button type="button" class="btn btn-secondary" name="button">{{trans('language.btn_cancel')}}</button>
+                    <div class="col-sm-6 form_one mt-3">
+                      <div class="col-sm-3">
+                        <button type="submit" class="btn btn-success" name="button" style="width:100%">{{trans('language.btn_save')}}</button>
+                      </div>
+                      <div class="col-sm-3">
+                        <button type="button" class="btn btn-secondary" name="button" style="width:100%">{{trans('language.btn_cancel')}}</button>
+                      </div>
                     </div>
                     <div class="col-sm-3 form_two">
                       <label>{{trans('language.account_closed_fo_gat_vikas_adhikari_no')}}</label>
@@ -170,10 +174,10 @@
                       <label>{{trans('language.account_closed_fo_zp_adhikari_no')}}</label>
                       <input type="text" class="form-control form_two_val" name="fo_zp_adhikari_no" id="fo_zp_adhikari_no" >
                     </div>
-                    <div class="col-sm-3 form_two">
+                      <input type="hidden" class="form-control form_two_val" name="fo_closing_balance" id="fo_closing_balance" value="0">
+                    <!-- <div class="col-sm-3 form_two">
                       <label>{{trans('language.account_closed_fo_closing_balance')}}</label>
-                      <input type="text" class="form-control form_two_val" name="fo_closing_balance" id="fo_closing_balance" value="0">
-                    </div>
+                    </div> -->
                     <div class="col-sm-3 form_two">
                       <label>{{trans('language.account_closed_fo_retirment_date')}}</label>
                       <input type="date" class="form-control form_two_val" name="fo_retirment_date" id="fo_retirment_date" >
@@ -223,9 +227,13 @@
                       <input type="text" class="form-control form_two_val" name="account_closed_ft_transfer" id="account_closed_ft_transfer">
                     </div>
                     <div class="clearfix"></div>
-                    <div class="col-sm-3 form_two">
-                      <button type="submit" class="btn btn-success" name="button">{{trans('language.btn_save')}}</button>
-                      <button type="button" class="btn btn-secondary" name="button">{{trans('language.btn_cancel')}}</button>
+                    <div class="col-sm-6 form_two mt-3">
+                      <div class="col-sm-3 ">
+                        <button type="submit" class="btn btn-success" name="button">{{trans('language.btn_save')}}</button>
+                      </div>
+                      <div class="col-sm-3 ">
+                        <button type="button" class="btn btn-secondary" name="button">{{trans('language.btn_cancel')}}</button>
+                      </div>
                     </div>
                   </form>
                 </div>
