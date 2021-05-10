@@ -83,7 +83,7 @@ use App\BillExpenses;
               <tbody>
                 @foreach($talukaData AS $tal_row)
                 @php
-                $billExpensesReport = BillExpenses::where(['bill_id'=>$billid,'user_taluka_name'=>$tal_row->taluka_name])->get();
+                $billExpensesReport = BillExpenses::where(['bill_id'=>$billid,'taluka_id'=>$tal_row->id])->get();
                 $talukatotal = 0;
                 @endphp
                 @if(count($billExpensesReport))

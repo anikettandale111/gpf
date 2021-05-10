@@ -42,6 +42,308 @@
   }
   </style>
 </head>
+<!-- <h5> ------------------------------------------------------------------------------------------------------ </h5> -->
+@if(count($rqo_result))
+  @foreach($rqo_result AS $rqo)
+    @if(isset($rqo->gpf_number) && $rqo->gpf_number > 0)
+      @php
+        $otherInstall = DB::table('master_vetan_ayog_received AS va')->select('va.instalment','va.DiffAmt','va.Interest')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>session()->get('to_year'),'va.pay_number'=>6])->get();
+        $tcount = count($otherInstall);
+        $ins_one = 0;
+        $ins_two = 0;
+        $ins_thre = 0;
+        $ins_four = 0;
+        $ins_five = 0;
+        $html = '';
+        $total_ins_amt = 0;
+        $total_ins_interest = 0;
+        $withdraw_amt = 0;
+        $withdraw_remark = '';
+        $withdraw_month = 0;
+        $withdraw_key = 0;
+      @endphp
+      @if(isset($rqo->partava_amt) && $rqo->partava_amt > 0 )
+        @php
+          $withdraw_amt = $rqo->partava_amt;
+          $withdraw_remark = $rqo->withdraw_remark;
+          $withdraw_month = $rqo->partava_month;
+        @endphp
+      @elseif(isset($rqo->na_partava_amt) && $rqo->na_partava_amt > 0 )
+        @php
+          $withdraw_amt = $rqo->na_partava_amt;
+          $withdraw_remark = $rqo->withdraw_remark;
+          $withdraw_month = $rqo->na_partava_month;
+        @endphp
+      @elseif(isset($rqo->antim_adayi_amt) && $rqo->antim_adayi_amt)
+        @php
+          $withdraw_amt = $rqo->antim_adayi_amt;
+          $withdraw_remark = $rqo->withdraw_remark;
+          $withdraw_month = $rqo->antim_adayi_month;
+        @endphp
+      @endif
+      @if($tcount)
+        @for($j=0;$j < $tcount;$j++)
+          @if(isset($otherInstall[$j]->instalment) && $otherInstall[$j]->instalment == 1 )
+            @php  $ins_one = (isset($otherInstall[$j]->DiffAmt))?$otherInstall[$j]->DiffAmt:'0' @endphp
+          @elseif(isset($otherInstall[$j]->instalment) && $otherInstall[$j]->instalment == 2 )
+            @php $ins_two = (isset($otherInstall[$j]->DiffAmt))?$otherInstall[$j]->DiffAmt:'0' @endphp
+          @elseif(isset($otherInstall[$j]->instalment) && $otherInstall[$j]->instalment == 3 )
+            @php $ins_thre = (isset($otherInstall[$j]->DiffAmt))?$otherInstall[$j]->DiffAmt:'0' @endphp
+          @elseif(isset($otherInstall[$j]->instalment) && $otherInstall[$j]->instalment == 4 )
+            @php $ins_four = (isset($otherInstall[$j]->DiffAmt))?$otherInstall[$j]->DiffAmt:'0' @endphp
+          @elseif(isset($otherInstall[$j]->instalment) && $otherInstall[$j]->instalment == 5 )
+            @php $ins_five = (isset($otherInstall[$j]->DiffAmt))?$otherInstall[$j]->DiffAmt:'0' @endphp
+          @endif
+          @php
+            $total_ins_amt += (isset($otherInstall[$j]->DiffAmt))?$otherInstall[$j]->DiffAmt:0;
+            $total_ins_interest += (isset($otherInstall[$j]->Interest))?$otherInstall[$j]->Interest:0;
+          @endphp
+        @endfor
+      @endif
+      @php
+        $opening_balance = $rqo->opening_balance;
+        $intrest_rate = 8;
+        $total_gpf = [];
+        $total = $opening_balance;
+        $total_one = 0;
+        $total_two = 0;
+        $total_three = 0;
+        $total_four = 0;
+        $total_five = 0;
+        $total_six = 0;
+        $total_intrest = 0;
+        $month_array=[];
+        $month_array[1]= 'month_jan';
+        $month_array[2] = 'month_feb';
+        $month_array[3] = 'month_march';
+        $month_array[4] = 'month_april';
+        $month_array[5] = 'month_may';
+        $month_array[6] = 'month_june';
+        $month_array[7] = 'month_july';
+        $month_array[8] = 'month_aug';
+        $month_array[9] = 'month_september';
+        $month_array[10] = 'month_octomber';
+        $month_array[11] = 'month_november';
+        $month_array[12] = 'month_december';
+      @endphp
+      @if($withdraw_month>0)
+        @php $withdraw_key = $month_array[$withdraw_month]; @endphp
+      @endif
+      @foreach($month_name AS $key => $month)
+        @php
+          $with_amt = 0;
+          if($withdraw_key == $month->trans_month){
+            $with_amt = $withdraw_amt;
+            $monthly_contrubition = $month->trans_month.'_contri';
+            $loan_installment = $month->trans_month.'_loan_emi';
+            $monthly_other = $month->trans_month.'_other';
+            $monthly_received = $month->trans_month.'_recive';
+            $loan_amonut = $month->trans_month.'_loan';
+            $six_pay = $month->trans_month.'_six_pay';
+            $seven_pay = $month->trans_month.'_seven_pay';
+          }
+        if($key==0){
+          $total += ($rqo->$monthly_contrubition - $rqo->$loan_amonut+$total_ins_amt-$with_amt);
+        }else{
+          $total += ($rqo->$monthly_contrubition - $rqo->$loan_amonut-$with_amt);
+        }
+        if($withdraw_key == $month->trans_month){
+          $withdraw_remark;
+        }
+          $total_one += $rqo->$monthly_contrubition;
+          $total_two += $rqo->$loan_installment;
+          $total_six += $total;
+          $total_three += ($rqo->$monthly_contrubition+$rqo->$loan_installment);
+          $total_four += $rqo->$loan_amonut+ $with_amt;
+          $total_gpf['contribution'][$month->trans_month] = $rqo->$monthly_contrubition;
+          $total_gpf['loan_installment'][$month->trans_month] = $rqo->$loan_installment;
+          $total_gpf['monthly_other'][$month->trans_month] = $rqo->$monthly_other;
+          $total_gpf['monthly_received'][$month->trans_month] = $rqo->$monthly_received;
+          $total_gpf['loan_amonut'][$month->trans_month] = $rqo->$loan_amonut;
+        @endphp
+      @endforeach
+      @php
+        $total_masik=0;
+        $i=0;
+        $start_month=0;
+        $inital_month=4;
+        $total_con = $opening_balance;
+        $total_con_two = $opening_balance;
+      @endphp
+      @if(count($roi_result))
+        @foreach($roi_result AS $row)
+          @if(isset($roi_result[$i+1]))
+            @if($i == 0)
+              @php $start_month = ($roi_result[$i+1]->to_month)-1; @endphp
+              @if($start_month > 0 && $start_month >= $inital_month)
+                @php
+                  $percentage = $roi_result[$i]->percent;
+                  $month_count=0;
+                @endphp
+                @for($k=$inital_month; $k <= $start_month;$k++)
+                  @php $acc_mm = $month_array[$k];
+                    $with_amt=0;
+                  @endphp
+                    @if($k==$withdraw_month)
+                      $with_amt = $withdraw_amt;
+                      $total_con += ($total_gpf['contribution'][$acc_mm] + $total_gpf['loan_installment'][$acc_mm] + $total_gpf['monthly_other'][$acc_mm]) - $total_gpf['loan_amonut'][$acc_mm] -$with_amt ;
+                      $total_masik += $total_con;
+                      $month_count++;
+                    @endif
+                  @endphp
+                @endfor
+                @if($start_month < $inital_month)
+                  @for($k=$inital_month; $k <= 12;$k++)
+                    @php
+                      $acc_mm = $month_array[$k];
+                      $with_amt=0;
+                    @endphp
+                      @if($k==$withdraw_month)
+                        $with_amt = $withdraw_amt;
+                        $total_con += ($total_gpf['contribution'][$acc_mm] + $total_gpf['loan_installment'][$acc_mm] + $total_gpf['monthly_other'][$acc_mm]) - $total_gpf['loan_amonut'][$acc_mm]-$with_amt  ;
+                        $total_masik += $total_con;
+                        $month_count++;
+                      @endif
+                    @endphp
+                  @endfor
+                  @for($k=1; $k <= $start_month;$k++)
+                    @php
+                      $acc_mm = $month_array[$k];
+                      $with_amt=0;
+                      if($k==$withdraw_month)
+                        $with_amt = $withdraw_amt;
+                        $total_con += ($total_gpf['contribution'][$acc_mm] + $total_gpf['loan_installment'][$acc_mm] + $total_gpf['monthly_other'][$acc_mm]) - $total_gpf['loan_amonut'][$acc_mm] -$with_amt ;
+                        $total_masik += $total_con;
+                        $month_count++;
+                    @endphp
+                  @endfor
+                @endif
+                @if($total_masik > 0 && $percentage > 0)
+                  @php $total_intrest = round(((($total_masik+$total_ins_amt) * $percentage)/100) /12); @endphp
+                @endif
+              @endif
+              @else
+                @php $end_month = ($roi_result[$i+1]->to_month)-1; @endphp
+                @php $start_month = ($roi_result[$i-1]->to_month); @endphp
+                @if($start_month > 0 && $end_month > $start_month)
+                  @php
+                    $percentage = $roi_result[$i]->percent;
+                    $month_count=0;
+                  @endphp
+                @for($k=$start_month; $k <= $end_month;$k++)
+                  @php
+                    $acc_mm = $month_array[$k];
+                    $with_amt=0;
+                    if($k==$withdraw_month)
+                      $with_amt = $withdraw_amt;
+                      $total_con += ($total_gpf['contribution'][$acc_mm] + $total_gpf['loan_installment'][$acc_mm] + $total_gpf['monthly_other'][$acc_mm]) - $total_gpf['loan_amonut'][$acc_mm] -$with_amt;
+                      $total_masik += $total_con;
+                      $month_count++;
+                  @endphp
+                @endfor
+                @if($start_month > $end_month)
+                  @for($k=$start_month; $k <= 12;$k++)
+                    @php $acc_mm = $month_array[$k];
+                      $with_amt=0;
+                      if($k==$withdraw_month)
+                        $with_amt = $withdraw_amt;
+                        $total_con += ($total_gpf['contribution'][$acc_mm] + $total_gpf['loan_installment'][$acc_mm] + $total_gpf['monthly_other'][$acc_mm]) - $total_gpf['loan_amonut'][$acc_mm]-$with_amt;
+                        $total_masik += $total_con;
+                        $month_count++;
+                    @endphp
+                  @endfor
+                  @for($k=1; $k <= $end_month;$k++)
+                    @php
+                      $acc_mm = $month_array[$k];
+                      $with_amt=0;
+                      if($k==$withdraw_month)
+                      $with_amt = $withdraw_amt;
+                      $total_con += ($total_gpf['contribution'][$acc_mm] + $total_gpf['loan_installment'][$acc_mm] + $total_gpf['monthly_other'][$acc_mm]) - $total_gpf['loan_amonut'][$acc_mm]-$with_amt ;
+                      $total_masik += $total_con;
+                      $month_count++;
+                    @endphp
+                  @endfor
+                @endif
+                  $total_masik
+                @if($total_masik > 0 && $percentage > 0)
+                  @php
+                    $total_intrest = round((($total_masik * $percentage)/100) /12);
+                  @endphp
+                @endif
+              @endif
+            @endif
+            @else
+              @php $percentage = $row->percent;
+              $total_masik = 0;
+              $month_count=0;
+              $total_con_two = $total_con; @endphp
+              @for($k=$row->to_month; $k <= 12 ; $k++)
+                @php
+                  $acc_mm = $month_array[$k];
+                  $with_amt=0;
+                  if($k==$withdraw_month)
+                  $with_amt = $withdraw_amt;
+                  $total_con_two += ($total_gpf['contribution'][$acc_mm] + $total_gpf['loan_installment'][$acc_mm] ) - $total_gpf['loan_amonut'][$acc_mm]-$with_amt;
+                  $total_masik += $total_con_two;
+                  $month_count++;
+                @endphp
+              @endfor
+              @if($month_count < 12)
+                @php $next_month = 0; $month_count +=1; @endphp
+                @for($k=$month_count; $k <= 12 ; $k++)
+                  @if($acc_mm == 'month_december' )
+                    @php $next_month = 1; @endphp
+                  @endif
+                  @php
+                    $with_amt=0;
+                    if($k==$withdraw_month)
+                    $with_amt = $withdraw_amt;
+                    $acc_mm = $month_array[$next_month];
+                    $total_con_two += ($total_gpf['contribution'][$acc_mm] + $total_gpf['loan_installment'][$acc_mm] ) - $total_gpf['loan_amonut'][$acc_mm] - $with_amt ;
+                    $total_masik += $total_con_two;
+                    $month_count++;
+                    $next_month++;
+                  @endphp
+                @endfor
+              @endif
+              @if($total_masik > 0 && $percentage > 0)
+                @php $total_intrest += round((($total_masik * $percentage)/100) /12); @endphp
+              @endif
+            @endif
+            @php  $i++; @endphp
+          @endforeach
+          @else
+            @php  $total_intrest = round(($total*$roi_result[0]->percent)/12); @endphp
+        @endif
+        @if(count($roi_result))
+          @foreach($roi_result AS $rowroi)
+            @php getMonthName($rowroi->to_month); @endphp
+            @php $rowroi->percent; @endphp
+          @endforeach
+            @php getMonthName(3) @endphp
+        @endif
+      @php
+        $next_opn_bal = ($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_intrest)-$total_four;
+      @endphp
+      @php
+        $vetanPaid = DB::table('master_vetan_ayog_received AS va')
+                    ->select('va.Year','va.DtFrom','va.instalment','va.DiffAmt','va.TotDiff','va.Interest','va.Mnt','va.INTY1',
+                    'va.INTY2','va.LockDate')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>2019,'va.pay_number'=>7])->get();
+        $totalDiff = 0;
+        $totalIntrest = 0;
+        $totalRecivedDiff = 0;
+      @endphp
+      @if(count($vetanPaid))
+        @foreach($vetanPaid AS $key => $vetanrow)
+          @php $totalDiff += $vetanrow->DiffAmt; @endphp
+          @php $totalIntrest += $vetanrow->Interest; @endphp
+          @php $totalRecivedDiff += $vetanrow->TotDiff; @endphp
+        @endforeach
+      @endif
+    @endif
+  @endforeach
+@endif
+
 <body class="nav-md" style="margin-left:20%;margin-right:20%;">
   <div class="col-md-12 col-sm-12 " >
     <div class="x_panel">
@@ -104,13 +406,13 @@
                   {{digitChange($viewapplication->employee_gpf_num)}}<br>
                   {{$viewapplication->user_name}} हुद्या {{$viewapplication->user_designation}}<br>
                   {{$viewapplication->antim_pryojan}} दि.   /   /2020<br>
-                  {{digitChange($viewapplication->closing_balance)}} /-<br>
+                  {{digitChange($next_opn_bal)}} /-<br>
                   {{('0.00')}} /-<br>
-                  {{digitChange($viewapplication->closing_balance)}} /- <br>
+                  {{digitChange($next_opn_bal)}} /- <br>
                 </div>
               </div>
               <hr> <br>
-              <p class="text-align:justify"> &nbsp;&nbsp;&nbsp;&nbsp; उपरोक्त तपशिलानुसार शिल्लक रक्कम रुपये {{digitChange($viewapplication->closing_balance)}}/-अक्षरी रुपये- {{convertToIndianCurrency($viewapplication->closing_balance)}} माञ अंतिम प्रदानासाठी मंजुर करण्यात येत आहे. सदर रक्कम <u><b> {{$viewapplication->user_name}}  हुद्या  {{$viewapplication->user_designation}} </b></u>(स्वत) यांचे नावे मंजूर करण्यात येत आहे. सदरखर्च पुढील लेखाशिर्षातुन मंजुर करण्यात येत आहे. </p><br>
+              <p class="text-align:justify"> &nbsp;&nbsp;&nbsp;&nbsp; उपरोक्त तपशिलानुसार शिल्लक रक्कम रुपये {{digitChange($next_opn_bal)}}/-अक्षरी रुपये- {{convertToIndianCurrency($next_opn_bal)}} माञ अंतिम प्रदानासाठी मंजुर करण्यात येत आहे. सदर रक्कम <u><b> {{$viewapplication->user_name}}  हुद्या  {{$viewapplication->user_designation}} </b></u>(स्वत) यांचे नावे मंजूर करण्यात येत आहे. सदरखर्च पुढील लेखाशिर्षातुन मंजुर करण्यात येत आहे. </p><br>
               <p>सहावा  वेतन आयोग फरक हप्ते भ.नि.नि.खात्यात व्याजासह जमा करणेत येवुन अंतिम रक्कम मंजुर करण्यात येत आहे. </p> <br>
               Deposit & Advances <br>
               Interest Deposit <br>
