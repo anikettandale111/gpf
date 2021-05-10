@@ -89,6 +89,7 @@
               <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_registration_taluka')}}</label>
                 <input class="form-control make_empty"  name="user_taluka_name" id="user_taluka_name" readonly>
+                <input class="hidden make_empty"  name="user_taluka_id" id="user_taluka_id" value="0">
               </div>
               <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_registration_department')}}</label>
@@ -104,7 +105,37 @@
               </div>
               <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_loan_agrim_niyam')}}</label>
-                <input class="form-control make_empty"  name="loan_agrim_niyam" id="loan_agrim_niyam" placeholder="0" >
+                <select class="form-control make_empty"  name="loan_agrim_niyam" id="loan_agrim_niyam" >
+                  <option value="" selected disabled> Select Rule </option>
+                  <option value="Rule-13-(1)(A)">Rule 13 (1) (A)</option>
+                  <option value="Rule-13-(1)(B)">Rule 13 (1) (B)</option>
+                  <option value="Rule-13-(1)(C)">Rule 13 (1) (C)</option>
+                  <option value="Rule-13-(1)(D)">Rule 13 (1) (D)</option>
+                  <option value="Rule-13-(1)(E)">Rule 13 (1) (E)</option>
+                  <option value="Rule-13-(1)(F)">Rule 13 (1) (F)</option>
+                  <option value="Rule-13-(1)(G)">Rule 13 (1) (G)</option>
+                  <option value="Rule-13-(1)(H)">Rule 13 (1) (H)</option>
+                  <option value="Rule-16-(A)(1)">Rule 16 (A) (1)</option>
+                  <option value="Rule-16-(A)(2)">Rule 16 (A) (2)</option>
+                  <option value="Rule-16-(A)(3)">Rule 16 (A) (3)</option>
+                  <option value="Rule-16-(B)(1)">Rule 16 (B) (1)</option>
+                  <option value="Rule-16-(B)(2)">Rule 16 (B) (2)</option>
+                  <option value="Rule-16-(B)(3)">Rule 16 (B) (3)</option>
+                  <option value="Rule-16-(B)(4)">Rule 16 (B) (4)</option>
+                  <option value="Rule-16-(B)(5)">Rule 16 (B) (5)</option>
+                  <option value="Rule-16-(B)(6)">Rule 16 (B) (6)</option>
+                  <option value="Rule-16(C)">Rule 16 (C)</option>
+                  <option value="Rule-16(D)">Rule 16 (D)</option>
+                  <option value="Rule-16(E)">Rule 16 (E)</option>
+                  <option value="Rule-16(F)">Rule 16 (F)</option>
+                  <option value="Rule-16(G)">Rule 16 (G)</option>
+                  <option value="Rule-23">Rule 23</option>
+                  <option value="Rule-24">Rule 24</option>
+                  <option value="Rule-25">Rule 25</option>
+                  <option value="Rule-26">Rule 26</option>
+                  <option value="Rule-29">Rule 29</option>
+                  <option value="Final-Payent">Final Payment</option>
+                </select>
               </div>
               <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_required_rakkam')}}</label>

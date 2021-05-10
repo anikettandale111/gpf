@@ -20,7 +20,7 @@ class BillReportsController extends Controller
     $html = '';
     $billid = $request->bill_id;
     if($request->reportNo == 1){
-      $talukaData = Taluka::select('taluka_name_mar AS taluka_name')->get();
+      $talukaData = Taluka::select('taluka_name_mar AS taluka_name','id')->get();
       $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
       $html .= view('Admin.BillReports.report75',compact('billid','billDetails','talukaData'))->render();
     }

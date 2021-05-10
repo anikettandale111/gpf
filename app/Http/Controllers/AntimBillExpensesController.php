@@ -78,6 +78,7 @@ class AntimBillExpensesController extends Controller
                     $u_data['user_designation'] = $employee->designation_name;
                     $u_data['user_department'] = $employee->department_name;
                     $u_data['user_taluka_name'] = $employee->taluka_name;
+                    $u_data['taluka_id'] = $employee->taluka_id;
                     $u_data['loan_agrim_niyam'] = $getData[$i][3];
                     $u_data['loan_agrim_pryojan'] = $getData[$i][5];
                     $u_data['shillak_rakkam'] = $employee->opn_balance;
@@ -134,6 +135,7 @@ class AntimBillExpensesController extends Controller
       $data['user_designation'] = $request->user_designation;
       $data['user_department'] = $request->user_department;
       $data['user_taluka_name'] = $request->user_taluka_name;
+      $data['taluka_id'] = $request->user_taluka_id;
       $data['loan_agrim_niyam'] = $request->loan_agrim_niyam;
       $data['loan_agrim_pryojan'] = $request->loan_agrim_pryojan;
       $data['shillak_rakkam'] = $request->shillak_rakkam;
