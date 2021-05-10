@@ -163,6 +163,7 @@ function billExpensesSubmit(){
   formData.append('bank_name', $('#bank_name').val());
   formData.append('bank_ifsc_name', $('#bank_ifsc_name').val());
   formData.append('bank_acc_number', $('#bank_acc_number').val());
+  formData.append('user_taluka_id', $('#user_taluka_id').val());
 
   $.ajaxSetup({
     headers:

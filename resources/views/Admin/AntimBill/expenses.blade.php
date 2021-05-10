@@ -89,7 +89,7 @@
               <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_registration_taluka')}}</label>
                 <input class="form-control make_empty"  name="user_taluka_name" id="user_taluka_name" readonly>
-                <input class="hidden make_empty"  name="user_taluka_id" id="user_taluka_id" value="0">
+                <input type="hidden" class="hidden make_empty"  name="user_taluka_id" id="user_taluka_id" value="0">
               </div>
               <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.th_user_registration_department')}}</label>
