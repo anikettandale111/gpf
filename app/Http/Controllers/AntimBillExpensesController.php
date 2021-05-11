@@ -122,12 +122,6 @@ class AntimBillExpensesController extends Controller
         }
       }
     }else{
-      $checkDuplicate = BillExpenses::where(['bill_id'=>$request->bill_no,'gpf_no'=>$request->employee_gpf_num])->count();
-      if($checkDuplicate > 0){
-        return ['status'=>'warning','message'=>'Duplicate Data Found'];
-        // return redirect()->back()->with('message','Duplicate Data Found');
-      }
-
       $data['bill_id'] = $request->bill_no;
       $data['gpf_no'] = $request->employee_gpf_num;
       $data['bill_number'] = $request->bill_number;
@@ -144,13 +138,23 @@ class AntimBillExpensesController extends Controller
       $data['bank_ifsc_name'] = $request->bank_ifsc_name;
       $data['bank_acc_number'] = $request->bank_acc_number;
       $data['if_installment_no'] = $request->if_installment_no;
-      $resultRow = BillExpenses::insert($data);
-      if($resultRow){
-        return ['status'=>'success','message'=>'Bill Expensess Added Successfully.'];
-        // return redirect()->back()->with('message','Bill Expensess Added Successfully.');
+      if(isset($request->row_id) && $request->row_id == 0){
+        $checkDuplicate = BillExpenses::where(['bill_id'=>$request->bill_no,'gpf_no'=>$request->employee_gpf_num])->count();
+        if($checkDuplicate > 0){
+          return ['status'=>'warning','message'=>'Duplicate Data Found'];
+          // return redirect()->back()->with('message','Duplicate Data Found');
+        }
+        $resultRow = BillExpenses::insert($data);
+        if($resultRow){
+          return ['status'=>'success','message'=>'Bill Expensess Added Successfully.'];
+          // return redirect()->back()->with('message','Bill Expensess Added Successfully.');
+        }
       }else{
-        return ['status'=>'warning','message'=>'Sorry, Please Try Again.'];
-        // return redirect()->back()->with('message','Sorry, Please Try Again.');
+        $resultRow = BillExpenses::where('id',$request->row_id)->update($data);
+        if($resultRow){
+          return ['status'=>'success','message'=>'Bill Expensess Updated Successfully.'];
+          // return redirect()->back()->with('message','Bill Expensess Added Successfully.');
+        }
       }
     }
   }
@@ -161,8 +165,8 @@ class AntimBillExpensesController extends Controller
       return datatables()->of($data)
       ->addIndexColumn()
       ->addColumn('action', function ($row) {
-        // $btn = '<button type="button" onclick="editExpenses('.$row->id.')"  class="edit btn btn-primary btn-sm">Edit</button>';
-        $btn = '<button type="button" onclick="deleteExpenses('.$row->id.')" class="btn btn-danger btn-sm">Delete</button>';
+        $btn = '<i class="fa fa-edit fa-2x" onclick="editExpenses('.$row->id.')" style="cursor: hand;color:blue;"></i>';
+        $btn .= '<i class="fa fa-trash fa-2x" onclick="deleteExpenses('.$row->id.')" style="cursor: hand;color:red;"></i>';
           return $btn;
       })
       ->addColumn('bill_status', function ($row) {
@@ -184,5 +188,13 @@ class AntimBillExpensesController extends Controller
     $billid = $billid;
     // $billExpensesReport = BillExpenses::where('bill_id',$billid)->orderBy('user_taluka_name')->get();
     return view('Admin.AntimBill.billreportone',compact('billid','billDetails','talukaData'));
+  }
+  public function show(Request $request){
+    $data = BillExpenses::where('id',$request->id)->first();
+    if($data){
+      return ['status'=>'success',$data];
+    } else {
+      return ['status' => 'error', 'message' => 'Sorry, Invalid Details found.'];
+    }
   }
 }

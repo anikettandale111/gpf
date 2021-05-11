@@ -45,26 +45,7 @@ $(document).ready(function() {
   $('#bill_no').change(function(){
     var billID=$(this).val();
     var billnumber = $('#bill_no option:selected').text();
-    $.ajax({
-      type: 'GET',
-      url: "antimbill/edit",
-      data: {_token: CSRF_TOKEN,id:billID},
-      success: function(data) {
-        $('#bill_row_id').val(data.id);
-        $('#bill_date').val(data.bill_date);
-        $('#amount').val(data.bill_expenses_total);
-        $('#check_date').val(data.check_date);
-        $('#check_no').val(data.check_no);
-        // $('#bill_check').val(data.bill_check);
-        $('input[name="bill_check"]').removeAttr('checked');
-        if(parseInt(data.bill_check) === 1)
-        $('#bill_check_one').prop('checked', 'checked');
-        else
-        $('#bill_check_two').prop('checked','checked');
-        table.ajax.reload();
-        $('#bill_number').val(billnumber);
-      }
-    });
+    getBillDetails(billID,billnumber);
   });
   $("#employee_gpf_num").keypress(function (e) {
     if($(this).val().length == 5) {
@@ -83,12 +64,14 @@ $(document).ready(function() {
     $(this).addClass('btn-info');
     $('.file_upload_div').css('display','block');
     $('.single_entry_div').css('display','none');
+    clearFields();
   });
   $('.single_entry').click(function(){
     $('.file_upload_div').removeClass('btn-secondary');
     $(this).addClass('btn-info');
     $('.file_upload_div').css('display','none');
     $('.single_entry_div').css('display','block');
+    clearFields();
   });
   $('#loan_agrim_niyam').on('keypress focusout',function(){
     setTimeout(function(){
@@ -110,6 +93,28 @@ $(document).ready(function() {
         }
   });
 });
+function getBillDetails(billID,billnumber){
+  $.ajax({
+    type: 'GET',
+    url: "antimbill/edit",
+    data: {_token: CSRF_TOKEN,id:billID},
+    success: function(data) {
+      $('#bill_row_id').val(data.id);
+      $('#bill_date').val(data.bill_date);
+      $('#amount').val(data.bill_expenses_total);
+      $('#check_date').val(data.check_date);
+      $('#check_no').val(data.check_no);
+      // $('#bill_check').val(data.bill_check);
+      $('input[name="bill_check"]').removeAttr('checked');
+      if(parseInt(data.bill_check) === 1)
+      $('#bill_check_one').prop('checked', 'checked');
+      else
+      $('#bill_check_two').prop('checked','checked');
+      table.ajax.reload();
+      $('#bill_number').val(billnumber);
+    }
+  });
+}
 function getDetails(){
   $.ajax({
     type: 'GET',
@@ -150,6 +155,7 @@ function billExpensesSubmit(){
   formData.append('bill_number', $('#bill_number').val());
   formData.append('bill_date', $('#bill_date').val());
   formData.append('amount', $('#amount').val());
+  formData.append('row_id', $('#row_id').val());
   formData.append('employee_gpf_num', $('#employee_gpf_num').val());
   formData.append('user_name', $('#user_name').val());
   formData.append('user_designation', $('#user_designation').val());
@@ -180,7 +186,7 @@ function billExpensesSubmit(){
       $('.loader').css('display','none');
       $('.make_empty').val();
       table.ajax.reload();
-
+      clearFields();
     }
   });
 }
@@ -222,8 +228,8 @@ table = $('#myTable').DataTable({
     name: 'user_taluka_name'
   },
   {
-    data: 'loan_agrim_niyam',
-    name: 'loan_agrim_niyam'
+    data: 'loan_agrim_pryojan',
+    name: 'loan_agrim_pryojan'
   },
   {
     data: 'if_installment_no',
@@ -274,3 +280,55 @@ function deleteExpenses(rowid){
       return false;
     });
   }
+function editExpenses(rowid){
+  clearFields();
+  $.ajax({
+    url: "antimbillexpenses/edit",
+    type: 'GET',
+    data: {_token: CSRF_TOKEN,"id":rowid},
+    dataType: 'JSON',
+    success: function (data) {
+      if(data.status != 'error'){
+        $('.file_upload_div').removeClass('btn-secondary');
+        $(this).addClass('btn-info');
+        $('.file_upload_div').css('display','none');
+        $('.single_entry_div').css('display','block');
+        $('#row_id').val(data[0].id);
+        getBillDetails(data[0].bill_id,data[0].bill_number);
+        $('#employee_gpf_num').val(data[0].gpf_no);
+        $('#user_name').val(data[0].user_name);
+        $('#user_designation').val(data[0].user_designation);
+        $('#user_taluka_name').val(data[0].user_taluka_name);
+        $('#user_taluka_id').val(data[0].taluka_id);
+        $('#user_department').val(data[0].user_department);
+        $('#shillak_rakkam').val(data[0].shillak_rakkam);
+        $('#loan_agrim_pryojan').val(data[0].loan_agrim_pryojan);
+        $('#loan_agrim_niyam').val(data[0].loan_agrim_niyam);
+        $('#required_rakkam').val(data[0].required_rakkam);
+        $('#if_installment_no').val(data[0].if_installment_no);
+        $('#bank_name').val(data[0].bank_name);
+        $('#bank_ifsc_name').val(data[0].bank_ifsc_name);
+        $('#bank_acc_number').val(data[0].bank_acc_number);
+      } else {
+        swal('error',data.message);
+      }
+    }
+  });
+}
+function clearFields(){
+  $('#row_id').val(0);
+  $('#employee_gpf_num').val('');
+  $('#user_name').val('');
+  $('#user_designation').val('');
+  $('#user_taluka_name').val('');
+  $('#user_department').val('');
+  $('#shillak_rakkam').val('');
+  $('#loan_agrim_niyam').val('');
+  $('#loan_agrim_pryojan').val('');
+  $('#required_rakkam').val(0);
+  $('#if_installment_no').val(0);
+  $('#bank_name').val('-');
+  $('#bank_ifsc_name').val('-');
+  $('#bank_acc_number').val('-');
+  $('#user_taluka_id').val('');
+}

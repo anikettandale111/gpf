@@ -79,6 +79,9 @@
                 <input class="form-control make_empty"  name="employee_gpf_num" id="employee_gpf_num" >
               </div>
               <div class="col-md-4 single_entry_div">
+                <input type="text" class="form-control make_empty"  name="row_id" id="row_id" value="0">
+              </div>
+              <div class="col-md-4 single_entry_div">
                 <label for="">{{trans('language.fr_common_user_name')}}</label>
                 <input class="form-control make_empty"  name="user_name" id="user_name" readonly>
               </div>
