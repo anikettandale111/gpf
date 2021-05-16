@@ -43,6 +43,7 @@
   </style>
 </head>
 <!-- <h5> ------------------------------------------------------------------------------------------------------ </h5> -->
+@php $next_opn_bal = 0; @endphp
 @if(count($rqo_result))
   @foreach($rqo_result AS $rqo)
     @if(isset($rqo->gpf_number) && $rqo->gpf_number > 0)
@@ -102,6 +103,7 @@
       @endif
       @php
         $opening_balance = $rqo->opening_balance;
+        echo $opening_balance;
         $intrest_rate = 8;
         $total_gpf = [];
         $total = $opening_balance;
@@ -325,10 +327,12 @@
       @php
         $next_opn_bal = ($rqo->opening_balance+$total_one+$total_two+$total_ins_amt+$total_intrest)-$total_four;
       @endphp
+        <!-- {{$next_opn_bal}}/
+        {{$rqo->opening_balance}}/{{$total_one}}{{$total_two}}/{{$total_ins_amt}}/{{$total_intrest}}/{{$total_four}}; -->
       @php
         $vetanPaid = DB::table('master_vetan_ayog_received AS va')
                     ->select('va.Year','va.DtFrom','va.instalment','va.DiffAmt','va.TotDiff','va.Interest','va.Mnt','va.INTY1',
-                    'va.INTY2','va.LockDate')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>2019,'va.pay_number'=>7])->get();
+                    'va.INTY2','va.LockDate')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>2021,'va.pay_number'=>7])->get();
         $totalDiff = 0;
         $totalIntrest = 0;
         $totalRecivedDiff = 0;

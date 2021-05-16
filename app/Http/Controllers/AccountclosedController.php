@@ -78,22 +78,28 @@ class AccountclosedController extends Controller
   public function reportOne($id){
     $lang = app()->getLocale();
     $year = session()->get('year');
-    $financial_year = "'".session()->get('financial_year')."'";
+    $viewapplication = AccountNaamNirdeshan::where('form_id',$id)->first();
+    $financial_year = session()->get('financial_year');
     $roi = DB::raw("SELECT ri.percent,ri.to_month,mm.month_name_mar FROM master_rate_interest AS ri LEFT JOIN master_month mm ON mm.id=ri.to_month WHERE year_to=".session()->get('to_year'));
     $roi_result = DB::select($roi);
     // $roi = DB::raw('SELECT ri.percent,ri.to_month,mm.month_name_mar FROM master_rate_interest AS ri LEFT JOIN master_month mm ON mm.id=ri.to_month WHERE year_to=2019');
     // $roi_result = DB::select($roi);
-    $financial_year = '2019-2020'; // Only for previous year
-    $month_name = DB::table('master_month')->select(DB::raw('month_name_'.$lang.' AS month_name'),'transaction_month AS trans_month')->orderBy('order_by')->get();
+    // $financial_year = '2020-2021'; // Only for previous year
+    $month_name = DB::table('master_month')->select(DB::raw('month_name_'.$lang.' AS month_name'),'transaction_month AS trans_month')
+                  ->orderBy('order_by')->get();
     $rqo_result = [];
+    // $employee_gpf_num = $viewapplication->employee_gpf_num;
+    $employee_gpf_num = 12184;
     $query_one = DB::table('master_employee AS me')
-                    ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance',"c.inital_letter","me.antim_partava_status")
+                    ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name',
+                      'dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name',
+                      'mgt.opening_balance',"c.inital_letter","me.antim_partava_status")
                     ->join('master_gpf_transaction AS mgt','mgt.gpf_number','me.employee_id')
                     ->join('taluka AS tl','tl.id','me.taluka_id')
                     ->join('classifications AS c','c.id','me.classification_id')
                     ->join('departments AS dp','dp.department_code','me.department_id')
                     ->join('designations AS dg','dg.id','me.designation_id')
-                    ->where(['me.employee_id' =>18274, 'mgt.financial_year'=>$financial_year])
+                    ->where(['me.employee_id' =>$employee_gpf_num, 'mgt.financial_year'=>$financial_year])
                     // ->where(['me.taluka_id' =>16, 'mgt.financial_year'=>$financial_year])
                     ->groupBy('mgt.employee_id');
     $rqo_result = $query_one->get();
