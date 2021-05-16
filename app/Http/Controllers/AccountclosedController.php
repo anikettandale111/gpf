@@ -88,8 +88,8 @@ class AccountclosedController extends Controller
     $month_name = DB::table('master_month')->select(DB::raw('month_name_'.$lang.' AS month_name'),'transaction_month AS trans_month')
                   ->orderBy('order_by')->get();
     $rqo_result = [];
-    // $employee_gpf_num = $viewapplication->employee_gpf_num;
-    $employee_gpf_num = 12184;
+    $employee_gpf_num = $viewapplication->employee_gpf_num;
+    // $employee_gpf_num = 12184;
     $query_one = DB::table('master_employee AS me')
                     ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name',
                       'dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name',
