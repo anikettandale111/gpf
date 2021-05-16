@@ -251,7 +251,6 @@
                                       @endphp
                                   @endfor
                                 @endif
-                                {{dd($total_masik)}}
                                 @if($total_masik > 0 && $percentage > 0)
                                 @php $total_intrest = round((($total_masik * $percentage)/100) /12); @endphp
                                 @endif
