@@ -72,7 +72,7 @@ class EmployeeReportsController extends Controller
                       ->where(['me.employee_id' =>$request->employee_gpf_num, 'mgt.financial_year'=>$financial_year])
                       // ->where(['me.taluka_id' =>16, 'mgt.financial_year'=>$financial_year])
                       ->groupBy('mgt.employee_id');
-      $rqo_result = $query_one->get();dd($rqo_result);
+      $rqo_result = $query_one->get();
       return view('Reports/gpf_khate_utaran_niyam_231',compact('rqo_result','roi_result','month_name'));
     } else if ($request->view_report_type == 2){
       $query_one = DB::table('master_employee AS me')
