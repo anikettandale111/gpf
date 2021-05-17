@@ -233,16 +233,17 @@
           <i class="fa fa-globe fa-fw"></i> {{(app()->getLocale()== "mar") ? 'English' : 'मराठी'}}
         </a>
       </li>
-        <!-- <li class="nav-item ">
+        <li class="nav-item ">
           <form>
             <select id="yearChage" name="yearChage" class="form-control" onchange="setyear(this.value)">
               <option selected disabled>Change Year</option>
+              <option value="2021-2022" {{(session()->get('financial_year') == '2021-2022')?'selected':''}} >2021-2022</option>
               <option value="2020-2021" {{(session()->get('financial_year') == '2020-2021')?'selected':''}} >2020-2021</option>
               <option value="2019-2020" {{(session()->get('financial_year') == '2019-2020')?'selected':''}}>2019-2020</option>
               <option value="2018-2019" {{(session()->get('financial_year') == '2018-2019')?'selected':''}}>2018-2019</option>
             </select>
           </form>
-        </li> -->
+        </li>
       </ul>
     </nav>
   </div>
