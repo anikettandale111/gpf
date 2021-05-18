@@ -80,17 +80,18 @@ class VetanController extends Controller
   }
   public function calculationOne()
   {
-    $query = DB::raw('SELECT GPFNo,TotDiff FROM master_vetan_ayog_received WHERE pay_number = 7 AND INTY2 = 0 GROUP BY GPFNo ORDER BY TransId DESC ');
+    $query = DB::raw('SELECT GPFNo,TotDiff,Interest FROM master_vetan_ayog_received WHERE pay_number = 7 AND INTY2 = 0 GROUP BY GPFNo ORDER BY TransId DESC ');
     $result = DB::Select($query);
     if(count($result)){
       foreach ($result as $key => $value) {
-        if($value->GPFNo == 13423){
+        // if($value->GPFNo == 13423){
           $muddal_vyaj = $value->TotDiff;
           $cal_step_one = ($muddal_vyaj * 7.1 / 12*12)/100;
           $cal_step_one = round($cal_step_one);
-          $query = DB::raw('UPDATE master_vetan_ayog_received SET INTY2 = '.$cal_step_one.' WHERE pay_number = 7 AND INTY2 = 0 AND GPFNo = '.$value->GPFNo);
+          $new_intrest = $value->Interest +$cal_step_one;
+          $query = DB::raw('UPDATE master_vetan_ayog_received SET INTY2 = '.$cal_step_one.' AND Interest = '.$new_intrest.' WHERE pay_number = 7 AND INTY2 = 0 AND GPFNo = '.$value->GPFNo);
           $query = DB::select($query);
-        }
+        // }
       }
     }
   }
