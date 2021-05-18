@@ -61,6 +61,18 @@ class EmployeeReportsController extends Controller
     // $financial_year = '2019-2020'; // Only for previous year
     $month_name = DB::table('master_month')->select(DB::raw('month_name_'.$lang.' AS month_name'),'transaction_month AS trans_month')->orderBy('order_by')->get();
     $rqo_result = [];
+    $query_result = DB::table('master_vetan_ayog_received')->select('TransId', 'GPFNo','TotDiff','Interest')
+                                          ->where(['GPFNo' =>$request->employee_gpf_num,'pay_number'=>7,'INTY2'=>0])->get();
+      if(count($query_result)){
+        foreach ($query_result as $key => $value) {
+          $muddal_vyaj = $value->TotDiff;
+          $cal_step_one = ($muddal_vyaj * 7.1 / 12*12)/100;
+          $cal_step_one = round($cal_step_one);
+          $new_intrest = $value->Interest +$cal_step_one;
+          $query = DB::raw('UPDATE master_vetan_ayog_received SET INTY2 = '.$cal_step_one.', Interest = '.$new_intrest.' WHERE TransId = '.$value->TransId);
+          $query = DB::select($query);
+        }
+      }
     if($request->view_report_type == 1){
       $query_one = DB::table('master_employee AS me')
                       ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance',"c.inital_letter","me.antim_partava_status")
