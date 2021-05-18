@@ -325,10 +325,10 @@
                             </tr>
                           </thead>
                           @php
-                          $query = DB::raw('SELECT GPFNo,TotDiff,Interest FROM master_vetan_ayog_received WHERE pay_number = 7 AND INTY2 = 0 AND GPFNo=$rqo->gpf_number ORDER BY TransId DESC LIMIT 1');
-                          $result = DB::Select($query);
-                          if(count($result)){
-                            foreach ($result as $key => $value) {
+                          $query_result = DB::table('master_vetan_ayog_received')->select('GPFNo','TotDiff','Interest')
+                                          ->where(['GPFNo' =>$rqo->gpf_number,'pay_number'=>7,'INTY2'=>0])->get();
+                          if(count($query_result)){
+                            foreach ($query_result as $key => $value) {
                                 $muddal_vyaj = $value->TotDiff;
                                 $cal_step_one = ($muddal_vyaj * 7.1 / 12*12)/100;
                                 $cal_step_one = round($cal_step_one);
