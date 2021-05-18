@@ -144,4 +144,5 @@ Route::middleware('auth')->group(function () {
     Route::get('employee_list', 'EmployeeController@getEmployeeList');
     Route::resource('employee',EmployeeController::class);
 
+    Route::get('calculationOne', 'VetanController@calculationOne');
 });
