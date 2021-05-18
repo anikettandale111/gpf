@@ -325,6 +325,18 @@
                             </tr>
                           </thead>
                           @php
+                          $query = DB::raw('SELECT GPFNo,TotDiff,Interest FROM master_vetan_ayog_received WHERE pay_number = 7 AND INTY2 = 0 AND GPFNo=$rqo->gpf_number ORDER BY TransId DESC LIMIT 1');
+                          $result = DB::Select($query);
+                          if(count($result)){
+                            foreach ($result as $key => $value) {
+                                $muddal_vyaj = $value->TotDiff;
+                                $cal_step_one = ($muddal_vyaj * 7.1 / 12*12)/100;
+                                $cal_step_one = round($cal_step_one);
+                                $new_intrest = $value->Interest +$cal_step_one;
+                                $query = DB::raw('UPDATE master_vetan_ayog_received SET INTY2 = '.$cal_step_one.' AND Interest = '.$new_intrest.' WHERE pay_number = 7 AND INTY2 = 0 AND GPFNo = '.$rqo->gpf_number);
+                                $query = DB::select($query);
+                            }
+                          }
                           $vetanPaid = DB::table('master_vetan_ayog_received AS va')->select('va.Year','va.DtFrom','va.instalment','va.DiffAmt','va.TotDiff','va.Interest','va.Mnt','va.INTY1','va.INTY2','va.LockDate')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>2019,'va.pay_number'=>7])->get();
                             $totalDiff = 0;
                             $totalIntrest = 0;
