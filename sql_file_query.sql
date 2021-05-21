@@ -1,4 +1,30 @@
 /****************************************************************************************************************/
+UPDATE master_gpf_transaction
+INNER JOIN employee_yearwise_opening_balance ON employee_yearwise_opening_balance.gpf_no = master_gpf_transaction.gpf_number
+SET
+master_gpf_transaction.opening_balance = employee_yearwise_opening_balance.opn_balance
+WHERE
+employee_yearwise_opening_balance.year=2020
+
+/****************************************************************************************************************/
+UPDATE bill_expenses_information
+INNER JOIN master_employee ON bill_expenses_information.gpf_no = master_employee.gpf_no
+INNER JOIN designations ON master_employee.designation_id = designations.id
+INNER JOIN departments ON master_employee.department_id = departments.department_code
+INNER JOIN taluka ON master_employee.taluka_id = taluka.id
+SET
+bill_expenses_information.user_name = master_employee.employee_name,
+bill_expenses_information.user_designation = designations.designation_name_mar,
+bill_expenses_information.user_department = departments.department_name_mar,
+bill_expenses_information.taluka_id = taluka.id,
+bill_expenses_information.user_taluka_name = taluka.taluka_name_mar
+WHERE
+bill_expenses_information.bill_number=3
+AND
+bill_expenses_information.gpf_no = master_employee.gpf_no
+
+
+/****************************************************************************************************************/
 ALTER TABLE `bill_expenses_information` ADD `loan_agrim_pryojan` VARCHAR(255) NULL DEFAULT NULL AFTER `user_taluka_name`;
 ALTER TABLE `common_reasons` ADD `withdrawn+percent` DOUBLE(10,2) NOT NULL DEFAULT '0' AFTER `reason_description_mar`;
 ALTER TABLE `common_reasons` CHANGE `withdrawn+percent` `withdrawn_percent` DOUBLE(10,2) NOT NULL DEFAULT '0.00';

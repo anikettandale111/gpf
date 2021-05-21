@@ -11,7 +11,7 @@
         <br />
         <form   class="validatedForm" action="{{url('chalan')}}" method="POST"  enctype="multipart/form-data" novalidate>
           {{csrf_field()}}
-          <input type="hidden" id="chalan_sr_id" class="form-control" name="chalan_sr_id" >
+          <input type="hidden" id="chalan_sr_id" class="form-control" name="chalan_sr_id" value="0">
           <div class="form-row">
             <div class="form-group col-md-6">
               <div class="col-md-6 col-sm-3 ">
@@ -85,7 +85,7 @@
             </div>
             <div class="form-group col-md-12">
               <div style="margin-top:49px; float: right;">
-                <button class="btn btn-primary" type="button">{{trans('language.btn_cancel')}}</button>
+                <button class="btn btn-primary" type="button" onClick="resetForm()">{{trans('language.btn_cancel')}}</button>
                 <button type="submit" class="btn btn-success">{{trans('language.btn_save')}}</button>
               </div>
             </div>
@@ -117,7 +117,7 @@
                     <th>{{trans('language.th_trend_the_amount_of_hearing')}} </th>
                     <!-- <th>{{trans('language.th_trend_total_waste')}}  </th> -->
                     <th>{{trans('language.th_trend_shera')}}</th>
-                    <!-- <th>{{trans('language.btn_action')}}</th> -->
+                    <th>{{trans('language.btn_action')}}</th>
                   </tr>
                 </thead>
                 <tbody>

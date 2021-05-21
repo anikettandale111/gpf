@@ -64,11 +64,11 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_date_of_birth')}}</label>
-                <input type="date" name="date_of_birthday" class="form-control @error('date_of_birthday') is-invalid @enderror" id="date_of_birthday" value="{{ old('date_of_birthday') }}" required autocomplete="off" autofocus>
+                <input type="date" name="date_of_birthday" class="form-control @error('date_of_birthday') is-invalid @enderror calculateRetirment" id="date_of_birthday" value="{{ old('date_of_birthday') }}" required autocomplete="off" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_joining_date')}}</label>
-                <input type="date" name="joining_date" class="form-control @error('joining_date') is-invalid @enderror" id="joining_date" value="{{ old('joining_date') }}" required autocomplete="off" autofocus>
+                <input type="date" name="joining_date" class="form-control @error('joining_date') is-invalid @enderror calculateRetirment" id="joining_date" value="{{ old('joining_date') }}" required autocomplete="off" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_date_of_retirement')}}</label>
@@ -263,6 +263,15 @@ $(document).ready(function() {
     } else {
       $('#opening_balance').attr("readonly", true);
     }
+  });
+  $('.calculateRetirment').change(function(){
+    var birthday = $('#date_of_birthday').val();
+    var joining = $('#joining_date').val();
+    var birthdayDate = moment(birthday).format('YYYY-MM-DD');
+    var joiningDate = moment(joining).format('YYYY-MM-DD');
+    $('#retirement_date').val();
+    var differanceDate = joiningDate.diff(birthdayDate, 'years');
+    console.log(differanceDate);
   });
 });
 

@@ -30,7 +30,7 @@ $(document).ready(function(){
      $('#chalan_date').attr('max', maxDate);
 
 })
-function deleteConfirmation(id) {
+function deleteChalan(id) {
   swal({
     title: "Delete?",
     text: "Please and then confirm!",
@@ -44,11 +44,12 @@ function deleteConfirmation(id) {
       var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
       $.ajax({
         type: 'POST',
-        url: "deposit_delete/" + id,
-        data: {_token: CSRF_TOKEN},
+        url: "chalan/" + id,
+        data: {_token: CSRF_TOKEN,"_method":'DELETE'},
         dataType: 'JSON',
         success: function (results) {
-          $('#'+results.id).remove();
+          swal(results.status,results.message);
+          table.ajax.reload();
         }
       });
     } else {
@@ -59,52 +60,6 @@ function deleteConfirmation(id) {
   })
 }
 $(document).ready(function() {
-  var table = $('#chalanTable').DataTable({
-      processing: true,
-      serverSide: true,
-      ajax: "chalan",
-      columns: [{
-        data: 'DT_RowIndex',
-        name: 'DT_RowIndex'
-      },
-      {
-        data: 'month_name_mar',
-        name: 'Month Name'
-      },
-      {
-        data: 'chalan_serial_no',
-        name: 'Chalan Number'
-      },
-      {
-        data: 'crateddate',
-        name: 'Created Date'
-      },
-      {
-        data: 'taluka_name',
-        name: 'Taluka Name'
-      },
-      {
-        data: 'classification_name_mar',
-        name: 'Check Number'
-      },
-      {
-        data: 'amount',
-        name: 'Amount'
-      },
-      // {
-      //   data: 'total_waste',
-      //   name: 'Total Waste'
-      // },
-      {
-        data: 'remark',
-        name: 'Remark'
-      },
-      // {
-      //   data: 'action',
-      //   name: 'Action'
-      // }
-    ]
-  });
   $('.validatedForm').validate({
     rules : {
       year:"required",
@@ -134,9 +89,86 @@ $(document).ready(function() {
     },
     submitHandler: function(form) {
         form.submit();
+        resetForm();
     }
   });
 });
 function dateConversion(datetime){
   return new Date(datetime);
 }
+function editChalan(chid){
+  $.ajax({
+    type: 'GET',
+    url: "chalan/"+chid,
+    data: { chid:chid },
+    success: function(results) {
+      $('#chalan_sr_id').val(results.id);
+      $('#chalan_year').val(results.year);
+      $('#chalan_date').val(results.chalan_date);
+      $('#chalan_serial_no').val(results.chalan_serial_no);
+      $('#chalan_month').val(results.chalan_month_id);
+      $('#classification_type').val(results.classification);
+      $('#chalan_taluka').val(results.taluka);
+      $('#chalan_amount').val(results.amount);
+      $('#chalan_remark').val(results.remark);
+      console.log(results);
+    }
+  });
+}
+function resetForm(){
+  $('#chalan_sr_id').val(0);
+  $('#chalan_year').val('');
+  $('#chalan_date').val('');
+  $('#chalan_serial_no').val('');
+  $('#chalan_month').val('');
+  $('#classification_type').val('');
+  $('#chalan_taluka').val('');
+  $('#chalan_amount').val('');
+  $('#chalan_remark').val('');
+}
+var table = $('#chalanTable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "chalan",
+    columns: [{
+      data: 'DT_RowIndex',
+      name: 'DT_RowIndex'
+    },
+    {
+      data: 'month_name_mar',
+      name: 'Month Name'
+    },
+    {
+      data: 'chalan_serial_no',
+      name: 'Chalan Number'
+    },
+    {
+      data: 'crateddate',
+      name: 'Created Date'
+    },
+    {
+      data: 'taluka_name',
+      name: 'Taluka Name'
+    },
+    {
+      data: 'classification_name_mar',
+      name: 'Check Number'
+    },
+    {
+      data: 'amount',
+      name: 'Amount'
+    },
+    // {
+    //   data: 'total_waste',
+    //   name: 'Total Waste'
+    // },
+    {
+      data: 'remark',
+      name: 'Remark'
+    },
+    {
+      data: 'action',
+      name: 'Action'
+    }
+  ]
+});
