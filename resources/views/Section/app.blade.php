@@ -107,9 +107,11 @@
                 <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms')}} <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li>
-                    <li><a href="{{url('commonforms')}}">{{trans('language.fr_common_application_form')}}</a></li>
+                    <li><a href="#">{{trans('language.fr_antar_zillha_badli')}}</a></li>
+                    <li><a href="{{url('employee')}}">{{trans('language.fr_employee_update')}}</a></li>
+                    <!-- <li><a href="{{url('commonforms')}}">{{trans('language.fr_common_application_form')}}</a></li> -->
                     <!-- <li><a href="#">{{trans('language.fr_application_form_amount_withdrawn')}}</a></li> -->
-                    <li><a href="{{url('closed_account')}}">{{trans('language.fr_application_form_account_close')}}</a></li>
+                    <!-- <li><a href="{{url('closed_account')}}">{{trans('language.fr_application_form_account_close')}}</a></li> -->
                   </ul>
                 </li>
                 <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms_received')}} <span class="fa fa-chevron-down"></span></a>
@@ -128,7 +130,7 @@
             @endif
             <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms')}} <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li>
+                <!-- <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li> -->
                 <li><a href="{{url('commonforms')}}">{{trans('language.fr_common_application_form')}}</a></li>
                 <!-- <li><a href="#">{{trans('language.fr_application_form_amount_withdrawn')}}</a></li> -->
                 <!-- <li><a href="{{url('closed_account')}}">{{trans('language.fr_application_form_account_close')}}</a></li> -->
@@ -170,9 +172,9 @@
                 <li><a href="{{url('billreports')}}"> {{trans('language.menu_bill_reports')}} </a></li>
               </ul>
             </li>
-            <li>
+            <!-- <li>
               <a href="{{url('employee')}}"><i class="fa fa-home"></i> {{trans('language.form_employee_update')}} </a>
-            </li>
+            </li> -->
             @if(Auth::user()->id == 1 )
             @endif
           </ul>

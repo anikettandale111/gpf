@@ -60,8 +60,8 @@ class ChalanController extends Controller
       return datatables()->of($deposits_two)
       ->addIndexColumn()
       ->addColumn('action', function ($row) {
-        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id ="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editBill">Edit</a>';
-        $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteBill">Delete</a>';
+        $btn = '<button onClick="editChalan('.$row->id.')" data-original-title="Edit" class="btn btn-primary btn-sm">Edit</button>';
+        $btn = $btn.'<button onClick="deleteChalan('.$row->id.')" data-original-title="Delete" class="btn btn-danger btn-sm">Delete</button>';
         return $btn;
       })
       ->rawColumns(['action'])
@@ -171,5 +171,12 @@ class ChalanController extends Controller
     }else{
       return ['data' => []];
     }
+  }
+  public function show($chid){
+    return MonthlyTotalChalan::where('id',$chid)->first();
+  }
+  public function destroy($chid){
+    MonthlyTotalChalan::where('id',$chid)->delete();
+    return ['status' => 'success','message' => 'Chalan Deleted Successfully.'];
   }
 }
