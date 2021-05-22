@@ -48,9 +48,15 @@
 	<div class="card-box ">
 		<div class="card-box ">
 			<div class="row">
-				<label style="margin-right: 20px;"> खाते क्रमांक :- {{$rqo->inital_letter}}{{digitChange($rqo->gpf_number)}} </label>
-				<label style="margin-right: 20px;"> कर्मचाऱ्याचे नाव :- {{$rqo->employee_name}}</label>
-				<label style="margin-right: 20px;">पदनाम :- {{$rqo->designation_name}}</label>
+				<div class="col-md-3"> 
+					<label> खाते क्रमांक :- {{$rqo->inital_letter}}{{digitChange($rqo->gpf_number)}} </label>
+				</div>
+				<div class="col-md-4" style="text-align: center;"> 
+					<label> कर्मचाऱ्याचे नाव :- {{$rqo->employee_name}}</label>
+				</div>
+				<div class="col-md-5 lg-4" style="text-align:end;">
+					<label>पदनाम :- {{$rqo->designation_name}}</label>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
