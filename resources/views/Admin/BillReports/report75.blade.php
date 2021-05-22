@@ -67,8 +67,8 @@ use App\BillExpenses;
             <table>
               <thead>
                 <tr>
-                  <th>भ.नि.नि. क्रं</th>
-                  <th>कर्मचाऱ्याचे नाव व हुद्दा</th>
+                  <th>अनु.  क</th>
+                  <th>कर्मचारी भ.नि.नि.क्रं/नाव//हुद्दा</th>
                   <th>अग्रीमाचे प्रयोजन</th>
                   <th>परतावा / नापरतावा</th>
                   <th>शिल्लक / मंजूररक्कम रक्कम</th>
@@ -93,7 +93,7 @@ use App\BillExpenses;
                 @foreach($billExpensesReport AS $key => $expenses)
                 <tr>
                   <td>{{($key+1)}}</td>
-                  <td>{{$expenses->user_name}}<br>{{$expenses->user_designation}}<br>{{$expenses->user_taluka_name}}</td>
+                  <td><b>{{$expenses->gpf_no}}</b><br>{{$expenses->user_name}}<br>{{$expenses->user_designation}}<br>{{$expenses->user_taluka_name}}</td>
                   <td>{{$expenses->loan_agrim_pryojan}}</td>
                   <td>{{$expenses->loan_agrim_niyam}}</td>
                   <td>{{digitChange(amount_inr_format($expenses->shillak_rakkam))}}<hr>
