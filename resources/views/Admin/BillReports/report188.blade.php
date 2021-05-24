@@ -1,20 +1,14 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <!-- Meta, title, CSS, favicons, etc. -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="icon" href="{{asset('asset/images/favicon.ico') }}" type="image/ico" />
-  <!-- Bootstrap -->
-  <title>{{ config('app.name') }} </title>
-  <link href=" {{ asset('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href=" {{ asset('css/main.css') }}" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link href="{{asset('asset/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-  <link href="{{asset('asset/build/css/custom.min.css')}}" rel="stylesheet">
+  <head>
+    <title>{{ config('app.name') }} </title>
+    <link href=" {{ URL('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href=" {{ URL('css/main.css') }}" rel="stylesheet">
+    <link href="{{URL('asset/build/css/custom.min.css')}}" rel="stylesheet">
+    <meta charset="UTF-8">
+  </head>
   <style>
   table,
   th,
@@ -60,14 +54,14 @@
   }
   </style>
 </head>
-<body class="nav-md" style="margin-left:20%;margin-right:20%;">
+<body class="nav-md" >
   <div class="col-md-12 col-sm-12 " >
     <div class="x_panel">
       <div class="x_content">
         <div class="row">
-          <div class="col-md-12" style="text-align:center;">
+          <!-- <div class="col-md-12" style="text-align:center;">
             <h2> <b>जिल्हा परिषद नाशिक </b> </h2>
-          </div>
+          </div> -->
           <div class="col-md-12" style="text-align:end;">
             <h2> <b>BILL NO. -:  @if(isset($billDetails->bill_no) && $billDetails->bill_no !== '') {{$billDetails->bill_no}} @endif</b> </h2>
           </div>
@@ -161,13 +155,11 @@
             <div class="col-md-6">
               <span class="pull-left"> AND DATE AS NOTED BELOW </span>
             </div>
-            <div class="col-md-6">
-              <span class="pull-left"><b>CHIEF ACCOUNTING & FINANCE OFFICER </b></span><br>
-              <span class="pull-left"><b>ZILLA PARISHAD, NASHIK</b> </span>
+            <div class="col-md-6" style="margin-top:50px;">
+              <span class="pull-left"><b>CHIEF ACCOUNTING & FINANCE OFFICER </b><br><b>ZILLA PARISHAD, NASHIK</b></span><br>
             </div>
-            <div class="col-md-6">
-              <span class="pull-left"><b>TREASURY OFFICER,</b></span><br>
-              <span class="pull-left"><b>NASHIK</b></span>
+            <div class="col-md-6" style="margin-top:50px;">
+              <span class="pull-left"><b>TREASURY OFFICER,</b><br><b>NASHIK</b></span><br>
             </div>
           </div>
           <hr style="border: solid black;width:100%"/>

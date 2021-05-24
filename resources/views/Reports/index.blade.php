@@ -58,6 +58,7 @@
                     <option value="1">{{trans('language.gpf_khate_utaran_niyam_231')}}</option>
                     <option value="2">{{trans('language.gpf_khatevahi_namuna_88_niyam_231')}}</option>
                     <option value="3">{{trans('language.gpf_bruhpatrak_naumna_89_niyam_231')}}</option>
+                    <option value="4">{{trans('language.gpf_chalan_nihay')}}</option>
                   </select>
                 </div>
                 <div class="col-sm-2" style="margin-top:25px;">

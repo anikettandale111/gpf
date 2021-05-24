@@ -9,51 +9,48 @@
         </div>
         <div class="x_content">
           <div class="row">
-            <div class="col-md-2">
-              <label class="col-form-label"> बिल नं.<span class="required"></span></label>
-              <select class="form-control" class='optional' name="bill_no" id="bill_no">
-                <option value="" selected disabled>बिल क्रमांक निवडा</option>
-                @if(count($billDetails))
-                @foreach($billDetails AS $billRow)
-                <option value="{{$billRow->id}}">{{$billRow->bill_no}}</option>
-                @endforeach
-                @endif
-              </select>
+            <div class="col-md-4 mt-1">
+              <form class="getBillReport" method="post" target="_blank">
+                @csrf
+                <input type="hidden" value="0" id="reportNo" name="reportNo">
+                <label class="col-form-label"> बिल नं.<span class="required"></span></label>
+                <select class="form-control" class='optional' name="bill_no" id="bill_no">
+                  <option value="" selected disabled>बिल क्रमांक निवडा</option>
+                  @if(count($billDetails))
+                  @foreach($billDetails AS $billRow)
+                  <option value="{{$billRow->id}}">{{$billRow->bill_no}}</option>
+                  @endforeach
+                  @endif
+                </select>
+              </div>
+              <div class="col-md-4 mt-1">
+                <label class="col-form-label">अहवाल प्रकार निवडा <span class="required"></span></label>
+                <select class="form-control" class='optional' name="report_type" id="report_type">
+                  <option value="" selected disabled>अहवाल प्रकार </option>
+                  <option value="1" > Report 75 </option>
+                  <option value="2" > Report 188 </option>
+                  <option value="3" > Computer Slip </option>
+                  <option value="4" > Order </option>
+                  <option value="5" > MTR-52 </option>
+                </select>
+              </form>
             </div>
-            <div class="col-md-10 mt-4">
-              <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="report_one"> Report 75 </button >
+            <div class="col-md-4 mt-5">
+              <button class="btn btn-secondary" style="width:100%" id="get_report" > View Report </button >
               </div>
-              <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="report_two"> Report 188 </button >
-              </div>
-              <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="report_three"> Computer Slip </button >
-              </div>
-              <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="report_four"> Order </button >
-              </div>
-              <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="report_five"> MTR-52 </button >
-              </div>
-              <div class="col-md-2">
-                <button class="btn btn-secondary" style="width:100%" id="print_report" onClick="printDiv()"> Print Report </button >
-              </div>
+              <hr>
+              <!-- <div class="row report_div">
+                <iframe name="iframe" id="iframe" width="100%" height="600px"></iframe>
+              </div> -->
             </div>
-          </div>
-          <hr>
-          <div class="row report_div">
-            <iframe name="iframe" id="iframe" width="100%" height="600px"></iframe>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-@endsection
-@push('custom-scripts')
-<script type="text/javascript" src="{{URL('js/bill_report_master.js')}}"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
-<!-- <script type="text/javascript" src="//jasonday.github.io/printThis/printThis.js"></script> -->
-
-@endpush
+    </div>
+    @endsection
+    @push('custom-scripts')
+    <script type="text/javascript" src="{{URL('js/bill_report_master.js')}}"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
+    <!-- <script type="text/javascript" src="//jasonday.github.io/printThis/printThis.js"></script> -->
+    @endpush

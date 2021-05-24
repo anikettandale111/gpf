@@ -1,20 +1,14 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <!-- Meta, title, CSS, favicons, etc. -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="icon" href="{{asset('asset/images/favicon.ico') }}" type="image/ico" />
-  <!-- Bootstrap -->
-  <title>{{ config('app.name') }} </title>
-  <link href=" {{ asset('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href=" {{ asset('css/main.css') }}" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link href="{{asset('asset/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-  <link href="{{asset('asset/build/css/custom.min.css')}}" rel="stylesheet">
+  <head>
+    <title>{{ config('app.name') }} </title>
+    <link href=" {{ URL('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href=" {{ URL('css/main.css') }}" rel="stylesheet">
+    <link href="{{URL('asset/build/css/custom.min.css')}}" rel="stylesheet">
+    <meta charset="UTF-8">
+  </head>
   <style>
   table,
   th,
@@ -67,7 +61,7 @@
   }
   </style>
 </head>
-<body class="nav-md" style="margin-left:20%;margin-right:20%;">
+<body class="nav-md" >
   <div class="col-md-12 col-sm-12 " >
     <div class="x_panel">
       <div class="x_content">
@@ -123,17 +117,19 @@
             <div class="col-md-12">
               <span class="pull-left">833600115003</span><br>
             </div>
-            <div class="col-md-8">
-
-            </div>
+            <div class="col-md-12" style="margin-top:50px;">
             <div class="col-md-4">
               <span class="pull-left">Chief Accounts & Finance Office
                 <br>Zilla Parishad, Nashik.
               </span>
             </div>
             <div class="col-md-4">
-              <span class="pull-left">Copy C.W.C.S. </span><br>
-              <span class="pull-left">Dist. Treasury Officer, Nashik </span>
+
+            </div>
+            <div class="col-md-4">
+              <span class="pull-left">Copy C.W.C.S. <br>
+              Dist. Treasury Officer, Nashik </span>
+            </div>
             </div>
           </div>
         </div>

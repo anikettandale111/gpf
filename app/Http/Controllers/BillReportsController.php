@@ -16,33 +16,37 @@ class BillReportsController extends Controller
     $billDetails = Bill::select('bill_no','id')->where('bill_check',1)->get();
     return view('Admin/BillReports/index',compact('billDetails'));
   }
-  public function show(Request $request){
+  public function viewreport($billid,$reportType){
     $html = '';
-    $billid = $request->bill_id;
-    if($request->reportNo == 1){
+    if($reportType == 1){
       $talukaData = Taluka::select('taluka_name_mar AS taluka_name','id')->get();
-      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
-      $html .= view('Admin.BillReports.report75',compact('billid','billDetails','talukaData'))->render();
+      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$billid)->first();
+      // $html .= view('Admin.BillReports.report75',compact('billid','billDetails','talukaData'))->render();
+      return view('Admin.BillReports.report75',compact('billid','billDetails','talukaData'));
     }
-    if($request->reportNo == 2){
-      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
-      $billExpenses = BillExpenses::where('bill_id',$request->bill_id)->sum('required_rakkam');
-      $html .= view('Admin.BillReports.report188',compact('billid','billDetails','billExpenses'))->render();
+    if($reportType == 2){
+      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$billid)->first();
+      $billExpenses = BillExpenses::where('bill_id',$billid)->sum('required_rakkam');
+      // $html .= view('Admin.BillReports.report188',compact('billid','billDetails','billExpenses'))->render();
+      return view('Admin.BillReports.report188',compact('billid','billDetails','billExpenses'));
     }
-    if($request->reportNo == 3){
-      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
-      $billExpenses = BillExpenses::where('bill_id',$request->bill_id)->sum('required_rakkam');
-      $html .= view('Admin.BillReports.compslip',compact('billid','billDetails','billExpenses'))->render();
+    if($reportType == 3){
+      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$billid)->first();
+      $billExpenses = BillExpenses::where('bill_id',$billid)->sum('required_rakkam');
+      // $html .= view('Admin.BillReports.compslip',compact('billid','billDetails','billExpenses'))->render();
+      return view('Admin.BillReports.compslip',compact('billid','billDetails','billExpenses'));
     }
-    if($request->reportNo == 4){
-      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
-      $billExpenses = BillExpenses::where('bill_id',$request->bill_id)->sum('required_rakkam');
-      $html .= view('Admin.BillReports.order',compact('billid','billDetails','billExpenses'))->render();
+    if($reportType == 4){
+      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$billid)->first();
+      $billExpenses = BillExpenses::where('bill_id',$billid)->sum('required_rakkam');
+      // $html .= view('Admin.BillReports.order',compact('billid','billDetails','billExpenses'))->render();
+      return view('Admin.BillReports.order',compact('billid','billDetails','billExpenses'));
     }
-    if($request->reportNo == 5){
-      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$request->bill_id)->first();
-      $billExpenses = BillExpenses::where('bill_id',$request->bill_id)->sum('required_rakkam');
-      $html .= view('Admin.BillReports.mtr52a',compact('billid','billDetails','billExpenses'))->render();
+    if($reportType == 5){
+      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$billid)->first();
+      $billExpenses = BillExpenses::where('bill_id',$billid)->sum('required_rakkam');
+      // $html .= view('Admin.BillReports.mtr52a',compact('billid','billDetails','billExpenses'))->render();
+      return view('Admin.BillReports.mtr52a',compact('billid','billDetails','billExpenses'));
     }
     return ['html' => $html];
   }

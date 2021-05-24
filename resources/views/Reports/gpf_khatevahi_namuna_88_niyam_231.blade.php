@@ -48,7 +48,7 @@
 	<div class="card-box ">
 		<div class="card-box ">
 			<div class="row">
-				<div class="col-md-3"> 
+				<div class="col-md-3">
 					<label> खाते क्रमांक :- {{$rqo->inital_letter}}{{digitChange($rqo->gpf_number)}} </label>
 				</div>
 				<div class="col-md-4" style="text-align: center;"> 

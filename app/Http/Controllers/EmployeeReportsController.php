@@ -110,6 +110,25 @@ class EmployeeReportsController extends Controller
                     ->groupBy('mgt.employee_id')->orderBy("me.gpf_no");
       $rqo_result = $query_one->get();
       return view('Reports/gpf_bruhpatrak_naumna_89_niyam_231',compact('rqo_result','roi_result','month_name'));
+    } else if ($request->view_report_type == 4){
+      $query_one =  DB::table('master_employee AS me')
+                    ->select('me.gpf_no','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name',"c.inital_letter","me.antim_partava_status")
+                    ->join('taluka AS tl','tl.id','me.taluka_id')
+                    ->join('classifications AS c','c.id','me.classification_id')
+                    ->join('departments AS dp','dp.department_code','me.department_id')
+                    ->join('designations AS dg','dg.id','me.designation_id')
+                    ->where(['me.employee_id' =>$request->employee_gpf_num])
+                    ->orderBy("me.gpf_no");
+      $rqo_result = $query_one->first();
+      $chalanQuery = DB::table('master_emp_monthly_contribution_two AS mct')
+                    ->select('mct.monthly_contrubition','mct.monthly_received','mct.loan_installment','mct.monthly_other',
+                      'mct.gpf_number','mct.challan_number','mm.month_name_'.$lang.' as month_name')
+                    ->join('taluka AS tl','tl.id','mct.taluka_id')
+                    ->join('master_month AS mm','mm.id','mct.emc_month')
+                    ->where('mct.gpf_number','11684')
+                    ->orderBy('mct.emc_id')
+                    ->get();
+      return view('Reports/chalan_nihay',compact('rqo_result','roi_result','month_name','chalanQuery'));
     }
   }
   public function getAllEmpKhatevahi(Request $request){

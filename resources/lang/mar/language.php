@@ -261,6 +261,7 @@ return [
   'gpf_khate_utaran_niyam_231' => 'भ.नि.नि.खाते उतारा (नियम २३१)',
   'gpf_khatevahi_namuna_88_niyam_231' => 'भ.नि.नि.खातेवही नमुना नं. ८८ (नियम २३१)',
   'gpf_bruhpatrak_naumna_89_niyam_231' => 'भ.नि.नि.बृहपत्रक नमुना नं ८९(नियम २३१)',
+  'gpf_chalan_nihay' => 'चलन निहाय',
   'designation' => 'पदनाम',
   'role' => "रोल",
   'fr_to_vibhag_samiti_no' => 'विभाग/पंचायत समिती कार्यमुक्त क्र',

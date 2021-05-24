@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function () {
     //Antim Bill Pryojan Expenses
     Route::get('getBillExpensesDetails', 'AntimBillExpensesController@getBillExpensesDetails');
     Route::resource('antimbillexpenses', AntimBillExpensesController::class);
+    Route::post('viewreport/{billid?}/{rtype?}', 'BillReportsController@viewreport');
     Route::resource('billreports', BillReportsController::class);
 
     // Districts

@@ -1,56 +1,49 @@
 var bill_id;
 $(document).ready(function(){
-  $('#report_one').click(function(){
+  $('#get_report').click(function(){
     bill_id = $('#bill_no').val();
-    getReport(bill_id,1);
-  });
-  $('#report_two').click(function(){
-    bill_id = $('#bill_no').val();
-    getReport(bill_id,2);
-  });
-  $('#report_three').click(function(){
-    bill_id = $('#bill_no').val();
-    getReport(bill_id,3);
-  });
-  $('#report_four').click(function(){
-    bill_id = $('#bill_no').val();
-    getReport(bill_id,4);
-  });
-  $('#report_five').click(function(){
-    bill_id = $('#bill_no').val();
-    getReport(bill_id,5);
+    getReport(bill_id);
   });
   var doc = new jsPDF();
 });
 var $iframe = $('#iframe');
 function getReport(bill_id,reportNo){
+  var reportNo = $('#report_type').val();
   if(bill_id == null){
     swal('warning','Please Select Bill Number');
     return false;
+  }else if(reportNo == null){
+    swal('warning','Please Select Report Type');
+    return false;
+  }else {
+    var siteurl = window.location.origin;
+    $('#reportNo').val(reportNo);
+    $('.getBillReport').attr('action',siteurl+'/viewreport/'+bill_id+'/'+reportNo);
+    $('.getBillReport').submit();
   }
-  $.ajax({
-    type: 'GET',
-    url: "billreports/edit",
-    data: { bill_id:bill_id,reportNo:reportNo },
-    success: function(results) {
-      $iframe.ready(function() {
-          $iframe.contents().find("body").empty();
-          $iframe.contents().find("body").append(results.html);
-      });
-      $("#iframe").get(0).contentWindow.print();
-
-      // printDiv(results.html,'ReportTitle');
-          // var body = results.html;
-          // var newWin = document.getElementById('iframe').contentWindow;
-          // newWin.document.write(body);
-          // newWin.document.close(); //important!
-          // newWin.focus(); //IE fix
-          // newWin.print();
-
-      // $('.report_div').empty();
-      // $('.report_div').append(results.html);
-    }
-  });
+  // $.ajax({
+  //   type: 'GET',
+  //   url: "billreports/edit",
+  //   data: { bill_id:bill_id,reportNo:reportNo },
+  //   success: function(results) {
+  //     // $iframe.ready(function() {
+  //     //     $iframe.contents().find("body").empty();
+  //     //     $iframe.contents().find("body").append(results.html);
+  //     // });
+  //     // $("#iframe").get(0).contentWindow.print();
+  //
+  //     // printDiv(results.html,'ReportTitle');
+  //         // var body = results.html;
+  //         // var newWin = document.getElementById('iframe').contentWindow;
+  //         // newWin.document.write(body);
+  //         // newWin.document.close(); //important!
+  //         // newWin.focus(); //IE fix
+  //         // newWin.print();
+  //
+  //     // $('.report_div').empty();
+  //     // $('.report_div').append(results.html);
+  //   }
+  // });
 }
 function printDivOne(){
   // setTimeout(() => {
