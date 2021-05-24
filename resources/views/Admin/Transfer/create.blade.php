@@ -6,7 +6,7 @@
     <div class="col-md-12 col-sm-12 ">
       <div class="x_panel">
         <div class="">
-          <h2>{{trans('language.h_providing_account_numbe')}} </h2>
+          <h2>{{trans('language.th_account_transfer')}} </h2>
         </div>
         <div class="x_content">
           <form method="POST" class="validatedForm" action="{{ url('ganrate_insert_no') }}" enctype="multipart/form-data">
@@ -31,8 +31,20 @@
                 <input class="form-control" type="text" name="employee_id" id="employee_id" required='required' placeholder="{{trans('language.th_providing_employee_seva_number')}}">
               </div>
               <div class="form-group col-md-4">
-                <label for="taluka" >{{trans('language.th_providing_taluka')}}</label>
-                <select class="form-control  @error('taluka') is-invalid @enderror" name="taluka_id" value="{{ old('taluka') }}" autocomplete="off" autofocus>
+                <label > {{trans('language.th_employee_gpf_number')}} <span class="required"></span></label>
+                <input class="form-control" type="text" name="employee_gpf_number" id="employee_gpf_number" required='required' placeholder="{{trans('language.th_employee_gpf_number')}}">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name" >{{trans('language.th_tarnsfer_from_zilla')}}</label>
+                <input type="text" class="form-control" name="tarnsfer_from_zilla" id="tarnsfer_from_zilla" required >
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name" >{{trans('language.th_tarnsfer_to_zilla')}}</label>
+                <input type="text" class="form-control" name="tarnsfer_to_zilla" id="tarnsfer_to_zilla" required >
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name" >{{trans('language.th_tarnsfer_to_taluka')}}</label>
+                <select type="select" class="form-control" name="tarnsfer_to_taluka" id="tarnsfer_to_taluka" required >
                   <option value="">{{trans('language.th_providing_select_taluka')}}</option>
                   @foreach($taluka as $k => $v)
                   <option value="{{$v->id}}">{{$v->taluka_name_mar}}</option>
@@ -111,11 +123,7 @@
                 <label for="name" >{{trans('language.th_providing_letter_no')}}</label>
                 <input type="text" name="c_v_letter" class="form-control @error('c_v_letter') is-invalid @enderror" id="c_v_letter" value="{{ old('c_v_letter') }}" required autocomplete="off" autofocus placeholder="{{trans('language.th_providing_letter_no')}}">
               </div>
-              <div class="form-group col-md-4">
-                <label for="name" >{{trans('language.th_providing_whether_to_a_n')}}</label><br>
-                <input type="radio" name="gpf_no_status" class="@error('yes') is-invalid @enderror" id="yes" value="1" required autocomplete="off" autofocus> {{trans('language.th_providing_gpf_yes_status')}}
-                <input type="radio" name="gpf_no_status" class=" @error('yes') is-invalid @enderror" id="no" value="0" required autocomplete="off" autofocus checked> {{trans('language.th_providing_gpf_no_status')}}
-              </div>
+
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_attachment_one')}}</label>
                 <input type="file" name="attachment_one" class="form-control @error('attachment_one') is-invalid @enderror" id="attachment_one" required >

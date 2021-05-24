@@ -95,8 +95,13 @@ return [
   'form_bank' => 'बँक',
   //Providing account number
   'h_providing_account_numbe'=>'लेखाक्रमांक प्रदान करणे',
+  'th_account_transfer'=>'जिल्हा बदली करणे',
   'th_providing_no'=>'क्रमांक',
   'th_providing_classification'=>'वर्गीकरण',
+  'th_tarnsfer_from_zilla' => 'बदली पूर्व जिल्हा',
+  'th_tarnsfer_to_zilla' => 'बदली नंतर जिल्हा',
+  'th_tarnsfer_to_taluka' => 'बदली तालुका',
+  'th_employee_gpf_number' => 'कर्मचारी भ.नि.नि.क्र.',
   'th_providing_select_classification'=>'वर्गीकरण निवडा',
   'th_providing_application_number'=>'अर्ज क्रमांक',
   'th_providing_application_date'=>'अर्ज दिनांक',
