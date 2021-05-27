@@ -6,7 +6,7 @@
     <link href=" {{ URL('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href=" {{ URL('css/main.css') }}" rel="stylesheet">
-    <link href="{{URL('asset/build/css/custom.min.css')}}" rel="stylesheet">
+
     <meta charset="UTF-8">
 
   <style>
