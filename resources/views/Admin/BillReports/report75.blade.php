@@ -6,10 +6,26 @@
     <link href=" {{ URL('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href=" {{ URL('css/main.css') }}" rel="stylesheet">
-    <link href="{{URL('asset/build/css/custom.min.css')}}" rel="stylesheet">
+
     <meta charset="UTF-8">
-  </head>
+
   <style>
+  body
+  {
+    background: #fff;
+  }
+  h2
+  {
+    font-size:28px;
+    font-weight: bold;
+    text-align:center;
+  }
+  p label
+  {
+    font:24px;
+    font-weight: bold;
+    text-align:center;
+  }
   table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -49,24 +65,15 @@
 @php
 use App\BillExpenses;
 @endphp
-<body class="nav-md" >
-  <div class="col-md-12 " >
-    <div class="x_panel">
-      <div class="x_content">
-        <div class="row" style="text-align:center;">
-          <div class="col-md-12" >
+<body>
+          <p>
             <h2> <b>जिल्हा परिषद नाशिक </b> </h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12" style="text-align:center;">
-            <label>भ नि.नि कर्मचाऱ्यांना  पारित केलेल्या रक्कमांचा तपशील बिल क्रमांक -  @if(isset($billDetails->bill_no) && $billDetails->bill_no !== '') {{$billDetails->bill_no}} @endif
-              <!-- दिनांक -: @if(isset($billDetails->bill_date) && $billDetails->bill_date !== '') {{ date("d-m-Y", strtotime($billDetails->bill_date)) }} @endif  --> </label>
-            </div>
-          </div>
+
+            <label>भ नि.नि कर्मचाऱ्यांना  पारित केलेल्या रक्कमांचा तपशील बिल क्रमांक -  @if(isset($billDetails->bill_no) && $billDetails->bill_no !== '') {{$billDetails->bill_no}} @endif</label>
+          </p>
+
           <hr>
-          <div class="col-sm-12">
-            <div class="card-box">
+
               <table class="table" width="100%">
                 @php
                 $alltotal = 0;
@@ -141,10 +148,7 @@ use App\BillExpenses;
                 </tbody>
                 @endif
               </table>
-            </div>{{$rowcount}}
-          </div>
-        </div>
-      </div>
-    </div>
+            {{$rowcount}}
+
   </body>
   </html>
