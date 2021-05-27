@@ -64,7 +64,7 @@
 use App\BillExpenses;
 @endphp
 <body>
-         <div>
+         <div style="text-align:center">
             <h2> <b>जिल्हा परिषद नाशिक </b> </h2>
 
             <label>भ नि.नि कर्मचाऱ्यांना  पारित केलेल्या रक्कमांचा तपशील बिल क्रमांक -  @if(isset($billDetails->bill_no) && $billDetails->bill_no !== '') {{$billDetails->bill_no}} @endif</label>
