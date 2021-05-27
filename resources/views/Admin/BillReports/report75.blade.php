@@ -10,6 +10,21 @@
     <meta charset="UTF-8">
 
   <style>
+  body
+  {
+    background: #fff;
+  }
+  h2
+  {
+    font-size:22px;
+    font-weight: bold;
+  }
+  p label
+  {
+    font: outline;20px;
+    font-weight: bold;
+    text-align:center;
+  }
   table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -50,11 +65,11 @@
 use App\BillExpenses;
 @endphp
 <body>
-
+  <p class="col-md-12" style="text-align:center;">
             <h2> <b>जिल्हा परिषद नाशिक </b> </h2>
 
 
-          <p class="col-md-12" style="text-align:center;">
+
             <label>भ नि.नि कर्मचाऱ्यांना  पारित केलेल्या रक्कमांचा तपशील बिल क्रमांक -  @if(isset($billDetails->bill_no) && $billDetails->bill_no !== '') {{$billDetails->bill_no}} @endif
               <!-- दिनांक -: @if(isset($billDetails->bill_date) && $billDetails->bill_date !== '') {{ date("d-m-Y", strtotime($billDetails->bill_date)) }} @endif </label> -->
             </p>
