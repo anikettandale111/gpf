@@ -36,7 +36,7 @@
     .page-break { display: none; }
   }
   @media print {
-    .page-break { display: block; page-break-before: auto; }
+    .pagebreak { page-break-before: always; }
     thead,tbody{
       page-break-inside:avoid;
       /* page-break-after:auto; */
@@ -70,6 +70,7 @@ use App\BillExpenses;
               <table class="table" width="100%">
                 @php
                 $alltotal = 0;
+                $rowcount=1;
                 $billExpensesReport;
                 @endphp
                 @if(count($talukaData))
@@ -105,28 +106,45 @@ use App\BillExpenses;
                     </tr>
                     @php $talukatotal = $talukatotal + $expenses->required_rakkam @endphp
                     @php $alltotal = $alltotal + $expenses->required_rakkam @endphp
-                    @endforeach
-                    <tr>
-                      <td colspan="4"></td>
-                      <td>ऐकूण - {{digitChange(amount_inr_format($talukatotal))}}</td>
-                      <td colspan="2"></td>
-                    </tr>
-                    @endif
-                    @endforeach
-                    <tr>
-                      <td colspan="1">ऐकूण - रुपये </td>
-                      <td colspan="6">{{digitChange(amount_inr_format($alltotal))}}<hr><br>Total {{convertToIndianCurrency($alltotal)}}</td>
-                    </tr>
-                    <tr>
-                      <td colspan="7" style="text-align:right"> मुख्य लेखा व वित्त अधिकारी <br>जिल्हा परिषद, नाशिक </td>
-                    </tr>
+                    @php $rowcount++; @endphp
+                    @if(!($rowcount % 10))
                   </tbody>
-                    @endif
                 </table>
-              </div>
-            </div>
+              <div class="pagebreak"> </div>
+              <table class="table" width="100%">
+                <tbody>
+                  <tr>
+                    <th>अनु.क्र</th>
+                    <th>कर्मचारी भ.नि.नि.क्रं/नाव//हुद्दा</th>
+                    <th>अग्रीमाचे प्रयोजन</th>
+                    <th>परतावा / नापरतावा</th>
+                    <th>शिल्लक / मंजूररक्कम रक्कम</th>
+                    <th>बँकेची माहिती</th>
+                    <th>प्राधिकारी अधिकारी</th>
+                  </tr>
+                  @endif
+                  @endforeach
+                  <tr>
+                    <td colspan="4"></td>
+                    <td>ऐकूण - {{digitChange(amount_inr_format($talukatotal))}}</td>
+                    <td colspan="2"></td>
+                  </tr>
+                  @endif
+                  @endforeach
+                  <tr>
+                    <td colspan="1">ऐकूण - रुपये </td>
+                    <td colspan="6">{{digitChange(amount_inr_format($alltotal))}}<hr><br>Total {{convertToIndianCurrency($alltotal)}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="7" style="text-align:right;"><br><br><br> मुख्य लेखा व वित्त अधिकारी <br>जिल्हा परिषद, नाशिक </td>
+                  </tr>
+                </tbody>
+                @endif
+              </table>
+            </div>{{$rowcount}}
           </div>
         </div>
       </div>
-    </body>
-    </html>
+    </div>
+  </body>
+  </html>
