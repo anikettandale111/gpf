@@ -20,9 +20,9 @@
     font-weight: bold;
     text-align:center;
   }
-  p label
+  label
   {
-    font:24px;
+    font-size:24px;
     font-weight: bold;
     text-align:center;
   }
@@ -81,7 +81,7 @@ use App\BillExpenses;
                 $billExpensesReport;
                 @endphp
                 @if(count($talukaData))
-                <tbody>
+                <thead>
                   <tr>
                     <th>अनु.क्र</th>
                     <th>कर्मचारी भ.नि.नि.क्रं/नाव//हुद्दा</th>
@@ -91,6 +91,8 @@ use App\BillExpenses;
                     <th>बँकेची माहिती</th>
                     <th>प्राधिकारी अधिकारी</th>
                   </tr>
+                </thead>
+                <tbody>
                   @foreach($talukaData AS $tal_row)
                   @php
                   $billExpensesReport = BillExpenses::where(['bill_id'=>$billid,'taluka_id'=>$tal_row->id])->get();
@@ -115,7 +117,7 @@ use App\BillExpenses;
                     @php $alltotal = $alltotal + $expenses->required_rakkam @endphp
                     @php $rowcount++; @endphp
                     @if(!($rowcount % 10))
-                  </tbody>
+                  </thead>
                 </table>
               <div class="pagebreak"> </div>
               <table class="table" width="100%">
