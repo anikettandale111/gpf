@@ -318,12 +318,13 @@
             </div>
           </div>
           <hr style="border: solid black;width:100%"/>
-          <div class="row mt-3">
+        </div>
+          <div class="row mt-5" style="margin-top:5% !important">
             <div class="col-md-12">
-              <b><span class="pull-right">Chief Accounts & Finance Officer,<br>Zilla Parishad, Nashik</span></b>
+              <b><span class="pull-right">Chief Accounts & Finance Officer,<br><center>Zilla Parishad, Nashik</center></span></b>
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-5">
             <div class="col-md-8">
               <b><span class="pull-left">Notes</span></b>
               <span class="pull-left">1. The amount againes the item (Total) claim on the left hand side of the from is to be transferred in the coloummn for amount on the computer slip .</span><br>
@@ -332,7 +333,6 @@
             <div class="col-md-4">
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>

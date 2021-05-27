@@ -120,7 +120,7 @@
             <div class="col-md-12" style="margin-top:50px;">
             <div class="col-md-4">
               <span class="pull-left">Chief Accounts & Finance Office
-                <br>Zilla Parishad, Nashik.
+                <br><center>Zilla Parishad, Nashik.</center>
               </span>
             </div>
             <div class="col-md-4">
