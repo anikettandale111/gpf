@@ -2,12 +2,12 @@
 
 <head>
 
-    <title>{{ config('app.name') }} </title>
-    <link href=" {{ URL('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href=" {{ URL('css/main.css') }}" rel="stylesheet">
+  <title>{{ config('app.name') }} </title>
+  <link href=" {{ URL('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href=" {{ URL('css/main.css') }}" rel="stylesheet">
 
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
 
   <style>
   body
@@ -64,91 +64,89 @@
 use App\BillExpenses;
 @endphp
 <body>
-         <div style="text-align:center">
-            <h2> <b>जिल्हा परिषद नाशिक </b> </h2>
+  <div style="text-align:center">
+    <h2> <b>जिल्हा परिषद नाशिक </b> </h2>
 
-            <label>भ नि.नि कर्मचाऱ्यांना  पारित केलेल्या रक्कमांचा तपशील बिल क्रमांक -  @if(isset($billDetails->bill_no) && $billDetails->bill_no !== '') {{$billDetails->bill_no}} @endif</label>
-         </div>
+    <label>भ नि.नि कर्मचाऱ्यांना  पारित केलेल्या रक्कमांचा तपशील बिल क्रमांक -  @if(isset($billDetails->bill_no) && $billDetails->bill_no !== '') {{$billDetails->bill_no}} @endif</label>
+  </div>
 
-          <hr>
+  <hr>
 
-              <table class="table" width="100%">
-                @php
-                $alltotal = 0;
-                $rowcount=1;
-                $billExpensesReport;
-                @endphp
-                @if(count($talukaData))
+  <table class="table" width="100%">
+    @php
+    $alltotal = 0;
+    $rowcount=1;
+    $billExpensesReport;
+    @endphp
+    @if(count($talukaData))
 
-                <tbody>
-                  <tr>
-                    <th>अनु.क्र</th>
-                    <th>कर्मचारी भ.नि.नि.क्रं/नाव//हुद्दा</th>
-                    <th>अग्रीमाचे प्रयोजन</th>
-                    <th>परतावा / नापरतावा</th>
-                    <th>शिल्लक / मंजूररक्कम रक्कम</th>
-                    <th>बँकेची माहिती</th>
-                    <th>प्राधिकारी अधिकारी</th>
-                  </tr>
+    <tbody>
+      <tr>
+        <th>अनु.क्र</th>
+        <th>कर्मचारी भ.नि.नि.क्रं/नाव//हुद्दा</th>
+        <th>अग्रीमाचे प्रयोजन</th>
+        <th>परतावा / नापरतावा</th>
+        <th>शिल्लक / मंजूररक्कम रक्कम</th>
+        <th>बँकेची माहिती</th>
+        <th>प्राधिकारी अधिकारी</th>
+      </tr>
 
-                  @foreach($talukaData AS $tal_row)
-                  @php
-                  $billExpensesReport = BillExpenses::where(['bill_id'=>$billid,'taluka_id'=>$tal_row->id])->get();
-                  $talukatotal = 0;
-                  @endphp
-                  @if(count($billExpensesReport))
-                  <tr>
-                    <td colspan="7"><center>म.गट विकास अधिकारी,पंचायत समिती ,{{ $tal_row->taluka_name}}</center></td>
-                  </tr>
-                  @foreach($billExpensesReport AS $key => $expenses)
-                  <tr>
-                    <td>{{($key+1)}}</td>
-                    <td><b>{{$expenses->gpf_no}}</b><br>{{$expenses->user_name}}<br>{{$expenses->user_designation}}<br>{{$expenses->user_taluka_name}}</td>
-                    <td>{{$expenses->loan_agrim_pryojan}}</td>
-                    <td>{{$expenses->loan_agrim_niyam}}</td>
-                    <td>{{digitChange(amount_inr_format($expenses->shillak_rakkam))}}<hr>
-                      <br>{{digitChange(amount_inr_format($expenses->required_rakkam))}}</td>
-                      <td>{{$expenses->bank_name}}<br>{{$expenses->bank_ifsc_name}}<br>{{$expenses->bank_acc_number}}  </td>
-                      <td>{{('DY .CA & FO')}}</td>
-                    </tr>
-                    @php $talukatotal = $talukatotal + $expenses->required_rakkam @endphp
-                    @php $alltotal = $alltotal + $expenses->required_rakkam @endphp
-                    @php $rowcount++; @endphp
-                    @if(!($rowcount % 10))
-                  </thead>
-                </table>
-              <div class="pagebreak"> </div>
-              <table class="table" width="100%">
-                <tbody>
-                  <tr>
-                    <th>अनु.क्र</th>
-                    <th>कर्मचारी भ.नि.नि.क्रं/नाव//हुद्दा</th>
-                    <th>अग्रीमाचे प्रयोजन</th>
-                    <th>परतावा / नापरतावा</th>
-                    <th>शिल्लक / मंजूररक्कम रक्कम</th>
-                    <th>बँकेची माहिती</th>
-                    <th>प्राधिकारी अधिकारी</th>
-                  </tr>
-                  @endif
-                  @endforeach
-                  <tr>
-                    <td colspan="4"></td>
-                    <td>ऐकूण - {{digitChange(amount_inr_format($talukatotal))}}</td>
-                    <td colspan="2"></td>
-                  </tr>
-                  @endif
-                  @endforeach
-                  <tr>
-                    <td colspan="1">ऐकूण - रुपये </td>
-                    <td colspan="6">{{digitChange(amount_inr_format($alltotal))}}<hr><br>Total {{convertToIndianCurrency($alltotal)}}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="7" style="text-align:right;"><br><br><br> मुख्य लेखा व वित्त अधिकारी <br>जिल्हा परिषद, नाशिक </td>
-                  </tr>
-                </tbody>
-                @endif
-              </table>
-            {{$rowcount}}
-
+      @foreach($talukaData AS $tal_row)
+      @php
+      $billExpensesReport = BillExpenses::where(['bill_id'=>$billid,'taluka_id'=>$tal_row->id])->get();
+      $talukatotal = 0;
+      @endphp
+      @if(count($billExpensesReport))
+      <tr>
+        <td colspan="7"><center>म.गट विकास अधिकारी,पंचायत समिती ,{{ $tal_row->taluka_name}}</center></td>
+      </tr>
+      @foreach($billExpensesReport AS $key => $expenses)
+      <tr>
+        <td>{{($key+1)}}</td>
+        <td><b>{{$expenses->gpf_no}}</b><br>{{$expenses->user_name}}<br>{{$expenses->user_designation}}<br>{{$expenses->user_taluka_name}}</td>
+        <td>{{$expenses->loan_agrim_pryojan}}</td>
+        <td>{{$expenses->loan_agrim_niyam}}</td>
+        <td>{{digitChange(amount_inr_format($expenses->shillak_rakkam))}}<hr>
+          <br>{{digitChange(amount_inr_format($expenses->required_rakkam))}}</td>
+          <td>{{$expenses->bank_name}}<br>{{$expenses->bank_ifsc_name}}<br>{{$expenses->bank_acc_number}}  </td>
+          <td><br><br>{{('DY .CA & FO')}}</td>
+        </tr>
+        @php $talukatotal = $talukatotal + $expenses->required_rakkam @endphp
+        @php $alltotal = $alltotal + $expenses->required_rakkam @endphp
+        @php $rowcount++; @endphp
+        @if(!($rowcount % 10))
+      </thead>
+    </table>
+    <div class="pagebreak"> </div>
+    <table class="table" width="100%">
+      <tbody>
+        <tr>
+          <th>अनु.क्र</th>
+          <th>कर्मचारी भ.नि.नि.क्रं/नाव//हुद्दा</th>
+          <th>अग्रीमाचे प्रयोजन</th>
+          <th>परतावा / नापरतावा</th>
+          <th>शिल्लक / मंजूररक्कम रक्कम</th>
+          <th>बँकेची माहिती</th>
+          <th>प्राधिकारी अधिकारी</th>
+        </tr>
+        @endif
+        @endforeach
+        <tr>
+          <td colspan="4"></td>
+          <td>ऐकूण - {{digitChange(amount_inr_format($talukatotal))}}</td>
+          <td colspan="2"></td>
+        </tr>
+        @endif
+        @endforeach
+        <tr>
+          <td colspan="1">ऐकूण - रुपये </td>
+          <td colspan="6">{{digitChange(amount_inr_format($alltotal))}}<hr><br>Total {{convertToIndianCurrency($alltotal)}}</td>
+        </tr>
+        <tr>
+          <td colspan="7" style="text-align:right;"><br><br><br> मुख्य लेखा व वित्त अधिकारी <br>जिल्हा परिषद, नाशिक </td>
+        </tr>
+      </tbody>
+      @endif
+    </table>
   </body>
   </html>
