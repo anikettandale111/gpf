@@ -65,13 +65,13 @@
 use App\BillExpenses;
 @endphp
 <body>
-          <p class="col-md-12" style="text-align:center;">
+          <p style="text-align:center;">
             <h2> <b>जिल्हा परिषद नाशिक </b> </h2>
 
 
 
             <label>भ नि.नि कर्मचाऱ्यांना  पारित केलेल्या रक्कमांचा तपशील बिल क्रमांक -  @if(isset($billDetails->bill_no) && $billDetails->bill_no !== '') {{$billDetails->bill_no}} @endif
-              <!-- दिनांक -: @if(isset($billDetails->bill_date) && $billDetails->bill_date !== '') {{ date("d-m-Y", strtotime($billDetails->bill_date)) }} @endif </label> -->
+              <!-- दिनांक -: @if(isset($billDetails->bill_date) && $billDetails->bill_date !== '') {{ date("d-m-Y", strtotime($billDetails->bill_date)) }} @endif --> </label>
           </p>
 
           <hr>
