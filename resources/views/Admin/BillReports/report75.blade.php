@@ -6,26 +6,10 @@
     <link href=" {{ URL('asset/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href=" {{ URL('css/main.css') }}" rel="stylesheet">
-
+    <link href="{{URL('asset/build/css/custom.min.css')}}" rel="stylesheet">
     <meta charset="UTF-8">
-
+  </head>
   <style>
-  body
-  {
-    background: #fff;
-  }
-  h2
-  {
-    font-size:28px;
-    font-weight: bold;
-    text-align:center;
-  }
-  label
-  {
-    font-size:24px;
-    font-weight: bold;
-    text-align:center;
-  }
   table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -65,15 +49,24 @@
 @php
 use App\BillExpenses;
 @endphp
-<body>
-          <p>
+<body class="nav-md" >
+  <div class="col-md-12 " >
+    <div class="x_panel">
+      <div class="x_content">
+        <div class="row" style="text-align:center;">
+          <div class="col-md-12" >
             <h2> <b>जिल्हा परिषद नाशिक </b> </h2>
-
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="text-align:center;">
             <label>भ नि.नि कर्मचाऱ्यांना  पारित केलेल्या रक्कमांचा तपशील बिल क्रमांक -  @if(isset($billDetails->bill_no) && $billDetails->bill_no !== '') {{$billDetails->bill_no}} @endif</label>
-          </p>
+              <!-- दिनांक -: @if(isset($billDetails->bill_date) && $billDetails->bill_date !== '') {{ date("d-m-Y", strtotime($billDetails->bill_date)) }} @endif </label> -->
+          </div>
 
           <hr>
-
+          <div class="col-sm-12">
+            <div class="card-box">
               <table class="table" width="100%">
                 @php
                 $alltotal = 0;
@@ -81,7 +74,7 @@ use App\BillExpenses;
                 $billExpensesReport;
                 @endphp
                 @if(count($talukaData))
-                <thead>
+                <tbody>
                   <tr>
                     <th>अनु.क्र</th>
                     <th>कर्मचारी भ.नि.नि.क्रं/नाव//हुद्दा</th>
@@ -91,8 +84,6 @@ use App\BillExpenses;
                     <th>बँकेची माहिती</th>
                     <th>प्राधिकारी अधिकारी</th>
                   </tr>
-                </thead>
-                <tbody>
                   @foreach($talukaData AS $tal_row)
                   @php
                   $billExpensesReport = BillExpenses::where(['bill_id'=>$billid,'taluka_id'=>$tal_row->id])->get();
@@ -117,7 +108,7 @@ use App\BillExpenses;
                     @php $alltotal = $alltotal + $expenses->required_rakkam @endphp
                     @php $rowcount++; @endphp
                     @if(!($rowcount % 10))
-                  </thead>
+                  </tbody>
                 </table>
               <div class="pagebreak"> </div>
               <table class="table" width="100%">
@@ -150,7 +141,11 @@ use App\BillExpenses;
                 </tbody>
                 @endif
               </table>
-            {{$rowcount}}
-
+            </div>{{$rowcount}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   </body>
   </html>
