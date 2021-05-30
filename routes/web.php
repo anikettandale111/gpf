@@ -145,7 +145,7 @@ Route::middleware('auth')->group(function () {
     Route::get('employee_list', 'EmployeeController@getEmployeeList');
     Route::resource('employee',EmployeeController::class);
     Route::resource('transfer',TransferController::class);
-    Route::resource('chalan_ghoshwara',ChalanReportController::class);
+    Route::resource('chalanGhoshwara',ChalanReportController::class);
 
     Route::get('calculationOne', 'VetanController@calculationOne');
 });
