@@ -80,7 +80,11 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_joining_date')}}</label>
-                <input type="date" name="joining_date" class="form-control @error('joining_date') is-invalid @enderror calculateRetirment" id="joining_date" value="{{ old('joining_date') }}" required autocomplete="off" autofocus>
+                <input type="date" name="joining_date" class="form-control @error('joining_date') is-invalid @enderror calculateRetirment" id="joining_date" max="2005-11-01" value="{{ old('joining_date') }}" required autocomplete="off" autofocus>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="name" >{{trans('language.th_providing_new_state_joining_date')}}</label>
+                <input type="date" name="joining_date_one" class="form-control @error('joining_date_one') is-invalid @enderror calculateRetirment" id="joining_date_one" value="{{ old('joining_date_one') }}" required autocomplete="off" autofocus>
               </div>
               <div class="form-group col-md-4">
                 <label for="name" >{{trans('language.th_providing_date_of_retirement')}}</label>

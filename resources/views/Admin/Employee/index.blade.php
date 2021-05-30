@@ -21,12 +21,32 @@
                   <input type="text" class="form-control clearfield" name="user_name" id="user_name" readonly>
                 </div>
                 <div class="col-sm-3">
-                  <label>{{trans('language.fr_common_user_designation')}}</label>
-                  <input type="text" class="form-control clearfield" name="user_designation" id="user_designation" readonly>
-                </div>
-                <div class="col-sm-3">
                   <label>{{trans('language.fr_common_user_joining_date')}}</label>
                   <input type="text" class="form-control clearfield" name="user_joining_date" id="user_joining_date" readonly>
+                </div>
+                <div class="col-sm-3">
+                  <label>{{trans('language.th_providing_date_of_retirement')}}</label>
+                  <input type="text" class="form-control clearfield" name="user_retirement_date" id="user_retirement_date" readonly>
+                </div>
+                <div class="col-sm-3">
+                  <label>{{trans('language.th_providing_bank')}}</label>
+                  <input type="text" class="form-control clearfield" name="user_providing_bank" id="user_providing_bank" readonly>
+                </div>
+                <div class="col-sm-3">
+                  <label>{{trans('language.th_providing_account_no')}}</label>
+                  <input type="text" class="form-control clearfield" name="user_bank_account_no" id="user_bank_account_no" readonly>
+                </div>
+                <div class="col-sm-3">
+                  <label>{{trans('language.th_providing_i_f_s_c_code')}}</label>
+                  <input type="text" class="form-control clearfield" name="user_bank_ifsc" id="user_bank_ifsc" readonly>
+                </div>
+                <div class="col-sm-3">
+                  <label>{{trans('language.th_providing_branch')}}</label>
+                  <input type="text" class="form-control clearfield" name="user_bank_branch" id="user_bank_branch" readonly>
+                </div>
+                <div class="col-sm-3">
+                  <label>{{trans('language.fr_common_user_designation')}}</label>
+                  <input type="text" class="form-control clearfield" name="user_designation" id="user_designation" readonly>
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.th_user_registration_taluka')}}</label>
