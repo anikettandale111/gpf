@@ -119,16 +119,16 @@
             </div>
             <div class="col-md-12" style="margin-top:50px;">
             <div class="col-md-4">
-              <span class="pull-left">Chief Accounts & Finance Office
-                <br><center>Zilla Parishad, Nashik.</center>
-              </span>
+              <span class="pull-left"><center>Copy C.W.C.S. </center>
+              Dist. Treasury Officer, Nashik </span>
             </div>
             <div class="col-md-4">
 
             </div>
             <div class="col-md-4">
-              <span class="pull-left">Copy C.W.C.S. <br>
-              Dist. Treasury Officer, Nashik </span>
+              <span class="pull-left">Chief Accounts & Finance Office
+                <br><center>Zilla Parishad, Nashik.</center>
+              </span>
             </div>
             </div>
           </div>

@@ -156,10 +156,10 @@
               <span class="pull-left"> AND DATE AS NOTED BELOW </span>
             </div>
             <div class="col-md-6" style="margin-top:50px;">
-              <span class="pull-left"><b>CHIEF ACCOUNTING & FINANCE OFFICER </b><br><b>ZILLA PARISHAD, NASHIK</b></span><br>
+              <span class="pull-left"><b>CHIEF ACCOUNTING & FINANCE OFFICER </b><br><b><center>ZILLA PARISHAD, NASHIK</center></b></span><br>
             </div>
             <div class="col-md-6" style="margin-top:50px;">
-              <span class="pull-left"><b>TREASURY OFFICER,</b><br><b>NASHIK</b></span><br>
+              <span class="pull-right"><b>TREASURY OFFICER,</b><br><b><center>NASHIK</center></b></span><br>
             </div>
           </div>
           <hr style="border: solid black;width:100%"/>
