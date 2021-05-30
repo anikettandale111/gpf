@@ -53,6 +53,7 @@ class ChalanReportController extends Controller
     return view('Admin/ChalanReport/index',compact('talukaList','monthList'));
   }
   public function store(Request $request){
+    return redirect()->back()->with('info', 'Report Work In Progress, Wait for some time.');   
     $lang = app()->getLocale();
     $year = session()->get('year');
     $financial_year = session()->get('financial_year');
