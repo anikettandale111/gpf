@@ -50,15 +50,16 @@ function getDetails(){
       if(results.length){
         $('#user_name').val(results[0].employee_name);
         $('#applicant_name').val(results[0].employee_name);
-        $('#user_designation').val(results[0].designation_name);
-        $('#user_designation_id').val(results[0].designation_id);
-        $('#user_department').val(results[0].department_name);
-        $('#user_department_id').val(results[0].department_id);
+        // $('#user_designation').val(results[0].designation_name);
+        $('#user_designation').val(results[0].designation_id);
+        // $('#user_department').val(results[0].department_name);
+        $('#user_department').val(results[0].department_id);
         $('#user_id').val(results[0].id);
         $('#user_empid').val(results[0].employee_id);
         $('#user_joining_date').val(results[0].joining_date);
         $('#user_retirment_date').val(results[0].retirement_date);
-        $('#user_taluka_name').val(results[0].taluka_name);
+        $('#user_taluka_name').val(results[0].taluka_id);
+        $('#user_providing_bank').val(results[0].bank_id);
         getBalances();
       } else {
         swal("WARNING", "Invalid GPF Number OR Does't Exits");
@@ -100,11 +101,20 @@ function balanceUpdateForm(){
   var year_one = $('#shillak_rakkam_one').data('curdate');
   var year_two = $('#shillak_rakkam_two').data('curdate');
   var employee_gpf_num = $('#employee_gpf_num').val();
+  var user_designation = $('#user_designation').val();
+  var user_taluka_name = $('#user_taluka_name').val();
+  var user_department = $('#user_department').val();
+  var user_bank_branch = $('#user_bank_branch').val();
+  var user_bank_ifsc = $('#user_bank_ifsc').val();
+  var user_bank_account_no = $('#user_bank_account_no').val();
+  var user_providing_bank = $('#user_providing_bank').val();
   $.ajax({
     type: 'POST',
     url: "../updateBalance",
     data: {_token: CSRF_TOKEN,shillak_rakkam_two:shillak_rakkam_two,shillak_rakkam_one:shillak_rakkam_one,year_one:year_one,
-      year_two:year_two,employee_gpf_num:employee_gpf_num},
+      year_two:year_two,employee_gpf_num:employee_gpf_num,user_designation:user_designation,user_taluka_name:user_taluka_name,
+      user_department:user_department,user_bank_branch:user_bank_branch,user_bank_ifsc:user_bank_ifsc,
+      user_bank_account_no:user_bank_account_no,user_providing_bank:user_providing_bank,},
       success: function (results) {
         swal(results.status,results.message);
         $('.clearfield').val('');

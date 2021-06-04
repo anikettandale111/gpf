@@ -19,7 +19,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="card-box ">
-              <form class="form-group report_validate" action="{{url('chalanGhoshwara')}}" method="post">
+              <form class="form-group report_validate" action="{{url('chalanGhoshwara')}}" method="post" target="_blank">
                 @csrf
                 <div class="col-sm-2">
                   <label>{{trans('language.th_providing_select_taluka')}}</label>

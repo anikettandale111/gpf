@@ -8,6 +8,7 @@ use Session;
 use Illuminate\Support\Facades\DB;
 use App\Classification;
 use App\Taluka;
+use App\MonthlyTotalChalan;
 use App\Month;
 use Config;
 
@@ -53,164 +54,37 @@ class ChalanReportController extends Controller
     return view('Admin/ChalanReport/index',compact('talukaList','monthList'));
   }
   public function store(Request $request){
-    return redirect()->back()->with('info', 'Report Work In Progress, Wait for some time.');   
+    // return redirect()->back()->with('info', 'Report Work In Progress, Wait for some time.');
     $lang = app()->getLocale();
     $year = session()->get('year');
     $financial_year = session()->get('financial_year');
-    $roi = DB::raw("SELECT ri.percent,ri.to_month,mm.month_name_mar FROM master_rate_interest AS ri LEFT JOIN master_month mm ON mm.id=ri.to_month WHERE year_to=".session()->get('to_year'));
-    $roi_result = DB::select($roi );
+    $taluka_id = $request->taluka_id;
+    $month_id = $request->month_id;
 
-    // $roi = DB::raw('SELECT ri.percent,ri.to_month,mm.month_name_mar FROM master_rate_interest AS ri LEFT JOIN master_month mm ON mm.id=ri.to_month WHERE year_to=2019');
-    // $roi_result = DB::select($roi);
-    // $financial_year = '2019-2020'; // Only for previous year
-    $month_name = DB::table('master_month')->select(DB::raw('month_name_'.$lang.' AS month_name'),'transaction_month AS trans_month')->orderBy('order_by')->get();
-    $rqo_result = [];
-    $query_result = DB::table('master_vetan_ayog_received')->select('TransId', 'GPFNo','TotDiff','Interest')
-                                          ->where(['GPFNo' =>$request->employee_gpf_num,'pay_number'=>7,'INTY2'=>0])->get();
-      if(count($query_result)){
-        foreach ($query_result as $key => $value) {
-          $muddal_vyaj = $value->TotDiff;
-          $cal_step_one = ($muddal_vyaj * 7.1 / 12*12)/100;
-          $cal_step_one = round($cal_step_one);
-          $new_intrest = $value->Interest +$cal_step_one;
-          $query = DB::raw('UPDATE master_vetan_ayog_received SET INTY2 = '.$cal_step_one.', Interest = '.$new_intrest.' WHERE TransId = '.$value->TransId);
-          $query = DB::select($query);
-        }
-      }
+      $deposits=MonthlyTotalChalan::select("taluka.taluka_name_".$lang." as taluka_name","tbl_monthly_total_chalan.created_at","tbl_monthly_total_chalan.chalan_no","tbl_monthly_total_chalan.chalan_date","tbl_monthly_total_chalan.amount","tbl_monthly_total_chalan.diff_amount","master_month.month_name_".$lang." as month_name",'taluka.id as taluka_ids')
+      ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
+      // ->leftJoin("master_emp_monthly_contribution_two", "master_emp_monthly_contribution_two.challan_id", "=","tbl_monthly_total_chalan.id")
+      ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id")
+      ->where("tbl_monthly_total_chalan.year", session()->get('from_year'))
+      ->where("tbl_monthly_total_chalan.chalan_month_id", ">=", 4);
+      $deposits_two=MonthlyTotalChalan::select("taluka.taluka_name_".$lang." as taluka_name","tbl_monthly_total_chalan.created_at","tbl_monthly_total_chalan.chalan_no","tbl_monthly_total_chalan.chalan_date","tbl_monthly_total_chalan.amount","tbl_monthly_total_chalan.diff_amount","master_month.month_name_".$lang." as month_name",'taluka.id as taluka_ids')
+      ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
+      // ->leftJoin("master_emp_monthly_contribution_two", "master_emp_monthly_contribution_two.challan_id", "=","tbl_monthly_total_chalan.id")
+      ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id")
+      ->where("tbl_monthly_total_chalan.year", session()->get('to_year'))
+      ->where("tbl_monthly_total_chalan.chalan_month_id", "<=", 3)
+      ->union($deposits)
+      ->latest()->get();
     if($request->view_report_type == 1){
-      $query_one = DB::table('master_employee AS me')
-                      ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance',"c.inital_letter","me.antim_partava_status")
-                      ->join('master_gpf_transaction AS mgt','mgt.gpf_number','me.employee_id')
-                      ->join('taluka AS tl','tl.id','me.taluka_id')
-                      ->join('classifications AS c','c.id','me.classification_id')
-                      ->join('departments AS dp','dp.department_code','me.department_id')
-                      ->join('designations AS dg','dg.id','me.designation_id')
-                      ->where(['me.employee_id' =>$request->employee_gpf_num, 'mgt.financial_year'=>$financial_year])
-                      // ->where(['me.taluka_id' =>16, 'mgt.financial_year'=>$financial_year])
-                      ->groupBy('mgt.employee_id');
-      $rqo_result = $query_one->get();
-      return view('Reports/gpf_khate_utaran_niyam_231',compact('rqo_result','roi_result','month_name'));
+      return view('Admin/ChalanReport/report_one',compact('deposits_two'));
     } else if ($request->view_report_type == 2){
-      $query_one = DB::table('master_employee AS me')
-                      ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance',"c.inital_letter","me.antim_partava_status")
-                      ->join('master_gpf_transaction AS mgt','mgt.employee_id','me.id')
-                      ->join('taluka AS tl','tl.id','me.taluka_id')
-                      ->join('classifications AS c','c.id','me.classification_id')
-                      ->join('departments AS dp','dp.department_code','me.department_id')
-                      ->join('designations AS dg','dg.id','me.designation_id')
-                      ->where(['me.employee_id'=>$request->employee_gpf_num,'mgt.financial_year'=>$financial_year])
-                      ->groupBy('mgt.employee_id');
-      $rqo_result = $query_one->get();
-      return view('Reports/gpf_khatevahi_namuna_88_niyam_231',compact('rqo_result','roi_result','month_name'));
+      return view('Admin/ChalanReport/report_one',compact('deposits_two'));
     } else if ($request->view_report_type == 3){
-      $query_one =  DB::table('master_employee AS me')
-                    ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance',"c.inital_letter","me.antim_partava_status")
-                    ->join('master_gpf_transaction AS mgt','mgt.employee_id','me.id')
-                    ->join('taluka AS tl','tl.id','me.taluka_id')
-                    ->join('classifications AS c','c.id','me.classification_id')
-                    ->join('departments AS dp','dp.department_code','me.department_id')
-                    ->join('designations AS dg','dg.id','me.designation_id')
-                    ->where(['me.employee_id' =>$request->employee_gpf_num, 'mgt.financial_year'=>$financial_year])
-                    ->groupBy('mgt.employee_id')->orderBy("me.gpf_no");
-      $rqo_result = $query_one->get();
-      return view('Reports/gpf_bruhpatrak_naumna_89_niyam_231',compact('rqo_result','roi_result','month_name'));
+      return view('Admin/ChalanReport/report_one',compact('deposits_two'));
     } else if ($request->view_report_type == 4){
-      $query_one =  DB::table('master_employee AS me')
-                    ->select('me.gpf_no','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name',"c.inital_letter","me.antim_partava_status")
-                    ->join('taluka AS tl','tl.id','me.taluka_id')
-                    ->join('classifications AS c','c.id','me.classification_id')
-                    ->join('departments AS dp','dp.department_code','me.department_id')
-                    ->join('designations AS dg','dg.id','me.designation_id')
-                    ->where(['me.employee_id' =>$request->employee_gpf_num])
-                    ->orderBy("me.gpf_no");
-      $rqo_result = $query_one->first();
-      $chalanQuery = DB::table('master_emp_monthly_contribution_two AS mct')
-                    ->select('mct.monthly_contrubition','mct.monthly_received','mct.loan_installment','mct.monthly_other',
-                      'mct.gpf_number','mct.challan_number','mm.month_name_'.$lang.' as month_name')
-                    ->join('taluka AS tl','tl.id','mct.taluka_id')
-                    ->join('master_month AS mm','mm.id','mct.emc_month')
-                    ->where('mct.gpf_number','11684')
-                    ->orderBy('mct.emc_id')
-                    ->get();
-      return view('Reports/chalan_nihay',compact('rqo_result','roi_result','month_name','chalanQuery'));
+      return view('Admin/ChalanReport/report_one',compact('deposits_two'));
+    } else if ($request->view_report_type == 5){
+      return view('Admin/ChalanReport/report_one',compact('deposits_two'));
     }
-  }
-  public function getAllEmpKhatevahi(Request $request){
-    // $financial_year = '2019-2020'; //use for Previous Year
-    $financial_year = "'".session()->get('financial_year')."'"; //use for current year
-    $lang = app()->getLocale();
-    $roi_result = DB::table('master_rate_interest AS ri')
-            ->select('ri.percent','ri.to_month','mm.month_name_mar')
-            ->leftjoin('master_month AS mm','mm.id','=','ri.to_month')
-            ->where('ri.year_to',session()->get('to_year'))
-            ->get();
-    $month_name = DB::table('master_month')
-                  ->select(DB::raw('month_name_'.$lang.' AS month_name'),'transaction_month AS trans_month')
-                  ->orderBy('order_by')
-                  ->get();
-    $rqo_result = [];
-    $query_one = DB::table('master_employee AS me')
-                  ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance',"c.inital_letter","me.antim_partava_status")
-                  ->join('master_gpf_transaction AS mgt','mgt.employee_id','me.id')
-                  ->join('taluka AS tl','tl.id','me.taluka_id')
-                  ->join('classifications AS c','c.id','me.classification_id')
-                  ->join('departments AS dp','dp.department_code','me.department_id')
-                  ->join('designations AS dg','dg.id','me.designation_id')
-                  ->where(['me.taluka_id' =>$request->taluka_id, 'mgt.financial_year'=>$financial_year])
-                  ->groupBy('mgt.employee_id')->orderBy("me.gpf_no");
-    $rqo_result = $query_one->get();
-    return view('Reports/gpf_khatevahi_namuna_88_niyam_231',compact('rqo_result','roi_result','month_name'));
-  }
-  public function getAllEmpKhateUtara(Request $request){
-    // $financial_year = '2019-2020'; //use for Previous Year
-    $financial_year = "'".session()->get('financial_year')."'"; //use for current year
-    $lang = app()->getLocale();
-    $roi_result = DB::table('master_rate_interest AS ri')
-            ->select('ri.percent','ri.to_month','mm.month_name_mar')
-            ->leftjoin('master_month AS mm','mm.id','=','ri.to_month')
-            ->where('ri.year_to',session()->get('to_year'))
-            ->get();
-    $month_name = DB::table('master_month')
-                  ->select(DB::raw('month_name_'.$lang.' AS month_name'),'transaction_month AS trans_month')
-                  ->orderBy('order_by')
-                  ->get();
-    $rqo_result = [];
-    $query_one = DB::table('master_employee AS me')
-                  ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance',"c.inital_letter","me.antim_partava_status")
-                  ->join('master_gpf_transaction AS mgt','mgt.employee_id','me.id')
-                  ->join('taluka AS tl','tl.id','me.taluka_id')
-                  ->join('classifications AS c','c.id','me.classification_id')
-                  ->join('departments AS dp','dp.department_code','me.department_id')
-                  ->join('designations AS dg','dg.id','me.designation_id')
-                  ->where(['me.taluka_id' =>$request->taluka_id, 'mgt.financial_year'=>$financial_year])
-                  ->groupBy('mgt.employee_id')->orderBy("me.gpf_no");
-    $rqo_result = $query_one->get();
-    return view('Reports/gpf_khate_utaran_niyam_231',compact('rqo_result','roi_result','month_name'));
-  }
-  public function getAllEmpFormEN(Request $request){
-    // $financial_year = '2019-2020'; //use for Previous Year
-    $financial_year = "'".session()->get('financial_year')."'"; //use for current year
-    $lang = app()->getLocale();
-    $roi_result = DB::table('master_rate_interest AS ri')
-            ->select('ri.percent','ri.to_month','mm.month_name_mar')
-            ->leftjoin('master_month AS mm','mm.id','=','ri.to_month')
-            ->where('ri.year_to',session()->get('to_year'))
-            ->get();
-    $month_name = DB::table('master_month')
-                  ->select(DB::raw('month_name_'.$lang.' AS month_name'),'transaction_month AS trans_month')
-                  ->orderBy('order_by')
-                  ->get();
-    $rqo_result = [];
-    $query_one = DB::table('master_employee AS me')
-                  ->select('mgt.*','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mgt.opening_balance',"c.inital_letter","me.antim_partava_status")
-                  ->join('master_gpf_transaction AS mgt','mgt.employee_id','me.id')
-                  ->join('taluka AS tl','tl.id','me.taluka_id')
-                  ->join('classifications AS c','c.id','me.classification_id')
-                  ->join('departments AS dp','dp.department_code','me.department_id')
-                  ->join('designations AS dg','dg.id','me.designation_id')
-                  ->where(['me.taluka_id' =>$request->taluka_id, 'mgt.financial_year'=>$financial_year])
-                  ->groupBy('mgt.employee_id')->orderBy("me.gpf_no");
-    $rqo_result = $query_one->get();
-    return view('Reports/gpf_bruhpatrak_naumna_89_niyam_231',compact('rqo_result','roi_result','month_name'));
   }
 }

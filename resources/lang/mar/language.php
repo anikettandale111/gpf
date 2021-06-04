@@ -26,6 +26,7 @@ return [
   'menu_forms' => 'खाते क्रमांक प्रदान करणे',
   'menu_karmchari_namnirdeshan' => 'कर्मचारी खाते बदल',
   'menu_form_namnirdeshan' => 'नामनिर्देशन',
+  'menu_common_forms' => 'नवीन अर्ज',
   'menu_forms_received' => 'नवीन आलेले अर्ज',
   'register_users' => 'वापरकर्ताची नोंद',
   '7_pay_commission_paid' => '७ व वेतन आयोग',
