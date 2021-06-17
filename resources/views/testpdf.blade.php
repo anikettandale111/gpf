@@ -12,7 +12,8 @@
                         <div class="alert alert-success" role="alert">
                         </div>
                     @endif
-                    <form action="{{url('testpdf')}}" method="post" enctype="multipart/form-data">
+                    <!-- <form action="http://127.0.0.1:5000/" method="get" enctype="multipart/form-data"> -->
+                    <form action="{{url('testpdf')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <input type="file" name="test_pdf" id="test_pdf">
                       <button type="submit" name="button">Submit</button>

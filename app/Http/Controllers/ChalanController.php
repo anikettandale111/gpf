@@ -176,7 +176,7 @@ class ChalanController extends Controller
     return MonthlyTotalChalan::where('id',$chid)->first();
   }
   public function destroy($chid){
-    MonthlyTotalChalan::where('id',$chid)->delete();
+    MonthlyTotalChalan::where('id',$chid)->update(['is_delete' => 0]);
     return ['status' => 'success','message' => 'Chalan Deleted Successfully.'];
   }
 }

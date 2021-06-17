@@ -161,9 +161,46 @@ return ['status'=>'error','message'=>'Invalid File. '];
 }
 public function testpdf(Request $request){
   if(isset($request->test_pdf)){
+    /* Python PDF Process Start*/
+    $pdf_file = $request->file('test_pdf')->getPathName();
+
+    // $c = curl_init();
+    // $cfile = curl_file_create($pdf_file, 'application/pdf');
+    // $apikey = '9ckfvsg6cwop'; // from https://pdftables.com/api
+    // curl_setopt($c, CURLOPT_URL, "https://127.0.0.1:5000/?test_pdf="+$pdf_file);
+    // curl_setopt($c, CURLOPT_POSTFIELDS, array('file' => $cfile));
+    // curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+    // curl_setopt($c, CURLOPT_FAILONERROR,true);
+    // curl_setopt($c, CURLOPT_ENCODING, "gzip,deflate");
+    // $result = curl_exec($c);
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'http://127.0.01:5000',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_POSTFIELDS => array('testpdf'=> $pdf_file),
+    ));
+    print_r($curl);
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+
+
+
+    print_r($response);die();
+    /* Python PDF Process End*/
+
+
+
     /* READ EXCEL FILE START */
     $p = $request->file('test_pdf')->store('Files');
-    // $path = $request-  >file('test_pdf')->getRealPath();
+    // $path = $request->file('test_pdf')->getRealPath();
     $data = Excel::toArray('',$p);
     if(count($data[0])){
       echo '<pre>';
@@ -3353,6 +3390,8 @@ public function testjson(){
       ]
     }
     ]';
+  }
+  public function testJsonData($str){
     $dataarry = json_decode($str);
     $insert = [];
     $dont_insert = [];

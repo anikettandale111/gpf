@@ -5,13 +5,13 @@
   <div class="row">
     <div class="col-md-12 col-sm-12 ">
       <div class="x_panel">
-        <h2>{{trans('language.fr_common_application_form')}}
-          <ul class="nav navbar-right panel_toolbox">
+        <h2>कर्मचाऱ्याने कार्यालय प्रमुखास केलेला अर्ज
+          <!-- <ul class="nav navbar-right panel_toolbox">
             <li>
               <a href="{{url('listcommonforms')}}" class="btn btn-primary">{{trans('language.fr_common_application_list')}}
               </a>
             </li>
-          </ul>
+          </ul> -->
         </h2>
         <div class="x_title"></div>
         <div class="x_content">

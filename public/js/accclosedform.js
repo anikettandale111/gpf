@@ -52,7 +52,6 @@ $(document).ready(function(){
       antim_6pay_year:'Filed Required',
       antim_instllment_month:'Filed Required',
       antim_instllment_year:'Filed Required',
-
       fo_gat_vikas_adhikari_no:'Filed Required',
       fo_zp_adhikari_no:'Filed Required',
       vibhag_samiti_no:'Filed Required',
