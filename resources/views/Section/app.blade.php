@@ -128,7 +128,7 @@
             <!-- <li><a href="{{url('nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद</a></li> -->
             <!-- <li><a href="{{url('vetan')}}"> <i class="fa fa-users"></i>{{trans('language.7_pay_commission_paid')}}</a></li> -->
             @endif
-            <li><a><i class="fa fa-bug"></i> {{trans('language.menu_common_forms')}} <span class="fa fa-chevron-down"></span></a>
+            <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms')}} <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li>
                 <li><a href="{{url('transfer')}}">{{trans('language.fr_antar_zillha_badli')}}</a></li>
