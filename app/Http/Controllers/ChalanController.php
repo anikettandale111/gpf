@@ -179,4 +179,7 @@ class ChalanController extends Controller
     MonthlyTotalChalan::where('id',$chid)->update(['is_delete' => 0]);
     return ['status' => 'success','message' => 'Chalan Deleted Successfully.'];
   }
+  public function getuserchalandetails(){
+
+  }
 }

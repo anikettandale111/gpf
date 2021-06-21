@@ -1,3 +1,9 @@
+UPDATE `master_gpf_transaction`
+INNER JOIN master_emp_monthly_contribution_two ON master_gpf_transaction.gpf_number = master_emp_monthly_contribution_two.gpf_number
+SET  master_gpf_transaction.month_march_contri=0
+WHERE master_emp_monthly_contribution_two.gpf_number = 15531
+
+
 /****************************************************************************************************************/
 UPDATE master_gpf_transaction
 INNER JOIN employee_yearwise_opening_balance ON employee_yearwise_opening_balance.gpf_no = master_gpf_transaction.gpf_number

@@ -102,6 +102,7 @@ Route::middleware('auth')->group(function () {
     // Common Application Forms
     Route::get('getLastApplicationNumber', 'CommonApplicationController@getLastApplicationNumber');
     Route::get('getuserdetailsbygpfno', 'CommonApplicationController@getuserdetailsbygpfno');
+    Route::get('getuserchalandetails', 'ChalanController@getuserchalandetails');
     Route::get('getUserBalances', 'CommonApplicationController@getUserBalances');
     Route::post('updateBalance', 'EmployeeController@updateBalance');
     // Excel/PDFFile Upload For Monthly Subscription

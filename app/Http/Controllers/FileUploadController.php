@@ -162,97 +162,121 @@ return ['status'=>'error','message'=>'Invalid File. '];
 public function testpdf(Request $request){
   if(isset($request->test_pdf)){
     /* Python PDF Process Start*/
-    $pdf_file = $request->file('test_pdf')->getPathName();
-
-    // $c = curl_init();
-    // $cfile = curl_file_create($pdf_file, 'application/pdf');
-    // $apikey = '9ckfvsg6cwop'; // from https://pdftables.com/api
-    // curl_setopt($c, CURLOPT_URL, "https://127.0.0.1:5000/?test_pdf="+$pdf_file);
-    // curl_setopt($c, CURLOPT_POSTFIELDS, array('file' => $cfile));
-    // curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-    // curl_setopt($c, CURLOPT_FAILONERROR,true);
-    // curl_setopt($c, CURLOPT_ENCODING, "gzip,deflate");
-    // $result = curl_exec($c);
-
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => 'http://127.0.01:5000',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'GET',
-      CURLOPT_POSTFIELDS => array('testpdf'=> $pdf_file),
-    ));
-    print_r($curl);
-    $response = curl_exec($curl);
-
-    curl_close($curl);
-
-
-
-    print_r($response);die();
+    $pdf_file = $request->test_pdf;
+    if (!is_readable($pdf_file)) {
+      print("Error: file does not exist or is not readable: $pdf_file\n");
+      return;
+    }
+    $c = curl_init();
+    $cfile = curl_file_create($pdf_file, 'application/pdf');
+    $apikey = '9ckfvsg6cwop'; // from https://pdftables.com/api
+    curl_setopt($c, CURLOPT_URL, "http://216.10.245.164/api/pdf_to_json");
+    curl_setopt($c, CURLOPT_POSTFIELDS, array('file' => $cfile));
+    curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($c, CURLOPT_FAILONERROR,true);
+    curl_setopt($c, CURLOPT_ENCODING, "gzip,deflate");
+    $result = curl_exec($c);
+    if (curl_errno($c) > 0) {
+      print('Error calling PDFTables: '.curl_error($c).PHP_EOL);
+    } else {
+      // save the CSV we got from PDFTables to a file
+      // $file = fopen('converttest.html', 'w');
+      // file_put_contents ('files/'.$file, $result);
+      // $request->file('files/'.$file)->store();
+    }
+    // print_r(json_decode($result));
+    $dataarry = json_decode($result);
+    // print_r($dataarry);
+    $insert = [];
+    $dont_insert = [];
+    $first_data = count($dataarry->data);
+    echo $first_data;
+    dd($first_data);
+    for($k=0;$k < $first_data;$k++){
+      if(isset($dataarry->data[$k]->data)){
+        $data_array = $dataarry->data[$k]->data;
+        $dataarry_count = count($dataarry->data);
+        for($i=0;$i < $dataarry_count;$i++ ){
+          $data_count_two = count($data_array[$i]);
+          $data_two = $data_array[$i];
+          $gpf=[];
+          if(isset($data_two[1]->text)){
+            $gpf = explode("/",$data_two[1]->text);
+          }
+          if(isset($gpf[1]) && strlen($gpf[1]) >= 5){
+              $insert[] = ['data_two_0' => $data_two[0]->text,
+              'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
+              'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
+              'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
+              'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
+              'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
+              'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
+              'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
+              'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
+              'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
+              'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
+          }else{
+            if(isset($data_two[1]->text) && strpos($data_two[1]->text,'NZPGPF') !== false){
+              $dont_insert[] = ['data_two_0' => $data_two[0]->text,
+              'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
+              'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
+              'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
+              'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
+              'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
+              'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
+              'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
+              'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
+              'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
+              'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
+            }
+          }
+        }
+      }
+    }
+    echo count($insert);
+    print_r($insert);
+    echo '------------------------------------------------';
+    echo count($dont_insert);
+    print_r($dont_insert);
+    dd();
+    curl_close($c);
+    return view('Reports/verifypdfdata',compact('insert','dont_insert'));
+    // die();
     /* Python PDF Process End*/
 
 
 
     /* READ EXCEL FILE START */
-    $p = $request->file('test_pdf')->store('Files');
-    // $path = $request->file('test_pdf')->getRealPath();
-    $data = Excel::toArray('',$p);
-    if(count($data[0])){
-      echo '<pre>';
-      $getcount = count($data[0]);
-      for($i=0;$getcount > $i;$i++){
-        if($data[0][1]){
-          if (strpos($data[0][$i][1], 'NZPGPF') !== false) {
-            // print_r($data[0][$i]);
-            $j=$i;
-            $k=$i;
-            $data[0][$i][1];
-            if(strpos($data[0][$i][1], 'NZPGPF') !== true){
-              echo $data[0][$i][1].$data[0][($j+1)][1];
-              // echo '------------------------------------------';
-            }
-            echo "<br>";
-          }else{
-            // print_r($data[0][$i]);
-            // echo '######################################################';
-          }
-        }
-      }
-    }
-    die();
+    // $p = $request->file('test_pdf')->store('Files');
+    // // $path = $request->file('test_pdf')->getRealPath();
+    // $data = Excel::toArray('',$p);
+    // if(count($data[0])){
+    //   echo '<pre>';
+    //   $getcount = count($data[0]);
+    //   for($i=0;$getcount > $i;$i++){
+    //     if($data[0][1]){
+    //       if (strpos($data[0][$i][1], 'NZPGPF') !== false) {
+    //         // print_r($data[0][$i]);
+    //         $j=$i;
+    //         $k=$i;
+    //         $data[0][$i][1];
+    //         if(strpos($data[0][$i][1], 'NZPGPF') !== true){
+    //           echo $data[0][$i][1].$data[0][($j+1)][1];
+    //           // echo '------------------------------------------';
+    //         }
+    //         echo "<br>";
+    //       }else{
+    //         // print_r($data[0][$i]);
+    //         // echo '######################################################';
+    //       }
+    //     }
+    //   }
+    // }
+    // die();
     /* READ EXCEL FILE END */
 
     /* API CODE SAMPLE START */
-    // $pdf_file = $request->test_pdf;
-    // if (!is_readable($pdf_file)) {
-    //   print("Error: file does not exist or is not readable: $pdf_file\n");
-    //   return;
-    // }
-    // $c = curl_init();
-    // $cfile = curl_file_create($pdf_file, 'application/pdf');
-    // $apikey = '9ckfvsg6cwop'; // from https://pdftables.com/api
-    // curl_setopt($c, CURLOPT_URL, "https://pdftables.com/api?key=$apikey&format=html");
-    // curl_setopt($c, CURLOPT_POSTFIELDS, array('file' => $cfile));
-    // curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-    // curl_setopt($c, CURLOPT_FAILONERROR,true);
-    // curl_setopt($c, CURLOPT_ENCODING, "gzip,deflate");
-    // $result = curl_exec($c);
-    // if (curl_errno($c) > 0) {
-    //   print('Error calling PDFTables: '.curl_error($c).PHP_EOL);
-    // } else {
-    //   // save the CSV we got from PDFTables to a file
-    //   $file = fopen('converttest.html', 'w');
-    //   file_put_contents ('files/'.$file, $result);
-    //   $request->file('files/'.$file)->store();
-    // }
-    // print_r($result);
-    // curl_close($c);
-    // die();
+
     /* API CODE SAMPLE END */
 
 
@@ -3393,15 +3417,15 @@ public function testjson(){
   }
   public function testJsonData($str){
     $dataarry = json_decode($str);
+    // var_dump($dataarry);
     $insert = [];
     $dont_insert = [];
-    $first_data = count($dataarry);
-    // die();
-    for($k=1;$k < $first_data;$k++){
-      if(isset($dataarry[$k]->data)){
-        $data_array = $dataarry[$k]->data;
-        $dataarry_count = count($dataarry[$k]->data);
-        for($i=1;$i < $dataarry_count;$i++ ){
+    $first_data = count(array($dataarry));
+    for($k=0;$k < $first_data;$k++){
+      if(isset($dataarry->data[$k]->data)){
+        $data_array = $dataarry->data[$k]->data;
+        $dataarry_count = count($dataarry->data[$k]->data);
+        for($i=4;$i < $dataarry_count;$i++ ){
           $data_count_two = count($data_array[$i]);
           $data_two = $data_array[$i];
           $gpf=[];
@@ -3409,17 +3433,17 @@ public function testjson(){
             $gpf = explode("/",$data_two[1]->text);
           }
           if(isset($gpf[1]) && strlen($gpf[1]) >= 5){
-            $insert[] = ['data_two_0' => $data_two[0]->text,
-            'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
-            'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
-            'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
-            'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
-            'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
-            'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
-            'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
-            'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
-            'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
-            'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
+              $insert[] = ['data_two_0' => $data_two[0]->text,
+              'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
+              'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
+              'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
+              'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
+              'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
+              'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
+              'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
+              'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
+              'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
+              'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
           }else{
             if(isset($data_two[1]->text) && strpos($data_two[1]->text,'NZPGPF') !== false){
               $dont_insert[] = ['data_two_0' => $data_two[0]->text,
