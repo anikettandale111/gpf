@@ -190,15 +190,19 @@ public function testpdf(Request $request){
     $insert = [];
     $dont_insert = [];
     $first_data = count($dataarry->data);
-    echo $first_data;
-    dd($first_data);
+
+    $insert = [];
+    $dont_insert = [];
+    $first_data = count(array($dataarry));
     for($k=0;$k < $first_data;$k++){
-      if(isset($dataarry->data[$k]->data)){
+      if(isset($dataarry->data)){
         $data_array = $dataarry->data[$k]->data;
-        $dataarry_count = count($dataarry->data);
+        $dataarry_count = count($dataarry->data[$k]->data);
         for($i=0;$i < $dataarry_count;$i++ ){
           $data_count_two = count($data_array[$i]);
           $data_two = $data_array[$i];
+          print_r($data_two);
+          echo '-------------------------------------------------------------------------------------------<br>';
           $gpf=[];
           if(isset($data_two[1]->text)){
             $gpf = explode("/",$data_two[1]->text);
@@ -233,6 +237,51 @@ public function testpdf(Request $request){
         }
       }
     }
+    // print_r($insert);
+    // print_r($dont_insert);
+
+    dd($first_data);
+    // for($k=0;$k < $first_data;$k++){
+    //   if(isset($dataarry->data[$k]->data)){
+    //     $data_array = $dataarry->data[$k]->data;
+    //     $dataarry_count = count($dataarry->data);
+    //     for($i=0;$i < $dataarry_count;$i++ ){
+    //       $data_count_two = count($data_array[$i]);
+    //       $data_two = $data_array[$i];
+    //       $gpf=[];
+    //       if(isset($data_two[1]->text)){
+    //         $gpf = explode("/",$data_two[1]->text);
+    //       }
+    //       if(isset($gpf[1]) && strlen($gpf[1]) >= 5){
+    //           $insert[] = ['data_two_0' => $data_two[0]->text,
+    //           'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
+    //           'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
+    //           'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
+    //           'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
+    //           'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
+    //           'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
+    //           'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
+    //           'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
+    //           'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
+    //           'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
+    //       }else{
+    //         if(isset($data_two[1]->text) && strpos($data_two[1]->text,'NZPGPF') !== false){
+    //           $dont_insert[] = ['data_two_0' => $data_two[0]->text,
+    //           'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
+    //           'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
+    //           'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
+    //           'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
+    //           'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
+    //           'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
+    //           'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
+    //           'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
+    //           'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
+    //           'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
     echo count($insert);
     print_r($insert);
     echo '------------------------------------------------';

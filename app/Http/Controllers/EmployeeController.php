@@ -83,7 +83,7 @@ class EmployeeController extends Controller
     if($request->user_providing_bank != ''){
       $empData['bank_id'] = ($request->user_providing_bank) ? $request->user_providing_bank : '';
     }
-    return count($empData);
+    // return count($empData);
     if(count($empData)){
       $emp_result = Employee::where('gpf_no',$request->employee_gpf_num)
                     ->orWhere('employee_id',$request->employee_gpf_num)
