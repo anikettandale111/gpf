@@ -98,8 +98,9 @@ class EmployeeController extends Controller
     $resPrvQueryOne = DB::select($checkPrvQueryOne);
 
     if($resPrvQueryOne){
-      $queryOne = DB::raw('UPDATE employee_yearwise_opening_balance SET opn_balance='.$request->shillak_rakkam_one.',close_balance='.$request->shillak_rakkam_two.'
-              WHERE gpf_no='.$request->employee_gpf_num.' AND year='.$request->year_one );
+      $queryOne = DB::raw('UPDATE employee_yearwise_opening_balance
+                          SET opn_balance='.$request->shillak_rakkam_one.',close_balance='.$request->shillak_rakkam_two.' WHERE gpf_no='.$request->employee_gpf_num.'
+                          AND year='.$request->year_one );
       $resOne = DB::update($queryOne);
     }else{
       $queryOne = DB::raw("INSERT INTO employee_yearwise_opening_balance (opn_balance,close_balance,gpf_no,year)
@@ -110,12 +111,10 @@ class EmployeeController extends Controller
     $checkPrvQueryTwo = DB::raw('SELECT * FROM employee_yearwise_opening_balance WHERE gpf_no='.$request->employee_gpf_num.' AND year='.$request->year_two );
     $resPrvQueryTwo = DB::update($checkPrvQueryTwo);
     if($resPrvQueryTwo){
-      $queryTwo = DB::raw('UPDATE employee_yearwise_opening_balance SET opn_balance='.$request->shillak_rakkam_two.'
-              WHERE gpf_no='.$request->employee_gpf_num.' AND year='.$request->year_two );
+      $queryTwo = DB::raw('UPDATE employee_yearwise_opening_balance SET opn_balance='.$request->shillak_rakkam_two.' WHERE gpf_no='.$request->employee_gpf_num.' AND year='.$request->year_two );
       $resTwo = DB::select($queryTwo);
     }else{
-      $queryTwo = DB::raw("INSERT INTO employee_yearwise_opening_balance (opn_balance,gpf_no,year)
-                  VALUES($request->shillak_rakkam_one,$request->employee_gpf_num,$request->year_two)");
+      $queryTwo = DB::raw("INSERT INTO employee_yearwise_opening_balance (opn_balance,gpf_no,year) VALUES($request->shillak_rakkam_one,$request->employee_gpf_num,$request->year_two)");
       $resTwo = DB::insert($queryTwo);
     }
     return ['status'=>'success','message'=>'User Details Updated Succesfully'];
