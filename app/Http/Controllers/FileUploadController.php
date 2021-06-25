@@ -239,13 +239,13 @@ public function pdffileupload(Request $request){
                       // 'monthly_received' => (isset($data_three[$j][$m][9]->text) && $data_three[$j][$m][9]->text > 0)? str_replace(',','',$data_three[$j][$m][9]->text):'', // Total
                       'monthly_received' => $total, // Total
                       'remark' => (isset($data_three[$j][$m][10]->text))?$data_three[$j][$m][10]->text:'',
-                      'file_for_year' => $request->year_id ,
-                      'file_for_month' => $request->month_id ,
-                      'chalan_serial_number' => $request->chalan_number ,
-                      'file_taluka_id' => $request->taluka_id ,
-                      'emc_desg_id' => $employee->designation_id ,
-                      'emc_dept_id' => $employee->department_id ,
-                      'created_by' => Auth::id(),
+                      // 'file_for_year' => $request->year_id ,
+                      // 'file_for_month' => $request->month_id ,
+                      // 'chalan_serial_number' => $request->chalan_number ,
+                      // 'file_taluka_id' => $request->taluka_id ,
+                      // 'emc_desg_id' => $employee->designation_id ,
+                      // 'emc_dept_id' => $employee->department_id ,
+                      // 'created_by' => Auth::id(),
                       'file_name' => $filepath,
                       ]; // Remark
                     }
