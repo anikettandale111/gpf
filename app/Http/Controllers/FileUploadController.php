@@ -18,6 +18,7 @@ use App\MonthlyTotalChalan;
 use App\Taluka;
 use App\ApplicationsForms;
 use App\Ganrate;
+use App\PDFMonthlyFile;
 
 class FileUploadController extends Controller
 {
@@ -159,190 +160,193 @@ if(count($userData) > 0){
 }
 return ['status'=>'error','message'=>'Invalid File. '];
 }
-public function testpdf(Request $request){
-  if(isset($request->test_pdf)){
-    /* Python PDF Process Start*/
-    $pdf_file = $request->test_pdf;
-    if (!is_readable($pdf_file)) {
-      print("Error: file does not exist or is not readable: $pdf_file\n");
-      return;
-    }
-    $c = curl_init();
-    $cfile = curl_file_create($pdf_file, 'application/pdf');
-    $apikey = '9ckfvsg6cwop'; // from https://pdftables.com/api
-    curl_setopt($c, CURLOPT_URL, "http://216.10.245.164/api/pdf_to_json");
-    curl_setopt($c, CURLOPT_POSTFIELDS, array('file' => $cfile));
-    curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($c, CURLOPT_FAILONERROR,true);
-    curl_setopt($c, CURLOPT_ENCODING, "gzip,deflate");
-    $result = curl_exec($c);
-    if (curl_errno($c) > 0) {
-      print('Error calling PDFTables: '.curl_error($c).PHP_EOL);
-    } else {
-      // save the CSV we got from PDFTables to a file
-      // $file = fopen('converttest.html', 'w');
-      // file_put_contents ('files/'.$file, $result);
-      // $request->file('files/'.$file)->store();
-    }
-    // print_r(json_decode($result));
-    $dataarry = json_decode($result);
-    // print_r($dataarry);
-    $insert = [];
-    $dont_insert = [];
-    $first_data = count($dataarry->data);
+public function pdffileupload(Request $request){
+  /* Python PDF Process Start*/
+  if($request->ajax()){
+    if(isset($request->usersFile)){
+      $originalFileName = $request->file('usersFile')->getClientOriginalName();
+      $md5Name = md5_file($request->file('usersFile')->getRealPath());
+      $extension = $request->file('usersFile')->getClientOriginalExtension();
+      $file = $request->file('usersFile')->storeAs('public/files', $md5Name.'.'.$extension );
+      $filepath = $md5Name.'.'.$extension;
 
-    $insert = [];
-    $dont_insert = [];
-    $first_data = count(array($dataarry));
-    for($k=0;$k < $first_data;$k++){
-      if(isset($dataarry->data)){
-        $data_array = $dataarry->data[$k]->data;
-        $dataarry_count = count($dataarry->data[$k]->data);
-        for($i=0;$i < $dataarry_count;$i++ ){
-          $data_count_two = count($data_array[$i]);
-          $data_two = $data_array[$i];
-          print_r($data_two);
-          echo '-------------------------------------------------------------------------------------------<br>';
-          $gpf=[];
-          if(isset($data_two[1]->text)){
-            $gpf = explode("/",$data_two[1]->text);
-          }
-          if(isset($gpf[1]) && strlen($gpf[1]) >= 5){
-              $insert[] = ['data_two_0' => $data_two[0]->text,
-              'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
-              'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
-              'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
-              'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
-              'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
-              'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
-              'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
-              'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
-              'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
-              'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
-          }else{
-            if(isset($data_two[1]->text) && strpos($data_two[1]->text,'NZPGPF') !== false){
-              $dont_insert[] = ['data_two_0' => $data_two[0]->text,
-              'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
-              'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
-              'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
-              'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
-              'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
-              'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
-              'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
-              'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
-              'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
-              'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
+      $pdf_file = $request->usersFile;
+      if (!is_readable($pdf_file)) {
+        print("Error: file does not exist or is not readable: $pdf_file\n");
+        return;
+      }
+      $c = curl_init();
+      $cfile = curl_file_create($pdf_file, 'application/pdf');
+      $apikey = '9ckfvsg6cwop'; // from https://pdftables.com/api
+      curl_setopt($c, CURLOPT_URL, "http://216.10.245.164/api/pdf_to_json");
+      curl_setopt($c, CURLOPT_POSTFIELDS, array('file' => $cfile));
+      curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($c, CURLOPT_FAILONERROR,true);
+      curl_setopt($c, CURLOPT_ENCODING, "gzip,deflate");
+      $result = curl_exec($c);
+      if (curl_errno($c) > 0) {
+        print('Error calling PDFTables: '.curl_error($c).PHP_EOL);
+      }
+      $dataarry = json_decode($result);
+      $insert = [];
+      $dont_insert = [];
+      $first_data = count($dataarry->data);
+      for($k=0;$k < $first_data;$k++){
+        if(isset($dataarry->data[$k])){
+          $data_array = array($dataarry->data[$k]);
+          $dataarry_count = count(array($dataarry->data[$k]));
+          for($i=0;$i < $dataarry_count;$i++ ){
+            $data_two = array($data_array[$i]->data);
+            $gpf=[];
+            $data_three = array($data_two[$i]);
+            for($j=0;$j<count($data_three);$j++){
+              $data_four = count($data_three[$j]);
+              for($m=0;$m<$data_four;$m++){
+                if(isset($data_three[$j][$m][1]->text)){
+                  $gpf = explode("/",$data_three[$j][$m][1]->text);
+                  if(isset($gpf[1]) && strlen($gpf[1]) >= 4){
+                    $gpf_number_data =  explode('/',$data_three[$j][$m][1]->text);
+                    $prv_check = array_search($gpf_number_data[1], array_column($insert, 'gpf_number'));
+                    if(!$prv_check){
+                      $employee = Masteremployee::select('inital_letter','taluka_id','employee_id','department_id','designation_id','employee_name')->where('employee_id',trim($gpf_number_data[1]))->first();
+                      // var_dump($data_three[$j][$m]);
+                      // echo '----------------------------------<br>---------------------------------------';
+                      $monthly_other = '';
+                      $loan_installment = '';
+                      if(str_replace(',','',$data_three[$j][$m][4]->text) > 0){
+                        $monthly_contrubition = str_replace(',','',$data_three[$j][$m][4]->text);
+                      }else{
+                        $monthly_contrubition = str_replace(',','',$data_three[$j][$m][5]->text);
+                      }
+                      if($data_three[$j][$m][5]->text === "0 0 0 0/0"){
+                        $total = (isset($data_three[$j][$m][10]->text)) ? str_replace(',','',$data_three[$j][$m][10]->text) : str_replace(',','',$data_three[$j][$m][7]->text);
+                        $loan_installment = (isset($data_three[$j][$m][6]->text) && $data_three[$j][$m][6]->text > 0)? str_replace(',','',$data_three[$j][$m][6]->text):'';
+                      }else{
+                        $total = (isset($data_three[$j][$m][9]->text) && $data_three[$j][$m][9]->text > 0)? str_replace(',','',$data_three[$j][$m][9]->text)
+                                : ((isset($data_three[$j][$m][10]->text)) ? str_replace(',','',$data_three[$j][$m][10]->text) : '' );
+                        $monthly_other = (isset($data_three[$j][$m][6]->text) && $data_three[$j][$m][6]->text > 0)? str_replace(',','',$data_three[$j][$m][6]->text):'';
+                        $loan_installment = (isset($data_three[$j][$m][7]->text) && $data_three[$j][$m][7]->text > 0)? str_replace(',','',$data_three[$j][$m][7]->text):'';
+                      }
+                      $insert[] = [
+                      'gpf_number' => (isset($gpf_number_data[1]) && $gpf_number_data[1] !== '') ? (int)trim($gpf_number_data[1]) : $data_three[$j][$m][1]->text,
+                      'employee_name' => (isset($employee->employee_name)) ?$employee->employee_name : $data_three[$j][$m][2]->text,
+                      // 'data_two_3' => (isset($data_three[$j][$m][3]->text))?$data_three[$j][$m][3]->text:'', // PDF Pay-DP Column
+                      'monthly_contrubition' => $monthly_contrubition,  // PDF Substratcion
+                      // 'monthly_received' => (isset($data_three[$j][$m][5]->text))?$data_three[$j][$m][5]->text:'', // Pay/DA/Arr
+                      'monthly_other' => $monthly_other, // GPF Arr
+                      'loan_installment' => $loan_installment, // Refund Amount
+                      // 'loan_amonut' => (isset($data_three[$j][$m][8]->text))?$data_three[$j][$m][8]->text:'', // Cur inst / Total Instalment
+                      // 'monthly_received' => (isset($data_three[$j][$m][9]->text) && $data_three[$j][$m][9]->text > 0)? str_replace(',','',$data_three[$j][$m][9]->text):'', // Total
+                      'monthly_received' => $total, // Total
+                      'remark' => (isset($data_three[$j][$m][10]->text))?$data_three[$j][$m][10]->text:'',
+                      'file_for_year' => $request->year_id ,
+                      'file_for_month' => $request->month_id ,
+                      'chalan_serial_number' => $request->chalan_number ,
+                      'file_taluka_id' => $request->taluka_id ,
+                      'emc_desg_id' => $employee->designation_id ,
+                      'emc_dept_id' => $employee->department_id ,
+                      'created_by' => Auth::id(),
+                      'file_name' => $filepath,
+                      ]; // Remark
+                    }
+                  }else{
+                    if(isset($data_three[$j][2][1]->text) && strpos($data_three[$j][2][1]->text,'NZPGPF') !== false){
+                      $dont_insert[] = [
+                      'gpf_number' => (isset($data_three[$j][$m][1]->text))?$data_three[$j][$m][1]->text:'',
+                      'employee_name' => (isset($data_three[$j][$m][2]->text))?$data_three[$j][$m][2]->text:'',
+                      // 'data_two_3' => (isset($data_three[$j][$m][3]->text))?$data_three[$j][$m][3]->text:'', // PDF Pay-DP Column
+                      'monthly_contrubition' => (isset($data_three[$j][$m][4]->text))?$data_three[$j][$m][4]->text:'', // PDF Substratcion
+                      // 'monthly_received' => (isset($data_three[$j][$m][5]->text))?$data_three[$j][$m][5]->text:'', // Pay/DA/Arr
+                      'monthly_other' => (isset($data_three[$j][$m][6]->text))?$data_three[$j][$m][6]->text:'', // GPF Arr
+                      'loan_installment' => (isset($data_three[$j][$m][7]->text))?$data_three[$j][$m][7]->text:'', // Refund Amount
+                      // 'loan_amonut' => (isset($data_three[$j][$m][8]->text))?$data_three[$j][$m][8]->text:'', // Cur inst / Total Instalment
+                      'monthly_received' => (isset($data_three[$j][$m][9]->text))?$data_three[$j][$m][9]->text:'', // Total
+                      'remark' => (isset($data_three[$j][$m][10]->text))?$data_three[$j][$m][10]->text:'']; // Remark
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
+      if(count($insert)){
+        return ['status'=>'success','message'=>'PDF File upload successfully','insertdata' => $insert];
+      }
+      return ['status'=>'success','message'=>'PDF File upload successfully'];
     }
-    // print_r($insert);
-    // print_r($dont_insert);
 
-    dd($first_data);
-    // for($k=0;$k < $first_data;$k++){
-    //   if(isset($dataarry->data[$k]->data)){
-    //     $data_array = $dataarry->data[$k]->data;
-    //     $dataarry_count = count($dataarry->data);
-    //     for($i=0;$i < $dataarry_count;$i++ ){
-    //       $data_count_two = count($data_array[$i]);
-    //       $data_two = $data_array[$i];
-    //       $gpf=[];
-    //       if(isset($data_two[1]->text)){
-    //         $gpf = explode("/",$data_two[1]->text);
-    //       }
-    //       if(isset($gpf[1]) && strlen($gpf[1]) >= 5){
-    //           $insert[] = ['data_two_0' => $data_two[0]->text,
-    //           'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
-    //           'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
-    //           'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
-    //           'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
-    //           'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
-    //           'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
-    //           'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
-    //           'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
-    //           'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
-    //           'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
-    //       }else{
-    //         if(isset($data_two[1]->text) && strpos($data_two[1]->text,'NZPGPF') !== false){
-    //           $dont_insert[] = ['data_two_0' => $data_two[0]->text,
-    //           'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
-    //           'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
-    //           'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
-    //           'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
-    //           'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
-    //           'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
-    //           'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
-    //           'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
-    //           'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
-    //           'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
-    echo count($insert);
-    print_r($insert);
-    echo '------------------------------------------------';
-    echo count($dont_insert);
-    print_r($dont_insert);
-    dd();
-    curl_close($c);
-    return view('Reports/verifypdfdata',compact('insert','dont_insert'));
-    // die();
-    /* Python PDF Process End*/
-
-
-
-    /* READ EXCEL FILE START */
-    // $p = $request->file('test_pdf')->store('Files');
-    // // $path = $request->file('test_pdf')->getRealPath();
-    // $data = Excel::toArray('',$p);
-    // if(count($data[0])){
-    //   echo '<pre>';
-    //   $getcount = count($data[0]);
-    //   for($i=0;$getcount > $i;$i++){
-    //     if($data[0][1]){
-    //       if (strpos($data[0][$i][1], 'NZPGPF') !== false) {
-    //         // print_r($data[0][$i]);
-    //         $j=$i;
-    //         $k=$i;
-    //         $data[0][$i][1];
-    //         if(strpos($data[0][$i][1], 'NZPGPF') !== true){
-    //           echo $data[0][$i][1].$data[0][($j+1)][1];
-    //           // echo '------------------------------------------';
-    //         }
-    //         echo "<br>";
-    //       }else{
-    //         // print_r($data[0][$i]);
-    //         // echo '######################################################';
-    //       }
-    //     }
-    //   }
-    // }
-    // die();
-    /* READ EXCEL FILE END */
-
-    /* API CODE SAMPLE START */
-
-    /* API CODE SAMPLE END */
-
-
-    /* SAMLOT PDF PARCER CODE SAMPLE START */
-    $parser = new \Smalot\PdfParser\Parser();
-    $pdf    = $parser->parseFile($request->file('test_pdf'));
-    // $details = $pdf->getDetails();
-    // $text =  $pdf->getSectionsText();
-    $pages = $pdf->getPages();
-    $page     = $pages[0];
-    $text_two = nl2br($page->getText());
-    $content  = $page->getText();
-    // $out      = $content;
-
-    /* SAMLOT PDF PARCER CODE SAMPLE END */
   }
-  return view('testpdf');
+  $month=Month::orderBy('order_by')->get();
+  $taluka=Taluka::all();
+  return view('testpdf',compact('month','taluka'));
+}
+public function confirmpdfdata(Request $request){
+  if(count($request->dummy_gpf_numbers)){
+    $userData = [];
+    $userDataDuplicate = [];
+    $employeeNotFound = [];
+    $message = '';
+    $totalUsed = 0;
+    for($i=0;$i < count($request->dummy_gpf_numbers); $i++){
+      $checkData = ['gpf_number' => $request->dummy_gpf_numbers[$i],
+                    'taluka_id' =>$request->taluka_id,
+                    'challan_id' => $request->chalan_id,
+                    'emc_month' => $request->month_id,
+                    'emc_year' => $request->year_id,];
+
+      $check_duplicate = MasterMonthlySubscription::where($checkData)->get();
+      if(count($check_duplicate) == 0){
+        if(isset($request->dummy_gpf_numbers[$i]) && $request->dummy_gpf_numbers[$i] !== ''){
+          $employee = Masteremployee::select('employee_id','department_id','designation_id')->where('gpf_no',$request->dummy_gpf_numbers[$i])->first();
+        }
+        if(isset($employee->employee_id) && $employee->employee_id !== ''){
+          if((int)$request->dummy_monthly_received[$i] > 0){
+            $userData[] = ['gpf_number' => $request->dummy_gpf_numbers[$i],
+                            'classification_id' => $request->classification_id,
+                            'taluka_id' =>$request->taluka_id,
+                            'challan_id' => $request->chalan_id,
+                            'challan_number' => $request->chalan_serial_no,
+                            'emc_month' => $request->month_id,
+                            'emc_year' => $request->year_id,
+                            'emc_emp_id' => $employee->employee_id,
+                            'emc_desg_id' => $employee->designation_id,
+                            'emc_dept_id' => $employee->department_id,
+                            'monthly_contrubition' => $request->dummy_monthly_contrubition[$i],
+                            'loan_installment' => $request->dummy_loan_installment[$i],
+                            'monthly_received' => $request->dummy_monthly_received[$i],
+                            'modifed_by' => Auth::id() ];
+            $totalUsed += (int)$request->dummy_monthly_received[$i];
+          }
+        } else {
+          $employeeNotFound[] = ['gpf_number' => $request->dummy_gpf_numbers[$i]];
+        }
+      } else {
+        $userDataDuplicate[] = ['gpf_number' => $request->dummy_gpf_numbers[$i],'Employee Name' => $request->dummy_employee_name[$i],];
+      }
+    }
+    if(count($userDataDuplicate)){
+      $message .= 'Found Duplicate Records '.count($userDataDuplicate);
+    }
+    if(count($employeeNotFound)){
+      $message .= 'Employee Not Found Records '.count($employeeNotFound);
+    }
+    if(count($userData)){
+      $getDiffAmt = MonthlyTotalChalan::select('diff_amount')
+      ->where(['id' => $request->chalan_id,'chalan_serial_no' => $request->chalan_serial_no])
+      ->first();
+      if((int)$getDiffAmt->diff_amount >= (int)$totalUsed){
+        MonthlyTotalChalan::where(['id' => $request->chalan_id])
+        ->update(['diff_amount' => ($getDiffAmt->diff_amount-$totalUsed)]);
+        $getstatus = MasterMonthlySubscription::insert($userData);
+      }else{
+        return ['status'=>'warning','message'=>'Chalan total amount does not matched'.$request->chalan_khatavani.'-'.$totalUsed];
+      }
+      $message .= 'Employee Details Saved '.count($userData);
+    }
+    return ['status'=>'success','message' => $message];
+  }
+  return ['status'=>'success','message'=>'PDF File upload successfully'];
 }
 public function testjson(){
   $str = '[
@@ -3482,17 +3486,17 @@ public function testjson(){
             $gpf = explode("/",$data_two[1]->text);
           }
           if(isset($gpf[1]) && strlen($gpf[1]) >= 5){
-              $insert[] = ['data_two_0' => $data_two[0]->text,
-              'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
-              'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
-              'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
-              'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
-              'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
-              'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
-              'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
-              'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
-              'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
-              'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
+            $insert[] = ['data_two_0' => $data_two[0]->text,
+            'data_two_1' => (isset($data_two[1]->text))?$data_two[1]->text:'',
+            'data_two_2' => (isset($data_two[2]->text))?$data_two[2]->text:'',
+            'data_two_3' => (isset($data_two[3]->text))?$data_two[3]->text:'',
+            'data_two_4' => (isset($data_two[4]->text))?$data_two[4]->text:'',
+            'data_two_5' => (isset($data_two[5]->text))?$data_two[5]->text:'',
+            'data_two_6' => (isset($data_two[6]->text))?$data_two[6]->text:'',
+            'data_two_7' => (isset($data_two[7]->text))?$data_two[7]->text:'',
+            'data_two_8' => (isset($data_two[8]->text))?$data_two[8]->text:'',
+            'data_two_9' => (isset($data_two[9]->text))?$data_two[9]->text:'',
+            'data_two_10' => (isset($data_two[10]->text))?$data_two[10]->text:''];
           }else{
             if(isset($data_two[1]->text) && strpos($data_two[1]->text,'NZPGPF') !== false){
               $dont_insert[] = ['data_two_0' => $data_two[0]->text,

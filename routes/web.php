@@ -107,7 +107,8 @@ Route::middleware('auth')->group(function () {
     Route::post('updateBalance', 'EmployeeController@updateBalance');
     // Excel/PDFFile Upload For Monthly Subscription
     Route::any('testjson', 'FileUploadController@testjson');
-    Route::any('testpdf', 'FileUploadController@testpdf');
+    Route::any('pdffileupload', 'FileUploadController@pdffileupload');
+    Route::post('confirmpdfdata', 'FileUploadController@confirmpdfdata');
     Route::resource('fileupload', FileUploadController::class);
     // Common Application Forms
     Route::get('listcommonforms', 'CommonApplicationController@listcommonforms');

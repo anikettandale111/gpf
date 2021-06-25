@@ -143,7 +143,6 @@
             <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms_received')}} <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{url('listcommonforms')}}">{{trans('language.fr_common_application_form_list')}}</a></li>
-                <!-- <li><a href="{{url('testpdf')}}">Test Pdf</a></li> -->
               </ul>
             </li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.monthly_bill_expensess')}}  <span class="fa fa-chevron-down"></span></a>
@@ -153,6 +152,7 @@
                 <li><a href="{{url('subscription')}}">{{trans('language.monthly_bill_chalan_khatanvai')}}</a></li>
                 <li><a href="{{url('fileupload')}}">{{trans('language.chalan_files_upload')}} </a></li>
                 <li><a href="{{url('chalanGhoshwara')}}">{{trans('language.chalan_ghoshwara')}} </a></li>
+                <li><a href="{{url('pdffileupload')}}">Test Pdf</a></li>
               </ul>
             </li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.bill_expensess_report')}}  <span class="fa fa-chevron-down"></span></a>
@@ -182,6 +182,13 @@
               <a href="{{url('employee')}}"><i class="fa fa-home"></i> {{trans('language.form_employee_update')}} </a>
             </li> -->
             @if(Auth::user()->id == 1 )
+            <li><a><i class="fa fa-bug"></i> {{trans('language.menu_yearwise_report')}}  <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu">
+                <li><a href="{{url('antimbill')}}"> {{trans('language.menu_yearwise_report_87')}} </a></li>
+                <li><a href="{{url('antimbillexpenses')}}"> {{trans('language.menu_yearwise_report_7')}} </a></li>
+                <li><a href="{{url('billreports')}}"> {{trans('language.menu_bill_reports')}} </a></li>
+              </ul>
+            </li>
             @endif
           </ul>
         </div>

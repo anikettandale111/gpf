@@ -186,8 +186,8 @@ return [
   'th_trend_date'=>' चलन दिनांक',
   'th_trend_taluka'=>'तालुका',
   'th_trend_classification'=>'वर्गीकरण',
-  'th_trend_the_amount_of_hearing'=>'ऐकून रक्कम',
-  'th_trend_total_waste'=>'एकूण खलावली',
+  'th_trend_the_amount_of_hearing'=>'एकूण रक्कम',
+  'th_trend_total_waste'=>'एकूण खतावलेली रक्कम ',
   'th_trend_shera'=>'शेरा',
   'th_trend_file_selecte'=>'फाईल निवडा',
   //User registration
@@ -295,4 +295,7 @@ return [
   'menu_bill_expenses_information'=> 'बीलातील खर्च माहिती',
   'menu_bill_reports'=> 'बील माहिती रिपोर्ट्स',
   'form_employee_update'=> 'कर्मचारी माहिती',
+  'menu_yearwise_report'=> ' वार्षिक अहवाल ',
+  'menu_yearwise_report_87'=> ' अहवाल क्रमांक ८७ ',
+  'menu_yearwise_report_7'=> ' अहवाल क्रमांक ७ ',
 ];

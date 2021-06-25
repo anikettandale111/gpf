@@ -27,7 +27,7 @@
 <div class="row">
   <div class="col-md-12 col-sm-12 ">
     <div class="x_panel">
-      <h2>{{trans('language.ms_reports')}} </h2>
+      <h2>{{trans('language.chalan_files_upload')}} </h2>
       <div class="x_title">
       </div>
       <div class="x_content">
@@ -84,7 +84,7 @@
                       <input class="form-control" type="text" readonly name="chalan_khatavani" id="chalan_khatavani" >
                     </div>
                     <div class="form-group col-sm-3 file-select">
-                      <label for="">{{trans('language.th_trend_total_waste')}}</label>
+                      <label for="">{{trans('language.th_trend_file_selecte')}}</label>
                       <input class="form-control" type="file" name="test_excel" id="test_excel" required>
                     </div>
                     <input type="hidden" class="form-control chalan_id" id="chalan_id" name="chalan_id">
