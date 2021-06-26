@@ -203,32 +203,51 @@ public function pdffileupload(Request $request){
               $data_four = count($data_three[$j]);
               for($m=0;$m<$data_four;$m++){
                 if(isset($data_three[$j][$m][1]->text)){
-                  $gpf = explode("/",$data_three[$j][$m][1]->text);
+                  $gpf = explode("/",trim($data_three[$j][$m][1]->text));
                   if(isset($gpf[1]) && strlen($gpf[1]) >= 4){
+                    $file_gpf_number = str_replace(array("\n", "\r"), '', $gpf[1]);
                     $gpf_number_data =  explode('/',$data_three[$j][$m][1]->text);
-                    $prv_check = array_search($gpf_number_data[1], array_column($insert, 'gpf_number'));
+                    $prv_check = array_search($file_gpf_number, array_column($insert, 'gpf_number'));
                     if(!$prv_check){
-                      $employee = Masteremployee::select('inital_letter','taluka_id','employee_id','department_id','designation_id','employee_name')->where('employee_id',trim($gpf_number_data[1]))->first();
+                      $employee = Masteremployee::select('inital_letter','taluka_id','employee_id','department_id','designation_id','employee_name')
+                                  ->where('employee_id',trim($file_gpf_number))->first();
                       // var_dump($data_three[$j][$m]);
                       // echo '----------------------------------<br>---------------------------------------';
                       $monthly_other = '';
                       $loan_installment = '';
                       if(str_replace(',','',$data_three[$j][$m][4]->text) > 0){
-                        $monthly_contrubition = str_replace(',','',$data_three[$j][$m][4]->text);
+                        if(strlen($gpf[1]) == 6){
+                          if($data_three[$j][$m][5]->text == "0 0 0 0/0"){
+                            $monthly_contrubition = str_replace(',','',$data_three[$j][$m][4]->text);
+                          }else{
+                            $monthly_contrubition = str_replace(',','',$data_three[$j][$m][5]->text);
+                          }
+                        }else{
+                          $monthly_contrubition = str_replace(',','',$data_three[$j][$m][4]->text);
+                        }
                       }else{
-                        $monthly_contrubition = str_replace(',','',$data_three[$j][$m][5]->text);
+                        if($data_three[$j][$m][5]->text == "0 0 0 0/0"){
+                          $monthly_contrubition = str_replace(',','',$data_three[$j][$m][4]->text);
+                        }else{
+                          $monthly_contrubition = str_replace(',','',$data_three[$j][$m][5]->text);
+                        }
                       }
-                      if($data_three[$j][$m][5]->text === "0 0 0 0/0"){
+                      if($data_three[$j][$m][5]->text == "0 0 0 0/0"){
                         $total = (isset($data_three[$j][$m][10]->text)) ? str_replace(',','',$data_three[$j][$m][10]->text) : str_replace(',','',$data_three[$j][$m][7]->text);
                         $loan_installment = (isset($data_three[$j][$m][6]->text) && $data_three[$j][$m][6]->text > 0)? str_replace(',','',$data_three[$j][$m][6]->text):'';
                       }else{
+                        // print_r($data_three[$j][$m]);
                         $total = (isset($data_three[$j][$m][9]->text) && $data_three[$j][$m][9]->text > 0)? str_replace(',','',$data_three[$j][$m][9]->text)
-                                : ((isset($data_three[$j][$m][10]->text)) ? str_replace(',','',$data_three[$j][$m][10]->text) : '' );
+                                : ((isset($data_three[$j][$m][10]->text) && $data_three[$j][$m][10]->text > 0) ? str_replace(',','',$data_three[$j][$m][10]->text) : '' );
                         $monthly_other = (isset($data_three[$j][$m][6]->text) && $data_three[$j][$m][6]->text > 0)? str_replace(',','',$data_three[$j][$m][6]->text):'';
-                        $loan_installment = (isset($data_three[$j][$m][7]->text) && $data_three[$j][$m][7]->text > 0)? str_replace(',','',$data_three[$j][$m][7]->text):'';
+                        $loan_installment = (isset($data_three[$j][$m][7]->text) && $data_three[$j][$m][7]->text > 0)? str_replace(',','',$data_three[$j][$m][7]->text)
+                                : ((isset($data_three[$j][$m][8]->text)) ? str_replace(',','',$data_three[$j][$m][8]->text) : '' );
+                        if((isset($data_three[$j][$m][8]->text) && $data_three[$j][$m][8]->text > 0)) {
+                          $total = (isset($data_three[$j][$m][10]->text)) ? str_replace(',','', $data_three[$j][$m][10]->text ):'';
+                        }
                       }
                       $insert[] = [
-                      'gpf_number' => (isset($gpf_number_data[1]) && $gpf_number_data[1] !== '') ? (int)trim($gpf_number_data[1]) : $data_three[$j][$m][1]->text,
+                      'gpf_number' => (isset($file_gpf_number) && $file_gpf_number !== '') ? (int)trim($file_gpf_number) : $data_three[$j][$m][1]->text,
                       'employee_name' => (isset($employee->employee_name)) ?$employee->employee_name : $data_three[$j][$m][2]->text,
                       // 'data_two_3' => (isset($data_three[$j][$m][3]->text))?$data_three[$j][$m][3]->text:'', // PDF Pay-DP Column
                       'monthly_contrubition' => $monthly_contrubition,  // PDF Substratcion

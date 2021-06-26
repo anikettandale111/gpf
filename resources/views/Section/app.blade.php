@@ -150,9 +150,9 @@
                 <li><a href="{{url('chalan')}}">{{trans('language.monthly_bill_chalan')}}</a></li>
                 <!-- <li><a href="{{url('monthly_chalan')}}">{{trans('language.monthly_bill_chalan_khatanvai')}}</a></li> -->
                 <li><a href="{{url('subscription')}}">{{trans('language.monthly_bill_chalan_khatanvai')}}</a></li>
-                <li><a href="{{url('fileupload')}}">{{trans('language.chalan_files_upload')}} </a></li>
+                <li><a href="{{url('fileupload')}}">{{trans('language.chalan_files_upload')}} (Excel Format)</a></li>
+                <li><a href="{{url('pdffileupload')}}">{{trans('language.chalan_files_upload')}} (PDF Format)</a></li>
                 <li><a href="{{url('chalanGhoshwara')}}">{{trans('language.chalan_ghoshwara')}} </a></li>
-                <li><a href="{{url('pdffileupload')}}">Test Pdf</a></li>
               </ul>
             </li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.bill_expensess_report')}}  <span class="fa fa-chevron-down"></span></a>
