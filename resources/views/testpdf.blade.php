@@ -161,7 +161,7 @@ display: none;
       </div>
     </div>
     <button type="button" class="btn btn-success  m-3" id="final_approved" name="final_approved"> Confirm & Approved </button>
-    <button type="button" class="btn btn-info  m-3" onclick="addnewrow()"> Add New Row </button>
+    <!-- <button type="button" class="btn btn-info  m-3" onclick="addnewrow()"> Add New Row </button> -->
     </form>
   </div>
 </div>
