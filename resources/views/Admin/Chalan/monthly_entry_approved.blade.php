@@ -114,7 +114,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="card-box table-responsive">
-              <table id="datatable" class="table table-striped table-bordered">
+              <table id="monthly_approve_table" class="table table-striped table-bordered">
                 <thead>
                   <tr>
                     <th> क्रं </th>
@@ -127,7 +127,8 @@
                     <th>अग्रिम परतावा</th>
                     <th>इतर</th>
                     <th>ऐकून </th>
-                    <th>तयार केलेलेच नाव </th>
+                    <th>नमूद करणाऱ्याचे नाव </th>
+                    <th><input type="checkbox" class="checkallapproved"></th>
                   </tr>
                 </thead>
                 <tbody class="appaend_table">
@@ -139,10 +140,10 @@
         </div>
       </div>
     </div>
+    <button type="button" class="btn btn-primary pull-right" name="sendrowid" onclick="makeApproved()">Conirm and Approved</button>
   </div>
-  <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;"><img src="{{asset('asset/loader.png')}}" width="200" height="200" /><br>Loading..</div>
 </div>
 @endsection
 @push('custom-scripts')
-<script type="text/javascript" src="{{URL('js/master-monthly-chalan.js')}}"></script>
+<script type="text/javascript" src="{{URL('js/master-monthly-chalan-approved.js')}}"></script>
 @endpush

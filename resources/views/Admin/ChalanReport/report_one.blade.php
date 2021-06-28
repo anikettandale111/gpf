@@ -97,7 +97,7 @@
                       <td>{{$row->chalan_no}}</td>
                       <td>{{$row->chalan_date}}</td>
                       <td>{{$row->amount}}</td>
-                      <td>{{$row->amount}}</td>
+                      <td>{{($row->amount - $row->diff_amount)}}</td>
                       <td>{{$row->monthly_contrubition}}</td>
                       <td>{{$row->month_name}}</td>
                       <td>{{$row->diff_amount}}</td>

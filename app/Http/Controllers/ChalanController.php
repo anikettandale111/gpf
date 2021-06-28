@@ -12,6 +12,7 @@ use App\MonthlyTotalChalan;
 use DataTable;
 use Session;
 use Config;
+use DB;
 
 class ChalanController extends Controller
 {
@@ -183,6 +184,13 @@ class ChalanController extends Controller
     $data['month']=month::orderBy('order_by')->get();
     $data['classification']=Classification::all();
     $data['taluka']=Taluka::all();
+    if($request->ajax()){
+      if(count($request->id_data)){
+        DB::table('master_emp_monthly_contribution_two')->whereIn('emc_id',$request->id_data)->update(['is_active' => 1]);
+        return ['status'=>'success','message' => 'Masik Chalan Khatawani Approved Succesfully'];
+      }
+      return ['status'=>'Error','message' => 'Sorry! Invalid Details Provided'];
+    }
     return view ("Admin.Chalan.monthly_entry_approved", $data);
   }
   public function getuserchalandetails(){

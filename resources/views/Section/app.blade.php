@@ -153,7 +153,7 @@
                 <li><a href="{{url('fileupload')}}">{{trans('language.chalan_files_upload')}} (Excel Format)</a></li>
                 <li><a href="{{url('pdffileupload')}}">{{trans('language.chalan_files_upload')}} (PDF Format)</a></li>
                 <li><a href="{{url('chalanGhoshwara')}}">{{trans('language.chalan_ghoshwara')}} </a></li>
-                <li><a href="{{url('monthlyEntryApproved')}}">{{trans('language.monthly_entry_approved')}} </a></li>
+                <!-- <li><a href="{{url('monthlyEntryApproved')}}">{{trans('language.monthly_entry_approved')}} </a></li> -->
               </ul>
             </li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.bill_expensess_report')}}  <span class="fa fa-chevron-down"></span></a>

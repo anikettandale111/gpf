@@ -58,23 +58,39 @@ class ChalanReportController extends Controller
     $lang = app()->getLocale();
     $year = session()->get('year');
     $financial_year = session()->get('financial_year');
-    $taluka_id = $request->taluka_id;
-    $month_id = $request->month_id;
-
-      $deposits=MonthlyTotalChalan::select("taluka.taluka_name_".$lang." as taluka_name","tbl_monthly_total_chalan.created_at","tbl_monthly_total_chalan.chalan_no","tbl_monthly_total_chalan.chalan_date","tbl_monthly_total_chalan.amount","tbl_monthly_total_chalan.diff_amount","master_month.month_name_".$lang." as month_name",'taluka.id as taluka_ids')
-      ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
-      // ->leftJoin("master_emp_monthly_contribution_two", "master_emp_monthly_contribution_two.challan_id", "=","tbl_monthly_total_chalan.id")
-      ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id")
-      ->where("tbl_monthly_total_chalan.year", session()->get('from_year'))
-      ->where("tbl_monthly_total_chalan.chalan_month_id", ">=", 4);
-      $deposits_two=MonthlyTotalChalan::select("taluka.taluka_name_".$lang." as taluka_name","tbl_monthly_total_chalan.created_at","tbl_monthly_total_chalan.chalan_no","tbl_monthly_total_chalan.chalan_date","tbl_monthly_total_chalan.amount","tbl_monthly_total_chalan.diff_amount","master_month.month_name_".$lang." as month_name",'taluka.id as taluka_ids')
-      ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
-      // ->leftJoin("master_emp_monthly_contribution_two", "master_emp_monthly_contribution_two.challan_id", "=","tbl_monthly_total_chalan.id")
-      ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id")
-      ->where("tbl_monthly_total_chalan.year", session()->get('to_year'))
-      ->where("tbl_monthly_total_chalan.chalan_month_id", "<=", 3)
-      ->union($deposits)
-      ->latest()->get();
+    $taluka_id = (isset($request->taluka_id))?$request->taluka_id:'';
+    $month_id = (isset($request->month_id))?$request->month_id:'';
+    $queryOne = MonthlyTotalChalan::select("taluka.taluka_name_".$lang." as taluka_name","tbl_monthly_total_chalan.created_at","tbl_monthly_total_chalan.chalan_no",
+              "tbl_monthly_total_chalan.chalan_date","tbl_monthly_total_chalan.amount","tbl_monthly_total_chalan.diff_amount",
+              "master_month.month_name_".$lang." as month_name",'taluka.id as taluka_ids')
+                ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
+                ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id");
+                if($taluka_id){
+                  $queryOne = $queryOne->where("tbl_monthly_total_chalan.taluka", $taluka_id);
+                }
+                if($month_id){
+                  $queryOne = $queryOne->where("tbl_monthly_total_chalan.chalan_month_id", $month_id);
+                }
+                $queryOne = $queryOne->where("tbl_monthly_total_chalan.year", session()->get('from_year'))
+                ->where("tbl_monthly_total_chalan.chalan_month_id", ">=", 4)
+                ->orderBy("tbl_monthly_total_chalan.taluka","ASC");
+    $queryTwo = MonthlyTotalChalan::select("taluka.taluka_name_".$lang." as taluka_name","tbl_monthly_total_chalan.created_at","tbl_monthly_total_chalan.chalan_no",
+              "tbl_monthly_total_chalan.chalan_date","tbl_monthly_total_chalan.amount","tbl_monthly_total_chalan.diff_amount",
+                "master_month.month_name_".$lang." as month_name",'taluka.id as taluka_ids')
+                ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
+                ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id");
+                if($taluka_id){
+                  $queryTwo = $queryTwo->where("tbl_monthly_total_chalan.taluka", $taluka_id);
+                }
+                if($month_id){
+                  $queryTwo = $queryTwo->where("tbl_monthly_total_chalan.chalan_month_id", $month_id);
+                }
+    $queryTwo = $queryTwo->where("tbl_monthly_total_chalan.year", session()->get('to_year'))
+                ->where("tbl_monthly_total_chalan.chalan_month_id", "<=", 3)
+                ->orderBy("tbl_monthly_total_chalan.taluka","ASC")
+                ->union($queryOne)
+                ->get();
+    $deposits_two = $queryTwo;
     if($request->view_report_type == 1){
       return view('Admin/ChalanReport/report_one',compact('deposits_two'));
     } else if ($request->view_report_type == 2){
