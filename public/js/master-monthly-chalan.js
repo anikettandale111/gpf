@@ -143,7 +143,7 @@ function getdetails(){
 
   $.ajax({
     type: 'GET',
-    url: "getuserchalandetails",
+    url: "getuserdetailsbygpfno",
     data: {_token: CSRF_TOKEN,input_id:$("#gpf_account_id").val(),year:year,chalan_month:chalan_month,chalan_number:chalan_number,chalan_taluka:chalan_taluka},
     success: function (results) {
       console.log(results);

@@ -179,6 +179,12 @@ class ChalanController extends Controller
     MonthlyTotalChalan::where('id',$chid)->update(['is_delete' => 0]);
     return ['status' => 'success','message' => 'Chalan Deleted Successfully.'];
   }
+  public function monthlyEntryApproved(Request $request){
+    $data['month']=month::orderBy('order_by')->get();
+    $data['classification']=Classification::all();
+    $data['taluka']=Taluka::all();
+    return view ("Admin.Chalan.monthly_entry_approved", $data);
+  }
   public function getuserchalandetails(){
 
   }

@@ -126,6 +126,7 @@ Route::middleware('auth')->group(function () {
     // Chalan Controller
     Route::get('chalanSubscriptionDetails', 'ChalanController@chalanSubscriptionDetails');
     Route::get('chalandetails', 'ChalanController@chalandetails');
+    Route::any('monthlyEntryApproved', 'ChalanController@monthlyEntryApproved');
     Route::resource('chalan', ChalanController::class);
     // Chalan Controller
     Route::post('chalanTableDetails', 'SubscriptionController@chalanTableDetails');

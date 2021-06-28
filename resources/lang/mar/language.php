@@ -31,6 +31,7 @@ return [
   'register_users' => 'वापरकर्ताची नोंद',
   '7_pay_commission_paid' => '७ व वेतन आयोग',
   'chalan_files_upload' => 'मासिक चलन खतावणी फाइल अपलोड',
+  'monthly_entry_approved' => 'मासिक चलन खतावणी मंजूर करणे',
   'chalan_ghoshwara' => 'चलन गोषवारा ',
   'yearly_intrest_paid_form' => 'वार्षिक व्याज नोंद',
   'bill_expensess_report' => 'अहवाल',
