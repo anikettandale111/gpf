@@ -63,11 +63,11 @@ class BillReportsController extends Controller
       foreach ($monthData as $key => $value) {
         if($value->id > 3){
           $chalan_total_amount = MonthlyTotalChalan::where('chalan_month_id',$value->id)->where('year',Session::get('from_year'))->sum('amount');
-          $chalan_expenses_received = MasterMonthlySubscription::where('emc_month',$value->id)->where('emc_year',Session::get('from_year'))->where('is_active',1)->sum('monthly_received');
+          $chalan_expenses_received = MasterMonthlySubscription::where('emc_month',$value->id)->where('emc_year',Session::get('from_year'))->where('is_active',1)->sum(DB::raw('monthly_contrubition + monthly_other + loan_installment'));
           $chalanExpenses[]= ['chalan_expenses_received' => $chalan_expenses_received, 'chalan_total_amount' =>$chalan_total_amount, 'month_name' => $value->month_name.' '.Session::get('from_year')];
         }else{
           $chalan_total_amount = MonthlyTotalChalan::where('chalan_month_id',$value->id)->where('year',Session::get('to_year'))->sum('amount');
-          $chalan_expenses_received = MasterMonthlySubscription::where('emc_month',$value->id)->where('emc_year',Session::get('to_year'))->where('is_active',1)->sum('monthly_received');
+          $chalan_expenses_received = MasterMonthlySubscription::where('emc_month',$value->id)->where('emc_year',Session::get('to_year'))->where('is_active',1)->sum(DB::raw('monthly_contrubition + monthly_other + loan_installment'));
           $chalanExpenses[]= ['chalan_expenses_received' => $chalan_expenses_received, 'chalan_total_amount' =>$chalan_total_amount, 'month_name' => $value->month_name.' '.Session::get('to_year')];
         }
       }
