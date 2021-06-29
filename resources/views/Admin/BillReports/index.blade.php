@@ -32,6 +32,8 @@
                   <option value="3" > Computer Slip </option>
                   <option value="4" > Order </option>
                   <option value="5" > MTR-52 </option>
+                  <option value="6" > Report-7 </option>
+                  <option value="7" > Report-87 </option>
                 </select>
               </form>
             </div>
