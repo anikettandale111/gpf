@@ -12,6 +12,7 @@ use App\MasterMonthlySubscription;
 use App\MonthlyTotalChalan;
 use DataTables;
 use Session;
+use Excel;
 
 
 class BillReportsController extends Controller
@@ -76,5 +77,14 @@ class BillReportsController extends Controller
       return view('Admin.BillReports.reportEightSeven',compact('billid','billDetails','chalanExpenses'));
     }
     return ['html' => $html];
+  }
+  public function downloadreport($billid,$reportNo){
+    if($reportNo == 1){
+      $talukaData = Taluka::select('taluka_name_mar AS taluka_name','id')->get();
+      $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$billid)->first();
+      $html = view('Admin.BillReports.report75',compact('billid','billDetails','talukaData'))->render();
+      // return view('Admin.BillReports.report75',compact('billid','billDetails','talukaData'));
+      return Excel::download($talukaData,'invoices.xlsx','Xlsx',['name','email','contat']);
+    }
   }
 }

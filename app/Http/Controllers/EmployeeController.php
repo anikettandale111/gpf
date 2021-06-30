@@ -83,6 +83,9 @@ class EmployeeController extends Controller
     if($request->user_providing_bank != ''){
       $empData['bank_id'] = ($request->user_providing_bank) ? $request->user_providing_bank : '';
     }
+    if($request->user_name != ''){
+      $empData['employee_name'] = ($request->user_name) ? $request->user_name : '';
+    }
     // return count($empData);
     if(count($empData)){
       $emp_result = Employee::where('gpf_no',$request->employee_gpf_num)

@@ -197,4 +197,27 @@ class AntimBillExpensesController extends Controller
       return ['status' => 'error', 'message' => 'Sorry, Invalid Details found.'];
     }
   }
+  public function employeeBillKharch(Request $request){
+    if($request->ajax()){
+      if(isset($request->employee_gpf_num) && $request->employee_gpf_num != ''){
+        $updateData['month_april_loan'] = $request->month_april_loan;
+        $updateData['month_may_loan'] = $request->month_may_loan;
+        $updateData['month_june_loan'] = $request->month_june_loan;
+        $updateData['month_july_loan'] = $request->month_july_loan;
+        $updateData['month_aug_loan'] = $request->month_aug_loan;
+        $updateData['month_september_loan'] = $request->month_september_loan;
+        $updateData['month_octomber_loan'] = $request->month_octomber_loan;
+        $updateData['month_november_loan'] = $request->month_november_loan;
+        $updateData['month_december_loan'] = $request->month_december_loan;
+        $updateData['month_jan_loan'] = $request->month_jan_loan;
+        $updateData['month_feb_loan'] = $request->month_feb_loan;
+        $updateData['month_march_loan'] = $request->month_march_loan;
+        DB::table('master_gpf_transaction')->where('gpf_number',$request->employee_gpf_num)->update($updateData);
+        return ['status' => 'success', 'message' => 'Deduction Details Saved Successfully.'];
+      }else{
+        return ['status' => 'error', 'message' => 'Invalid GPF number Provided.'];
+      }
+    }
+    return view('Admin.AntimBill.employee_bill_kharch');
+  }
 }

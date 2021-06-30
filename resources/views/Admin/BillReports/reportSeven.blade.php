@@ -91,7 +91,7 @@ use App\BillExpenses;
         @foreach($billExpenses AS $key => $tal_row)
         <tr>
           <td>{{ digitChange($key+1) }}</td>
-          <td>{{ digitChange(date('d-m-Y',strtotime($billDetails->check_date)))}}</td>
+          <td>{{($billDetails->check_date) ? digitChange(date('d-m-Y',strtotime($billDetails->check_date))) : '' }}</td>
           <td>{{digitChange($tal_row->gpf_no) }}<br>{{ $tal_row->user_name }}<br>{{ $tal_row->user_department}}</td>
           <td>{{$tal_row->loan_agrim_pryojan}}</td>
           <td>{{digitChange(amount_inr_format($tal_row->required_rakkam))}}</td>

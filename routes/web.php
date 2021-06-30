@@ -80,9 +80,11 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('antimbill', AntimBillController::class);
     //Antim Bill Pryojan Expenses
+    Route::any('employeeBillKharch', 'AntimBillExpensesController@employeeBillKharch');
     Route::get('getBillExpensesDetails', 'AntimBillExpensesController@getBillExpensesDetails');
     Route::resource('antimbillexpenses', AntimBillExpensesController::class);
     Route::post('viewreport/{billid?}/{rtype?}', 'BillReportsController@viewreport');
+    Route::get('downloadreport/{billid?}/{rtype?}', 'BillReportsController@downloadreport');
     Route::resource('billreports', BillReportsController::class);
 
     // Districts
@@ -102,6 +104,7 @@ Route::middleware('auth')->group(function () {
     // Common Application Forms
     Route::get('getLastApplicationNumber', 'CommonApplicationController@getLastApplicationNumber');
     Route::get('getuserdetailsbygpfno', 'CommonApplicationController@getuserdetailsbygpfno');
+    Route::get('getuserdetailsbygpfnotwo', 'CommonApplicationController@getuserdetailsbygpfnotwo');
     Route::get('getuserchalandetails', 'ChalanController@getuserchalandetails');
     Route::get('getUserBalances', 'CommonApplicationController@getUserBalances');
     Route::post('updateBalance', 'EmployeeController@updateBalance');

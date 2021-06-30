@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.fr_common_user_name')}}</label>
-                  <input type="text" class="form-control clearfield" name="user_name" id="user_name" readonly>
+                  <input type="text" class="form-control clearfield" name="user_name" id="user_name">
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.fr_common_user_joining_date')}}</label>

@@ -1,10 +1,37 @@
 var bill_id;
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 $(document).ready(function(){
   $('#get_report').click(function(){
     bill_id = $('#bill_no').val();
     getReport(bill_id);
   });
   var doc = new jsPDF();
+  // $('#report_type').change(function(){
+  //   if($(this).val() == 1){
+  //     $('#export_report').removeClass('hidebtn');
+  //   }else{
+  //     $('#export_report').addClass('hidebtn');
+  //   }
+  // });
+  $('#export_report').click(function(){
+    var reportNo = $('#report_type').val();
+    bill_id = $('#bill_no').val();
+    if(bill_id == null){
+      swal('warning','Please Select Bill Number');
+      return false;
+    }
+    if(reportNo == null){
+      swal('warning','Please Select Report Type');
+      return false;
+    }
+    $.ajax({
+      type: 'POST',
+      url: "downloadreport",
+      data: { _token: CSRF_TOKEN,bill_id:bill_id,reportNo:reportNo },
+      success: function(results) {
+      }
+    });
+  });
 });
 var $iframe = $('#iframe');
 function getReport(bill_id,reportNo){

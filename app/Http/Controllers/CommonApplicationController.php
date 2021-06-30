@@ -126,6 +126,21 @@ class CommonApplicationController extends Controller
     ->where('yob.year',2020)
     ->get();
   }
+  public function getuserdetailsbygpfnotwo(Request $request){
+    $lang = app()->getLocale();
+    $emp_gpf_id=(int)$request->input_id;
+    return DB::table('master_employee as me')
+    ->leftjoin('departments as dp','dp.department_code','=','me.department_id')
+    ->leftjoin('designations as dg','dg.id','=','me.designation_id')
+    ->leftjoin('classifications as cl','cl.id','=','me.classification_id')
+    ->leftjoin('taluka as tl','tl.id','=','me.taluka_id')
+    ->leftjoin('master_gpf_transaction as mgt','mgt.gpf_number','=','me.gpf_no')
+    ->select('me.employee_id','me.gpf_no','me.employee_name','me.joining_date','me.retirement_date',
+    'me.total_service','me.bank_account_no','me.branch_location','me.ifsc_code','me.bank_id',
+    'me.department_id','me.designation_id','me.classification_id','me.id','tl.taluka_name_'.$lang.' as taluka_name','dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','cl.classification_name_'.$lang.' as classification_name','cl.inital_letter','me.taluka_id','mgt.*')
+    ->where('me.gpf_no',$emp_gpf_id)
+    ->get();
+  }
   public function listcommonforms(){
     $applicationsList = ApplicationsForms::get();
     return view('Application/receivedcommonform',compact('applicationsList'));

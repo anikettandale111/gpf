@@ -1,4 +1,9 @@
 @extends('Section.app')
+<style media="screen">
+.hidebtn{
+  display: none !important;
+}
+</style>
 @section('content')
 <div class="">
   <div class="row">
@@ -38,8 +43,9 @@
               </form>
             </div>
             <div class="col-md-4 mt-5">
-              <button class="btn btn-secondary" style="width:100%" id="get_report" > View Report </button >
-              </div>
+              <button class="btn btn-secondary" id="get_report" > View Report </button >
+              <button class="btn btn-info hidebtn" type="button" id="export_report"> Export In Excel </button >
+            </div>
               <hr>
               <!-- <div class="row report_div">
                 <iframe name="iframe" id="iframe" width="100%" height="600px"></iframe>

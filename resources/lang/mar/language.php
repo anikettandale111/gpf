@@ -38,6 +38,7 @@ return [
   'monthly_bill_expensess' => 'मासिक बदल',
   'monthly_bill_chalan' => 'मासिक चलन',
   'monthly_bill_chalan_khatanvai' => 'मासिक चलन खतावणी',
+  'monthly_employee_bill_kharch' => ' कर्मचारी बिल खर्च ',
   'bill_expensess_info' => 'खातेउतारा',
   'employee_account_stmt' => 'कर्मचारी खाते उतारा',
   'retired_employee_account_stmt' => 'सेवानिवृत्त कर्मचारी खाते उतारा',

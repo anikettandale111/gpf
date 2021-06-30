@@ -163,6 +163,7 @@
                 <!-- <li><a href="{{url('bill_information')}}"> {{trans('language.bill_expensess_info')}} </a></li> -->
                 <!-- <li><a href="{{url('closed_account')}}"> <i class="fa fa-users"></i>खाते बंद करणे  </a></li>
                 <li><a href="{{url('monthly_chalan')}}">मासिक चलन खतावणी</a></li> -->
+                <li><a href="{{url('employeeBillKharch')}}">{{trans('language.monthly_employee_bill_kharch')}} </a></li>
               </ul>
             </li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.menu_karmchari_namnirdeshan')}}  <span class="fa fa-chevron-down"></span></a>
@@ -183,10 +184,10 @@
               <a href="{{url('employee')}}"><i class="fa fa-home"></i> {{trans('language.form_employee_update')}} </a>
             </li> -->
             @if(Auth::user()->id == 1 )
-            <li><a><i class="fa fa-bug"></i> {{trans('language.menu_yearwise_report')}}  <span class="fa fa-chevron-down"></span></a>
+            <li><a><i class="fa fa-bug"></i> {{trans('language.menu_bill')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li><a href="{{url('antimbill')}}"> {{trans('language.menu_yearwise_report_87')}} </a></li>
-                <li><a href="{{url('antimbillexpenses')}}"> {{trans('language.menu_yearwise_report_7')}} </a></li>
+                <li><a href="{{url('antimbill')}}"> {{trans('language.menu_bill_information')}} </a></li>
+                <li><a href="{{url('antimbillexpenses')}}"> {{trans('language.menu_bill_expenses_information')}} </a></li>
                 <li><a href="{{url('billreports')}}"> {{trans('language.menu_bill_reports')}} </a></li>
               </ul>
             </li>
