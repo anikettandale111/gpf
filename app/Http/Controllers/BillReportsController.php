@@ -62,14 +62,26 @@ class BillReportsController extends Controller
       $monthData = Month::select('month_name_mar AS month_name','id')->orderBy('order_by','ASC')->get();
       $chalanExpenses = [];
       foreach ($monthData as $key => $value) {
+      	$bill_amount = 0;
+      	$bill_expenses = 0;
         if($value->id > 3){
           $chalan_total_amount = MonthlyTotalChalan::where('chalan_month_id',$value->id)->where('year',Session::get('from_year'))->sum('amount');
           $chalan_expenses_received = MasterMonthlySubscription::where('emc_month',$value->id)->where('emc_year',Session::get('from_year'))->where('is_active',1)->sum(DB::raw('monthly_contrubition + monthly_other + loan_installment'));
-          $chalanExpenses[]= ['chalan_expenses_received' => $chalan_expenses_received, 'chalan_total_amount' =>$chalan_total_amount, 'month_name' => $value->month_name.' '.Session::get('from_year')];
+          $bill = Bill::where('bill_check',2)->whereMonth('check_date',$value->id)->first();
+          if(isset($bill->id) && $bill->id != ''){
+          	$bill_expenses = BillExpenses::where('bill_id',$value->id)->sum('required_rakkam');
+          	$bill_amount = $bill->amount;
+          }
+          $chalanExpenses[]= ['chalan_expenses_received' => $chalan_expenses_received, 'chalan_total_amount' =>$chalan_total_amount, 'month_name' => $value->month_name.' '.Session::get('from_year'), 'bill_amount' =>$bill_amount,'bill_expenses' =>$bill_expenses ];
         }else{
           $chalan_total_amount = MonthlyTotalChalan::where('chalan_month_id',$value->id)->where('year',Session::get('to_year'))->sum('amount');
           $chalan_expenses_received = MasterMonthlySubscription::where('emc_month',$value->id)->where('emc_year',Session::get('to_year'))->where('is_active',1)->sum(DB::raw('monthly_contrubition + monthly_other + loan_installment'));
-          $chalanExpenses[]= ['chalan_expenses_received' => $chalan_expenses_received, 'chalan_total_amount' =>$chalan_total_amount, 'month_name' => $value->month_name.' '.Session::get('to_year')];
+          $bill = Bill::where('bill_check',2)->whereMonth('check_date',$value->id)->first();
+          if(isset($bill->id) && $bill->id != ''){
+          	$bill_expenses = BillExpenses::where('bill_id',$value->id)->sum('required_rakkam');
+          	$bill_amount = $bill->amount;
+          }
+          $chalanExpenses[]= ['chalan_expenses_received' => $chalan_expenses_received, 'chalan_total_amount' =>$chalan_total_amount, 'month_name' => $value->month_name.' '.Session::get('to_year'), 'bill_amount' =>$bill_amount,'bill_expenses' =>$bill_expenses];
         }
       }
       $billDetails = Bill::select('bill_no','id','bill_date')->where('id',$billid)->first();

@@ -74,6 +74,9 @@ use App\BillExpenses;
     $chalan_total_amount = 0;
     $chalan_expenses_received = 0;
     $diffrence_amount = 0;
+    $bill_total_amount = 0;
+    $bill_expenses_received = 0;
+    $bill_diffrence_amount = 0;
     $rowcount=1;
     $billExpensesReport;
     @endphp
@@ -98,13 +101,17 @@ use App\BillExpenses;
           <td>{{$value['chalan_total_amount']}}</td>
           <td>{{$value['chalan_expenses_received']}}</td>
           <td>{{($value['chalan_total_amount'] - $value['chalan_expenses_received'])}}</td>
-          <td>{{$value['chalan_expenses_received']}}</td>
-          <td>{{$value['chalan_expenses_received']}}</td>
-          <td>{{$value['chalan_expenses_received']}}</td>
+          <td>{{$value['bill_amount']}}</td>
+          <td>{{$value['bill_expenses']}}</td>
+          <td>{{($value['bill_amount'] - $value['bill_expenses'])}}</td>
           @php
             $chalan_total_amount += $value['chalan_total_amount'];
             $chalan_expenses_received += $value['chalan_expenses_received'];
             $diffrence_amount += $value['chalan_total_amount'] - $value['chalan_expenses_received'];
+
+            $bill_total_amount += $value['bill_amount'];
+            $bill_expenses_received += $value['bill_expenses'];
+            $bill_diffrence_amount += $value['bill_amount'] - $value['bill_expenses'];
           @endphp
         </tr>
       @endforeach
@@ -113,7 +120,9 @@ use App\BillExpenses;
           <td> {{$chalan_total_amount}} </td>
           <td> {{$chalan_expenses_received}} </td>
           <td> {{$diffrence_amount}} </td>
-          <td colspan="3">
+          <td> {{$bill_total_amount}} </td>
+          <td> {{$bill_expenses_received}} </td>
+          <td> {{$bill_diffrence_amount}} </td>
       </tr>
     @endif
     </tbody>
