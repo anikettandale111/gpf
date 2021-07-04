@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Bill;
 use App\BillExpenses;
 use DataTables;
+use Session;
 
 
 class AntimBillController extends Controller
@@ -16,11 +17,15 @@ class AntimBillController extends Controller
     // $data = DB::select($query);
     // dd($data);
     if ($request->ajax()) {
-      $data = Bill::latest()->get();
+      $data = Bill::where('financial_year',Session::get('financial_year'))->get();
       return datatables()->of($data)
       ->addIndexColumn()
       ->addColumn('action', function ($row) {
-        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id ="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editBill">Edit</a>';
+        if($row->bill_check == 1){
+          $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id ="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editBill">Edit</a>';
+        }else{
+          $btn = '<a href="javascript:void(0)" class="btn btn-success btn-sm ">Bill Finalised</a>';
+        }
         // $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteBill">Delete</a>';
         // $btn = $btn . ' <a href="get_bill_report/'.$row->id.'" target="_blank" class="btn btn-secondary btn-sm">ViewDetails</a>';
         return $btn;
@@ -49,12 +54,14 @@ class AntimBillController extends Controller
     } else {
       $newBill = Bill::find($request->bill_row_id);
       $newBill = $request->bill_no;
+      $newBill = $request->financial_year;
       $newBill = $request->bill_date;
       $newBill = $request->amount;
       $newBill = $request->bill_check;
       $newBill = $request->check_date;
       $newBill = $request->check_no;
       Bill::where('id',$request->bill_row_id)->update([
+        'financial_year'=>Session::get('financial_year'),
         'bill_no'=>$request->bill_no,
         'bill_date'=>$request->bill_date,
         'amount'=>$request->amount,

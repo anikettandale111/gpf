@@ -62,6 +62,7 @@
 </head>
 @php
 use App\BillExpenses;
+use Illuminate\Support\Facades\DB;
 @endphp
 <body>
   <div style="text-align:center">
@@ -80,7 +81,8 @@ use App\BillExpenses;
       <tr>
         <th>अनु.क्र</th>
         <th>अंतिम केल्याची दिनांक</th>
-        <th>कर्मचारी भ.नि.नि.क्रं/नाव//हुद्दा</th>
+        <th>कर्मचारी भ.नि.नि.क्रं/नाव/हुद्दा</th>
+        <th>कर्मचारी बँक माहिती</th>
         <th>अग्रीमाचे प्रयोजन</th>
         <th> मंजूररक्कम रक्कम</th>
         <th> एकूण रक्कम</th>
@@ -89,10 +91,23 @@ use App\BillExpenses;
     <tbody>
       @if(count($billExpenses))
         @foreach($billExpenses AS $key => $tal_row)
+          @php
+            $bankDeatils = DB::table('master_employee as me')
+            ->leftjoin('bank as bk','bk.id','=','me.bank_id')
+            ->select('me.bank_account_no','me.branch_location','me.ifsc_code','bk.bank_name_mar')
+            ->where('me.gpf_no',$tal_row->gpf_no)
+            ->first();
+          @endphp
         <tr>
           <td>{{ digitChange($key+1) }}</td>
           <td>{{($billDetails->check_date) ? digitChange(date('d-m-Y',strtotime($billDetails->check_date))) : '' }}</td>
           <td>{{digitChange($tal_row->gpf_no) }}<br>{{ $tal_row->user_name }}<br>{{ $tal_row->user_department}}</td>
+          <td>
+            {{($bankDeatils->bank_name_mar)?$bankDeatils->bank_name_mar:'N/A'}}<br>
+            {{($bankDeatils->branch_location)?$bankDeatils->branch_location:'N/A'}}<br>
+            {{($bankDeatils->bank_account_no)?$bankDeatils->bank_account_no:'N/A'}}<br>
+            {{($bankDeatils->ifsc_code)?$bankDeatils->ifsc_code:'N/A'}}
+          </td>
           <td>{{$tal_row->loan_agrim_pryojan}}</td>
           <td>{{digitChange(amount_inr_format($tal_row->required_rakkam))}}</td>
           <td>{{digitChange(amount_inr_format($tal_row->required_rakkam))}}</td>
@@ -100,7 +115,7 @@ use App\BillExpenses;
         </tr>
         @endforeach
         <tr>
-          <td colspan="4">एकूण </td>
+          <td colspan="5">एकूण </td>
           <td>{{digitChange(amount_inr_format($alltotal))}}</td>
           <td>{{digitChange(amount_inr_format($alltotal))}}</td>
         </tr>

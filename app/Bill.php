@@ -10,7 +10,7 @@ class Bill extends Model
 
     protected $fillable = [
 
-           "id", "bill_no", "bill_date", "amount", "bill_check", "check_date",
+           "id", "financial_year", "bill_no", "bill_date", "amount", "bill_check", "check_date",
            "check_no", "created_at", "updated_at"
     ];
 }

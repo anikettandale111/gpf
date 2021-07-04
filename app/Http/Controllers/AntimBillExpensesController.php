@@ -43,6 +43,7 @@ class AntimBillExpensesController extends Controller
         $employeeNotFound = [];
         $getData = $data[0];
         $totalUsed = 0;
+        $billTotal = 0;
         $filename = date('dmyhis');
         for($i=1;$rowCount > $i;$i++){
           if($getData){
@@ -67,7 +68,7 @@ class AntimBillExpensesController extends Controller
                                 ->leftjoin('taluka as tl','tl.id','=','me.taluka_id')
                                 ->leftjoin('employee_yearwise_opening_balance as yob','yob.gpf_no','=','me.gpf_no')
                                 ->select('me.employee_name','tl.taluka_name_'.$lang.' as taluka_name',
-                                'dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','yob.opn_balance' )
+                                'dg.designation_name_'.$lang.' as designation_name','me.taluka_id','dp.department_name_'.$lang.' as department_name','yob.opn_balance' )
                                 ->where('me.gpf_no',(int)$tg)
                                 ->first();
                   if($employee !== null ){
@@ -88,6 +89,7 @@ class AntimBillExpensesController extends Controller
                     $u_data['bank_acc_number'] = $getData[$i][8];
                     $u_data['if_installment_no'] = $getData[$i][9];
                     $userData[] = $u_data;
+                    $billTotal += $getData[$i][2];
                   }
                 }
                 if(isset($employee->employee_id) && $employee->employee_id !== ''){
@@ -106,6 +108,7 @@ class AntimBillExpensesController extends Controller
         if(count($userData) > 0){
           $resultRow = BillExpenses::insert($userData);
           if($resultRow){
+            Bill::where('id',$request->bill_no)->update(['amount' => DB::raw('amount+'. $billTotal)]);
             return ['status'=>'success','message'=>'Bill Expensess Added Successfully.'];
             // return redirect()->back()->with('message','Bill Expensess Added Successfully.');
           } else {
@@ -146,10 +149,14 @@ class AntimBillExpensesController extends Controller
         }
         $resultRow = BillExpenses::insert($data);
         if($resultRow){
+          Bill::where('id',$request->bill_no)->update(['amount' => DB::raw('amount+'. $request->required_rakkam)]);
           return ['status'=>'success','message'=>'Bill Expensess Added Successfully.'];
           // return redirect()->back()->with('message','Bill Expensess Added Successfully.');
         }
       }else{
+        $prvAmount = BillExpenses::where('id',$request->row_id)->first();
+        Bill::where('id',$request->bill_no)->update(['amount' => DB::raw('amount-'. $prvAmount->required_rakkam)]);
+        Bill::where('id',$request->bill_no)->update(['amount' => DB::raw('amount+'. $request->required_rakkam)]);
         $resultRow = BillExpenses::where('id',$request->row_id)->update($data);
         if($resultRow){
           return ['status'=>'success','message'=>'Bill Expensess Updated Successfully.'];
@@ -161,7 +168,11 @@ class AntimBillExpensesController extends Controller
   public function getBillExpensesDetails(Request $request){
     if(isset($request->id) && $request->id > 0){
       $id = $request->id;
-      $data = BillExpenses::where('bill_id',$id)->get();
+      $data = DB::table('bill_expenses_information AS one')
+              ->leftjoin('bill_information AS two','one.bill_id','=','two.id')
+              ->select('one.*')
+              ->where('bill_id',$id)
+              ->get();
       return datatables()->of($data)
       ->addIndexColumn()
       ->addColumn('action', function ($row) {
@@ -179,6 +190,8 @@ class AntimBillExpensesController extends Controller
     }
   }
   public function destroy(Request $request){
+    $prvAmount = BillExpenses::where('id',$request->id)->first();
+    Bill::where('id',$prvAmount->bill_id)->update(['amount' => DB::raw('amount-'. $prvAmount->required_rakkam)]);
     $data = BillExpenses::where('id',$request->id)->delete();
     return ['status'=>'success','message'=>'Row Deleted Successfully'];
   }

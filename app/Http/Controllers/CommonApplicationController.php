@@ -12,6 +12,7 @@ use Excel;
 use Config;
 use App\ApplicationsForms;
 use App\Ganrate;
+use App\Bill;
 
 class CommonApplicationController extends Controller
 {
@@ -129,7 +130,7 @@ class CommonApplicationController extends Controller
   public function getuserdetailsbygpfnotwo(Request $request){
     $lang = app()->getLocale();
     $emp_gpf_id=(int)$request->input_id;
-    return DB::table('master_employee as me')
+    $data['empDetails'] = DB::table('master_employee as me')
     ->leftjoin('departments as dp','dp.department_code','=','me.department_id')
     ->leftjoin('designations as dg','dg.id','=','me.designation_id')
     ->leftjoin('classifications as cl','cl.id','=','me.classification_id')
@@ -140,6 +141,8 @@ class CommonApplicationController extends Controller
     'me.department_id','me.designation_id','me.classification_id','me.id','tl.taluka_name_'.$lang.' as taluka_name','dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','cl.classification_name_'.$lang.' as classification_name','cl.inital_letter','me.taluka_id','mgt.*')
     ->where('me.gpf_no',$emp_gpf_id)
     ->get();
+    $data['billDetails'] = Bill::select('bill_no','id','bill_date')->where('bill_check',1)->get();
+    return $data;
   }
   public function listcommonforms(){
     $applicationsList = ApplicationsForms::get();

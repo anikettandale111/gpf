@@ -16,7 +16,7 @@
               <input type="hidden" id="bill_row_id" name="bill_row_id" value="0">
               <div class="col-md-4">
                 <label class="col-form-label"> बिल नं.<span class="required"></span></label>
-                <input class="form-control" class='optional' name="bill_no" id="bill_no" data-validate-length-range="5,15" type="number" />
+                <input class="form-control" class='optional' name="bill_no" id="bill_no" data-validate-length-range="5,15" type="text" />
               </div>
               <div class="col-md-4">
                 <label class="col-form-label"> बिल दिनांक <span class="required"></span></label>

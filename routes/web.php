@@ -109,7 +109,6 @@ Route::middleware('auth')->group(function () {
     Route::get('getUserBalances', 'CommonApplicationController@getUserBalances');
     Route::post('updateBalance', 'EmployeeController@updateBalance');
     // Excel/PDFFile Upload For Monthly Subscription
-    Route::any('testjson', 'FileUploadController@testjson');
     Route::any('pdffileupload', 'FileUploadController@pdffileupload');
     Route::post('confirmpdfdata', 'FileUploadController@confirmpdfdata');
     Route::resource('fileupload', FileUploadController::class);

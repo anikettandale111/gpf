@@ -60,6 +60,9 @@ function getDetails(){
         $('#user_retirment_date').val(results[0].retirement_date);
         $('#user_taluka_name').val(results[0].taluka_id);
         $('#user_providing_bank').val(results[0].bank_id);
+        $('#user_bank_account_no').val(results[0].bank_account_no);
+        $('#user_bank_ifsc').val(results[0].ifsc_code);
+        $('#user_bank_branch').val(results[0].branch_location);
         getBalances();
       } else {
         swal("WARNING", "Invalid GPF Number OR Does't Exits");

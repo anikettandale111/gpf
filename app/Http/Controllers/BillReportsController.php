@@ -55,7 +55,9 @@ class BillReportsController extends Controller
     }
     if($reportType == 6){
       $billDetails = Bill::select('bill_no','id','bill_date','bill_check','check_date','check_no')->where('id',$billid)->first();
-      $billExpenses = BillExpenses::select('gpf_no','user_name','user_department','required_rakkam','bill_number','loan_agrim_pryojan' )->where('bill_id',$billid)->get();
+      $billExpenses = BillExpenses::select('gpf_no','user_name','user_department','required_rakkam','bill_number','loan_agrim_pryojan')
+                      ->where('bill_id',$billid)
+                      ->get();
       return view('Admin.BillReports.reportSeven',compact('billid','billDetails','billExpenses'));
     }
     if($reportType == 7){
