@@ -224,18 +224,66 @@ function billExpensesSubmit(){
   var month_jan_loan = $('#month_jan_loan').val();
   var month_feb_loan = $('#month_feb_loan').val();
   var month_march_loan = $('#month_march_loan').val();
-  if(parseInt(month_april_loan) > 0){ swal('Error','Select Bill Number For Month of April'); $('#bill_number_id_1').focus(); return false;  }
-  if(parseInt(month_may_loan) > 0){ swal('Error','Select Bill Number For Month of May'); $('#bill_number_id_2').focus(); return false;  }
-  if(parseInt(month_june_loan) > 0){ swal('Error','Select Bill Number For Month of June'); $('#bill_number_id_3').focus(); return false;  }
-  if(parseInt(month_july_loan) > 0){ swal('Error','Select Bill Number For Month of July'); $('#bill_number_id_4').focus(); return false;  }
-  if(parseInt(month_aug_loan) > 0){ swal('Error','Select Bill Number For Month of Aug'); $('#bill_number_id_5').focus(); return false;  }
-  if(parseInt(month_september_loan) > 0){ swal('Error','Select Bill Number For Month of September'); $('#bill_number_id_6').focus(); return false;  }
-  if(parseInt(month_octomber_loan) > 0){ swal('Error','Select Bill Number For Month of Octomber'); $('#bill_number_id_7').focus(); return false;  }
-  if(parseInt(month_november_loan) > 0){ swal('Error','Select Bill Number For Month of November'); $('#bill_number_id_8').focus(); return false;  }
-  if(parseInt(month_december_loan) > 0){ swal('Error','Select Bill Number For Month of December'); $('#bill_number_id_9').focus(); return false;  }
-  if(parseInt(month_jan_loan) > 0){ swal('Error','Select Bill Number For Month of Jan'); $('#bill_number_id_10').focus(); return false;  }
-  if(parseInt(month_feb_loan) > 0){ swal('Error','Select Bill Number For Month of Feb'); $('#bill_number_id_11').focus(); return false;  }
-  if(parseInt(month_march_loan) > 0){ swal('Error','Select Bill Number For Month of March'); $('#bill_number_id_12').focus(); return false;  }
+  if(parseInt(month_april_loan) > 0){
+    if($('#bill_number_id_1').val() == null){
+    swal('Error','Select Bill Number For Month of April'); $('#bill_number_id_1').focus(); return false;
+    }
+  }
+  if(parseInt(month_may_loan) > 0){
+    if($('#bill_number_id_2').val() == null){
+    swal('Error','Select Bill Number For Month of May'); $('#bill_number_id_2').focus(); return false;
+    }
+  }
+  if(parseInt(month_june_loan) > 0){
+    if($('#bill_number_id_3').val() == null){
+    swal('Error','Select Bill Number For Month of June'); $('#bill_number_id_3').focus(); return false;
+    }
+  }
+  if(parseInt(month_july_loan) > 0){
+    if($('#bill_number_id_4').val() == null){
+    swal('Error','Select Bill Number For Month of July'); $('#bill_number_id_4').focus(); return false;
+    }
+  }
+  if(parseInt(month_aug_loan) > 0){
+    if($('#bill_number_id_5').val() == null){
+    swal('Error','Select Bill Number For Month of Aug'); $('#bill_number_id_5').focus(); return false;
+    }
+  }
+  if(parseInt(month_september_loan) > 0){
+    if($('#bill_number_id_6').val() == null){
+    swal('Error','Select Bill Number For Month of September'); $('#bill_number_id_6').focus(); return false;
+    }
+  }
+  if(parseInt(month_octomber_loan) > 0){
+    if($('#bill_number_id_7').val() == null){
+    swal('Error','Select Bill Number For Month of Octomber'); $('#bill_number_id_7').focus(); return false;
+    }
+  }
+  if(parseInt(month_november_loan) > 0){
+    if($('#bill_number_id_8').val() == null){
+    swal('Error','Select Bill Number For Month of November'); $('#bill_number_id_8').focus(); return false;
+    }
+  }
+  if(parseInt(month_december_loan) > 0){
+    if($('#bill_number_id_9').val() == null){
+    swal('Error','Select Bill Number For Month of December'); $('#bill_number_id_9').focus(); return false;
+    }
+  }
+  if(parseInt(month_jan_loan) > 0){
+    if($('#bill_number_id_10').val() == null){
+    swal('Error','Select Bill Number For Month of Jan'); $('#bill_number_id_10').focus(); return false;
+    }
+  }
+  if(parseInt(month_feb_loan) > 0){
+    if($('#bill_number_id_11').val() == null){
+    swal('Error','Select Bill Number For Month of Feb'); $('#bill_number_id_11').focus(); return false;
+    }
+  }
+  if(parseInt(month_march_loan) > 0){
+    if($('#bill_number_id_12').val() == null){
+    swal('Error','Select Bill Number For Month of March'); $('#bill_number_id_12').focus(); return false;
+    }
+  }
   $.ajaxSetup({
     headers:
     {'X-CSRF-TOKEN': CSRF_TOKEN}
