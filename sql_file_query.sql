@@ -1,3 +1,73 @@
+/*Delete Incorrect entries With Condition Start*/
+DELETE  FROM `master_emp_monthly_contribution_two` WHERE `taluka_id` = 9 AND `challan_number` LIKE '204' AND `emc_month` = 4 AND `emc_year` = 2020; // 727 Rows
+DELETE  FROM `master_emp_monthly_contribution_two` WHERE `taluka_id` = 9 AND `challan_number` LIKE '204' AND `emc_month` = 5 AND `emc_year` = 2020; // 725 Rows
+SELECT * FROM `master_emp_monthly_contribution_two` WHERE `taluka_id` = 9 AND `challan_number` LIKE '204' AND `emc_month` = 8 AND `emc_year` = 2020; // 721 Rows
+SELECT * FROM `master_emp_monthly_contribution_two` WHERE `taluka_id` = 9 AND `challan_number` LIKE '204' AND `emc_month` = 2 AND `emc_year` = 2021; // 715 Rows
+/*Delete Incorrect entries With Condition End*/
+
+/* Reset All GPF Transactions Values Stesp Incase Wrong Sheet was updated OR Any calculation Related Issue Found (Starts)*/
+
+UPDATE `master_gpf_transaction` SET
+`month_april_other`=0,
+`month_may_other`=0,
+`month_june_other`=0,
+`month_july_other`=0,
+`month_aug_other`=0,
+`month_september_other`=0,
+`month_octomber_other`=0,
+`month_november_other`=0,
+`month_december_other`=0,
+`month_jan_other`=0,
+`month_feb_other`=0,
+`month_march_other`=0,
+
+`month_april_recive`=0,
+`month_may_recive`=0,
+`month_june_recive`=0,
+`month_july_recive`=0,
+`month_aug_recive`=0,
+`month_september_recive`=0,
+`month_octomber_recive`=0,
+`month_november_recive`=0,
+`month_december_recive`=0,
+`month_jan_recive`=0,
+`month_feb_recive`=0,
+`month_march_recive`=0,
+
+`month_jan_loan_emi`=0,
+`month_feb_loan_emi`=0,
+`month_march_loan_emi`=0,
+`month_april_loan_emi`=0,
+`month_may_loan_emi`=0,
+`month_june_loan_emi`=0,
+`month_july_loan_emi`=0,
+`month_aug_loan_emi`=0,
+`month_september_loan_emi`=0,
+`month_octomber_loan_emi`=0,
+`month_november_loan_emi`=0,
+`month_december_loan_emi`=0,
+
+`month_april_contri`=0,
+`month_may_contri`=0,
+`month_june_contri`=0,
+`month_july_contri`=0,
+`month_aug_contri`=0,
+`month_september_contri`=0,
+`month_octomber_contri`=0,
+`month_november_contri`=0,
+`month_december_contri`=0,
+`month_jan_contri`=0,
+`month_feb_contri`=0,
+`month_march_contri`=0
+
+// Step Two
+UPDATE `master_emp_monthly_contribution_two` SET `is_active` = '2' WHERE `master_emp_monthly_contribution_two`.`is_active` = 1
+// Step Three
+UPDATE `master_emp_monthly_contribution_two` SET `is_active` = '1' WHERE `master_emp_monthly_contribution_two`.`is_active` = 2
+
+/* Reset All GPF Transactions Values Stesp Incase Wrong Sheet was updated OR Any calculation Related Issue Found (Ends)*/
+
+
 UPDATE `master_gpf_transaction`
 INNER JOIN master_emp_monthly_contribution_two ON master_gpf_transaction.gpf_number = master_emp_monthly_contribution_two.gpf_number
 SET  master_gpf_transaction.month_march_contri=0
