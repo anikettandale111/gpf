@@ -141,7 +141,9 @@ class CommonApplicationController extends Controller
     'me.department_id','me.designation_id','me.classification_id','me.id','tl.taluka_name_'.$lang.' as taluka_name','dg.designation_name_'.$lang.' as designation_name','dp.department_name_'.$lang.' as department_name','cl.classification_name_'.$lang.' as classification_name','cl.inital_letter','me.taluka_id','mgt.*')
     ->where('me.gpf_no',$emp_gpf_id)
     ->get();
-    $data['billDetails'] = Bill::select('bill_no','id','bill_date')->where('bill_check',2)->get();
+    $data['billDetails'] = Bill::select('bill_no','id','bill_date')
+                          ->where('bill_check',2)
+                          ->where('financial_year',Session::get('financial_year'))->get();
     return $data;
   }
   public function listcommonforms(){
