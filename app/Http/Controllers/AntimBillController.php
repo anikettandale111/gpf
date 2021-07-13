@@ -65,23 +65,11 @@ class AntimBillController extends Controller
   }
   public function store(Request $request){
     if ($request->bill_row_id == 0) {
-      $newBill = $request->bill_no;
-      $newBill = $request->bill_date;
-      $newBill = $request->amount;
-      $newBill = $request->bill_check;
-      $newBill = $request->check_date;
-      $newBill = $request->check_no;
       Bill::create($request->all());
       $msg=" Recored Insert Successfully";
     } else {
       $newBill = Bill::find($request->bill_row_id);
-      $newBill = $request->bill_no;
-      $newBill = $request->financial_year;
-      $newBill = $request->bill_date;
-      $newBill = $request->amount;
-      $newBill = $request->bill_check;
-      $newBill = $request->check_date;
-      $newBill = $request->check_no;
+      $check_month = ($request->check_date) ? date('m', strtotime($request->check_date)) : 0;
       Bill::where('id',$request->bill_row_id)->update([
         'financial_year'=>Session::get('financial_year'),
         'bill_no'=>$request->bill_no,
@@ -89,6 +77,7 @@ class AntimBillController extends Controller
         'amount'=>$request->amount,
         'bill_check'=>$request->bill_check,
         'check_date'=>$request->check_date,
+        'check_month'=> $check_month,
         'check_no'=>$request->check_no,
       ]);
       $msg=" Recored Update Successfully";

@@ -1,3 +1,69 @@
+/* UPDATE BILL EXPENSES CLOSED MONTH START*/
+  UPDATE bill_information SET check_month =MONTH(check_date);
+/* UPDATE BILL EXPENSES CLOSED MONTH END*/
+
+/* UPDATE BILL EXPENSES DETAILS FROM PRVEIOUS DATA START*/
+
+UPDATE bill_expenses_information
+INNER JOIN master_employee ON bill_expenses_information.gpf_no = master_employee.gpf_no
+SET
+bill_expenses_information.user_name = master_employee.employee_name,
+bill_expenses_information.user_designation = master_employee.designation_id,
+bill_expenses_information.user_department = master_employee.department_id,
+bill_expenses_information.taluka_id = master_employee.taluka_id
+WHERE
+bill_expenses_information.gpf_no = master_employee.gpf_no;
+
+UPDATE bill_expenses_information
+INNER JOIN designations ON bill_expenses_information.user_designation = designations.id
+SET
+bill_expenses_information.user_designation = designations.designation_name_mar
+WHERE
+bill_expenses_information.user_designation = designations.id;
+
+UPDATE bill_expenses_information
+INNER JOIN departments ON bill_expenses_information.user_department = departments.department_code
+SET
+bill_expenses_information.user_department = departments.department_name_mar
+WHERE
+bill_expenses_information.user_department = departments.department_code;
+
+UPDATE bill_expenses_information
+INNER JOIN taluka ON bill_expenses_information.taluka_id = taluka.id
+SET
+bill_expenses_information.user_taluka_name = taluka.taluka_name_mar
+WHERE
+bill_expenses_information.taluka_id = taluka.id;
+
+UPDATE bill_expenses_information
+INNER JOIN employee_yearwise_opening_balance ON bill_expenses_information.gpf_no = employee_yearwise_opening_balance.gpf_no
+SET
+bill_expenses_information.shillak_rakkam = employee_yearwise_opening_balance.opn_balance
+WHERE
+bill_expenses_information.gpf_no = employee_yearwise_opening_balance.gpf_no AND employee_yearwise_opening_balance.year = 2019;
+
+UPDATE bill_expenses_information
+INNER JOIN employee_yearwise_opening_balance ON bill_expenses_information.gpf_no = employee_yearwise_opening_balance.gpf_no
+SET
+bill_expenses_information.shillak_rakkam = employee_yearwise_opening_balance.opn_balance
+WHERE
+bill_expenses_information.gpf_no = employee_yearwise_opening_balance.gpf_no AND employee_yearwise_opening_balance.year = 2020;
+
+UPDATE bill_expenses_information
+INNER JOIN master_employee ON bill_expenses_information.gpf_no = master_employee.gpf_no
+INNER JOIN designations ON bill_expenses_information.user_designation = designations.id
+INNER JOIN departments ON bill_expenses_information.user_designation = departments.department_code
+INNER JOIN taluka ON bill_expenses_information.taluka_id = taluka.id
+SET
+bill_expenses_information.user_name = master_employee.employee_name,
+bill_expenses_information.user_designation = designations.designation_name_mar,
+bill_expenses_information.user_department = departments.department_name_mar,
+bill_expenses_information.user_taluka_name = taluka.taluka_name_mar
+WHERE
+bill_expenses_information.gpf_no = master_employee.gpf_no;
+
+/* UPDATE BILL EXPENSES DETAILS FROM PRVEIOUS DATA END*/
+
 /*Delete Incorrect entries With Condition Start*/
 DELETE  FROM `master_emp_monthly_contribution_two` WHERE `taluka_id` = 9 AND `challan_number` LIKE '204' AND `emc_month` = 4 AND `emc_year` = 2020; // 727 Rows
 DELETE  FROM `master_emp_monthly_contribution_two` WHERE `taluka_id` = 9 AND `challan_number` LIKE '204' AND `emc_month` = 5 AND `emc_year` = 2020; // 725 Rows
