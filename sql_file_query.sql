@@ -2,6 +2,28 @@
   UPDATE bill_information SET check_month =MONTH(check_date);
 /* UPDATE BILL EXPENSES CLOSED MONTH END*/
 
+/* MASTER GPF TRANSACTION ASSIGN EFFECT FROM FINAL BILL EXPENSES START*/
+UPDATE master_gpf_transaction
+INNER JOIN bill_expenses_information ON bill_expenses_information.gpf_no=master_gpf_transaction.gpf_number
+INNER JOIN bill_information ON bill_information.id=bill_expenses_information.bill_id
+SET
+master_gpf_transaction.month_april_loan = (month_april_loan+(CASE WHEN bill_information.check_month = 4 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END)),
+master_gpf_transaction.month_may_loan = (month_may_loan+(CASE WHEN bill_information.check_month = 5 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END)),
+master_gpf_transaction.month_june_loan = (month_june_loan+(CASE WHEN bill_information.check_month = 6 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END)),
+master_gpf_transaction.month_july_loan = (month_july_loan+(CASE WHEN bill_information.check_month = 7 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END)),
+master_gpf_transaction.month_aug_loan = (month_aug_loan+(CASE WHEN bill_information.check_month = 8 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END)),
+master_gpf_transaction.month_september_loan = (month_september_loan+(CASE WHEN bill_information.check_month = 9 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END)),
+master_gpf_transaction.month_octomber_loan = (month_octomber_loan+(CASE WHEN bill_information.check_month = 10 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END)),
+master_gpf_transaction.month_november_loan = (month_november_loan+(CASE WHEN bill_information.check_month = 11 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END)),
+master_gpf_transaction.month_december_loan = (month_december_loan+(CASE WHEN bill_information.check_month = 12 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END)),
+master_gpf_transaction.month_jan_loan = (month_jan_loan+(CASE WHEN bill_information.check_month = 1 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END)),
+master_gpf_transaction.month_feb_loan = (month_feb_loan+(CASE WHEN bill_information.check_month = 2 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END)),
+master_gpf_transaction.month_march_loan = (month_march_loan+(CASE WHEN bill_information.check_month = 3 AND bill_information.bill_check=2 THEN bill_expenses_information.required_rakkam ELSE 0 END))
+WHERE bill_expenses_information.gpf_no=master_gpf_transaction.gpf_number;
+/* MASTER GPF TRANSACTION ASSIGN EFFECT FROM FINAL BILL EXPENSES END*/
+
+/* UPDATE BILL EXPENSES DETAILS FROM PRVEIOUS DATA START*/
+
 /* UPDATE BILL EXPENSES DETAILS FROM PRVEIOUS DATA START*/
 
 UPDATE bill_expenses_information

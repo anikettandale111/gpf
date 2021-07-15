@@ -71,6 +71,10 @@ Route::middleware('auth')->group(function () {
     Route::post('vetan_new', 'VetanController@vetan_new');
     Route::post('vetan_Delete/{id}', 'VetanController@vetan_Delete');
 
+    // Pay Commssion
+    Route::resource('sixpay', SixPayCommissionController::class);
+    Route::resource('sevenpay', SevenPayCommissionController::class);
+
     // Get Bill Rport Amount
     Route::get('get_bill_report/{id?}', 'AntimBillExpensesController@get_bill_report');
     // Get Bill Total Amount

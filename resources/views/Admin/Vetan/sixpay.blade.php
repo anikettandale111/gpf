@@ -5,24 +5,17 @@
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="skype">
-                    <h2>७ वा वेतन आयोग फरक जमा </h2>
+                    <h2>{{trans('language.6_pay_commission_paid')}} </h2>
                    </div>
                 <div class="x_content">
-                    <form method="POST" class="validatedForm" action="{{ url('vetan_insert_no') }}" id="cform">
+                    <form method="POST" class="validatedForm" action="{{ url('sixpay') }}" id="cform">
                         @csrf
-                        <div class="form-group col-md-4">
-                            <label for="vetan">{{ __(' वेतन ') }}</label>
-                            <select class="form-control" name="vetan" class="form-control ">
-                                <option value="">--Select --</option>
-                                <option value="वेतन 6"> वेतन 6 </option>
-                                <option value="वेतन 7"> वेतन 7</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
+                        <input type="hidden" id="vetan" name="vetan" class="form-control" value="6">
+                        <div class="form-group col-md-3">
                             <label for="b_no">{{ __('भ.नि .नि क्रमांक ') }}</label>
                             <input id="gpf_no" type="text" class="form-control" name="gpf_no" value="{{ old('gpf_no') }}" required autocomplete="gpf_no" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="taluka">{{ __('तालुका  संकेतांक ') }}</label>
                             <select class="form-control" id="taluka" name="taluka">
                                 <option value=""> -- निवडा तालूका -- </option>
@@ -31,7 +24,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="taluka">{{ __('विभाग संकेतांक') }}</label>
                             <select class="form-control" id="department" name="department">
                                 <option value=""> -- निवडा विभाग -- </option>
@@ -40,11 +33,11 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="name">{{ __('नाव ') }}</label>
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="taluka">{{ __('पदनाम ') }}</label>
                             <select id="designation" class="form-control @error('designation') is-invalid @enderror" name="designation">
                                 <option value=""> -- निवडा पदनाम -- </option>
@@ -53,11 +46,11 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="taluka">{{ __('हप्ता क्रमांत  ') }}</label>
                             <input class="form-control" name="hapta_no" class="form-control @error('hapta_no') is-invalid @enderror" id="hapta_no" value="{{ old('hapta_no') }}" required autocomplete="hapta_no" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="taluka">{{ __('चलन क्रमांत   ') }}</label>
                             <div class="row">
                                 <div class="col-sm-2">
@@ -68,47 +61,47 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="name">{{ __('हप्त्याचा महिना  ') }}</label>
                             <input type="text" name="month_hapta" class="form-control @error('month_hapta') is-invalid @enderror" id="month_hapta" value="{{ old('month_hapta') }}" required autocomplete="month_hapta" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="name">{{ __('चलन रक्कम') }}</label>
                             <input type="text" name="chalna_amount" class="form-control @error('chalna_amount') is-invalid @enderror" id="chalna_amount" value="{{ old('chalna_amount') }}" required autocomplete="chalna_amount" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="name">{{ __('खंतावणी') }}</label>
                             <input type="text" name="digging" class="form-control @error('digging') is-invalid @enderror" id="digging" value="{{ old('digging') }}" required autocomplete="digging" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="name">{{ __('फरक') }}</label>
                             <input type="text" name="difference" class="form-control @error('difference') is-invalid @enderror" id="difference" value="{{ old('difference') }}" required autocomplete="difference" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="name">{{ __('व्याज पासून ') }}</label>
                             <input type="date" name="from_interest_date" class="form-control @error('from_interest_date') is-invalid @enderror" id="from_interest_date" value="{{ old('from_interest_date') }}" required autocomplete="from_interest_date" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="name">{{ __('पर्यंत ') }}</label>
                             <input type="date" name="until_date" class="form-control @error('until_date') is-invalid @enderror" id="until_date" value="{{ old('until_date') }}" required autocomplete="until_date" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="name">{{ __('फरक रक्कम  ') }}</label>
                             <input type="text" name="difference_amount" class="form-control @error('difference_amount') is-invalid @enderror" id="difference_amount" value="{{ old('difference_amount') }}" required autocomplete="difference_amount" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="name">{{ __('फरक व्याज  ') }}</label>
                             <input type="text" name="different_interest" class="form-control @error('different_interest') is-invalid @enderror" id="different_interest" value="{{ old('different_interest') }}" required autocomplete="different_interest" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="name">{{ __('व्याज आकारणी  ') }}</label>
                             <input type="text" name="charging_interest" class="form-control @error('charging_interest') is-invalid @enderror" id="charging_interest" value="{{ old('charging_interest') }}" required autocomplete="charging_interest" autofocus>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="name"> शेरा </label>
                             <textarea type="text" name="shera" class="form-control @error('shera') is-invalid @enderror" id="shera" value="{{ old('shera') }}" required autocomplete="shera" autofocus></textarea>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3 mt-5" width="100%">
                             <button type="submit" class="btn btn-primary">
                                 {{ __('Save') }}
                             </button>
@@ -117,7 +110,7 @@
                 </div>
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>७ वा वेतन आयोग फरक जमा </h2>
+                        <h2>{{trans('language.6_pay_commission_paid')}} </h2>
                         <div class="clearfix"></div>
                         @if ($message = Session::get('danger'))
                         <div class="alert alert-danger alert-block">

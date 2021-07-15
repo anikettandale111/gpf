@@ -37,7 +37,7 @@ class AntimBillExpensesController extends Controller
     });
   }
   public function index(Request $request){
-    $billDetails = Bill::select('bill_no','id')->where('bill_check',2)->where('financial_year',Session::get('financial_year'))->get();
+    $billDetails = Bill::select('bill_no','id')->where('bill_check',1)->where('financial_year',Session::get('financial_year'))->get();
     return view('Admin/AntimBill/expenses',compact('billDetails'));
   }
   public function store(Request $request){
