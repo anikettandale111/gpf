@@ -14,15 +14,32 @@ use App\classification;
 use App\Month;
 use DB;
 use App\District;
+use Session;
+use Config;
 
 class TalukaController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth');
+    if(session('from_year') !== null){
 
-
-    public function year()
-    {
-
+    } else {
+      Session::put('from_year', date("Y",strtotime("-1 year")));
+      Session::put('to_year', date("Y"));
+      Session::put('financial_year', date("Y",strtotime("-1 year")).'-'.date("Y"));
     }
+    $this->middleware(function ($request, $next) {
+      // fetch session and use it in entire class with constructor
+      $current_db = session('selected_database');
+      if(session('selected_database') == null){
+        $current_db = 'mysql';
+        Session::put('selected_database','mysql');
+      }
+      Config::set('database.default',$current_db);
+      return $next($request);
+    });
+  }
     public function Year_Insert_Data(Request $request)
     {
         $Newyear= new Year();
@@ -54,15 +71,4 @@ class TalukaController extends Controller
         year::where('id',$id)->delete();
         return redirect("Year")->with('danger',' Data Deleted Successfully ');
     }
-
-
-
-
-
-
-
-
-
-
-
 }

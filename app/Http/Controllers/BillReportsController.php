@@ -12,13 +12,34 @@ use App\MasterMonthlySubscription;
 use App\MonthlyTotalChalan;
 use DataTables;
 use Session;
+use Config;
 use Excel;
-
 
 class BillReportsController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth');
+    if(session('from_year') !== null){
+
+    } else {
+      Session::put('from_year', date("Y",strtotime("-1 year")));
+      Session::put('to_year', date("Y"));
+      Session::put('financial_year', date("Y",strtotime("-1 year")).'-'.date("Y"));
+    }
+    $this->middleware(function ($request, $next) {
+      // fetch session and use it in entire class with constructor
+      $current_db = session('selected_database');
+      if(session('selected_database') == null){
+        $current_db = 'mysql';
+        Session::put('selected_database','mysql');
+      }
+      Config::set('database.default',$current_db);
+      return $next($request);
+    });
+  }
   public function index(Request $request){
-    $billDetails = Bill::select('bill_no','id')->where('bill_check',1)->get();
+    $billDetails = Bill::select('bill_no','id')->where('bill_check',1)->where('financial_year',Session::get('financial_year'))->get();
     return view('Admin/BillReports/index',compact('billDetails'));
   }
   public function viewreport($billid,$reportType){

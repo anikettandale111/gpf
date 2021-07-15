@@ -6,9 +6,32 @@ use Illuminate\Http\Request;
 use App\Year;
 use App\Month;
 use DB;
+use Session;
+use Config;
 
 class YearController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth');
+    if(session('from_year') !== null){
+
+    } else {
+      Session::put('from_year', date("Y",strtotime("-1 year")));
+      Session::put('to_year', date("Y"));
+      Session::put('financial_year', date("Y",strtotime("-1 year")).'-'.date("Y"));
+    }
+    $this->middleware(function ($request, $next) {
+      // fetch session and use it in entire class with constructor
+      $current_db = session('selected_database');
+      if(session('selected_database') == null){
+        $current_db = 'mysql';
+        Session::put('selected_database','mysql');
+      }
+      Config::set('database.default',$current_db);
+      return $next($request);
+    });
+  }
     public function index()
     {
         $query=DB::raw('SELECT `master_rate_interest`.*, `mmo`.`month_name_mar` as `from_month_text`, `mmt`.`month_name_mar` as `to_month_text` FROM `master_rate_interest` left join `master_month` AS `mmo` ON `mmo`.`id` = `master_rate_interest`.`from_month` left join `master_month` AS `mmt` ON `mmt`.`id` = `master_rate_interest`.`to_month` order by `created_at` desc');
