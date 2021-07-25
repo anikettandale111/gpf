@@ -14,6 +14,7 @@ use App\Deposit;
 use App\MonthlyTotalChalan;
 use Session;
 use Config;
+use DB;
 
 class SubscriptionController extends Controller {
   public function __construct()
@@ -22,9 +23,9 @@ class SubscriptionController extends Controller {
     if(session('from_year') !== null){
 
     } else {
-      Session::put('from_year', date("Y",strtotime("-1 year")));
-      Session::put('to_year', date("Y"));
-      Session::put('financial_year', date("Y",strtotime("-1 year")).'-'.date("Y"));
+      Session::put('from_year', date("Y"));
+      Session::put('to_year', date("Y",strtotime("+1 year")));
+      Session::put('financial_year', date("Y").'-'.date("Y",strtotime("+1 year")));
     }
     $this->middleware(function ($request, $next) {
       // fetch session and use it in entire class with constructor
@@ -74,7 +75,38 @@ class SubscriptionController extends Controller {
       return ['status' =>'warning' ,'message'=>'Data Already exist'];
     }
   }
-  public function chalanTableDetails(Request $request){
-    return MasterMonthlySubscription::where('challan_id',$request->chalan_id)->get();
+  public function getChalanSubscriptionByID(Request $request){
+    $lang = app()->getLocale();
+    return MasterMonthlySubscription::select('master_emp_monthly_contribution_two.*','me.employee_name',
+    'dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name')
+    ->leftjoin('master_employee AS me','me.gpf_no','=','master_emp_monthly_contribution_two.gpf_number')
+    ->leftjoin('departments AS dp','dp.department_code','=','master_emp_monthly_contribution_two.emc_dept_id')
+    ->leftjoin('designations AS dg','dg.id','=','master_emp_monthly_contribution_two.emc_desg_id')
+    ->where('master_emp_monthly_contribution_two.emc_id',$request->subid)
+    ->first();
+  }
+  public function updateMonthlySubscription(Request $request){
+    $up_data[] = $request->emc_row_id;
+    $up_data[] = $request->prv_contribution;
+    $up_data[] = $request->prv_installment;
+    $up_data[] = $request->prv_other;
+    $up_data[] = $request->prv_total_contri;
+    $up_data[] = $request->new_contribution;
+    $up_data[] = $request->new_installment;
+    $up_data[] = $request->new_other;
+    $up_data[] = $request->new_total_contri;
+    $result = MasterMonthlySubscription::where('emc_id',$request->emc_row_id)->update();
+  }
+  public function deleteChalanSubscription(Request $request){
+    $prvData = MasterMonthlySubscription::select('monthly_received','challan_id')
+              ->where('emc_id',$request->subid)
+              ->where('is_active',0)->first();
+    MonthlyTotalChalan::where(['id'=>$prvData->challan_id])->update(['diff_amount'=>DB::raw('diff_amount +'.$prvData->monthly_received)]);
+    $result = MasterMonthlySubscription::where('emc_id',$request->subid)->where('is_active',0)->delete();
+    if($result){
+      return ['status'=>'success','message' => 'Entry deleted successfully.'];
+    }else{
+      return ['status'=>'success','message' => 'Sorry please try again.'];
+    }
   }
 }

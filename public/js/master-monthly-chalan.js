@@ -1,4 +1,10 @@
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+var emc_row_id;
+var prv_contribution;
+var prv_installment;
+var prv_other;
+var prv_total_contri;
+
 $(document).ready(function(){
   $('.monthly_subscription_form').validate({
     rules : {
@@ -78,7 +84,72 @@ $("#gpf_account_id").keypress(function (e) {
     },100);
   }
 });
+$('.clearupdate').click(function(){
+  $('.saveDiv').addClass('hidebtn');
+  $('.updateDiv').removeClass('hidebtn');
+  var emc_row_id;
+  var prv_contribution;
+  var prv_installment;
+  var prv_other;
+  var prv_total_contri;
+});
+$('.updateSave').click(function(){
+  if(emc_row_id == null){
+    swal('Error','Please provide valid value.');
+    return false;
+  }
+  if(prv_contribution == null){
+    swal('Error','Please provide valid value.');
+    return false;
+  }
+  if(prv_installment == null){
+    swal('Error','Please provide valid value.');
+    return false;
+  }
+  if(prv_other == null){
+    swal('Error','Please provide valid value.');
+    return false;
+  }
+  if(prv_total_contri == null){
+    swal('Error','Please provide valid value.');
+    return false;
+  }
+  if($('#deposit_amt').val() == null){
+    swal('Error','Please provide valid Contribution.');
+    $('#deposit_amt').focus();
+    return false;
+  }
+  if($('#refund').val() == null){
+    swal('Error','Please provide valid Installment.');
+    $('#refund').focus();
+    return false;
+  }
+  if($('#pending_amt').val() == null){
+    swal('Error','Please provide Pending Amount.');
+    $('#pending_amt').focus();
+    return false;
+  }
+  if($('#total_monthly_pay').val() == null){
+    swal('Error','Please provide Total Amount.');
+    $('#total_monthly_pay').focus();
+    return false;
+  }
+  var new_contribution = $('#deposit_amt').val();
+  var new_installment = $('#refund').val();
+  var new_other = $('#pending_amt').val();
+  var new_total_contri = $('#total_monthly_pay').val();
+  var formData = { emc_row_id:emc_row_id, prv_contribution:prv_contribution,prv_installment:prv_installment, prv_other:prv_other,
+    prv_total_contri:prv_total_contri, new_contribution:new_contribution,new_installment:new_installment, new_other:new_other,
+    new_total_contri:new_total_contri };
+  $.ajax({
+    type: 'POST',
+    url: "updateMonthlySubscription",
+    data: formData,
+    success: function (results) {
 
+    }
+  })
+});
 function subscriptionSubmit(){
   $('.submit').hide();
   $.ajax({
@@ -98,7 +169,7 @@ function subscriptionSubmit(){
   })
 }
 
-$('.calculation').keypress( function(e) {
+$('.calculation').change( function(e) {
   setTimeout(function(){
     $('#diffrence_amount').val(parseInt($('#diffrence_amount_duplicate').val()));
     chalan_amount = parseInt($('.chalan_amount').val());
@@ -205,12 +276,18 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
         $('#diffrence_amount_duplicate').val(res.amt.diff_amount);
         $('#taluka_id').val(res.amt.taluka);
         $('#classification_id').val(res.amt.classification);
+        $('#subscribed_rakkam').val(res.distributed_rakkam);
         $('.submit').show();
         str = '';
         if ((res.chalan).length) {
           var i = 1;
           $(res.chalan).each(function(key, val) {
-            str += '<tr><td>' + i + '</td><td>' + val.emc_year + '</td><td>' + (val.month_name + val.challan_number) + '</td><td>' + val.taluka_name + '</td><td>' + val.gpf_number + '</td><td>' + val.employee_name + '</td><td>' + val.monthly_contrubition + '</td><td>' + val.loan_installment + '</td><td>' + val.monthly_other + '</td><td>' + (parseInt(val.monthly_contrubition) + parseInt(val.loan_installment) + parseInt(val.monthly_other)) + '</td><td>' + val.name + '</td></tr>';
+            var actionHtml;
+            if(parseInt(val.is_active) == 0){
+              // actionHtml = '<button onclick="editChalanSubscription('+val.emc_id+')" data-original-title="Edit" class="btn btn-primary btn-sm">Edit</button>';
+              actionHtml = '<button onclick="deleteChalanSubscription('+val.emc_id+')" data-original-title="Delete" class="btn btn-danger btn-sm">Delete</button>';
+            }
+            str += '<tr><td>' + i + '</td><td>' + val.emc_year + '</td><td>' + (val.month_name + val.challan_number) + '</td><td>' + val.taluka_name + '</td><td>' + val.gpf_number + '</td><td>' + val.employee_name + '</td><td>' + val.monthly_contrubition + '</td><td>' + val.loan_installment + '</td><td>' + val.monthly_other + '</td><td>' + (parseInt(val.monthly_contrubition) + parseInt(val.loan_installment) + parseInt(val.monthly_other)) + '</td><td>' + val.name + '</td><td>'+actionHtml+'</td></tr>';
             i++;
           });
         }
@@ -229,4 +306,62 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
       return false;
     }
   });
+}
+function editChalanSubscription(subid){
+  $('.saveDiv').addClass('hidebtn');
+  $('.updateDiv').removeClass('hidebtn');
+  $.ajax({
+    type: 'GET',
+    url: "getChalanSubscriptionByID",
+    data: {_token: CSRF_TOKEN,subid:subid},
+    success: function (results) {
+      $('#gpf_account_id').val(results.gpf_number);
+      $('#gpf_account_id').attr('readonly');
+      $('#user_name').val(results.employee_name);
+      $('#user_designation').val(results.designation_name);
+      $('#user_department').val(results.department_name);
+      $('#deposit_amt').val(results.monthly_contrubition);
+      $('#refund').val(results.loan_installment);
+      $('#pending_amt').val(results.monthly_other);
+      $('#total_monthly_pay').val(results.monthly_received);
+      emc_row_id = results.emc_id;
+      prv_contribution = results.monthly_contrubition;
+      prv_installment = results.loan_installment;
+      prv_other = results.monthly_other;
+      prv_total_contri = results.monthly_received;
+    }
+  });
+}
+function deleteChalanSubscription(subid){
+  swal({
+    title: "Delete?",
+    text: "Please and then confirm!",
+    type: "warning",
+    showCancelButton: !0,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "No, cancel!",
+    reverseButtons: !0
+  }).then(function (e) {
+    if (e.value === true) {
+      $.ajax({
+        type: 'GET',
+        url: "deleteChalanSubscription",
+        data: {_token: CSRF_TOKEN,subid:subid},
+        success: function (results) {
+          swal(results.status,results.message);
+          year = $('.year').val();
+          chalan_month = $('#chalan_month').val();
+          chalan_number = $('#chalan_number').val();
+          chalan_taluka = $('#taluka_id').val();
+          $('.submit').show();
+          $('.clearaftersubmit').val('');
+          getChalanDetails(year,chalan_month,chalan_number,chalan_taluka);
+        }
+      })
+    } else {
+      e.dismiss;
+    }
+  }, function (dismiss) {
+    return false;
+  })
 }

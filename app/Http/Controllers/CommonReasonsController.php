@@ -15,9 +15,9 @@ class CommonReasonsController extends Controller
     if(session('from_year') !== null){
 
     } else {
-      Session::put('from_year', date("Y",strtotime("-1 year")));
-      Session::put('to_year', date("Y"));
-      Session::put('financial_year', date("Y",strtotime("-1 year")).'-'.date("Y"));
+      Session::put('from_year', date("Y"));
+      Session::put('to_year', date("Y",strtotime("+1 year")));
+      Session::put('financial_year', date("Y").'-'.date("Y",strtotime("+1 year")));
     }
     $this->middleware(function ($request, $next) {
       // fetch session and use it in entire class with constructor

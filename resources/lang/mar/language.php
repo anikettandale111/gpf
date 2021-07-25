@@ -302,4 +302,5 @@ return [
   'menu_yearwise_report'=> ' वार्षिक अहवाल ',
   'menu_yearwise_report_87'=> ' अहवाल क्रमांक ८७ ',
   'menu_yearwise_report_7'=> ' अहवाल क्रमांक ७ ',
+  'employee_forword_next_year'=> 'कर्मचारी पुढील वर्षात पाठवणे ',
 ];

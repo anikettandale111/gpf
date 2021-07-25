@@ -167,6 +167,7 @@ function getChalanDetails(year,chalan_month,chalan_serial_no,chalan_taluka){
         $('#chalan_number').val(res.amt.challan_number);
         $('#chalan_amount').val(res.amt.amount);
         $('#chalan_khatavani').val(res.amt.diff_amount);
+        $('#subscribed_rakkam').val(res.distributed_rakkam);
         $('#diffrence_amount').val(res.amt.diff_amount);
         $('#classification_id').val(res.amt.classification);
       } else {

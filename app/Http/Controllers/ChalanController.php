@@ -22,9 +22,9 @@ class ChalanController extends Controller
     if(session('from_year') !== null){
 
     } else {
-      Session::put('from_year', date("Y",strtotime("-1 year")));
-      Session::put('to_year', date("Y"));
-      Session::put('financial_year', date("Y",strtotime("-1 year")).'-'.date("Y"));
+      Session::put('from_year', date("Y"));
+      Session::put('to_year', date("Y",strtotime("+1 year")));
+      Session::put('financial_year', date("Y").'-'.date("Y",strtotime("+1 year")));
     }
     $this->middleware(function ($request, $next) {
       // fetch session and use it in entire class with constructor
@@ -110,9 +110,11 @@ class ChalanController extends Controller
               ->where($data)
               ->first();
     $res = '';
+    $distributed_rakkam = 0;
     if(!empty($deposits->chalan_id))
     {
       $lang = app()->getLocale();
+      $distributed_rakkam = MasterMonthlySubscription::where('challan_id',$deposits->chalan_id)->sum('monthly_received');
       $res = MasterMonthlySubscription::select('master_emp_monthly_contribution_two.*','users.name','me.employee_name',
       'tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mm.month_name_'.$lang.' AS month_name')
       ->where('master_emp_monthly_contribution_two.challan_id',$deposits->chalan_id)
@@ -124,7 +126,7 @@ class ChalanController extends Controller
       ->leftjoin('master_month AS mm','mm.id','=','master_emp_monthly_contribution_two.emc_month')
       ->latest()->get();
     }
-    return ['amt'=>$deposits,'chalan'=>$res];
+    return ['amt'=>$deposits,'chalan'=>$res,'distributed_rakkam'=>$distributed_rakkam];
   }
   public function chalanSubscriptionDetails(Request $request){
     if($request->chalan_month == ''){
@@ -195,5 +197,11 @@ class ChalanController extends Controller
   }
   public function getuserchalandetails(){
 
+  }
+  public function chalanNumbers(Request $request){
+    $data['year'] = $request->ch_year;
+    $data['chalan_month_id'] = $request->ch_month;
+    $data['taluka'] = $request->ch_taluka;
+    return MonthlyTotalChalan::where($data)->get();
   }
 }

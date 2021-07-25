@@ -80,7 +80,11 @@
                       <input class="form-control" type="text" readonly name="chalan_amount" id="chalan_amount" >
                     </div>
                     <div class="form-group col-sm-3 file-select">
-                      <label for="">{{trans('language.th_trend_total_waste')}}</label>
+                      <label for="subscribed-rakkam">खतावलेली रक्कम </label>
+                      <input id="subscribed_rakkam" class="form-control" type="text" name="subscribed_rakkam" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 file-select">
+                      <label for="">शिल्लक रक्कम</label>
                       <input class="form-control" type="text" readonly name="chalan_khatavani" id="chalan_khatavani" >
                     </div>
                     <div class="form-group col-sm-3 file-select">

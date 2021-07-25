@@ -12,6 +12,7 @@ use App\Designation;
 use App\Masteremployee;
 use Illuminate\Support\Facades\DB;
 use App\Vetan;
+use App\MasterVetanAyog;
 use Session;
 use Config;
 
@@ -23,9 +24,9 @@ class SevenPayCommissionController extends Controller
     if(session('from_year') !== null){
 
     } else {
-      Session::put('from_year', date("Y",strtotime("-1 year")));
-      Session::put('to_year', date("Y"));
-      Session::put('financial_year', date("Y",strtotime("-1 year")).'-'.date("Y"));
+      Session::put('from_year', date("Y"));
+      Session::put('to_year', date("Y",strtotime("+1 year")));
+      Session::put('financial_year', date("Y").'-'.date("Y",strtotime("+1 year")));
     }
     $this->middleware(function ($request, $next) {
       // fetch session and use it in entire class with constructor
@@ -38,68 +39,67 @@ class SevenPayCommissionController extends Controller
       return $next($request);
     });
   }
-    public function index()
-    {
-        $data['designation'] = Designation::all();
-        $data['department'] = Department::all();
-
-        $data['taluka'] = Taluka::all();
-        $data['vetan'] = vetan::select(
-          'vetan.*',
-          'taluka.taluka_name_mar',
-          'designations.designation_name_mar',
-          'departments.department_name_mar',
-
-        )
-        ->leftJoin("taluka", "taluka.id", "=","vetan.taluka")
-        ->leftJoin("designations", "designations.id", "=", "vetan.designation")
-        ->leftJoin("departments", "departments.id", "=", "vetan.department")
-        ->latest()->get();
-        return view('Admin.Vetan.sevenpay', $data);
-    }
-
-    public function vetan_insert(Request $request)
-   {
-
-    $vetan = new vetan;
-    $vetan->vetan=$request->vetan;
-    $vetan->gpf_no=$request->gpf_no;
-    $vetan->taluka=$request->taluka;
-    $vetan->department=$request->department;
-    $vetan->name=$request->name;
-    $vetan->designation=$request->designation;
-    $vetan->hapta_no=$request->hapta_no;
-    $vetan->chalna_no=$request->chalna_no;
-    $vetan->month_hapta=$request->month_hapta;
-    $vetan->chalna_amount=$request->chalna_amount;
-    $vetan->digging=$request->digging;
-    $vetan->difference=$request->difference;
-    $vetan->from_interest_date=$request->from_interest_date;
-    $vetan->until_date=$request->until_date;
-    $vetan->difference_amount=$request->difference_amount;
-    $vetan->different_interest=$request->different_interest;
-    $vetan->charging_interest=$request->charging_interest;
-    $vetan->shera=$request->shera;
-    $vetan->save();
-    return redirect ('vetan')->with('success',' Data  Successfully');
-
-   }
-  public function vetan_new(Request $request)
-   {
-    $query = DB::raw('SELECT * FROM master_employee WHERE gpf_no='.$request->id);
-    $result = DB::Select($query);
-
-    if(isset($result[0])){
-      return json_encode(['stuas'=>'success','msg' =>'Data Found' ,'userdata' =>$result]);
-    }else{
-      return json_encode(['stuas'=>'failed','msg' =>'Data Not Found']);
-    }
-
-   }
-  public function vetan_Delete($id)
+  public function index()
   {
-    vetan::where('id',$id)->delete();
-    return ['id'=>$id];
+    $data['designation'] = Designation::all();
+    $data['department'] = Department::all();
+    $data['month']=month::orderBy('order_by')->get();
+    $data['taluka'] = Taluka::all();
+    $deposits=DB::table('master_vetan_ayog_received AS va')
+    ->leftJoin('master_employee AS me','va.GPFNo','me.gpf_no')
+    ->leftJoin('master_month AS mm','va.Mnt','mm.id')
+    ->select('va.*','me.employee_name','mm.month_name_mar')
+    ->where("va.Year", Session::get('from_year'))
+    ->where("va.Mnt", ">=", 4)
+    ->where("va.pay_number",7);
+    $deposits_two=DB::table('master_vetan_ayog_received AS va')
+    ->leftJoin('master_employee AS me','va.GPFNo','me.gpf_no')
+    ->leftJoin('master_month AS mm','va.Mnt','mm.id')
+    ->select('va.*','me.employee_name','mm.month_name_mar')
+    ->where("va.Year", Session::get('to_year'))
+    ->where("va.Mnt", "<=", 3)
+    ->where("va.pay_number",7)
+    ->union($deposits)
+    ->get();
+    $data['sevenpayentry'] = $deposits_two;
+    return view('Admin.Vetan.sevenpay', $data);
+  }
+  public function store(Request $request)
+  {
+    $six_pay["GPFNo"]=$request->employeeGpfNo;
+    $six_pay["Year"]=$request->instalmentYear;
+    $six_pay["Instalment"]=$request->hapta_no;
+    $six_pay["ChallanNo"]=$request->chalna_no;
+    $six_pay["DiffAmt"] = $request->difference_amount;
+    $six_pay["Interest"] = $request->different_interest;
+    $six_pay["TotDiff"] = (float)$request->difference_amount + (float)$request->different_interest;
+    $six_pay["Mnt"] = $request->instalment_month;
+    $six_pay["Rmk"] = $request->shera;
+    $six_pay["DtFrom"] = date('Y-m-d',strtotime($request->from_interest_date));
+    $six_pay["DtTo"] = date('Y-m-d',strtotime($request->to_intrest_date));
+    $six_pay["LockDate"] = date('Y-m-d');
+    $six_pay["INTY1"] = ((int)$request->hapta_no == 1)? $request->different_interest : "";
+    $six_pay["INTY2"] = ((int)$request->hapta_no == 2)? $request->different_interest : "";
+    $six_pay["INTY3"] = ((int)$request->hapta_no == 3)? $request->different_interest : "";
+    $six_pay["INTY4"] = ((int)$request->hapta_no == 4)? $request->different_interest : "";
+    $six_pay["INTY5"] = ((int)$request->hapta_no == 5)? $request->different_interest : "";
+    $six_pay["INTY6"] = ((int)$request->hapta_no == 6)? $request->different_interest : "";
+    $six_pay["INTY7"] = ((int)$request->hapta_no == 7)? $request->different_interest : "";
+    $six_pay["INTY8"] = ((int)$request->hapta_no == 8)? $request->different_interest : "";
+    $six_pay["INTY9"] = ((int)$request->hapta_no == 9)? $request->different_interest : "";
+    $six_pay["INTY10"] = ((int)$request->hapta_no == 10)? $request->different_interest : "";
+    $six_pay["pay_number"]=$request->vetan;
+    $id = MasterVetanAyog::insertGetId($six_pay);
+    if($id){
+      return ['status'=>'success','message' =>'Six Pay Saved Successfully'];
+    }else{
+      return ['status'=>'error','message' =>'Sorry, Please try again'];
+    }
+  }
+  public function destroy($id)
+  {
+    MasterVetanAyog::where('TransId',$id)->delete();
+    return ['status'=>'success','message' =>'Record deleted successfully.'];
   }
   public function calculationOne()
   {
@@ -108,12 +108,12 @@ class SevenPayCommissionController extends Controller
     if(count($result)){
       foreach ($result as $key => $value) {
         // if($value->GPFNo == 13423){
-          $muddal_vyaj = $value->TotDiff;
-          $cal_step_one = ($muddal_vyaj * 7.1 / 12*12)/100;
-          $cal_step_one = round($cal_step_one);
-          $new_intrest = $value->Interest +$cal_step_one;
-          $query = DB::raw('UPDATE master_vetan_ayog_received SET INTY2 = '.$cal_step_one.' AND Interest = '.$new_intrest.' WHERE pay_number = 7 AND INTY2 = 0 AND GPFNo = '.$value->GPFNo);
-          $query = DB::select($query);
+        $muddal_vyaj = $value->TotDiff;
+        $cal_step_one = ($muddal_vyaj * 7.1 / 12*12)/100;
+        $cal_step_one = round($cal_step_one);
+        $new_intrest = $value->Interest +$cal_step_one;
+        $query = DB::raw('UPDATE master_vetan_ayog_received SET INTY2 = '.$cal_step_one.' AND Interest = '.$new_intrest.' WHERE pay_number = 7 AND INTY2 = 0 AND GPFNo = '.$value->GPFNo);
+        $query = DB::select($query);
         // }
       }
     }

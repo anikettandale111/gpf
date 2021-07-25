@@ -127,12 +127,12 @@
             </li> -->
             <!-- <li><a href="{{url('nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद</a></li> -->
             @endif
-            <!-- <li><a><i class="fa fa-bug"></i> {{trans('language.pay_commission')}} <span class="fa fa-chevron-down"></span></a>
+            <li><a><i class="fa fa-bug"></i> {{trans('language.pay_commission')}} <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{url('sixpay')}}">{{trans('language.6_pay_commission_paid')}}</a></li>
                 <li><a href="{{url('sevenpay')}}">{{trans('language.7_pay_commission_paid')}}</a></li>
               </ul>
-            </li> -->
+            </li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms')}} <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li>
@@ -196,6 +196,9 @@
                 <li><a href="{{url('billreports')}}"> {{trans('language.menu_bill_reports')}} </a></li>
               </ul>
             </li>
+            <!-- <li>
+              <a href="{{url('accforword')}}"><i class="fa fa-bug"></i> {{trans('language.employee_forword_next_year')}} </a>
+            </li> -->
             @endif
           </ul>
         </div>

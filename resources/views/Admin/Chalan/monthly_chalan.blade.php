@@ -1,5 +1,9 @@
 @extends('Section.app')
-
+<style media="screen">
+.hidebtn{
+  display: none;
+}
+</style>
 @section('content')
 <div class="row">
   <div class="col-md-12 col-sm-12 ">
@@ -78,49 +82,53 @@
             </div>
             <div class="form-group col-md-6">
               <div class="col-md-6">
-                <label for="middle-name">रकमेतील फरक </label>
+                <label for="subscribed-rakkam">खतावलेली रक्कम </label>
+                <input id="subscribed_rakkam" class="form-control" type="text" name="subscribed_rakkam" readonly>
+              </div>
+              <div class="col-md-6">
+                <label for="middle-name">शिल्लक रक्कम </label>
                 <input id="diffrence_amount" class="form-control" type="text" name="diffrence_amount" readonly>
                 <input id="diffrence_amount_duplicate" class="form-control" type="hidden" name="diffrence_amount_duplicate">
               </div>
+            </div>
+            <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">भ.नि.नि.क्रमांक </label>
                 <input id="gpf_account_id" class="form-control clearaftersubmit" type="text" name="gpf_account_id">
               </div>
-            </div>
-            <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">कर्मचारी नाव </label>
                 <input id="user_name" class="form-control clearaftersubmit" type="text" name="user_name" readonly>
                 <input id="user_id" class="form-control clearaftersubmit" type="hidden" name="user_id">
               </div>
+            </div>
+            <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">कर्मचारी पदनाम </label>
                 <input id="user_designation" class="form-control clearaftersubmit" type="text" name="user_designation" readonly>
                 <input id="user_designation_id" class="form-control clearaftersubmit" type="hidden" name="user_designation_id">
               </div>
-            </div>
-            <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">कर्मचारी विभाग </label>
                 <input id="user_department" class="form-control clearaftersubmit" type="text" name="user_department" readonly>
                 <input id="user_department_id" class="form-control clearaftersubmit" type="hidden" name="user_department_id">
               </div>
+            </div>
+            <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">वर्गणी </label>
                 <input id="deposit_amt" class="form-control deposit add calculation clearaftersubmit" type="number" name="deposit_amt" required>
               </div>
-            </div>
-            <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">अग्रिम परतावा </label>
                 <input id="refund" class="form-control refund add calculation clearaftersubmit" type="number" name="refund" value="0">
               </div>
+            </div>
+            <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">थकबाकी </label>
                 <input id="pending_amt" class="form-control pending_amt add calculation clearaftersubmit" type="number" name="pending_amt" value="0">
               </div>
-            </div>
-            <div class="form-group col-md-6">
               <div class="col-md-6">
                 <label for="middle-name">एकुण </label>
                 <input id="total_monthly_pay" class="form-control" type="number clearaftersubmit" name="total_monthly_pay" readonly>
@@ -128,11 +136,14 @@
             </div>
             <div class="col-md-6" style="margin-top:30px;">
               <label for="middle-name"></label>
-              <div class="col-md-6">
+              <div class="col-md-6 saveDiv">
                 <button type="submit" class="btn btn-success submit" style="width:100%;font-size:20px;">Submit</button>
               </div>
+              <div class="col-md-6 updateDiv hidebtn">
+                <button type="button" class="btn btn-success updateSave" style="width:100%;font-size:20px;">Update</button>
+              </div>
               <div class="col-md-6">
-                <button class="btn btn-primary" type="button" style="width:100%;font-size:20px;">Cancel</button>
+                <button class="btn btn-primary" type="button clearupdate" style="width:100%;font-size:20px;">Cancel</button>
               </div>
             </div>
           </div>
@@ -162,16 +173,17 @@
                 <thead>
                   <tr>
                     <th> क्रं </th>
-                    <th>वर्ष </th>
-                    <th>चलन नंबर </th>
-                    <th>तालुका</th>
-                    <th>भ.नि.नि.क्रमांक</th>
-                    <th>कर्मचारी नाव</th>
-                    <th>वर्गणी</th>
-                    <th>अग्रिम परतावा</th>
-                    <th>इतर</th>
-                    <th>ऐकून </th>
-                    <th>तयार केलेलेच नाव </th>
+                    <th> वर्ष </th>
+                    <th> चलन नंबर </th>
+                    <th> तालुका</th>
+                    <th> भ.नि.नि.क्रमांक</th>
+                    <th> कर्मचारी नाव</th>
+                    <th> वर्गणी</th>
+                    <th> अग्रिम परतावा</th>
+                    <th> इतर</th>
+                    <th> ऐकूण </th>
+                    <th> तयार केलेलेच नाव </th>
+                    <th> क्रिया </th>
                   </tr>
                 </thead>
                 <tbody class="appaend_table">

@@ -130,12 +130,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('employeereports', EmployeeReportsController::class);
     Route::resource('closedaccountreports', ClosedAccountReportsController::class);
     // Chalan Controller
+    Route::get('chalanNumbers', 'ChalanController@chalanNumbers');
     Route::get('chalanSubscriptionDetails', 'ChalanController@chalanSubscriptionDetails');
     Route::get('chalandetails', 'ChalanController@chalandetails');
     Route::any('monthlyEntryApproved', 'ChalanController@monthlyEntryApproved');
     Route::resource('chalan', ChalanController::class);
     // Chalan Controller
     Route::post('chalanTableDetails', 'SubscriptionController@chalanTableDetails');
+    Route::post('updateMonthlySubscription', 'SubscriptionController@updateMonthlySubscription');
+    Route::get('deleteChalanSubscription', 'SubscriptionController@deleteChalanSubscription');
+    Route::get('getChalanSubscriptionByID', 'SubscriptionController@getChalanSubscriptionByID');
     Route::resource('subscription', SubscriptionController::class);
 
     Route::get('application_form', 'ApplicationController@application_form');
@@ -155,6 +159,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('employee',EmployeeController::class);
     Route::resource('transfer',TransferController::class);
     Route::resource('chalanGhoshwara',ChalanReportController::class);
+    Route::resource('accforword',AccountForwordController::class);
 
     Route::get('calculationOne', 'VetanController@calculationOne');
 });
