@@ -51,6 +51,13 @@ $(document).ready(function(){
       subscriptionSubmit();
     }
   });
+  $('#datatable_one').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+      { extend: 'excel', className: 'btn-secondary m-2' },
+    ],
+    pageLength: '-1',
+  });
 })
 $('.getchalan').change( function(e) {
   year = $('.year').val();

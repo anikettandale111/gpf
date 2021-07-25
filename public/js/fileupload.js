@@ -95,6 +95,11 @@ fileDataTable = $('#file_upload_list').DataTable({
     },
   processing: true,
   serverSide: true,
+  dom: 'Bfrtip',
+  buttons: [
+    { extend: 'excel', className: 'btn-secondary m-2' },
+  ],
+  pageLength: '-1',
   ajax: {
     url: 'chalanSubscriptionDetails',
     type: 'GET',

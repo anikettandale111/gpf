@@ -27,10 +27,12 @@
                 @endphp
                 <select class="form-control year getchalan" name="selected_year" id="selected_year">
                   <?php
-                  foreach (range($latest_year, $earliest_year) as $i) {
-                    echo '<option value="' . $i . '"' . ($i === $currently_selected ? ' selected="selected"' : '') . '>' . $i . '</option>';
-                  }
+                  // foreach (range($latest_year, $earliest_year) as $i) {
+                  //   echo '<option value="' . $i . '"' . ($i === $currently_selected ? ' selected="selected"' : '') . '>' . $i . '</option>';
+                  // }
                   ?>
+                  <option value="{{Session::get('from_year')}}">{{Session::get('from_year')}}</option>
+                  <option value="{{Session::get('to_year')}}">{{Session::get('to_year')}}</option>
                 </select>
               </div>
               <div class="col-md-6 col-sm-3 ">
@@ -169,7 +171,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="card-box table-responsive">
-              <table id="datatable" class="table table-striped table-bordered">
+              <table id="datatable_one" class="table table-striped table-bordered">
                 <thead>
                   <tr>
                     <th> क्रं </th>

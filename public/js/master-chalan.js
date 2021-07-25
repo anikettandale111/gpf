@@ -129,6 +129,11 @@ function resetForm(){
 var table = $('#chalanTable').DataTable({
     processing: true,
     serverSide: true,
+    dom: 'Bfrtip',
+    buttons: [
+      { extend: 'excel', className: 'btn-secondary m-2' },
+    ],
+    pageLength: '-1',
     ajax: "chalan",
     columns: [{
       data: 'DT_RowIndex',

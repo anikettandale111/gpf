@@ -44,8 +44,8 @@
                     <div class="form-group col-sm-3">
                       <label for="">{{trans('language.th_trend_year')}}</label>
                       <select class="form-control getchalan" name="year_id" id="year_id">
-                        <option value="{{(date('Y')-1)}}">{{(date('Y')-1)}}</option>
-                        <option value="{{date('Y')}}">{{date('Y')}}</option>
+                        <option value="{{Session::get('from_year')}}">{{Session::get('from_year')}}</option>
+                        <option value="{{Session::get('to_year')}}">{{Session::get('to_year')}}</option>
                       </select>
                     </div>
                     <div class="form-group col-sm-3">

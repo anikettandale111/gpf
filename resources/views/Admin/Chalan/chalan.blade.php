@@ -23,9 +23,11 @@
                 @endphp
                 <select name="chalan_year" id="chalan_year" class="form-control">
                   <option value="">-- वर्ष निवडा --</option>
-                  @foreach ( range( $latest_year, $earliest_year ) as $i )
+                  <!-- @foreach ( range( $latest_year, $earliest_year ) as $i )
                   <option value="{{$i}}" "{{($i === $currently_selected) ? 'selected':''}}"  >{{$i}}</option>
-                  @endforeach
+                  @endforeach -->
+                  <option value="{{Session::get('from_year')}}">{{Session::get('from_year')}}</option>
+                  <option value="{{Session::get('to_year')}}">{{Session::get('to_year')}}</option>
                 </select>
               </div>
               <div class="col-md-6 col-sm-3 ">

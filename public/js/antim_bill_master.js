@@ -126,6 +126,11 @@ function antimBillSubmit(){
 table = $('#myTable').DataTable({
   // processing: true,
   serverSide: true,
+  dom: 'Bfrtip',
+  buttons: [
+    { extend: 'excel', className: 'btn-secondary m-2' },
+  ],
+  pageLength: '-1',
   ajax: "antimbill",
   columns: [{
     data: 'DT_RowIndex',
