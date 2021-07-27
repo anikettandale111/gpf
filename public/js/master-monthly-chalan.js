@@ -283,21 +283,23 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
         $('#diffrence_amount_duplicate').val(res.amt.diff_amount);
         $('#taluka_id').val(res.amt.taluka);
         $('#classification_id').val(res.amt.classification);
-        $('#subscribed_rakkam').val(res.distributed_rakkam);
         $('.submit').show();
         str = '';
-        if ((res.chalan).length) {
           var i = 1;
+          var subscribedRakkam = 0;
+        if ((res.chalan).length) {
           $(res.chalan).each(function(key, val) {
             var actionHtml;
             if(parseInt(val.is_active) == 0){
               // actionHtml = '<button onclick="editChalanSubscription('+val.emc_id+')" data-original-title="Edit" class="btn btn-primary btn-sm">Edit</button>';
               actionHtml = '<button onclick="deleteChalanSubscription('+val.emc_id+')" data-original-title="Delete" class="btn btn-danger btn-sm">Delete</button>';
             }
+            subscribedRakkam = subscribedRakkam +  val.monthly_received
             str += '<tr><td>' + i + '</td><td>' + val.emc_year + '</td><td>' + (val.month_name + val.challan_number) + '</td><td>' + val.taluka_name + '</td><td>' + val.gpf_number + '</td><td>' + val.employee_name + '</td><td>' + val.monthly_contrubition + '</td><td>' + val.loan_installment + '</td><td>' + val.monthly_other + '</td><td>' + (parseInt(val.monthly_contrubition) + parseInt(val.loan_installment) + parseInt(val.monthly_other)) + '</td><td>' + val.name + '</td><td>'+actionHtml+'</td></tr>';
             i++;
           });
         }
+        $('#subscribed_rakkam').val(subscribedRakkam);
         $('.appaend_table').html(str);
       } else {
         $('#chalan_no').val('');
