@@ -57,7 +57,7 @@ class SubscriptionController extends Controller {
       $data['emc_emp_id'] = $request->user_id;
       $data['emc_desg_id'] = $request->user_designation_id;
       $data['emc_dept_id'] = $request->user_department_id;
-      $data['monthly_received'] = $request->total_monthly_pay;
+      $data['monthly_received'] = (int)$request->deposit_amt + (int)$request->refund+ (int)$request->pending_amt;
       $data['monthly_contrubition'] = $request->deposit_amt;
       $data['loan_installment'] = $request->refund;
       $data['monthly_other'] = $request->pending_amt;

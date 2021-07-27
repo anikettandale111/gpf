@@ -133,7 +133,7 @@
               </div>
               <div class="col-md-6">
                 <label for="middle-name">एकुण </label>
-                <input id="total_monthly_pay" class="form-control" type="number clearaftersubmit" name="total_monthly_pay" readonly>
+                <input id="total_monthly_pay" class="form-control clearaftersubmit" type="number " name="total_monthly_pay" readonly>
               </div>
             </div>
             <div class="col-md-6" style="margin-top:30px;">

@@ -176,7 +176,7 @@ function subscriptionSubmit(){
   })
 }
 
-$('.calculation').change( function(e) {
+$('.calculation').keyup( function(e) {
   setTimeout(function(){
     $('#diffrence_amount').val(parseInt($('#diffrence_amount_duplicate').val()));
     chalan_amount = parseInt($('.chalan_amount').val());
