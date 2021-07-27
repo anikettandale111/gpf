@@ -59,10 +59,10 @@ class SubscriptionController extends Controller {
       $data['emc_dept_id'] = $request->user_department_id;
       $data['monthly_received'] = $request->total_monthly_pay;
       $data['monthly_contrubition'] = $request->deposit_amt;
-      $data['loan_installment'] = $request->pending_amt;
-      $data['monthly_other'] = 0;
+      $data['loan_installment'] = $request->refund;
+      $data['monthly_other'] = $request->pending_amt;
       $data['is_active'] = 0;
-      $data['loan_amonut'] = $request->refund;
+      $data['loan_amonut'] = 0;
       $data['modifed_by'] = Auth::id();
       $create = MasterMonthlySubscription::insert($data);
       if($create){
