@@ -121,7 +121,7 @@ class FileUploadController extends Controller
               'emc_dept_id' => $employee->department_id,
               'monthly_contrubition' => $getData[$i][3],
               'loan_installment' => $getData[$i][4],
-              'monthly_received' => $getData[$i][5],
+              'monthly_received' => (int)$getData[$i][3] + (int)$getData[$i][4],
               'remark' => $getData[$i][6],
               'modifed_by' => Auth::id(),
             ];

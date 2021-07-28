@@ -287,6 +287,9 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
         str = '';
           var i = 1;
           var subscribedRakkam = 0;
+          var monthlyContrubition = 0;
+          var monthlyOther = 0;
+          var totalInstallment = 0;
         if ((res.chalan).length) {
           $(res.chalan).each(function(key, val) {
             var actionHtml;
@@ -294,10 +297,14 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
               // actionHtml = '<button onclick="editChalanSubscription('+val.emc_id+')" data-original-title="Edit" class="btn btn-primary btn-sm">Edit</button>';
               actionHtml = '<button onclick="deleteChalanSubscription('+val.emc_id+')" data-original-title="Delete" class="btn btn-danger btn-sm">Delete</button>';
             }
-            subscribedRakkam = subscribedRakkam +  val.monthly_received
+            subscribedRakkam = subscribedRakkam +  val.monthly_received;
+            monthlyContrubition = monthlyContrubition + val.monthly_contrubition;
+            totalInstallment = totalInstallment + val.loan_installment;
+            monthlyOther = monthlyOther + val.monthly_other;
             str += '<tr><td>' + i + '</td><td>' + val.emc_year + '</td><td>' + (val.month_name + val.challan_number) + '</td><td>' + val.taluka_name + '</td><td>' + val.gpf_number + '</td><td>' + val.employee_name + '</td><td>' + val.monthly_contrubition + '</td><td>' + val.loan_installment + '</td><td>' + val.monthly_other + '</td><td>' + (parseInt(val.monthly_contrubition) + parseInt(val.loan_installment) + parseInt(val.monthly_other)) + '</td><td>' + val.name + '</td><td>'+actionHtml+'</td></tr>';
             i++;
           });
+          str += '<tr><td colspan="6">ऐकूण जमा</td><td>'+monthlyContrubition+'</td><td>'+totalInstallment+'</td><td>'+monthlyOther+'</td><td>'+subscribedRakkam+'</td><td></td><td></td></tr>';
         }
         $('#subscribed_rakkam').val(subscribedRakkam);
         $('.appaend_table').html(str);
@@ -307,6 +314,7 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
         $('.chalan_amount').val(0);
         $('#taluka_id').val('');
         $('#diffrence_amount').val(0);
+        $('#subscribed_rakkam').val(0);
         $('#diffrence_amount_duplicate').val(0);
         swal("WARNING", "Invalid Chalan Number OR Does't Exits",'warning');
         $('.submit').hide();

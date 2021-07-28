@@ -1,3 +1,13 @@
+/* SELECT FINANICAL YEAR CHALAN WISE EXPENSES START */
+SELECT challan_id,challan_number, SUM(monthly_contrubition) AS mn_co,SUM(monthly_received) AS mn_re,SUM(loan_installment) AS ln_in,SUM(monthly_other) AS mn_ot,SUM(monthly_contrubition+loan_installment+monthly_other) AS mn_final FROM `master_emp_monthly_contribution_two` WHERE challan_id >= 15211 GROUP BY challan_id,challan_number ORDER BY challan_id ASC
+/* SELECT FINANICAL YEAR CHALAN WISE EXPENSES END */
+
+/* SELECT FINANICAL YEAR ALL CHALAN START*/
+SELECT * FROM tbl_monthly_total_chalan WHERE year = 2020 AND chalan_month_id > 3
+UNION
+SELECT * FROM tbl_monthly_total_chalan WHERE year = 2021 AND chalan_month_id < 4 ORDER BY id ASC
+/* SELECT FINANICAL YEAR ALL CHALAN END*/
+
 /* SET AUTO INCREMENT ID FOR MASTER VETAN AYOG RECEIVED TABLE START*/
 ALTER TABLE `master_vetan_ayog_received` CHANGE `TransId` `TransId` BIGINT(20) NULL DEFAULT NULL AUTO_INCREMENT, add PRIMARY KEY (`TransId`);
 ALTER TABLE `master_vetan_ayog_received` ADD `is_active` INT NOT NULL DEFAULT '0' COMMENT '0 Inactive, 1 Active' AFTER `pay_number`;

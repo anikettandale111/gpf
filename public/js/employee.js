@@ -56,7 +56,12 @@ function getDetails(){
         $('#user_department').val(results[0].department_id);
         $('#user_id').val(results[0].id);
         $('#user_empid').val(results[0].employee_id);
-        $('#user_joining_date').val(results[0].joining_date);
+        if(results[0].joining_date){
+          var joining_date = results[0].joining_date;
+        }else{
+          var joining_date = "2005-05-05";
+        }
+        $('#user_joining_date').val(joining_date);
         $('#user_retirment_date').val(results[0].retirement_date);
         $('#user_taluka_name').val(results[0].taluka_id);
         $('#user_providing_bank').val(results[0].bank_id);
