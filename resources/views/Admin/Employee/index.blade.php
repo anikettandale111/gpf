@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.fr_common_user_joining_date')}}</label>
-                  <input type="text" class="form-control clearfield" name="user_joining_date" id="user_joining_date" readonly>
+                  <input type="text" class="form-control clearfield" name="user_joining_date" id="user_joining_date">
                 </div>
                 <div class="col-sm-3">
                   <label>{{trans('language.th_providing_date_of_retirement')}}</label>

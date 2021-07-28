@@ -116,6 +116,7 @@ function balanceUpdateForm(){
   var user_bank_ifsc = $('#user_bank_ifsc').val();
   var user_bank_account_no = $('#user_bank_account_no').val();
   var user_providing_bank = $('#user_providing_bank').val();
+  var user_joining_date = $('#user_joining_date').val();
   var user_name = $('#user_name').val();
   $.ajax({
     type: 'POST',
@@ -123,7 +124,7 @@ function balanceUpdateForm(){
     data: {_token: CSRF_TOKEN,shillak_rakkam_two:shillak_rakkam_two,shillak_rakkam_one:shillak_rakkam_one,year_one:year_one,
       year_two:year_two,employee_gpf_num:employee_gpf_num,user_designation:user_designation,user_taluka_name:user_taluka_name,
       user_department:user_department,user_bank_branch:user_bank_branch,user_bank_ifsc:user_bank_ifsc,
-      user_bank_account_no:user_bank_account_no,user_providing_bank:user_providing_bank,user_name:user_name},
+      user_bank_account_no:user_bank_account_no,user_providing_bank:user_providing_bank,user_name:user_name,user_joining_date:user_joining_date},
       success: function (results) {
         swal(results.status,results.message);
         $('.clearfield').val('');

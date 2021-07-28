@@ -86,6 +86,9 @@ class EmployeeController extends Controller
     if($request->user_name != ''){
       $empData['employee_name'] = ($request->user_name) ? $request->user_name : '';
     }
+    if($request->user_joining_date != ''){
+      $empData['joining_date'] = ($request->user_joining_date) ? $request->user_joining_date : '';
+    }
     // return count($empData);
     if(count($empData)){
       $emp_result = Employee::where('gpf_no',$request->employee_gpf_num)
