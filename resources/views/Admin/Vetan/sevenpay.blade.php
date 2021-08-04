@@ -103,13 +103,13 @@
             </div>
             <div class="form-group col-md-3">
               <label for="from_interest_date">{{ __('व्याज पासून ') }}</label>
-              <input type="date" name="from_interest_date" class="form-control " id="from_interest_date" required>
+              <input type="text" name="from_interest_date" class="form-control " id="from_interest_date" required value="{{'01-07-2019'}}" readonly>
             </div>
             <div class="form-group col-md-3">
               <label for="to_intrest_date">{{ __('पर्यंत ') }}</label>
               <input type="date" name="to_intrest_date" class="form-control " id="to_intrest_date" required >
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-3 divdiffamt">
               <label for="name">{{ __('फरक रक्कम  ') }}</label>
               <input type="number" name="difference_amount" class="form-control " id="difference_amount" required>
             </div>
@@ -201,7 +201,7 @@
                       <td>{{$temp->TotDiff}}</td>
                       <td>{{$temp->Rmk}}</td>
                       <td>
-                        <button class="btn btn-danger btn-flat btn-sm remove-user" data-id="{{ $temp->TransId }}" data-action="{{ url('vetan_Delete',$temp->TransId) }}" onclick="deleteConfirmation('{{$temp->TransId}}')"> 
+                        <button class="btn btn-danger btn-flat btn-sm remove-user" data-id="{{ $temp->TransId }}" data-action="{{ url('vetan_Delete',$temp->TransId) }}" onclick="deleteConfirmation('{{$temp->TransId}}')">
                           <i class="fa fa-trash"></i>
                         </button>
                       </td>
@@ -221,6 +221,52 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
+  $('#difference_amount').change(function(){
+    var recviedAmt = $(this).val();
+    if(recviedAmt.length > 3){
+      $.ajax({
+        url: "getIntrestRate",
+        data: $('#sevenpayForm').serialize(),
+        type: 'GET',
+        success: function(data){
+          var intrestAmt = 0;
+          var intrestTotal = 0;
+          var intrestHtml = '';
+          $('.newinsdiv').remove();
+          for(var i =0;i < data.length ;i++){
+            var fromYear = data[i].year_to;
+            var roi = data[i].percent;
+            var from_month = data[i].from_month;
+            var to_month = data[i].to_month;
+            var current_date = new Date();
+            var current_month = current_date.getMonth();
+            var current_year = current_date.getFullYear();
+            var monthDiff = 0;
+            var month = 12;
+            if(parseInt(fromYear) == 2019){
+              // monthDiff = month - to_month;
+              // if(to_month > 3){
+              //   monthDiff = monthDiff + (to_month - 3);
+              // }
+              // if(to_month < 3){
+              //   monthDiff = monthDiff + (3-to_month);
+              // }
+              monthDiff = 9;
+            }else{
+              monthDiff = 12;
+            }
+            intrestAmt = Math.round((recviedAmt * roi / 12 * monthDiff)/100);
+            intrestTotal = parseInt(intrestAmt) + intrestTotal;
+            recviedAmt = parseInt(recviedAmt)+parseInt(intrestAmt);
+            intrestHtml += '<div class="form-group col-md-3 newinsdiv"><label>'+fromYear+'</label>';
+            intrestHtml += '<input type="text" class="form-control" value="'+intrestAmt+'" readonly></div>';
+          }
+          $('.divdiffamt').after(intrestHtml);
+          $('#different_interest').val(intrestTotal);
+        }
+      });
+    }
+  });
   //jQuery code goes here
   $('.validatedForm').validate({
     rules: {
@@ -368,5 +414,6 @@ function submitSevenPay(){
     }
   });
 }
+
 </script>
 @endsection

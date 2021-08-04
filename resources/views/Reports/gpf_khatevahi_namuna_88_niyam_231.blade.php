@@ -51,7 +51,7 @@
 				<div class="col-md-3">
 					<label> खाते क्रमांक :- {{$rqo->inital_letter}}{{digitChange($rqo->gpf_number)}} </label>
 				</div>
-				<div class="col-md-4" style="text-align: center;"> 
+				<div class="col-md-4" style="text-align: center;">
 					<label> कर्मचाऱ्याचे नाव :- {{$rqo->employee_name}}</label>
 				</div>
 				<div class="col-md-5 lg-4" style="text-align:end;">

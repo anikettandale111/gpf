@@ -32,6 +32,7 @@ return [
   'pay_commission' => 'वेतन आयोग',
   '7_pay_commission_paid' => '७ व वेतन आयोग',
   '6_pay_commission_paid' => '६ व वेतन आयोग',
+  'vetan_file_upload' => 'वेतन आयोग फाइल अपलोड',
   'chalan_files_upload' => 'मासिक चलन खतावणी फाइल अपलोड',
   'monthly_entry_approved' => 'मासिक चलन खतावणी मंजूर करणे',
   'chalan_ghoshwara' => 'चलन गोषवारा ',
