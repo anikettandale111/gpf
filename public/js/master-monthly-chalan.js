@@ -274,7 +274,9 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
         if(parseInt(res.amt.diff_amount) <= 0){
           $('.submit').hide();
           swal("WARNING", "Chalan Amount allready distributed",'warning');
-          return false;
+          // return false;
+        }else{
+          $('.submit').show();
         }
         $('#chalan_id').val(res.amt.chalan_id);
         $('.chalan_amount').val(res.amt.amount);
@@ -283,7 +285,7 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
         $('#diffrence_amount_duplicate').val(res.amt.diff_amount);
         $('#taluka_id').val(res.amt.taluka);
         $('#classification_id').val(res.amt.classification);
-        $('.submit').show();
+
         str = '';
           var i = 1;
           var subscribedRakkam = 0;
