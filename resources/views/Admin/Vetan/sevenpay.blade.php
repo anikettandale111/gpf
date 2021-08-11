@@ -107,7 +107,7 @@
             </div>
             <div class="form-group col-md-3">
               <label for="to_intrest_date">{{ __('पर्यंत ') }}</label>
-              <input type="date" name="to_intrest_date" class="form-control " id="to_intrest_date" required >
+              <input type="date" name="to_intrest_date" class="form-control " id="to_intrest_date" required value="{{date('d-m-Y')}}">
             </div>
             <div class="form-group col-md-3 divdiffamt">
               <label for="name">{{ __('फरक रक्कम  ') }}</label>
