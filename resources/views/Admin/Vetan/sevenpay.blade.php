@@ -103,11 +103,13 @@
             </div>
             <div class="form-group col-md-3">
               <label for="from_interest_date">{{ __('व्याज पासून ') }}</label>
-              <input type="text" name="from_interest_date" class="form-control " id="from_interest_date" required value="{{'01-07-2019'}}" readonly>
+              <input type="text" name="from_interest_date" class="form-control " id="from_interest_date" required value="{{'2019-07-01'}}" readonly>
             </div>
+            @php $to_date = Session::get('to_year').'-03-31'; @endphp
             <div class="form-group col-md-3">
               <label for="to_intrest_date">{{ __('पर्यंत ') }}</label>
-              <input type="date" name="to_intrest_date" class="form-control " id="to_intrest_date" required value="{{date('d-m-Y')}}">
+              <input type="text" name="to_intrest_date" class="form-control " id="to_intrest_date" value="{{$to_date}}" onfocus="this.type='date'" >
+              <!-- onfocusout="this.value='{{$to_date}}'" -->
             </div>
             <div class="form-group col-md-3 divdiffamt">
               <label for="name">{{ __('फरक रक्कम  ') }}</label>
