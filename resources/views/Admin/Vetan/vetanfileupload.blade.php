@@ -1,4 +1,28 @@
 @extends('Section.app')
+<style>
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-right: 16px solid green;
+  border-bottom: 16px solid red;
+  border-left: 16px solid pink;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
 @section('content')
 <div class="">
   <div class="row">
@@ -8,6 +32,7 @@
           <h2>{{'वेतन आयोग फाइल अपलोड'}} </h2>
         </div>
         <div class="x_content">
+          <div class="loader" style="display:none"></div>
           <form class="seven_pay_excel_file" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
@@ -49,6 +74,7 @@
   <script type="text/javascript">
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   $(document).ready(function() {
+    $('.loader').css('display','none');
     $('.seven_pay_excel_file').validate({ // initialize the plugin
       rules: {
         vetan_aayog:"required",
@@ -73,6 +99,7 @@
     });
   });
   function fileSubmit(){
+    $('.loader').css('display','block');
     var formData = new FormData();
     formData.append('usersFile', $('#test_excel')[0].files[0]);
     formData.append('vetan_aayog', $('#vetan_aayog').val());
@@ -88,6 +115,10 @@
       contentType: false,
       success : function(data) {
         swal(data.status,data.message);
+        $('.loader').css('display','none');
+        $('#test_excel').val('');
+        $('#vetan_aayog').val('');
+
       }
     });
   }

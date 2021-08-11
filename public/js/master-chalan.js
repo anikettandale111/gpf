@@ -111,7 +111,7 @@ function editChalan(chid){
       $('#chalan_taluka').val(results.taluka);
       $('#chalan_amount').val(results.amount);
       $('#chalan_remark').val(results.remark);
-      console.log(results);
+      $('#chalan_year').focus();
     }
   });
 }
@@ -131,7 +131,7 @@ var table = $('#chalanTable').DataTable({
     serverSide: true,
     dom: 'Bfrtip',
     buttons: [
-      { extend: 'excel', className: 'btn-secondary m-2' },
+      { extend: 'excel', className: 'btn btn-secondary m-2' },
     ],
     pageLength: '-1',
     ajax: "chalan",

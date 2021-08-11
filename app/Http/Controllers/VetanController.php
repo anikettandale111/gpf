@@ -188,11 +188,11 @@ class VetanController extends Controller
                     $six_pay["INTY3"] = ((int)$request->hapta_no == 3)? $request->different_interest : 0;
                     $six_pay["INTY4"] = ((int)$request->hapta_no == 4)? $request->different_interest : 0;
                     $six_pay["INTY5"] = ((int)$request->hapta_no == 5)? $request->different_interest : 0;
-                    $six_pay["INTY6"] = 0;
-                    $six_pay["INTY7"] = 0;
-                    $six_pay["INTY8"] = 0;
-                    $six_pay["INTY9"] = 0;
-                    $six_pay["INTY10"] = 0;
+                    $six_pay["INTY6"] = ((int)$request->hapta_no == 6)? $request->different_interest : 0;
+                    $six_pay["INTY7"] = ((int)$request->hapta_no == 7)? $request->different_interest : 0;
+                    $six_pay["INTY8"] = ((int)$request->hapta_no == 8)? $request->different_interest : 0;
+                    $six_pay["INTY9"] = ((int)$request->hapta_no == 9)? $request->different_interest : 0;
+                    $six_pay["INTY10"] = ((int)$request->hapta_no == 10)? $request->different_interest : 0;
                     $six_pay["pay_number"]=$request->vetan_aayog;
                   }else{
                     $employeeNotFound[] = ['gpf_number' => $getData[$i][1]];

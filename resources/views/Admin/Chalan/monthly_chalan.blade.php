@@ -13,6 +13,27 @@
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
+        <div class="x_title">
+          <div class="clearfix"></div>
+          @if ($message = Session::get('danger'))
+          <div class="alert alert-danger alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+          </div>
+          @endif
+          @if ($message = Session::get('success'))
+          <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+          </div>
+          @endif
+          @if ($message = Session::get('info'))
+          <div class="alert alert-info alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+          </div>
+          @endif
+        </div>
         <br />
         <form class="form-horizontal form-label-left monthly_subscription_form" action="{{url('subscription')}}" method="POST" enctype="multipart/form-data" novalidate >
           {{csrf_field()}}
@@ -188,7 +209,7 @@
                     <th> क्रिया </th>
                   </tr>
                 </thead>
-                <tbody class="appaend_table">
+                <tbody>
 
                 </tbody>
               </table>

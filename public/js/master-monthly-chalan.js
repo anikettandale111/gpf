@@ -54,9 +54,8 @@ $(document).ready(function(){
   $('#datatable_one').DataTable({
     dom: 'Bfrtip',
     buttons: [
-      { extend: 'excel', className: 'btn-secondary m-2' },
+      { extend: 'excel', className: 'btn btn-secondary m-2' },
     ],
-    pageLength: '-1',
   });
 })
 $('.getchalan').change( function(e) {
@@ -170,14 +169,14 @@ function subscriptionSubmit(){
       chalan_number = $('#chalan_number').val();
       chalan_taluka = $('#taluka_id').val();
       $('.submit').show();
-      $('.clearaftersubmit').val('');
+      $('.clearaftersubmit').val(0);
       getChalanDetails(year,chalan_month,chalan_number,chalan_taluka);
     }
   })
 }
 
 $('.calculation').keyup( function(e) {
-  setTimeout(function(){
+  // setTimeout(function(){
     $('#diffrence_amount').val(parseInt($('#diffrence_amount_duplicate').val()));
     chalan_amount = parseInt($('.chalan_amount').val());
     deposit = parseInt($('.deposit').val());
@@ -210,7 +209,7 @@ $('.calculation').keyup( function(e) {
         $('#diffrence_amount').val(parseInt(diff_amt));
       }
     }
-  },100);
+  // },100);
 });
 
 function getdetails(){
@@ -218,7 +217,7 @@ function getdetails(){
   var chalan_month = $('#chalan_month').val();
   var chalan_number = $('#chalan_number').val();
   var chalan_taluka = $('#taluka_id').val();
-
+  $('#total_monthly_pay').val(0);
   $.ajax({
     type: 'GET',
     url: "getuserdetailsbygpfno",
@@ -285,7 +284,7 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
         $('#diffrence_amount_duplicate').val(res.amt.diff_amount);
         $('#taluka_id').val(res.amt.taluka);
         $('#classification_id').val(res.amt.classification);
-
+        $('.appaend_table').empty();
         str = '';
           var i = 1;
           var subscribedRakkam = 0;
@@ -299,17 +298,17 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
               // actionHtml = '<button onclick="editChalanSubscription('+val.emc_id+')" data-original-title="Edit" class="btn btn-primary btn-sm">Edit</button>';
               actionHtml = '<button onclick="deleteChalanSubscription('+val.emc_id+')" data-original-title="Delete" class="btn btn-danger btn-sm">Delete</button>';
             }
-            subscribedRakkam = subscribedRakkam +  val.monthly_received;
-            monthlyContrubition = monthlyContrubition + val.monthly_contrubition;
-            totalInstallment = totalInstallment + val.loan_installment;
-            monthlyOther = monthlyOther + val.monthly_other;
+            subscribedRakkam = parseInt(subscribedRakkam) +  parseInt(val.monthly_received);
+            monthlyContrubition = parseInt(monthlyContrubition) + parseInt(val.monthly_contrubition);
+            totalInstallment = parseInt(totalInstallment) + parseInt(val.loan_installment);
+            monthlyOther = parseInt(monthlyOther) + parseInt(val.monthly_other);
             str += '<tr><td>' + i + '</td><td>' + val.emc_year + '</td><td>' + (val.month_name + val.challan_number) + '</td><td>' + val.taluka_name + '</td><td>' + val.gpf_number + '</td><td>' + val.employee_name + '</td><td>' + val.monthly_contrubition + '</td><td>' + val.loan_installment + '</td><td>' + val.monthly_other + '</td><td>' + (parseInt(val.monthly_contrubition) + parseInt(val.loan_installment) + parseInt(val.monthly_other)) + '</td><td>' + val.name + '</td><td>'+actionHtml+'</td></tr>';
             i++;
           });
           str += '<tr><td colspan="6">ऐकूण जमा</td><td>'+monthlyContrubition+'</td><td>'+totalInstallment+'</td><td>'+monthlyOther+'</td><td>'+subscribedRakkam+'</td><td></td><td></td></tr>';
         }
         $('#subscribed_rakkam').val(subscribedRakkam);
-        $('.appaend_table').html(str);
+        $("#datatable_one tbody").append(str);
       } else {
         $('#chalan_no').val('');
         $('.app_no').val('');

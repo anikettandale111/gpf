@@ -48,13 +48,15 @@ class ChalanController extends Controller
       ->leftJoin("classifications", "classifications.id", "=", "tbl_monthly_total_chalan.classification")
       ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id")
       ->where("tbl_monthly_total_chalan.year", session()->get('from_year'))
-      ->where("tbl_monthly_total_chalan.chalan_month_id", ">=", 4);
+      ->where("tbl_monthly_total_chalan.chalan_month_id", ">=", 4)
+      ->where("tbl_monthly_total_chalan.is_delete", "=", 1);
       $deposits_two=MonthlyTotalChalan::select("tbl_monthly_total_chalan.*","tbl_monthly_total_chalan.created_at AS crateddate","tbl_monthly_total_chalan.id as chalan_id","taluka.id as  tid","taluka.taluka_name_mar as taluka_name","classifications.id as cid","classifications.classification_name_mar","master_month.month_name_mar",)
       ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
       ->leftJoin("classifications", "classifications.id", "=", "tbl_monthly_total_chalan.classification")
       ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id")
       ->where("tbl_monthly_total_chalan.year", session()->get('to_year'))
       ->where("tbl_monthly_total_chalan.chalan_month_id", "<=", 3)
+      ->where("tbl_monthly_total_chalan.is_delete", "=", 1)
       ->union($deposits)
       ->latest()->get();
 
@@ -72,9 +74,7 @@ class ChalanController extends Controller
   }
   public function store(Request $request){
     // $req = MonthlyTotalChalan::select('primary_number')->latest()->first();
-    $res = MonthlyTotalChalan::where(['chalan_month_id'=>$request->chalan_month,'chalan_serial_no'=>$request->chalan_serial_no,'year'=>$request->chalan_year,'taluka'=>$request->chalan_taluka])->get();
-    $monthName = month::select('month_name_mar')->where('id',$request->chalan_month)->first();
-    if(count($res) == 0) {
+      $monthName = month::select('month_name_mar')->where('id',$request->chalan_month)->first();
       $data['year'] = $request->chalan_year;
       $data['chalan_date'] = $request->chalan_date;
       $data['classification'] = $request->classification_type;
@@ -87,17 +87,23 @@ class ChalanController extends Controller
       $data['chalan_date'] = $request->chalan_date;
       $data['chalan_no'] = $monthName->month_name_mar.' '.$request->chalan_serial_no;
       $data['total_waste'] = 0;
+      $msg =' Chalan Already Exists with same details';
+      $status = "danger";
       if($request->chalan_sr_id > 0){
         MonthlyTotalChalan::where('id',$request->chalan_sr_id)->update($data);
         $msg ='Chalan Details Updated Successfully';
+        $status = "success";
       } else {
-        MonthlyTotalChalan::insertGetId($data);
-        $msg ='Chalan Details Saved Successfully';
+        $res = MonthlyTotalChalan::where(['chalan_month_id'=>$request->chalan_month,
+              'chalan_serial_no'=>$request->chalan_serial_no,'year'=>$request->chalan_year,
+              'taluka'=>$request->chalan_taluka])->get();
+          if(count($res) == 0) {
+            MonthlyTotalChalan::insertGetId($data);
+            $status = "success";
+            $msg ='Chalan Details Saved Successfully';
+          }
       }
-    } else {
-      $msg =' Chalan Already Exists with same details';
-    }
-    return redirect()->back()->with(session()->flash('msg', $msg));
+    return redirect()->back()->with(session()->flash($status, $msg));
   }
   public function chalandetails(Request $request){
     $data['chalan_month_id'] = $request->chalan_month;
@@ -179,7 +185,7 @@ class ChalanController extends Controller
     return MonthlyTotalChalan::where('id',$chid)->first();
   }
   public function destroy($chid){
-    MonthlyTotalChalan::where('id',$chid)->update(['is_delete' => 0]);
+    $res = MonthlyTotalChalan::where('id',$chid)->update(['is_delete' => 0]);
     return ['status' => 'success','message' => 'Chalan Deleted Successfully.'];
   }
   public function monthlyEntryApproved(Request $request){
