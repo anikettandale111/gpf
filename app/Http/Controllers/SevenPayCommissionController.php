@@ -91,7 +91,7 @@ class SevenPayCommissionController extends Controller
     $six_pay["pay_number"]=$request->vetan;
     $id = MasterVetanAyog::insertGetId($six_pay);
     if($id){
-      return ['status'=>'success','message' =>'Six Pay Saved Successfully'];
+      return ['status'=>'success','message' =>'Seven Pay Saved Successfully'.$id];
     }else{
       return ['status'=>'error','message' =>'Sorry, Please try again'];
     }
