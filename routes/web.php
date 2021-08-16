@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::get('vetan', 'VetanController@index');
     Route::get('getIntrestRate', 'VetanController@getIntrestRate');
     Route::any('vetanfileupload', 'VetanController@vetanfileupload');
+    Route::get('getFileData', 'VetanController@getFileData');
     Route::post('vetan_insert_no', 'VetanController@vetan_insert');
     Route::post('vetan_new', 'VetanController@vetan_new');
     Route::post('vetan_Delete/{id}', 'VetanController@vetan_Delete');

@@ -10,12 +10,15 @@ use App\Classification;
 use App\Department;
 use App\Designation;
 use App\Masteremployee;
+use App\MasterVetanAyog;
+use App\MonthlyTotalChalan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Vetan;
 use Session;
 use Config;
 use Excel;
+use Auth;
 
 class VetanController extends Controller
 {
@@ -150,50 +153,61 @@ class VetanController extends Controller
             9 => 'TOTAL',
           ];
         if($rowCount > 0){
-          $userData = [];
+          $six_pay = [];
           $userDataDuplicate = [];
           $employeeNotFound = [];
           $getData = $data[0];
           $filename = date('dmyhis');
-          for($i=2;$rowCount > $i;$i++){
+          $fileid = DB::table('tbl_upload_file')->insertGetId(['file_name'=>$filepath,'upload_by'=>Auth::id()]);
+          for($i=1;$rowCount > $i;$i++){
             if($getData){
-              $com_res = array_diff_assoc($setColumnArray,$getData[1]);
+              $com_res = array_diff_assoc($setColumnArray,$getData[0]);
               if(count($com_res) == 0){
                 if((int)$getData[$i][1] > 0){
-                  $checkData = ['gpf_number' => $getData[$i][1],
-                  'challan_id' => $request->chalan_id,
-                  'emc_month' => $request->month_id,
-                  'emc_year' => $request->year_id,
-                ];
-                $check_duplicate = MasterMonthlySubscription::where($checkData)->get();
+                  $checkData = ['GPFNo' => $getData[$i][1],
+                                'ChallanNo' => $request->chalan_id,
+                              ];
+                $check_duplicate = MasterVetanAyog::where($checkData)->get();
                 if(count($check_duplicate) == 0){
                   if(isset($getData[$i][1]) && $getData[$i][1] !== ''){
                     $employee = Masteremployee::select('employee_id','department_id','designation_id')->where('gpf_no',$getData[$i][1])->first();
                   }
                   if(isset($employee->employee_id) && $employee->employee_id !== ''){
-                    $six_pay["GPFNo"]=$getData[$i][1];
-                    $six_pay["Year"]=$request->instalmentYear;
-                    $six_pay["Instalment"]=$request->hapta_no;
-                    $six_pay["ChallanNo"]=$request->chalna_no;
-                    $six_pay["DiffAmt"] = $getData[$i][3];
-                    $six_pay["Interest"] = $getData[$i][9];
-                    $six_pay["TotDiff"] = (float)$request->difference_amount + (float)$request->different_interest;
-                    $six_pay["Mnt"] = $request->instalment_month;
-                    $six_pay["Rmk"] = 'NA';
-                    $six_pay["DtFrom"] = date('Y-m-d',strtotime($request->from_interest_date));
-                    $six_pay["DtTo"] = date('Y-m-d',strtotime($request->to_intrest_date));
-                    $six_pay["LockDate"] = date('Y-m-d');
-                    $six_pay["INTY1"] = ((int)$request->hapta_no == 1)? $request->different_interest : 0;
-                    $six_pay["INTY2"] = ((int)$request->hapta_no == 2)? $request->different_interest : 0;
-                    $six_pay["INTY3"] = ((int)$request->hapta_no == 3)? $request->different_interest : 0;
-                    $six_pay["INTY4"] = ((int)$request->hapta_no == 4)? $request->different_interest : 0;
-                    $six_pay["INTY5"] = ((int)$request->hapta_no == 5)? $request->different_interest : 0;
-                    $six_pay["INTY6"] = ((int)$request->hapta_no == 6)? $request->different_interest : 0;
-                    $six_pay["INTY7"] = ((int)$request->hapta_no == 7)? $request->different_interest : 0;
-                    $six_pay["INTY8"] = ((int)$request->hapta_no == 8)? $request->different_interest : 0;
-                    $six_pay["INTY9"] = ((int)$request->hapta_no == 9)? $request->different_interest : 0;
-                    $six_pay["INTY10"] = ((int)$request->hapta_no == 10)? $request->different_interest : 0;
-                    $six_pay["pay_number"]=$request->vetan_aayog;
+                    $totalUsed += $getData[$i][3];
+                    if($request->vetan_aayog == 6){
+                      $d_from = '2019-07-01';
+                      $d_to = Session::get('to_year').'-03-31';
+                      $l_date = date('Y-m-d');
+                    }elseif($request->vetan_aayog == 7){
+                      $d_from = '2019-07-01';
+                      $d_to = Session::get('to_year').'-03-31';
+                      $l_date = date('Y-m-d');
+                    }
+                    $six_pay[] = ["GPFNo"=> $getData[$i][1],
+                                  "Year" => $request->instalmentYear,
+                                  "Instalment" => $request->hapta_no,
+                                  "ChallanNo" => $request->chalan_id,
+                                  "DiffAmt" =>  $getData[$i][3],
+                                  "Interest" =>  $getData[$i][9],
+                                  "TotDiff" =>  (float)$request->difference_amount + (float)$request->different_interest,
+                                  "Mnt" =>  $request->instalment_month,
+                                  "Rmk" =>  'NA',
+                                  "DtFrom" =>$d_from,
+                                  "DtTo" =>$d_to,
+                                  "LockDate" =>$l_date,
+                                  "INTY1" =>  ((int)$request->hapta_no == 1)? $request->different_interest : 0,
+                                  "INTY2" =>  ((int)$request->hapta_no == 2)? $request->different_interest : 0,
+                                  "INTY3" =>  ((int)$request->hapta_no == 3)? $request->different_interest : 0,
+                                  "INTY4" =>  ((int)$request->hapta_no == 4)? $request->different_interest : 0,
+                                  "INTY5" =>  ((int)$request->hapta_no == 5)? $request->different_interest : 0,
+                                  "INTY6" =>  ((int)$request->hapta_no == 6)? $request->different_interest : 0,
+                                  "INTY7" =>  ((int)$request->hapta_no == 7)? $request->different_interest : 0,
+                                  "INTY8" =>  ((int)$request->hapta_no == 8)? $request->different_interest : 0,
+                                  "INTY9" =>  ((int)$request->hapta_no == 9)? $request->different_interest : 0,
+                                  "INTY10" =>  ((int)$request->hapta_no == 10)? $request->different_interest : 0,
+                                  "pay_number" => $request->vetan_aayog,
+                                  "fileid" => $fileid
+                                ];
                   }else{
                     $employeeNotFound[] = ['gpf_number' => $getData[$i][1]];
                   }
@@ -207,17 +221,18 @@ class VetanController extends Controller
             }
           }
         }
-        if(count($userData) > 0){
+
+        if(count($six_pay) > 0){
           $getDiffAmt = MonthlyTotalChalan::select('diff_amount')
-                        ->where(['id' => $request->chalan_id,'chalan_serial_no' => $request->chalan_number])
+                        ->where(['id' => $request->chalan_id])
                         ->first();
           if((int)$getDiffAmt->diff_amount >= (int)$totalUsed){
             MonthlyTotalChalan::where(['id' => $request->chalan_id])
                   ->update(['diff_amount' => ($getDiffAmt->diff_amount-$totalUsed)]);
-            $getstatus = MasterMonthlySubscription::insert($userData);
-              return ['status'=>'status','message'=>'Records Inserted Succesfully.','not_inserted'=>count($employeeNotFound),
+            $getstatus = MasterVetanAyog::insert($six_pay);
+              return ['status'=>'success','message'=>'Records Inserted Succesfully.','not_inserted'=>count($employeeNotFound),
                       'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),
-                      'user_duplicate_gpf' =>$userDataDuplicate ];
+                      'user_duplicate_gpf' =>$userDataDuplicate,'fileid'=>$fileid ];
           }else{
             return ['status'=>'warning','message'=>'Chalan total amount does not matched'.$request->chalan_khatavani.'-'.$totalUsed];
           }
@@ -228,6 +243,21 @@ class VetanController extends Controller
       }
       return ['status' => 'error','message' => 'Invalid File Upload.'];
     }
-    return view('Admin.Vetan.vetanfileupload');
+    $month=Month::orderBy('order_by')->get();
+    $taluka=Taluka::all();
+    return view('Admin.Vetan.vetanfileupload',compact('month','taluka'));
+  }
+  public function getFileData(Request $request){
+    if($request->fileid != 0){
+      $vetanayog = MasterVetanAyog::where('fileid',$request->fileid)->get();
+      return datatables()->of($vetanayog)
+      ->addIndexColumn()
+      ->addColumn('action', function ($row) {
+        return '<button onClick="deleteVetanEntry('.$row->id.')" data-original-title="Delete" class="btn btn-primary btn-sm">Delete</button>';
+      })
+      ->rawColumns(['action'])
+      ->make(true);
+    }
+    return datatables()->of([])->make(true);
   }
 }

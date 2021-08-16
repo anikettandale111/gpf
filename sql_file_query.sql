@@ -1,3 +1,8 @@
+ALTER TABLE `master_vetan_ayog_received` CHANGE `DtFrom` `DtFrom` VARCHAR(50) NULL DEFAULT NULL, CHANGE `DtTo` `DtTo` VARCHAR(50) NULL DEFAULT NULL;
+ALTER TABLE `master_vetan_ayog_received` CHANGE `LockDate` `LockDate` VARCHAR(50) NULL DEFAULT NULL;
+ALTER TABLE `master_vetan_ayog_received` ADD `fileid` INT NOT NULL DEFAULT '0' AFTER `is_active`;
+
+
 /* SELECT FINANICAL YEAR CHALAN WISE EXPENSES START */
 SELECT challan_id,challan_number, SUM(monthly_contrubition) AS mn_co,SUM(monthly_received) AS mn_re,SUM(loan_installment) AS ln_in,SUM(monthly_other) AS mn_ot,SUM(monthly_contrubition+loan_installment+monthly_other) AS mn_final FROM `master_emp_monthly_contribution_two` WHERE challan_id >= 15211 GROUP BY challan_id,challan_number ORDER BY challan_id ASC
 /* SELECT FINANICAL YEAR CHALAN WISE EXPENSES END */
