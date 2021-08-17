@@ -111,6 +111,7 @@
                 <tr>
                   <th>Sr.No</th>
                   <th>GPF No</th>
+                  <th>Employee Name</th>
                   <th>Vetan Ayog</th>
                   <th>Differnace Amount</th>
                   <th>Intrest</th>
@@ -208,6 +209,10 @@
         {
           data: 'GPFNo',
           name: 'GPF No'
+        },
+        {
+          data: 'employee_name',
+          name: 'Employee Name'
         },
         {
           data: 'pay_number',

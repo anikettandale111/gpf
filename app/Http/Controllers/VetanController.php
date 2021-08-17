@@ -144,13 +144,12 @@ class VetanController extends Controller
           $setColumnArray = [0 => 'SRNO',
             1 => 'GPFNO',
             2 => 'EMPLOYEE',
-            3 => 'AMOUNT',
-            4 => 'INS1',
-            5 => 'INS2',
-            6 => 'INS3',
-            7 => 'INS4',
-            8 => 'INS5',
-            9 => 'TOTAL',
+            3 => 'INS1',
+            4 => 'INS2',
+            5 => 'INS3',
+            6 => 'INS4',
+            7 => 'INS5',
+            8 => 'TOTAL',
           ];
         if($rowCount > 0){
           $six_pay = [];
@@ -173,7 +172,6 @@ class VetanController extends Controller
                     $employee = Masteremployee::select('employee_id','department_id','designation_id')->where('gpf_no',$getData[$i][1])->first();
                   }
                   if(isset($employee->employee_id) && $employee->employee_id !== ''){
-                    $totalUsed += $getData[$i][3];
                     if($request->vetan_aayog == 6){
                       $d_from = '2019-07-01';
                       $d_to = Session::get('to_year').'-03-31';
@@ -183,13 +181,30 @@ class VetanController extends Controller
                       $d_to = Session::get('to_year').'-03-31';
                       $l_date = date('Y-m-d');
                     }
+                    if(isset($getData[$i][3]) && $getData[$i][3] > 0){
+                      $hapta_no = 1;
+                      $amt = $getData[$i][3];
+                    }else if(isset($getData[$i][4]) && $getData[$i][4] > 0){
+                      $hapta_no = 2;
+                      $amt = $getData[$i][4];
+                    }else if(isset($getData[$i][5]) && $getData[$i][5] > 0){
+                      $hapta_no = 3;
+                      $amt = $getData[$i][5];
+                    }else if(isset($getData[$i][6]) && $getData[$i][6] > 0){
+                      $hapta_no = 4;
+                      $amt = $getData[$i][6];
+                    }else if(isset($getData[$i][7]) && $getData[$i][7] > 0){
+                      $hapta_no = 5;
+                      $amt = $getData[$i][7];
+                    }
+                    $totalUsed += $amt;
                     $six_pay[] = ["GPFNo"=> $getData[$i][1],
                                   "Year" => $request->instalmentYear,
-                                  "Instalment" => $request->hapta_no,
+                                  "Instalment" => $hapta_no,
                                   "ChallanNo" => $request->chalan_id,
-                                  "DiffAmt" =>  $getData[$i][3],
-                                  "Interest" =>  $getData[$i][9],
-                                  "TotDiff" =>  (float)$request->difference_amount + (float)$request->different_interest,
+                                  "DiffAmt" =>  $amt,
+                                  "Interest" =>  0,
+                                  "TotDiff" =>  (float)$amt,
                                   "Mnt" =>  $request->instalment_month,
                                   "Rmk" =>  'NA',
                                   "DtFrom" =>$d_from,
@@ -234,7 +249,7 @@ class VetanController extends Controller
                       'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),
                       'user_duplicate_gpf' =>$userDataDuplicate,'fileid'=>$fileid ];
           }else{
-            return ['status'=>'warning','message'=>'Chalan total amount does not matched'.$request->chalan_khatavani.'-'.$totalUsed];
+            return ['status'=>'warning','message'=>'Chalan total amount does not matched'];
           }
         }else{
           return ['status'=>'duplicate','message'=>'Duplicate Data Found','not_inserted'=>count($employeeNotFound),
@@ -249,7 +264,12 @@ class VetanController extends Controller
   }
   public function getFileData(Request $request){
     if($request->fileid != 0){
-      $vetanayog = MasterVetanAyog::where('fileid',$request->fileid)->get();
+      // $vetanayog = MasterVetanAyog::where('fileid',$request->fileid)->get();
+      $vetanayog = DB::table('master_vetan_ayog_received AS ar')
+        ->select('ar.*','me.employee_name')
+        ->leftJoin('master_employee AS me','ar.GPFNo','me.gpf_no')
+        ->where('ar.fileid',40)
+        ->get();
       return datatables()->of($vetanayog)
       ->addIndexColumn()
       ->addColumn('action', function ($row) {
