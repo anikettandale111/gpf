@@ -54,9 +54,9 @@
 				<div class="col-md-4" style="text-align: center;">
 					<label> कर्मचाऱ्याचे नाव :- {{$rqo->employee_name}}</label>
 				</div>
-				<div class="col-md-5 lg-4" style="text-align:end;">
+				<!-- <div class="col-md-5 lg-4" style="text-align:end;">
 					<label>पदनाम :- {{$rqo->designation_name}}</label>
-				</div>
+				</div> -->
 			</div>
 			<div class="row">
 				<div class="col-md-6">

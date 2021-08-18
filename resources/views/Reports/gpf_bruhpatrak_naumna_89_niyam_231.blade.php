@@ -62,9 +62,9 @@
             <h2> <b>भविष्य निर्वाह निधी वृहतपत्रक नमुना न ८९ (नियम २३१ )</b></h2>
             <h2> <b>सन ( {{digitChange(session()->get('financial_year'))}})</b> </h2>
           </div>
-          <div class="col-md-2">
+          <!-- <div class="col-md-2">
             <h2> प्राथ शिक्षक </h2>
-          </div>
+          </div> -->
           <div class="col-sm-12">
             <div class="card-box ">
 
