@@ -73,6 +73,8 @@ Route::middleware('auth')->group(function () {
     Route::post('vetan_insert_no', 'VetanController@vetan_insert');
     Route::post('vetan_new', 'VetanController@vetan_new');
     Route::post('vetan_Delete/{id}', 'VetanController@vetan_Delete');
+    Route::post('deleteVetan/{id}', 'VetanController@deleteVetan');
+    Route::get('vetanlistview', 'VetanController@vetanlistview');
 
     // Pay Commssion
     Route::resource('sixpay', SixPayCommissionController::class);

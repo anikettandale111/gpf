@@ -239,6 +239,8 @@
     formData.append('usersFile', $('#test_excel')[0].files[0]);
     formData.append('vetan_aayog', $('#vetan_aayog').val());
     formData.append('chalan_id', $('#chalan_id').val());
+    formData.append('month_id', $('#month_id').val());
+    formData.append('year_id', $('#year_id').val());
     $.ajaxSetup({
       headers:
       {'X-CSRF-TOKEN': CSRF_TOKEN}
@@ -282,6 +284,35 @@
         }
         return false;
       }
+    });
+  }
+  function deleteVetanEntry(Transid){
+    swal({
+      title: "Delete?",
+      text: "Please and then confirm!",
+      type: "warning",
+      showCancelButton: !0,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: !0
+    }).then(function (e) {
+      if (e.value === true) {
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+          type: 'POST',
+          url: "deleteVetan/" + Transid,
+          data: {_token: CSRF_TOKEN},
+          dataType: 'JSON',
+          success: function (results) {
+            swal(results.status,results.message);
+            fileDataTable.ajax.reload();
+          }
+        });
+      } else {
+        e.dismiss;
+      }
+    }, function (dismiss) {
+      return false;
     });
   }
   </script>

@@ -132,6 +132,7 @@
                 <li><a href="{{url('sixpay')}}">{{trans('language.6_pay_commission_paid')}}</a></li>
                 <li><a href="{{url('sevenpay')}}">{{trans('language.7_pay_commission_paid')}}</a></li>
                 <li><a href="{{url('vetanfileupload')}}">{{trans('language.vetan_file_upload')}}</a></li>
+                <li><a href="{{url('vetanlistview')}}">{{trans('language.vetan_list_view')}}</a></li>
               </ul>
             </li>
             <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms')}} <span class="fa fa-chevron-down"></span></a>

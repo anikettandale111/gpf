@@ -130,6 +130,19 @@ class VetanController extends Controller
                 ->where('year_to','>=','2020')->union($queryone)->orderBy('year_to')->get();
     return $querytwo;
   }
+  public function vetanlistview(Request $request){
+    $queryOne = DB::table('master_vetan_ayog_received AS va')
+                ->select('va.*')
+                ->where('va.Mnt','>=',4)
+                ->where(['va.Year'=>Session::get('from_year')]);
+    $vetandatalist = DB::table('master_vetan_ayog_received AS va')
+                ->select('va.*')
+                ->where('va.Mnt','<=',3)
+                ->where(['va.Year'=>Session::get('to_year')])
+                ->union($queryOne)
+                ->get();
+    return view('Admin.Vetan.listview',compact('vetandatalist'));
+  }
   public function vetanfileupload(Request $request){
     if($request->ajax()){
           $originalFileName = $request->file('usersFile')->getClientOriginalName();
@@ -199,13 +212,13 @@ class VetanController extends Controller
                     }
                     $totalUsed += $amt;
                     $six_pay[] = ["GPFNo"=> $getData[$i][1],
-                                  "Year" => $request->instalmentYear,
+                                  "Year" => $request->year_id,
                                   "Instalment" => $hapta_no,
                                   "ChallanNo" => $request->chalan_id,
                                   "DiffAmt" =>  $amt,
                                   "Interest" =>  0,
                                   "TotDiff" =>  (float)$amt,
-                                  "Mnt" =>  $request->instalment_month,
+                                  "Mnt" =>  $request->month_id,
                                   "Rmk" =>  'NA',
                                   "DtFrom" =>$d_from,
                                   "DtTo" =>$d_to,
@@ -268,16 +281,27 @@ class VetanController extends Controller
       $vetanayog = DB::table('master_vetan_ayog_received AS ar')
         ->select('ar.*','me.employee_name')
         ->leftJoin('master_employee AS me','ar.GPFNo','me.gpf_no')
-        ->where('ar.fileid',40)
+        ->where('ar.fileid',$request->fileid)
         ->get();
       return datatables()->of($vetanayog)
       ->addIndexColumn()
       ->addColumn('action', function ($row) {
-        return '<button onClick="deleteVetanEntry('.$row->id.')" data-original-title="Delete" class="btn btn-primary btn-sm">Delete</button>';
+        return '<button onClick="deleteVetanEntry('.$row->TransId.')" data-original-title="Delete" class="btn btn-danger btn-sm">Delete</button>';
       })
       ->rawColumns(['action'])
       ->make(true);
     }
     return datatables()->of([])->make(true);
+  }
+  public function deleteVetan($id){
+    $prv = MasterVetanAyog::select('TotDiff','ChallanNo')->where('TransId',$id)->where('is_active',0)->first();
+    $getDiffAmt = MonthlyTotalChalan::where(['id' => $prv->ChallanNo])
+                                        ->update(['diff_amount' => DB::raw('diff_amount+'.$prv->TotDiff)]);
+    $status = MasterVetanAyog::where('TransId',$id)->where('is_active',0)->delete();
+    if($status){
+      return ['status'=>'success','message'=>'Transaction Deleted Successfully.'];
+    }else{
+      return ['status'=>'success','message'=>'Record Is Approved, You can not delete.'];
+    }
   }
 }

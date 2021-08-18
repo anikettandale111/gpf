@@ -1,3 +1,18 @@
+-- SQL query for calculate 7th Pay
+$queryOne = DB::table('master_vetan_ayog_received AS va')
+            ->select('va.instalment','va.DiffAmt','va.Interest','va.Mnt')
+            ->where('va.Mnt','>=',4)
+            ->where(['va.Year'=>Session::get('from_year')]);
+$otherInstall = DB::table('master_vetan_ayog_received AS va')
+            ->select('va.instalment','va.DiffAmt','va.Interest','va.Mnt')
+            ->where('va.Mnt','<=',3)
+            ->where(['va.Year'=>Session::get('to_year')])
+            ->union($queryOne)
+            ->get();
+-- SQL query for calculate 7th Pay
+
+
+
 ALTER TABLE `master_vetan_ayog_received` CHANGE `DtFrom` `DtFrom` VARCHAR(50) NULL DEFAULT NULL, CHANGE `DtTo` `DtTo` VARCHAR(50) NULL DEFAULT NULL;
 ALTER TABLE `master_vetan_ayog_received` CHANGE `LockDate` `LockDate` VARCHAR(50) NULL DEFAULT NULL;
 ALTER TABLE `master_vetan_ayog_received` ADD `fileid` INT NOT NULL DEFAULT '0' AFTER `is_active`;
