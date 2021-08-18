@@ -105,9 +105,9 @@ class AntimBillController extends Controller
     if(isset($bill->id) && $bill->id > 0){
       $billExpenses = BillExpenses::where('bill_id',$bill->id)
                       ->sum('required_rakkam');
-      return ['status'=>'success','amount'=>$billExpenses,'bill'=>$bill];
+      return ['status'=>'success','amount'=>$billExpenses];
     }else{
-      return ['status'=>'success','amount'=>0,'bill'=>$bill];
+      return ['status'=>'success','amount'=>0];
     }
   }
 }
