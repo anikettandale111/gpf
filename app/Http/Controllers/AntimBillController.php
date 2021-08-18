@@ -102,12 +102,12 @@ class AntimBillController extends Controller
   }
   public function get_bill_amount(Request $request){
     $bill = Bill::select('id')->where('bill_no',$request->billno)->where('financial_year',Session::get('financial_year'))->first();
-    if($bill){
-      $billExpenses = BillExpenses::where('bill_number',$request->billno)
+    if(isset($bill->id) && $bill->id > 0){
+      $billExpenses = BillExpenses::where('bill_id',$bill->id)
                       ->sum('required_rakkam');
-      return ['status'=>'success','amount'=>$billExpenses];
+      return ['status'=>'success','amount'=>$billExpenses,'bill'=>$bill];
     }else{
-      return ['status'=>'success','amount'=>0];
+      return ['status'=>'success','amount'=>0,'bill'=>$bill];
     }
   }
 }
