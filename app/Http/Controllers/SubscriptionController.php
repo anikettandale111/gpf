@@ -66,9 +66,9 @@ class SubscriptionController extends Controller {
       $data['modifed_by'] = Auth::id();
       $create = MasterMonthlySubscription::insert($data);
       if($create){
-        $chalan_id = $request->chalan_id;
-        $diffrence_amount = $request->diffrence_amount;
-        $updateRes = MonthlyTotalChalan::where(['id'=>$chalan_id,])->update(['diff_amount'=>$diffrence_amount]);
+        /*$chalan_id = $request->chalan_id;
+        $diffrence_amount = ($request->chalan_amount-($request->subscribed_rakkam+((int)$request->deposit_amt + (int)$request->refund+ (int)$request->pending_amt)));
+        $updateRes = MonthlyTotalChalan::where(['id'=>$chalan_id,])->update(['diff_amount'=>$diffrence_amount]);*/
       }
       return ['status'=>'Success','message'=>' Data Successfully Added'];
     } else {

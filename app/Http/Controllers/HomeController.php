@@ -39,6 +39,7 @@ class HomeController extends Controller
         $current_db = 'mysql';
         Session::put('selected_database','mysql');
       }
+      
       Config::set('database.default',$current_db);
       return $next($request);
     });

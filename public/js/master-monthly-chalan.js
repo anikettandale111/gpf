@@ -305,10 +305,19 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
             str += '<tr><td>' + i + '</td><td>' + val.emc_year + '</td><td>' + (val.month_name + val.challan_number) + '</td><td>' + val.taluka_name + '</td><td>' + val.gpf_number + '</td><td>' + val.employee_name + '</td><td>' + val.monthly_contrubition + '</td><td>' + val.loan_installment + '</td><td>' + val.monthly_other + '</td><td>' + (parseInt(val.monthly_contrubition) + parseInt(val.loan_installment) + parseInt(val.monthly_other)) + '</td><td>' + val.name + '</td><td>'+actionHtml+'</td></tr>';
             i++;
           });
-          str += '<tr><td colspan="6">ऐकूण जमा</td><td>'+monthlyContrubition+'</td><td>'+totalInstallment+'</td><td>'+monthlyOther+'</td><td>'+subscribedRakkam+'</td><td></td><td></td></tr>';
+          str1 = '<tr><td></td><td></td><td></td><td></td><td></td><td><strong>ऐकूण जमा</strong></td><td><strong>' + monthlyContrubition + '</strong></td><td><strong>' + totalInstallment + '</strong></td><td><strong>' + monthlyOther + '</strong></td><td><strong>' + subscribedRakkam + '</strong></td><td></td><td></td></tr>';
+
+         
         }
         $('#subscribed_rakkam').val(subscribedRakkam);
-        $("#datatable_one tbody").append(str);
+        //$("#datatable_one tbody").remove();
+        $('#datatable_one').DataTable().destroy();
+        $('#datatable_one').find('tbody').html(str);
+        $('#datatable_one').find('tfoot').html(str1);
+        $('#datatable_one').DataTable().draw();
+        //$("#datatable_one tbody").html(str);
+        //refreshTable();
+        
       } else {
         $('#chalan_no').val('');
         $('.app_no').val('');
@@ -324,6 +333,12 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
       return false;
     }
   });
+}
+function refreshTable() {
+  
+      dt = $('#datatable_one').dataTable();
+      dt.fnDraw();
+ 
 }
 function editChalanSubscription(subid){
   $('.saveDiv').addClass('hidebtn');

@@ -75,12 +75,26 @@ class ChalanController extends Controller
   public function store(Request $request){
     // $req = MonthlyTotalChalan::select('primary_number')->latest()->first();
       $monthName = month::select('month_name_mar')->where('id',$request->chalan_month)->first();
+      if($request->chalan_sr_id > 0){
+        $result = MonthlyTotalChalan::where('id',$request->chalan_sr_id)->first();
+        if(isset($result) && $result)
+        {
+          $data['amount'] = $request->chalan_amount;
+          $data['diff_amount'] = ($request->chalan_amount-$result->distrubuted_amt);
+          //$data['distrubuted_amt'] = $request->chalan_amount;
+        }
+      }
+      else
+      {
+        $data['amount'] = $request->chalan_amount;
+        $data['diff_amount'] = $request->chalan_amount;
+       // $data['distrubuted_amt'] = $request->chalan_amount;
+      }
       $data['year'] = $request->chalan_year;
       $data['chalan_date'] = $request->chalan_date;
       $data['classification'] = $request->classification_type;
       $data['taluka'] = $request->chalan_taluka;
-      $data['amount'] = $request->chalan_amount;
-      $data['diff_amount'] = $request->chalan_amount;
+      
       $data['remark'] = $request->chalan_remark;
       $data['chalan_month_id'] = $request->chalan_month;
       $data['chalan_serial_no'] = $request->chalan_serial_no;
@@ -124,7 +138,7 @@ class ChalanController extends Controller
       $res = MasterMonthlySubscription::select('master_emp_monthly_contribution_two.*','users.name','me.employee_name',
       'tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name','mm.month_name_'.$lang.' AS month_name')
       ->where('master_emp_monthly_contribution_two.challan_id',$deposits->chalan_id)
-      ->leftjoin('users','users.id','=','master_emp_monthly_contribution_two.modifed_by')
+      ->join('users','users.id','=','master_emp_monthly_contribution_two.modifed_by')
       ->leftjoin('master_employee AS me','me.gpf_no','=','master_emp_monthly_contribution_two.gpf_number')
       ->leftjoin('taluka AS tl','tl.id','=','master_emp_monthly_contribution_two.taluka_id')
       ->leftjoin('departments AS dp','dp.id','=','master_emp_monthly_contribution_two.emc_dept_id')

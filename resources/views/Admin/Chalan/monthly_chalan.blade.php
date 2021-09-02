@@ -212,6 +212,8 @@
                 <tbody>
 
                 </tbody>
+                <tfoot>
+                </tfoot>
               </table>
             </div>
           </div>
@@ -223,5 +225,8 @@
 </div>
 @endsection
 @push('custom-scripts')
+<!-- Datatables -->
+<script src="{{asset('asset/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{asset('asset/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{URL('js/master-monthly-chalan.js')}}"></script>
 @endpush
