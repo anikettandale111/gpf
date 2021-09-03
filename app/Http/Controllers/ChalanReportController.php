@@ -65,7 +65,7 @@ class ChalanReportController extends Controller
               "master_month.month_name_".$lang." as month_name",'taluka.id as taluka_ids')
                 ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
                 ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id");
-                if($taluka_id){
+                if($taluka_id && $taluka_id !='all'){
                   $queryOne = $queryOne->where("tbl_monthly_total_chalan.taluka", $taluka_id);
                 }
                 if($month_id){
@@ -79,7 +79,7 @@ class ChalanReportController extends Controller
                 "master_month.month_name_".$lang." as month_name",'taluka.id as taluka_ids')
                 ->leftJoin("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
                 ->leftJoin("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id");
-                if($taluka_id){
+                if($taluka_id && $taluka_id !='all'){
                   $queryTwo = $queryTwo->where("tbl_monthly_total_chalan.taluka", $taluka_id);
                 }
                 if($month_id){

@@ -25,6 +25,7 @@
                   <label>{{trans('language.th_providing_select_taluka')}}</label>
                   <select class="form-control" name="taluka_id" id="taluka_id">
                       <option value="" selected disabled>{{trans('language.th_providing_select_taluka')}}</option>
+                      <option value="all">{{trans('language.th_providing_all_taluka')}}</option>
                     @foreach($talukaList AS $taluka)
                       <option value="{{$taluka->id}}">{{$taluka->taluka_name_mar}}</option>
                     @endforeach

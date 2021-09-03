@@ -47,9 +47,11 @@ class EmployeeReportsController extends Controller
   public function index()
   {
     $classification=Classification::all();
+    
     return view('Reports/index',compact('classification'));
   }
   public function store(Request $request){
+  
     $lang = app()->getLocale();
     $year = session()->get('year');
     $financial_year = session()->get('financial_year');
@@ -82,7 +84,6 @@ class EmployeeReportsController extends Controller
                       ->join('departments AS dp','dp.department_code','me.department_id')
                       ->join('designations AS dg','dg.id','me.designation_id')
                       ->where(['me.employee_id' =>$request->employee_gpf_num, 'mgt.financial_year'=>"$financial_year"])
-                      // ->where(['me.taluka_id' =>16, 'mgt.financial_year'=>"$financial_year"])
                       ->groupBy('mgt.gpf_number');
       $rqo_result = $query_one->get();
       return view('Reports/gpf_khate_utaran_niyam_231',compact('rqo_result','roi_result','month_name'));
@@ -109,6 +110,7 @@ class EmployeeReportsController extends Controller
                     ->where(['me.employee_id' =>$request->employee_gpf_num, 'mgt.financial_year'=>"$financial_year"])
                     ->groupBy('mgt.gpf_number')->orderBy("me.gpf_no");
       $rqo_result = $query_one->get();
+      
       return view('Reports/gpf_bruhpatrak_naumna_89_niyam_231',compact('rqo_result','roi_result','month_name'));
     } else if ($request->view_report_type == 4){
       $query_one =  DB::table('master_employee AS me')
@@ -125,7 +127,7 @@ class EmployeeReportsController extends Controller
                       'mct.gpf_number','mct.challan_number','mm.month_name_'.$lang.' as month_name')
                     ->join('taluka AS tl','tl.id','mct.taluka_id')
                     ->join('master_month AS mm','mm.id','mct.emc_month')
-                    ->where('mct.gpf_number','11684')
+                    ->where('mct.gpf_number',$request->employee_gpf_num)
                     ->orderBy('mct.emc_id')
                     ->get();
       return view('Reports/chalan_nihay',compact('rqo_result','roi_result','month_name','chalanQuery'));

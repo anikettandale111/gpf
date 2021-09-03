@@ -88,9 +88,20 @@
                 </tr>
               </thead>
               <tbody>
-                @php $rowcount=1; @endphp
+                @php $rowcount=1; 
+                $totalchallan = 0;
+                $totalkatavani = 0 ;
+                $totalsixsev = 0;
+                $totalrakkam =0;
+                @endphp
                 @if(count($deposits_two))
                   @foreach($deposits_two AS $key => $row)
+                      @php
+                         $totalchallan += $row->amount;
+                        $totalkatavani += ($row->amount - $row->diff_amount);
+                        $totalsixsev += $row->monthly_contrubition;
+                        $totalrakkam +=$row->diff_amount;
+                      @endphp
                     <tr>
                       <td>{{$key+1}}</td>
                       <td>{{$row->taluka_name}}</td>
@@ -105,6 +116,16 @@
                   @endforeach
                 @endif
               </tbody>
+              <tfoot>
+                  <tr>
+                      <th colspan="4" align="right" style="text-align: right;">TOTAL</th>
+                      <th>{{$totalchallan}}</th>
+                      <th>{{$totalkatavani}}</th>
+                      <th>{{$totalsixsev}}</th>
+                      <td>&nbsp;</td>
+                      <th>{{$totalrakkam}}</th>
+                  </tr>
+              </tfoot>
             </tabel>
           </div>
         </div>
