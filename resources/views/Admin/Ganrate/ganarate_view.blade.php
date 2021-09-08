@@ -70,7 +70,7 @@
               </div>
               <div class="form-group col-md-4">
                 <div class="col-sm-6"><label for="name">{{trans('language.th_opening_balance')}} :</label></div>
-                <div class="col-sm-6"><span>{{amount_inr_format($temp->opening_balance)}}/-</span></div>
+                <div class="col-sm-6"><span>{{amount_inr_format(doubleval($temp->opening_balance))}}/-</span></div>
               </div>
               <!-- <div class="form-group col-md-4">
               <div class="col-sm-6"><label for="name">{{trans('language.th_providing_letter_no')}} :</label></div>

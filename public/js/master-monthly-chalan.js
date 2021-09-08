@@ -250,7 +250,7 @@ function getdetails(){
 }
 function diff_year_month_day(dt1, dt2)
 {
-  let current_datetime = dt1;
+  let current_datetime =  new Date(dt1);
   let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
   console.log(formatted_date);
   if(dt1 !== null && dt1 !== null){
@@ -286,6 +286,7 @@ function getChalanDetails(year,chalan_month,chalan_number,chalan_taluka){
         $('#classification_id').val(res.amt.classification);
         $('.appaend_table').empty();
         str = '';
+        var str1 ='';
           var i = 1;
           var subscribedRakkam = 0;
           var monthlyContrubition = 0;
