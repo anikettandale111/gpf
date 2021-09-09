@@ -353,7 +353,7 @@
                             </tr>
                           </thead>
                           @php
-                          $vetanPaid = DB::table('master_vetan_ayog_received AS va')->select('va.Year','va.DtFrom','va.instalment','va.DiffAmt','va.TotDiff','va.Interest','va.Mnt','va.INTY1','va.INTY2','va.LockDate')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>2019,'va.pay_number'=>7])->get();
+                          $vetanPaid = DB::table('master_vetan_ayog_received AS va')->select('va.Year','va.DtFrom','va.instalment','va.DiffAmt','va.TotDiff','va.Interest','va.Mnt','va.INTY1','va.INTY2','va.LockDate')->where(['va.GPFNo' =>$rqo->gpf_number,'va.Year'=>session()->get('from_year'),'va.pay_number'=>7])->get();
                             $totalDiff = 0;
                             $totalIntrest = 0;
                             $totalRecivedDiff = 0;
