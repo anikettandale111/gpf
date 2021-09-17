@@ -144,8 +144,8 @@ if(count($userData) > 0){
   ->where(['id' => $request->chalan_id,'chalan_serial_no' => $request->chalan_number])
   ->first();
   if((int)$getDiffAmt->diff_amount >= (int)$totalUsed){
-    MonthlyTotalChalan::where(['id' => $request->chalan_id])
-    ->update(['diff_amount' => ($getDiffAmt->diff_amount-$totalUsed)]);
+    /*MonthlyTotalChalan::where(['id' => $request->chalan_id])
+    ->update(['diff_amount' => ($getDiffAmt->diff_amount-$totalUsed)]);*/
     $getstatus = MasterMonthlySubscription::insert($userData);
     return ['status'=>'status','message'=>'Records Inserted Succesfully.','not_inserted'=>count($employeeNotFound),
     'not_inserted_ides'=>$employeeNotFound,'user_duplicate'=>count($userDataDuplicate),
