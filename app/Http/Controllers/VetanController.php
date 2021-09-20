@@ -171,7 +171,10 @@ class VetanController extends Controller
           $getData = $data[0];
           $filename = date('dmyhis');
           $fileid = DB::table('tbl_upload_file')->insertGetId(['file_name'=>$filepath,'upload_by'=>Auth::id()]);
+         
           for($i=1;$rowCount > $i;$i++){
+            $amt=0;
+           
             if($getData){
               $com_res = array_diff_assoc($setColumnArray,$getData[0]);
               if(count($com_res) == 0){
@@ -254,6 +257,7 @@ class VetanController extends Controller
           $getDiffAmt = MonthlyTotalChalan::select('diff_amount')
                         ->where(['id' => $request->chalan_id])
                         ->first();
+            
           if((int)$getDiffAmt->diff_amount >= (int)$totalUsed){
             MonthlyTotalChalan::where(['id' => $request->chalan_id])
                   ->update(['diff_amount' => ($getDiffAmt->diff_amount-$totalUsed)]);
