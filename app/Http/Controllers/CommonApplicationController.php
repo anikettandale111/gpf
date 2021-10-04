@@ -25,8 +25,8 @@ class CommonApplicationController extends Controller
   {
     $this->middleware('auth');
     $this->middleware('permission:listcommonforms-list|listcommonforms-edit|listcommonforms-create|listcommonforms-delete', ['only' => ['index','store','update','getLastApplicationNumber','getuserdetailsbygpfno','listcommonforms','viewapplication','getUserBalances']]);
-    $this->middleware('permission:listcommonforms-create', ['only' => ['indes','store','getLastApplicationNumber'.'getuserdetailsbygpfno','listcommonforms','viewapplication','getUserBalances']]);
-    $this->middleware('permission:listcommonforms-edit', ['only' => ['edit','update','getLastApplicationNumber','getuserdetailsbygpfno','viewapplication','getUserBalances']]);
+    $this->middleware('permission:listcommonforms-create', ['only' => ['indes','store','listcommonforms','viewapplication','getUserBalances']]);
+    $this->middleware('permission:listcommonforms-edit', ['only' => ['edit','update','viewapplication','getUserBalances']]);
     $this->middleware('permission:listcommonforms-delete', ['only' => ['destroy']]);
    
 
