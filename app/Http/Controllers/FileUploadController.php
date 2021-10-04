@@ -30,7 +30,7 @@ class FileUploadController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
-    $this->middleware('permission:chalan-fileupload|chalan-fileupload-create|chalan-fileupload-delete|chalan-fileupload-edit|chalan-pdffileupload|chalan-pdffileupload-create|chalan-pdffileupload-edit|chalan-pdffileupload-delete', ['only' => ['index','store','pdffileupload','confirmpdfdata','confirmpdfdata','testJsonData']]);
+    $this->middleware('permission:chalan-fileupload|chalan-fileupload-create|chalan-fileupload-delete|chalan-fileupload-edit|chalan-pdffileupload|chalan-pdffileupload-create|chalan-pdffileupload-edit|chalan-pdffileupload-delete', ['only' => ['index']]);
     $this->middleware('permission:chalan-fileupload-create', ['only' => ['index','store','pdffileupload']]);
     
     $this->middleware('permission:chalan-fileupload-edit', ['only' => ['store','index']]);

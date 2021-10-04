@@ -20,12 +20,12 @@ class ChalanController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
-   $this->middleware('permission:chalan-list|chalan-create|chalan-delete|chalan-edit|chalan-monthlyEntryApproved|chalan-sendapproval', ['only' => ['index']]);    
+   $this->middleware('permission:chalan-list|chalan-create|chalan-delete|chalan-edit|chalan-monthlyEntryApproved|chalan-sendapproval', ['only' => ['index','chalanSubscriptionDetails','chalandetails','show']]);    
     
-    $this->middleware('permission:chalan-create', ['only' => ['index','store','show']]);   
-    $this->middleware('permission:chalan-edit', ['only' => ['index','store','show']]);    
+    $this->middleware('permission:chalan-create', ['only' => ['index','store']]);   
+    $this->middleware('permission:chalan-edit', ['only' => ['index','store']]);    
     $this->middleware('permission:chalan-delete', ['only' => ['destroy']]);
-    $this->middleware('permission:chalan-monthlyEntryApproved', ['only' => ['monthlyEntryApproved','chalandetails','chalanSubscriptionDetails','approval','getsubscriptions']]);
+    $this->middleware('permission:chalan-monthlyEntryApproved', ['only' => ['monthlyEntryApproved','approval','getsubscriptions']]);
     $this->middleware('permission:chalan-sendapproval', ['only' => ['sendapproval']]);
 
     

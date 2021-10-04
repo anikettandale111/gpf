@@ -24,8 +24,8 @@ class VetanController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('permission:vetan-newlist|vetan-list|vetan-getFileData|vetan-delete', ['only' => ['index','store','vetan_insert','vetan_new','calculationOne','vetanfileupload','vetanfileupload','getFileData','vetanlistview']]);
-    $this->middleware('permission:vetan-create', ['only' => ['vetan_insert','store','vetan_new','calculationOne']]);    
+    $this->middleware('permission:vetan-newlist|vetan-list|vetan-getFileData|vetan-delete', ['only' => ['index']]);
+    $this->middleware('permission:vetan-create', ['only' => ['vetan_insert','store','vetan_new','calculationOne','getFileData']]);    
     $this->middleware('permission:vetan-delete', ['only' => ['vetan_Delete','deleteVetan']]);
     $this->middleware('permission:vetan-newlist', ['only' => ['vetanfileupload','getFileData']]);
     $this->middleware('permission:vetan-list', ['only' => ['vetanlistview','getFileData']]);
