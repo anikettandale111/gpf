@@ -19,6 +19,10 @@ class DistrictsController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
+      $this->middleware('permission:districts-list|districts-create|districts-edit|districts-delete', ['only' => ['index','store']]);
+      $this->middleware('permission:districts-create', ['only' => ['create','store']]);
+      $this->middleware('permission:districts-edit', ['only' => ['edit','update']]);
+      $this->middleware('permission:districts-delete', ['only' => ['destroy']]);
       if(session('from_year') !== null){
 
       } else {

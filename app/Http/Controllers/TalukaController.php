@@ -22,6 +22,11 @@ class TalukaController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:taluka-list|taluka-create|taluka-edit|taluka-delete', ['only' => ['index','store']]);
+    $this->middleware('permission:taluka-create', ['only' => ['create','store']]);
+    $this->middleware('permission:taluka-edit', ['only' => ['edit','update']]);
+    $this->middleware('permission:taluka-delete', ['only' => ['destroy']]);
+
     if(session('from_year') !== null){
 
     } else {

@@ -92,6 +92,24 @@ $(document).ready(function() {
         resetForm();
     }
   });
+
+  $('#sendapproval').validate({
+    rules : {
+      challandetails:"required",
+      remark:"required",
+      id:"required"
+      
+    },
+    messages: {
+      challandetails:"Please enter Challan details",
+      remark: "Please enter Remark",
+     
+    },
+    submitHandler: function(form) {
+        form.submit();
+        resetForm();
+    }
+  });
 });
 function dateConversion(datetime){
   return new Date(datetime);
@@ -126,6 +144,21 @@ function resetForm(){
   $('#chalan_amount').val('');
   $('#chalan_remark').val('');
 }
+/*function sendapprovalChalan(id)
+{*/
+  $('#exampleModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var recipient = button.data('whatever')
+    var challandetails = button.data('chalan') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this)
+    modal.find('.modal-title').text(challandetails)
+    modal.find('.modal-body #challandetails').val(challandetails)
+    
+    modal.find('.modal-footer #id').val(recipient)
+  })
+//}
 var table = $('#chalanTable').DataTable({
     processing: true,
     serverSide: true,
@@ -133,7 +166,7 @@ var table = $('#chalanTable').DataTable({
     buttons: [
       { extend: 'excel', className: 'btn btn-secondary m-2' },
     ],
-    pageLength: '-1',
+    pageLength: '20',
     ajax: "chalan",
     columns: [{
       data: 'DT_RowIndex',
@@ -163,13 +196,21 @@ var table = $('#chalanTable').DataTable({
       data: 'amount',
       name: 'Amount'
     },
-    // {
-    //   data: 'total_waste',
-    //   name: 'Total Waste'
-    // },
+    {
+      data: 'distrubuted_amt',
+      name: 'Total Waste'
+     },
+     {
+      data: 'diff_amount',
+      name: 'Total Remaining'
+     },
     {
       data: 'remark',
       name: 'Remark'
+    },
+    {
+      data: 'approved',
+      name: 'Status'
     },
     {
       data: 'action',

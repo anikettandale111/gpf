@@ -28,6 +28,10 @@ class EmployeeController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:employee_list-list|employee_list-create|employee_list-edit|employee_list-delete|employee-list', ['only' => ['index','store']]);
+    $this->middleware('permission:employee_list-create', ['only' => ['create','store']]);
+    $this->middleware('permission:employee_list-edit', ['only' => ['edit','update']]);
+    $this->middleware('permission:employee_list-delete', ['only' => ['destroy']]);
     if(session('from_year') !== null){
 
     } else {

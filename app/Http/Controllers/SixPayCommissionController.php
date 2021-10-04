@@ -21,6 +21,10 @@ class SixPayCommissionController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:sixpay-list|sixpay-create|sixpay-delete', ['only' => ['index','store','calculationOne']]);
+    $this->middleware('permission:sixpay-create', ['only' => ['create','store','calculationOne']]);    
+    $this->middleware('permission:sixpay-delete', ['only' => ['destroy']]);
+    
     if(session('from_year') !== null){
 
     } else {

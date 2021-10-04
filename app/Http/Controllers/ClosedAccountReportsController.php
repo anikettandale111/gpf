@@ -20,6 +20,7 @@ class ClosedAccountReportsController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:report-closedaccountreports', ['only' => ['closedaccountreports']]);
     if(session('from_year') !== null){
 
     } else {

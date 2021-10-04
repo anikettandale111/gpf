@@ -86,15 +86,15 @@ function editRow(id){
     url: "user_registration/"+id,
     dataType: 'JSON',
     success: function (results) {
-      alert(results.id);
+    
       $("#user_id").val(results.id);
       $("#name").val(results.name);
       $("#phone").val(results.phone);
       $("#email").val(results.email);
       $("#taluka").val(results.taluka_id);
       $("#department").val(results.department_id);
-      $("#role").val(results.id);
-      $("#designation").val(results.id);
+      $("#roles").val(results.role_id);
+      $("#designation").val(results.designation_id);
     }
   });
 }

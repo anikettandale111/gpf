@@ -19,6 +19,10 @@ class EmployeeReportsController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:report-employee_account_stmt', ['only' => ['index','store','getAllEmpKhatevahi','getAllEmpKhateUtara','getAllEmpKhateUtara','getAllEmpFormEN']]);
+    
+
+
     if(session('from_year') !== null){
 
     } else {

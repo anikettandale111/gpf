@@ -20,6 +20,10 @@ class SubscriptionController extends Controller {
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:chalan-subscription|chalan-subscription-create|chalan-subscription-delete|chalan-subscription-edit', ['only' => ['index','store','getChalanSubscriptionByID','deleteChalanSubscription']]);
+    $this->middleware('permission:chalan-subscription-create', ['only' => ['create','store','getChalanSubscriptionByID']]);  
+    $this->middleware('permission:chalan-subscription-edit', ['only' => ['create','store','getChalanSubscriptionByID']]);    
+    $this->middleware('permission:chalan-subscription-delete', ['only' => ['deleteChalanSubscription']]);
     if(session('from_year') !== null){
 
     } else {

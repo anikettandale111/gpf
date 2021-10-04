@@ -12,6 +12,10 @@ class DesignationMasterController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:designation-list|designation-create|designation-edit|designation-delete', ['only' => ['index','store']]);
+    $this->middleware('permission:designation-create', ['only' => ['create','store']]);
+    $this->middleware('permission:designation-edit', ['only' => ['edit','update']]);
+    $this->middleware('permission:designation-delete', ['only' => ['destroy']]);
     if(session('from_year') !== null){
 
     } else {

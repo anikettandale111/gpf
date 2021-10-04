@@ -6,6 +6,19 @@
       <div class="x_title">
         <h2>{{trans('language.h_trend')}}   </h2>
         <div class="clearfix"></div>
+       
+        @if ($message = Session::get('danger'))
+        <div class="alert alert-danger alert-block">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>{{ $message }}</strong>
+        </div>
+        @endif
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>{{ $message }}</strong>
+        </div>
+        @endif
       </div>
       <div class="x_content">
         <br />
@@ -117,8 +130,10 @@
                     <th>{{trans('language.th_trend_taluka')}} </th>
                     <th>{{trans('language.th_trend_classification')}}  </th>
                     <th>{{trans('language.th_trend_the_amount_of_hearing')}} </th>
-                    <!-- <th>{{trans('language.th_trend_total_waste')}}  </th> -->
+                    <th>{{trans('language.th_trend_total_waste')}}  </th>
+                    <th>{{trans('language.th_user_shillak_rakkam')}}  </th>
                     <th>{{trans('language.th_trend_shera')}}</th>
+                    <th>Status</th>
                     <th>{{trans('language.btn_action')}}</th>
                   </tr>
                 </thead>
@@ -129,6 +144,39 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form name="sendapproval" action="{{url('chalan/sendapproval')}}" method="POST" enctype="multipart/form-data" id="sendapproval">
+        {{csrf_field()}}
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send to Approval</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Chalan Details :</label>
+            <input type="text" class="form-control" id="challandetails" name="challandetails">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Note:</label>
+            <textarea class="form-control" id="message-text" name="remark" id="remark"></textarea>
+          </div>
+       
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="id" value="" id="id">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Send to Approval</button>
+      </div>
+    </form>
     </div>
   </div>
 </div>

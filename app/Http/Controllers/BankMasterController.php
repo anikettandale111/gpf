@@ -6,12 +6,17 @@ use Illuminate\Http\Request;
 use App\Bank;
 use Config;
 use Excel;
+use Session;
 
 class BankMasterController extends Controller
 {
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:bank-list|bank-create|bank-edit|bank-delete', ['only' => ['index','store']]);
+    $this->middleware('permission:bank-create', ['only' => ['create','store']]);
+    $this->middleware('permission:bank-edit', ['only' => ['edit','update']]);
+    $this->middleware('permission:bank-delete', ['only' => ['destroy']]);
     if(session('from_year') !== null){
 
     } else {

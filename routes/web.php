@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +25,8 @@ Route::get('/languagechange/{locale}', 'HomeController@languagechange')->name('l
 Route::get('/yearchange/{year}', 'HomeController@yearchange')->name('yearchange');
 
 Auth::routes();
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('articles','ArticleController');
     Route::get('/home', 'HomeController@index')->name('home');
     // Monthly Change
     // Route::get('chalan', 'MonthlyChangeController@index');
@@ -138,8 +140,13 @@ Route::middleware('auth')->group(function () {
     Route::get('chalanNumbers', 'ChalanController@chalanNumbers');
     Route::get('chalanSubscriptionDetails', 'ChalanController@chalanSubscriptionDetails');
     Route::get('chalandetails', 'ChalanController@chalandetails');
-    Route::any('monthlyEntryApproved', 'ChalanController@monthlyEntryApproved');
+    
     Route::resource('chalan', ChalanController::class);
+    Route::any('monthlyEntryApproved', 'ChalanController@monthlyEntryApproved');
+    Route::post('chalan/sendapproval', 'ChalanController@sendapproval');
+    Route::post('chalan/approval', 'ChalanController@approval');
+    Route::get('chalan/getsubscriptions/{id}', 'ChalanController@getsubscriptions');
+
     // Chalan Controller
     Route::post('chalanTableDetails', 'SubscriptionController@chalanTableDetails');
     Route::post('updateMonthlySubscription', 'SubscriptionController@updateMonthlySubscription');
@@ -155,9 +162,9 @@ Route::middleware('auth')->group(function () {
     Route::post('reject_new_gpf_no', 'ProvidingAccountController@reject_new_gpf_no');
     Route::get('master_employee_view', 'MasteremployeeController@master_employee_view');
 
-    Route::get('reportone/{id}', 'AccountclosedController@reportone');
+    /*Route::get('reportone/{id}', 'AccountclosedController@reportone');
     Route::get('reporttwo/{id}', 'AccountclosedController@reporttwo');
-    Route::resource('accountclosed',AccountclosedController::class);
+    Route::resource('accountclosed',AccountclosedController::class);*/
 
     Route::get('getEmployeeDetails', 'EmployeeController@getEmployeeDetails');
     Route::get('employee_list', 'EmployeeController@getEmployeeList');
@@ -167,4 +174,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('accforword',AccountForwordController::class);
 
     Route::get('calculationOne', 'VetanController@calculationOne');
+
+
+    Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
+    
 });

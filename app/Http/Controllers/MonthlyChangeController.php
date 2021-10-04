@@ -19,6 +19,7 @@ class MonthlyChangeController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:deposit_insert_data', ['only' => ['index','deposit_insert_data','monthly_chalan']]);
     if(session('from_year') !== null){
 
     } else {

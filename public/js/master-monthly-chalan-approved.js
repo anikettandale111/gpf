@@ -59,9 +59,59 @@ $(document).ready(function(){
     }
   });
   var table = $('#monthly_approve_table').DataTable({
-    columnDefs: [
-          { orderable: false, targets: 11 }
-        ]
+        processing: true,
+        serverSide: true,
+        pageLength: '20',
+        ajax: "monthlyEntryApproved",
+        columns: [{
+          data: 'DT_RowIndex',
+          name: 'DT_RowIndex'
+        },
+        {
+          data: 'month_name_mar',
+          name: 'Month Name'
+        },
+        {
+          data: 'chalan_serial_no',
+          name: 'Chalan Number'
+        },
+        {
+          data: 'crateddate',
+          name: 'Created Date'
+        },
+        {
+          data: 'taluka_name',
+          name: 'Taluka Name'
+        },
+        {
+          data: 'classification_name_mar',
+          name: 'Check Number'
+        },
+        {
+          data: 'amount',
+          name: 'Amount'
+        },
+        {
+          data: 'distrubuted_amt',
+          name: 'Total Waste'
+        },
+        {
+          data: 'diff_amount',
+          name: 'Total Remaining'
+        },
+        {
+          data: 'remark',
+          name: 'Remark'
+        },
+        {
+          data: 'approved',
+          name: 'Status'
+        },
+        {
+          data: 'action',
+          name: 'Action'
+        }
+      ]
     });
 })
 $('.getchalan').change( function(e) {

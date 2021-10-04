@@ -8,13 +8,14 @@ use Config;
 use App\Taluka;
 use App\Department;
 use App\User;
-use App\Role;
 use App\Designation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Arr;
+use Spatie\Permission\Models\Role;
+
 use Session;
-use Config;
 
 class UserRegistrationController extends Controller
 {
@@ -25,7 +26,12 @@ class UserRegistrationController extends Controller
   */
   public function __construct()
   {
-    $this->middleware('auth');
+      $this->middleware('auth');
+      $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
+      $this->middleware('permission:user-create', ['only' => ['index','store']]);
+      $this->middleware('permission:user-edit', ['only' => ['index','store']]);
+      $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+
     if(session('from_year') !== null){
 
     } else {
@@ -65,7 +71,7 @@ class UserRegistrationController extends Controller
     }
     $data['taluka'] = Taluka::all();
     $data['department'] = Department::all();
-    $data['role'] = Role::where("role_status",1)->pluck("role_name","id");
+    $data['role'] = Role::where("role_status",1)->pluck("name","id");
     $data['designation'] = Designation::pluck("designation_name_en","id");
     return view('Admin.user_registration', $data);
   }
@@ -79,13 +85,19 @@ class UserRegistrationController extends Controller
     $data['taluka_id'] = $request->taluka;
     $data['department_id'] = $request->department;
     $data['designation_id'] = $request->designation;
-    $data['role_id'] = $request->role;
+    $data['role_id'] = implode(",",$request->roles);
     if($request->user_id > 0){
-      User::where('id',$request->user_id)->update($data);
+      $user = User::find($request->user_id);
+      $user->update($data);
+      DB::table('model_has_roles')
+            ->where('model_id', $request->user_id)
+            ->delete();
+      $user->assignRole($request->input('roles'));      
       $msg = 'User Updated Successfully';
     }else{
       $data['password'] = Hash::make($request->password_confirm);
-      User::insert($data);
+      $user = User::create($data);
+      $user->assignRole($request->input('roles'));
       $msg = 'User Created Successfully';
     }
     return redirect()->back();

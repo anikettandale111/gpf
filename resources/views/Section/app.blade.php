@@ -88,32 +88,68 @@
                 <li>
                   <a href="{{url('home')}}"><i class="fa fa-home"></i> {{trans('language.menu_home')}} </a>
                 </li>
-                @if(Auth::user()->id == 1 )
+                @canany(['districts-list','taluka-list','department-list','designation-list','classification-list','bank-list','employee_list-list','commonreasons-list','user-list','Year-list','role-list','permission-list'])
                 <li><a><i class="fa fa-bug"></i> {{trans('language.menu_master')}} <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
+                    @can('districts-list')
                     <li><a href="{{url('districts')}}">{{trans('language.ms_districts')}}</a></li>
+                    @endcan
+                    @can('taluka-list')
                     <li><a href="{{url('taluka')}}">{{trans('language.ms_taluka')}}</a></li>
+                    @endcan
+                    @can('department-list')
                     <li><a href="{{url('department')}}">{{trans('language.ms_department')}}</a></li>
+                    @endcan
+                    @can('designation-list')
                     <li><a href="{{url('designation')}}">{{trans('language.ms_designations')}}</a></li>
+                    @endcan
+                    @can('classification-list')
                     <li><a href="{{url('classification')}}">{{trans('language.ms_classification')}}</a></li>
+                    @endcan
+                    @can('bank-list')
                     <li><a href="{{url('bank')}}">{{trans('language.ms_bank')}}</a></li>
+                    @endcan
+                   
                     <li><a href="#">{{trans('language.ms_staff')}}</a></li>
+                    @can('employee_list-list')
                     <li><a href="{{url('employee_list')}}">{{trans('language.ms_employee')}}</a></li>
+                    @endcan
+                    @can('commonreasons-list')
                     <li><a href="{{url('commonreasons')}}">{{trans('language.ms_reason_for_accounts')}}</a></li>
+                    @endcan
+                    @can('user-list')
                     <li><a href="{{url('user_registration')}}">{{trans('language.register_users')}}</a></li>
+                    @endcan
+                    @can('Year-list')
                     <li><a href="{{url('Year')}}">{{trans('language.yearly_intrest_paid_form')}}</a></li>
+                    @endcan
+                    @can('role-list')
+                      <li><a href="{{url('roles')}}">Roles</a></li>
+                    @endcan
+                    @can('permission-list')
+                      <li><a href="{{url('permissions')}}">Permission</a></li>
+                    @endcan
                   </ul>
                 </li>
+                @endcanany
+                @canany(['ProvidingAccount-list','transfer-list','employee-list'])
                 <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms')}} <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
+                    @can('ProvidingAccount-list')
                     <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li>
+                    @endcan
+                    @can('transfer-list')
                     <li><a href="{{url('transfer')}}">{{trans('language.fr_antar_zillha_badli')}}</a></li>
+                    @endcan
+                    @can('employee-list')
                     <li><a href="{{url('employee')}}">{{trans('language.fr_employee_update')}}</a></li>
+                    @endcan
                     <!-- <li><a href="{{url('commonforms')}}">{{trans('language.fr_common_application_form')}}</a></li> -->
                     <!-- <li><a href="#">{{trans('language.fr_application_form_amount_withdrawn')}}</a></li> -->
                     <!-- <li><a href="{{url('closed_account')}}">{{trans('language.fr_application_form_account_close')}}</a></li> -->
                   </ul>
                 </li>
+                @endcanany
                 <!-- <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms_received')}} <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="{{url('listcommonforms')}}">{{trans('language.fr_common_application_form_list')}}</a></li>
@@ -126,82 +162,119 @@
               </ul>
             </li> -->
             <!-- <li><a href="{{url('nomination_record')}}"><i class="fa fa-clone"></i>नामनिर्दशन नोंद</a></li> -->
-            @endif
+            @canany(['sixpay-list','sevenpay-list','vetanfileupload-list','vetan-newlist','vetan-list'])
             <li><a><i class="fa fa-bug"></i> {{trans('language.pay_commission')}} <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
+                @can('sixpay-list')
                 <li><a href="{{url('sixpay')}}">{{trans('language.6_pay_commission_paid')}}</a></li>
+                @endcan
+                @can('sevenpay-list')
                 <li><a href="{{url('sevenpay')}}">{{trans('language.7_pay_commission_paid')}}</a></li>
+                @endcan
+                @can('vetan-newlist')
                 <li><a href="{{url('vetanfileupload')}}">{{trans('language.vetan_file_upload')}}</a></li>
+                @endcan
+                @can('vetan-list')
                 <li><a href="{{url('vetanlistview')}}">{{trans('language.vetan_list_view')}}</a></li>
+                @endcan
+                
               </ul>
             </li>
-            <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms')}} <span class="fa fa-chevron-down"></span></a>
-              <ul class="nav child_menu">
-                <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li>
-                <li><a href="{{url('transfer')}}">{{trans('language.fr_antar_zillha_badli')}}</a></li>
-                <li><a href="{{url('employee')}}">{{trans('language.fr_employee_update')}}</a></li>
-
-                <!-- <li><a href="{{url('ganrate_new_number')}}">{{trans('language.fr_application_form_create_account')}}</a></li> -->
-                <!-- <li><a href="{{url('commonforms')}}">{{trans('language.fr_common_application_form')}}</a></li> -->
-                <!-- <li><a href="#">{{trans('language.fr_application_form_amount_withdrawn')}}</a></li> -->
-                <!-- <li><a href="{{url('closed_account')}}">{{trans('language.fr_application_form_account_close')}}</a></li> -->
-              </ul>
-            </li>
+            @endcanany
+            
+           
+           
+            @canany(['listcommonforms-list'])
             <li><a><i class="fa fa-bug"></i> {{trans('language.menu_forms_received')}} <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
+                @can('listcommonforms-list')
                 <li><a href="{{url('listcommonforms')}}">{{trans('language.fr_common_application_form_list')}}</a></li>
+                @endcan
               </ul>
             </li>
+            @endcanany
+            @canany(['chalan-list','chalan-subscription','chalan-fileupload','chalan-pdffileupload','chalan-chalanGhoshwara','chalan-monthlyEntryApproved'])
             <li><a><i class="fa fa-bug"></i> {{trans('language.monthly_bill_expensess')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
+                @can('chalan-list')
                 <li><a href="{{url('chalan')}}">{{trans('language.monthly_bill_chalan')}}</a></li>
+                @endcan
                 <!-- <li><a href="{{url('monthly_chalan')}}">{{trans('language.monthly_bill_chalan_khatanvai')}}</a></li> -->
+                @can('chalan-subscription')
                 <li><a href="{{url('subscription')}}">{{trans('language.monthly_bill_chalan_khatanvai')}}</a></li>
+                @endcan
+                @can('chalan-fileupload')
                 <li><a href="{{url('fileupload')}}">{{trans('language.chalan_files_upload')}} (Excel Format)</a></li>
+                @endcan
+                @can('chalan-pdffileupload')
                 <li><a href="{{url('pdffileupload')}}">{{trans('language.chalan_files_upload')}} (PDF Format)</a></li>
+                @endcan
+                @can('chalan-chalanGhoshwara')
                 <li><a href="{{url('chalanGhoshwara')}}">{{trans('language.chalan_ghoshwara')}} </a></li>
-                <!-- <li><a href="{{url('monthlyEntryApproved')}}">{{trans('language.monthly_entry_approved')}} </a></li> -->
+                @endcan
+                @can('chalan-monthlyEntryApproved')
+                <li><a href="{{url('monthlyEntryApproved')}}">{{trans('language.monthly_entry_approved')}} </a></li> 
+                @endcan
               </ul>
             </li>
+            @endcanany
+            @canany(['report-employee_account_stmt','report-closedaccountreports','report-bill_information','report-employeeBillKharch'])
             <li><a><i class="fa fa-bug"></i> {{trans('language.bill_expensess_report')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
+                @can('report-employee_account_stmt')
                 <li><a href="{{url('employeereports')}}"> {{trans('language.employee_account_stmt')}} </a></li>
+                @endcan
+                @can('report-closedaccountreports')
                 <li><a href="{{url('closedaccountreports')}}"> {{trans('language.retired_employee_account_stmt')}} </a></li>
+                @endcan
+                @can('report-bill_information')
                 <!-- <li><a href="{{url('bill_information')}}"> {{trans('language.bill_expensess_info')}} </a></li> -->
                 <!-- <li><a href="{{url('closed_account')}}"> <i class="fa fa-users"></i>खाते बंद करणे  </a></li>
                 <li><a href="{{url('monthly_chalan')}}">मासिक चलन खतावणी</a></li> -->
-                <li><a href="{{url('employeeBillKharch')}}">{{trans('language.monthly_employee_bill_kharch')}} </a></li>
+                @endcan
+                @can('report-employeeBillKharch')
+                  <li><a href="{{url('employeeBillKharch')}}">{{trans('language.monthly_employee_bill_kharch')}} </a></li>
+                @endcan
               </ul>
-            </li>
+            </li>          
+            @endcanany
+            @canany(['account-accountclosed','employee-list'])
             <li><a><i class="fa fa-bug"></i> {{trans('language.menu_karmchari_namnirdeshan')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
+                @can('account-accountclosed')
                 <li><a href="{{url('accountclosed')}}"> {{trans('language.menu_form_namnirdeshan')}} </a></li>
+                @endcan
+                @can('employee-list')
                 <li><a href="{{url('employee')}}">{{trans('language.fr_employee_update')}}</a></li>
+                @endcan
+                @can('report-accountclosed')
                 <!-- <li><a href="{{url('accountclosed')}}"> {{trans('language.retired_employee_account_stmt')}} </a></li> -->
+                @endcan
               </ul>
             </li>
+            @endcanany
+            @canany(['bill-antimbillexpenses','bill-billreports','bill-antimbill'])
             <li><a><i class="fa fa-bug"></i> {{trans('language.menu_bill')}}  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
+                @can('bill-antimbill')
                 <li><a href="{{url('antimbill')}}"> {{trans('language.menu_bill_information')}} </a></li>
+                @endcan
+                @can('bill-antimbillexpenses')
                 <li><a href="{{url('antimbillexpenses')}}"> {{trans('language.menu_bill_expenses_information')}} </a></li>
+                @endcan
+                @can('bill-billreports')
                 <li><a href="{{url('billreports')}}"> {{trans('language.menu_bill_reports')}} </a></li>
+                @endcan
+                 <!-- <li>
+              <a href="{{url('accforword')}}"><i class="fa fa-bug"></i> {{trans('language.employee_forword_next_year')}} </a>
+            </li> -->
               </ul>
             </li>
+            @endcanany
             <!-- <li>
               <a href="{{url('employee')}}"><i class="fa fa-home"></i> {{trans('language.form_employee_update')}} </a>
             </li> -->
-            @if(Auth::user()->id == 1 )
-            <li><a><i class="fa fa-bug"></i> {{trans('language.menu_bill')}}  <span class="fa fa-chevron-down"></span></a>
-              <ul class="nav child_menu">
-                <li><a href="{{url('antimbill')}}"> {{trans('language.menu_bill_information')}} </a></li>
-                <li><a href="{{url('antimbillexpenses')}}"> {{trans('language.menu_bill_expenses_information')}} </a></li>
-                <li><a href="{{url('billreports')}}"> {{trans('language.menu_bill_reports')}} </a></li>
-              </ul>
-            </li>
-            <!-- <li>
-              <a href="{{url('accforword')}}"><i class="fa fa-bug"></i> {{trans('language.employee_forword_next_year')}} </a>
-            </li> -->
-            @endif
+           
           </ul>
         </div>
 

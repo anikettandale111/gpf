@@ -56,18 +56,14 @@
                     <select class="form-control" name="designation" id="designation">
                       <option value="">--Select--</option>
                       @foreach($designation as $k => $v)
-                      <option value="{{$v}}">{{$v}}</option>
+                      <option value="{{$k}}">{{$v}}</option>
                       @endforeach
                     </select>
                   </div>
                   <div class="col-sm-4">
                     <label >{{trans('language.role')}}</label>
-                    <select class="form-control" name="role" id="role">
-                      <option value="">--Select--</option>
-                      @foreach($role as $k => $v)
-                      <option value="{{$v}}">{{$v}}</option>
-                      @endforeach
-                    </select>
+                    {!! Form::select('roles[]', $role,[], array('class' => 'form-control','multiple',"id"=>"roles")) !!}
+                    
                   </div>
                   <div class="col-sm-4">
                     <label>{{trans('language.th_user_registration_department')}}</label>
@@ -78,12 +74,13 @@
                       @endforeach
                     </select>
                   </div>
-                  <div class="col-sm-4 mt-3">
+                  <div class="clear-fix"></div>
+                  <div class="col-sm-6 mt-3">
                     <button type="submit" class="btn btn-primary createuser" style="width:100%">
                       {{ __('Save') }}
                     </button>
                   </div>
-                  <div class="col-sm-4 mt-3">
+                  <div class="col-sm-6 mt-3">
                     <button type="button" class="btn btn-secondary" style="width:100%">
                       {{ __('Cancel') }}
                     </button>

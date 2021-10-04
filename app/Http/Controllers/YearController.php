@@ -14,6 +14,9 @@ class YearController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:Year-list|Year-create|Year-list|Year-edit|Year-delete', ['only' => ['index','store','getBillExpensesDetails','getlast_billnumber','viewBillDetails','get_bill_amount']]);
+    $this->middleware('permission:bill-antimbillexpenses', ['only' => ['getBillExpensesDetails','viewBillDetails','get_bill_amount']]);
+
     if(session('from_year') !== null){
 
     } else {

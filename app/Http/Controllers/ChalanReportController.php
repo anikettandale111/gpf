@@ -22,6 +22,9 @@ class ChalanReportController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:chalan-chalanGhoshwara', ['only' => ['index','store']]);
+   
+
     if(session('from_year') !== null){
 
     } else {

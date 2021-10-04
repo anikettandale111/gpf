@@ -1,16 +1,16 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'GPF',
+    'name' => 'Laravel',
     'env' => 'local',
     'debug' => true,
-    'url' => 'http://localhost',
+    'url' => 'http://localhost/gpf/public',
     'asset_url' => NULL,
     'timezone' => 'UTC',
     'locale' => 'mar',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:xkqVzhkmVYgCruTYaMlil+thAotEEJYHdACsUznDPo0=',
+    'key' => 'base64:EhAjwnTHBfttD5zRalCzQwxre/hRe7xKAStSHx2+K0I=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -37,12 +37,13 @@
       20 => 'Illuminate\\Validation\\ValidationServiceProvider',
       21 => 'Illuminate\\View\\ViewServiceProvider',
       22 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-      23 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-      24 => 'Barryvdh\\DomPDF\\ServiceProvider',
-      25 => 'App\\Providers\\AppServiceProvider',
-      26 => 'App\\Providers\\AuthServiceProvider',
-      27 => 'App\\Providers\\EventServiceProvider',
-      28 => 'App\\Providers\\RouteServiceProvider',
+      23 => 'Spatie\\Permission\\PermissionServiceProvider',
+      24 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+      25 => 'Barryvdh\\DomPDF\\ServiceProvider',
+      26 => 'App\\Providers\\AppServiceProvider',
+      27 => 'App\\Providers\\AuthServiceProvider',
+      28 => 'App\\Providers\\EventServiceProvider',
+      29 => 'App\\Providers\\RouteServiceProvider',
     ),
     'aliases' => 
     array (
@@ -221,7 +222,7 @@
         'endpoint' => NULL,
       ),
     ),
-    'prefix' => 'gpf_cache',
+    'prefix' => 'laravel_cache',
   ),
   'cors' => 
   array (
@@ -264,7 +265,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'cdat_gpf_2020-2021',
+        'database' => 'cdat_gpf_2021-2022',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -272,9 +273,29 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
-        'database' => 'cdat_gpf_2020-2021',
+        'database' => 'cdat_gpf_2021-2022',
+        'username' => 'root',
+        'password' => '',
+        'unix_socket' => '',
+        'charset' => 'utf8mb4',
+        'collation' => 'utf8mb4_unicode_ci',
+        'prefix' => '',
+        'prefix_indexes' => true,
+        'strict' => false,
+        'engine' => NULL,
+        'options' => 
+        array (
+        ),
+      ),
+      'mysqli_2021-2022' => 
+      array (
+        'driver' => 'mysql',
+        'url' => NULL,
+        'host' => 'localhost',
+        'port' => '3306',
+        'database' => 'cdat_gpf_2021-2022',
         'username' => 'root',
         'password' => '',
         'unix_socket' => '',
@@ -292,7 +313,7 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
         'database' => 'cdat_gpf_2020-2021',
         'username' => 'root',
@@ -312,7 +333,7 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
         'database' => 'cdat_gpf_2019-2020',
         'username' => 'root',
@@ -332,7 +353,7 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
         'database' => 'cdat_gpf_2018-2019',
         'username' => 'root',
@@ -352,9 +373,9 @@
       array (
         'driver' => 'pgsql',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
-        'database' => 'cdat_gpf_2020-2021',
+        'database' => 'cdat_gpf_2021-2022',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -367,9 +388,9 @@
       array (
         'driver' => 'sqlsrv',
         'url' => NULL,
-        'host' => '127.0.0.1',
+        'host' => 'localhost',
         'port' => '3306',
-        'database' => 'cdat_gpf_2020-2021',
+        'database' => 'cdat_gpf_2021-2022',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -384,7 +405,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'gpf_database_',
+        'prefix' => 'laravel_database_',
       ),
       'default' => 
       array (
@@ -525,7 +546,7 @@
       array (
         'driver' => 'local',
         'root' => 'E:\\xampp\\htdocs\\gpf\\storage\\app/public',
-        'url' => 'http://localhost/storage',
+        'url' => 'http://localhost/gpf/public/storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -642,8 +663,8 @@
       'smtp' => 
       array (
         'transport' => 'smtp',
-        'host' => 'smtp.mailtrap.io',
-        'port' => '2525',
+        'host' => 'mailhog',
+        'port' => '1025',
         'encryption' => NULL,
         'username' => NULL,
         'password' => NULL,
@@ -670,7 +691,7 @@
     'from' => 
     array (
       'address' => NULL,
-      'name' => 'GPF',
+      'name' => 'Laravel',
     ),
     'markdown' => 
     array (
@@ -679,6 +700,58 @@
       array (
         0 => 'E:\\xampp\\htdocs\\gpf\\resources\\views/vendor/mail',
       ),
+    ),
+  ),
+  'permission' => 
+  array (
+    'models' => 
+    array (
+      'permission' => 'Spatie\\Permission\\Models\\Permission',
+      'role' => 'Spatie\\Permission\\Models\\Role',
+      'user' => 'App\\User',
+    ),
+    'table_names' => 
+    array (
+      'roles' => 'roles',
+      'permissions' => 'permissions',
+      'model_has_permissions' => 'model_has_permissions',
+      'model_has_roles' => 'model_has_roles',
+      'role_has_permissions' => 'role_has_permissions',
+    ),
+    'column_names' => 
+    array (
+      'role_pivot_key' => NULL,
+      'permission_pivot_key' => NULL,
+      'model_morph_key' => 'model_id',
+      'team_foreign_key' => 'team_id',
+    ),
+    'teams' => false,
+    'display_permission_in_exception' => false,
+    'display_role_in_exception' => false,
+    'enable_wildcard_permission' => false,
+    'cache' => 
+    array (
+      'expiration_time' => 
+      DateInterval::__set_state(array(
+         'y' => 0,
+         'm' => 0,
+         'd' => 0,
+         'h' => 24,
+         'i' => 0,
+         's' => 0,
+         'f' => 0.0,
+         'weekday' => 0,
+         'weekday_behavior' => 0,
+         'first_last_day_of' => 0,
+         'invert' => 0,
+         'days' => false,
+         'special_type' => 0,
+         'special_amount' => 0,
+         'have_weekday_relative' => 0,
+         'have_special_relative' => 0,
+      )),
+      'key' => 'spatie.permission.cache',
+      'store' => 'default',
     ),
   ),
   'queue' => 
@@ -764,7 +837,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'gpf_session',
+    'cookie' => 'laravel_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,
@@ -788,7 +861,7 @@
     array (
       'font_dir' => 'E:\\xampp\\htdocs\\gpf\\storage\\fonts/',
       'font_cache' => 'E:\\xampp\\htdocs\\gpf\\storage\\fonts/',
-      'temp_dir' => 'C:\\Users\\Shree\\AppData\\Local\\Temp',
+      'temp_dir' => 'C:\\Users\\Amar\\AppData\\Local\\Temp',
       'chroot' => 'E:\\xampp\\htdocs\\gpf',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',

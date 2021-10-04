@@ -21,6 +21,9 @@ class SevenPayCommissionController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:sevenpay-list|sevenpay-create|sevenpay-delete', ['only' => ['index','store']]);
+    $this->middleware('permission:sevenpay-create', ['only' => ['create','store']]);    
+    $this->middleware('permission:sevenpay-delete', ['only' => ['destroy']]);
     if(session('from_year') !== null){
 
     } else {

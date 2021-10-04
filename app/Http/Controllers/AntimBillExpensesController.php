@@ -18,6 +18,8 @@ class AntimBillExpensesController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:report-employeeBillKharch|bill-getBillExpensesDetails', ['only' => ['index','store','getBillExpensesDetails']]);
+    $this->middleware('permission:bill-getBillExpensesDetails', ['only' => ['index','store','getBillExpensesDetails']]);
     if(session('from_year') !== null){
 
     } else {

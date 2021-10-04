@@ -15,6 +15,9 @@ class AntimBillController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:bill-antimbill|bill-getBillExpensesDetails', ['only' => ['index','store','getBillExpensesDetails','getlast_billnumber','viewBillDetails','get_bill_amount']]);
+    $this->middleware('permission:bill-antimbillexpenses', ['only' => ['getBillExpensesDetails','viewBillDetails','get_bill_amount']]);
+    
     if(session('from_year') !== null){
 
     } else {

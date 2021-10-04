@@ -29,17 +29,20 @@
     25 => 'Fruitcake\\Cors\\CorsServiceProvider',
     26 => 'Laravel\\Tinker\\TinkerServiceProvider',
     27 => 'Laravel\\Ui\\UiServiceProvider',
-    28 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    29 => 'Carbon\\Laravel\\ServiceProvider',
-    30 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    31 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    32 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    33 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    34 => 'Barryvdh\\DomPDF\\ServiceProvider',
-    35 => 'App\\Providers\\AppServiceProvider',
-    36 => 'App\\Providers\\AuthServiceProvider',
-    37 => 'App\\Providers\\EventServiceProvider',
-    38 => 'App\\Providers\\RouteServiceProvider',
+    28 => 'Collective\\Html\\HtmlServiceProvider',
+    29 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    30 => 'Carbon\\Laravel\\ServiceProvider',
+    31 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    32 => 'Spatie\\Permission\\PermissionServiceProvider',
+    33 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    34 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    35 => 'Spatie\\Permission\\PermissionServiceProvider',
+    36 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    37 => 'Barryvdh\\DomPDF\\ServiceProvider',
+    38 => 'App\\Providers\\AppServiceProvider',
+    39 => 'App\\Providers\\AuthServiceProvider',
+    40 => 'App\\Providers\\EventServiceProvider',
+    41 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -61,14 +64,16 @@
     15 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     16 => 'Carbon\\Laravel\\ServiceProvider',
     17 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    18 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    18 => 'Spatie\\Permission\\PermissionServiceProvider',
     19 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    20 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    21 => 'Barryvdh\\DomPDF\\ServiceProvider',
-    22 => 'App\\Providers\\AppServiceProvider',
-    23 => 'App\\Providers\\AuthServiceProvider',
-    24 => 'App\\Providers\\EventServiceProvider',
-    25 => 'App\\Providers\\RouteServiceProvider',
+    20 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    21 => 'Spatie\\Permission\\PermissionServiceProvider',
+    22 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    23 => 'Barryvdh\\DomPDF\\ServiceProvider',
+    24 => 'App\\Providers\\AppServiceProvider',
+    25 => 'App\\Providers\\AuthServiceProvider',
+    26 => 'App\\Providers\\EventServiceProvider',
+    27 => 'App\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (
@@ -178,6 +183,10 @@
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
+    'html' => 'Collective\\Html\\HtmlServiceProvider',
+    'form' => 'Collective\\Html\\HtmlServiceProvider',
+    'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
+    'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
   ),
   'when' => 
   array (
@@ -218,6 +227,9 @@
     array (
     ),
     'Laravel\\Tinker\\TinkerServiceProvider' => 
+    array (
+    ),
+    'Collective\\Html\\HtmlServiceProvider' => 
     array (
     ),
   ),

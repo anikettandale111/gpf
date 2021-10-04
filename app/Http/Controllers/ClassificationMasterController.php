@@ -12,6 +12,10 @@ class ClassificationMasterController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+    $this->middleware('permission:classification-list|classification-create|classification-edit|classification-delete', ['only' => ['index','store']]);
+    $this->middleware('permission:classification-create', ['only' => ['create','store']]);
+    $this->middleware('permission:classification-edit', ['only' => ['edit','update']]);
+    $this->middleware('permission:classification-delete', ['only' => ['destroy']]);
     if(session('from_year') !== null){
 
     } else {
