@@ -168,6 +168,7 @@ class ChalanController extends Controller
     $data['year'] = $request->year;
     $data['chalan_serial_no'] = $request->chalan_number;
     $data['taluka'] = $request->chalan_taluka;
+    $data['send_to_approval'] = 0;
     // $deposits=MonthlyTotalChalan::select('id as chalan_id','amount','primary_number','diff_amount','taluka','classification')->where($data)->first();
     $deposits = MonthlyTotalChalan::select('id as chalan_id','amount','year','chalan_month_id','chalan_serial_no',
               'diff_amount','taluka','classification')
