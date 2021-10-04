@@ -94,8 +94,11 @@ class ChalanController extends Controller
           return $txt;
       })
       ->addColumn('action', function ($row) {
-        $btn = '<button onClick="editChalan('.$row->id.')" data-original-title="Edit" class="btn btn-primary btn-sm">Edit</button>';
-        $btn = $btn.'<button onClick="deleteChalan('.$row->id.')" data-original-title="Delete" class="btn btn-danger btn-sm">Delete</button>';
+        $btn="";
+        if($row->send_to_approval == 0){
+          $btn = '<button onClick="editChalan('.$row->id.')" data-original-title="Edit" class="btn btn-primary btn-sm">Edit</button>';
+          $btn = $btn.'<button onClick="deleteChalan('.$row->id.')" data-original-title="Delete" class="btn btn-danger btn-sm">Delete</button>';
+        }
           if(Auth::user()->role_id==2 && $row->is_active==0 && $row->amount == $row->distrubuted_amt && $row->send_to_approval == 0)
           {
             if(Auth::user()->can('chalan-sendapproval'))
