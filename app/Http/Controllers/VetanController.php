@@ -24,12 +24,12 @@ class VetanController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('permission:vetan-newlist|vetan-list|vetan-getFileData|vetan-delete', ['only' => ['index']]);
-    $this->middleware('permission:vetan-create', ['only' => ['vetan_insert','store','vetan_new','calculationOne','getFileData']]);    
+    $this->middleware('permission:vetan-newlist|vetan-list|vetan-getFileData|vetan-delete', ['only' => ['index','getFileData']]);
+    $this->middleware('permission:vetan-create', ['only' => ['vetan_insert','store','vetan_new','calculationOne']]);    
     $this->middleware('permission:vetan-delete', ['only' => ['vetan_Delete','deleteVetan']]);
-    $this->middleware('permission:vetan-newlist', ['only' => ['vetanfileupload','getFileData']]);
-    $this->middleware('permission:vetan-list', ['only' => ['vetanlistview','getFileData']]);
-    $this->middleware('permission:getFileData', ['only' => ['vetanlistview','getFileData']]);
+    $this->middleware('permission:vetan-newlist', ['only' => ['vetanfileupload']]);
+    $this->middleware('permission:vetan-list|getFileData', ['only' => ['vetanlistview']]);
+   
 
     $this->middleware('auth');
     if(session('from_year') !== null){
