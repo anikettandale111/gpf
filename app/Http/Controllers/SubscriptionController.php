@@ -67,6 +67,7 @@ class SubscriptionController extends Controller {
       $data['monthly_other'] = $request->pending_amt;
       $data['is_active'] = 0;
       $data['loan_amonut'] = 0;
+      $data['financial_year'] = session()->get('financial_year');
       $data['modifed_by'] = Auth::id();
       $create = MasterMonthlySubscription::insert($data);
       if($create){

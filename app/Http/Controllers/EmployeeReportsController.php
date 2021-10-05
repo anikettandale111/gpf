@@ -137,16 +137,11 @@ class EmployeeReportsController extends Controller
                     ->where('mct.gpf_number',$request->employee_gpf_num)
                     
                     ->orderBy('mct.emc_id');
-
-                  if($fyears[0] == $year)
-                  {
+                  
                     
-                      $chalanQuery->where([["mct.emc_year","=",$year],["mct.emc_month",">=",4]]);
-                  }
-                  elseif($fyears[1] == $year)
-                  {
-                      $chalanQuery->where([["mct.emc_year","=",$year],["mct.emc_month","<",4]]);
-                  }
+                      $chalanQuery->whereBetween("mct.emc_year",$fyears);
+                      $chalanQuery->whereBetween("mct.emc_month",array());
+                  
                   $chalanQuery = $chalanQuery->get();
       return view('Reports/chalan_nihay',compact('rqo_result','roi_result','month_name','chalanQuery'));
     }
