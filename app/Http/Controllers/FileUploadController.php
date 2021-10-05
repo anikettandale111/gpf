@@ -128,6 +128,7 @@ class FileUploadController extends Controller
               'emc_desg_id' => $employee->designation_id,
               'emc_dept_id' => $employee->department_id,
               'monthly_contrubition' => $getData[$i][3],
+              'financial_year' => session()->get('financial_year'),
               'loan_installment' => $getData[$i][4],
               'monthly_received' => (int)$getData[$i][3] + (int)$getData[$i][4],
               'remark' => $getData[$i][6],
@@ -274,6 +275,7 @@ public function pdffileupload(Request $request){
                       // 'emc_dept_id' => $employee->department_id ,
                       // 'created_by' => Auth::id(),
                       'file_name' => $filepath,
+                      'financial_year' => session()->get('financial_year')
                       ]; // Remark
                     }
                   }else{
@@ -288,6 +290,7 @@ public function pdffileupload(Request $request){
                       'loan_installment' => (isset($data_three[$j][$m][7]->text))?$data_three[$j][$m][7]->text:'', // Refund Amount
                       // 'loan_amonut' => (isset($data_three[$j][$m][8]->text))?$data_three[$j][$m][8]->text:'', // Cur inst / Total Instalment
                       'monthly_received' => (isset($data_three[$j][$m][9]->text))?$data_three[$j][$m][9]->text:'', // Total
+                      'financial_year' => session()->get('financial_year'),
                       'remark' => (isset($data_three[$j][$m][10]->text))?$data_three[$j][$m][10]->text:'']; // Remark
                     }
                   }
@@ -342,6 +345,7 @@ public function confirmpdfdata(Request $request){
                             'monthly_contrubition' => $request->dummy_monthly_contrubition[$i],
                             'loan_installment' => $request->dummy_loan_installment[$i],
                             'monthly_received' => $request->dummy_monthly_received[$i],
+                            'financial_year' => session()->get('financial_year'),
                             'modifed_by' => Auth::id() ];
             $totalUsed += (int)$request->dummy_monthly_received[$i];
           }

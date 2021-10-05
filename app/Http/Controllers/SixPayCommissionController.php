@@ -79,6 +79,7 @@ class SixPayCommissionController extends Controller
     $six_pay["TotDiff"] = (float)$request->difference_amount + (float)$request->different_interest;
     $six_pay["Mnt"] = $request->instalment_month;
     $six_pay["Rmk"] = $request->shera;
+    $six_pay["financial_year"] = session()->get('financial_year');
     $six_pay["DtFrom"] = date('Y-m-d',strtotime($request->from_interest_date));
     $six_pay["DtTo"] = date('Y-m-d',strtotime($request->to_intrest_date));
     $six_pay["LockDate"] = date('Y-m-d');

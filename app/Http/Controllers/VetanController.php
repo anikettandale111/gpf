@@ -92,6 +92,7 @@ class VetanController extends Controller
     $vetan->different_interest=$request->different_interest;
     $vetan->charging_interest=$request->charging_interest;
     $vetan->shera=$request->shera;
+    $vetan->financial_year = session()->get('financial_year');
     $vetan->save();
     return redirect ('vetan')->with('success',' Data  Successfully');
 
@@ -232,6 +233,7 @@ class VetanController extends Controller
                                   "Rmk" =>  'NA',
                                   "DtFrom" =>$d_from,
                                   "DtTo" =>$d_to,
+                                  "financial_year"=>session()->get('financial_year'),
                                   "LockDate" =>$l_date,
                                   "INTY1" =>  ((int)$request->hapta_no == 1)? $request->different_interest : 0,
                                   "INTY2" =>  ((int)$request->hapta_no == 2)? $request->different_interest : 0,
