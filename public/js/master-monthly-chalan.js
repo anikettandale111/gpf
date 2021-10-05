@@ -217,11 +217,12 @@ function getdetails(){
   var chalan_month = $('#chalan_month').val();
   var chalan_number = $('#chalan_number').val();
   var chalan_taluka = $('#taluka_id').val();
+  var classification = $('#classification_id').val();
   $('#total_monthly_pay').val(0);
   $.ajax({
     type: 'GET',
     url: "getuserdetailsbygpfno",
-    data: {_token: CSRF_TOKEN,input_id:$("#gpf_account_id").val(),year:year,chalan_month:chalan_month,chalan_number:chalan_number,chalan_taluka:chalan_taluka},
+    data: {_token: CSRF_TOKEN,input_id:$("#gpf_account_id").val(),year:year,chalan_month:chalan_month,chalan_number:chalan_number,chalan_taluka:chalan_taluka,classification:classification},
     success: function (results) {
       console.log(results);
       if(results.length){

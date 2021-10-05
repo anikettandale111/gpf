@@ -188,7 +188,8 @@ class ChalanController extends Controller
       ->join('taluka AS tl','tl.id','=','master_emp_monthly_contribution_two.taluka_id')
       ->leftjoin('departments AS dp','dp.id','=','master_emp_monthly_contribution_two.emc_dept_id')
       ->leftjoin('designations AS dg','dg.id','=','master_emp_monthly_contribution_two.emc_desg_id')
-      ->leftjoin('master_month AS mm','mm.id','=','master_emp_monthly_contribution_two.emc_month')
+      ->join('master_month AS mm','mm.id','=','master_emp_monthly_contribution_two.emc_month')
+      ->groupBy("me.gpf_no")
       ->latest()->get();
     }
     return ['amt'=>$deposits,'chalan'=>$res,'distributed_rakkam'=>$distributed_rakkam];
