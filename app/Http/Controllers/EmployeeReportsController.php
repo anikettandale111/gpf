@@ -58,7 +58,8 @@ class EmployeeReportsController extends Controller
   
     $lang = app()->getLocale();
     $year = session()->get('year');
-    $financial_year = session()->get('financial_year');
+    $financial_year = session()->get('financial_year');   
+    $fyears = explode("-",$financial_year); 
     $roi = DB::raw("SELECT ri.percent,ri.to_month,mm.month_name_mar FROM master_rate_interest AS ri LEFT JOIN master_month mm ON mm.id=ri.to_month WHERE year_to=".session()->get('to_year'));
     $roi_result = DB::select($roi );
 
@@ -117,6 +118,7 @@ class EmployeeReportsController extends Controller
       
       return view('Reports/gpf_bruhpatrak_naumna_89_niyam_231',compact('rqo_result','roi_result','month_name'));
     } else if ($request->view_report_type == 4){
+      
       $query_one =  DB::table('master_employee AS me')
                     ->select('me.gpf_no','me.employee_name','tl.taluka_name_'.$lang.' AS taluka_name','dp.department_name_'.$lang.' AS department_name','dg.designation_name_'.$lang.' AS designation_name',"c.inital_letter","me.antim_partava_status")
                     ->join('taluka AS tl','tl.id','me.taluka_id')
@@ -132,8 +134,18 @@ class EmployeeReportsController extends Controller
                     ->join('taluka AS tl','tl.id','mct.taluka_id')
                     ->join('master_month AS mm','mm.id','mct.emc_month')
                     ->where('mct.gpf_number',$request->employee_gpf_num)
-                    ->orderBy('mct.emc_id')
-                    ->get();
+                    
+                    ->orderBy('mct.emc_id');
+
+                  if($fyears[0] == $year)
+                  {
+                      $chalanQuery->where([["emc_year","=",$year],["emc_month",">=",4]]);
+                  }
+                  elseif($fyears[1] == $year)
+                  {
+                      $chalanQuery->where([["emc_year","=",$year],["emc_month","<",4]]);
+                  }
+                  $chalanQuery = $chalanQuery->get();
       return view('Reports/chalan_nihay',compact('rqo_result','roi_result','month_name','chalanQuery'));
     }
   }
