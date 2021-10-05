@@ -20,7 +20,7 @@ class BillReportsController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
-    $this->middleware('permission:billreports', ['only' => ['index','viewreport','downloadreport']]);
+    $this->middleware('permission:bill-billreports', ['only' => ['index','viewreport','downloadreport']]);
     if(session('from_year') !== null){
 
     } else {
