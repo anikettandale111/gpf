@@ -143,6 +143,7 @@ class ChalanController extends Controller
       $data['chalan_date'] = $request->chalan_date;
       $data['chalan_no'] = $monthName->month_name_mar.' '.$request->chalan_serial_no;
       $data['total_waste'] = 0;
+      $data['financial_year'] = session()->get('financial_year');
       $msg =' Chalan Already Exists with same details';
       $status = "danger";
       if($request->chalan_sr_id > 0){
