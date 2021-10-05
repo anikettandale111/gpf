@@ -87,7 +87,7 @@ class UserRegistrationController extends Controller
     $data['designation_id'] = $request->designation;
     $data['role_id'] = implode(",",$request->roles);
     if($request->user_id > 0){
-      if(Request->password && $request->password_confirm)
+      if($request->password && $request->password_confirm)
       {
         $data['password'] = Hash::make($request->password_confirm);
       }
