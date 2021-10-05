@@ -57,9 +57,10 @@ class EmployeeReportsController extends Controller
   public function store(Request $request){
   
     $lang = app()->getLocale();
-    $year = session()->get('year');
+    $year = date("Y");
     $financial_year = session()->get('financial_year');   
     $fyears = explode("-",$financial_year); 
+    
     $roi = DB::raw("SELECT ri.percent,ri.to_month,mm.month_name_mar FROM master_rate_interest AS ri LEFT JOIN master_month mm ON mm.id=ri.to_month WHERE year_to=".session()->get('to_year'));
     $roi_result = DB::select($roi );
 
@@ -139,11 +140,12 @@ class EmployeeReportsController extends Controller
 
                   if($fyears[0] == $year)
                   {
-                      $chalanQuery->where([["emc_year","=",$year],["emc_month",">=",4]]);
+                    
+                      $chalanQuery->where([["mct.emc_year","=",$year],["mct.emc_month",">=",4]]);
                   }
                   elseif($fyears[1] == $year)
                   {
-                      $chalanQuery->where([["emc_year","=",$year],["emc_month","<",4]]);
+                      $chalanQuery->where([["mct.emc_year","=",$year],["mct.emc_month","<",4]]);
                   }
                   $chalanQuery = $chalanQuery->get();
       return view('Reports/chalan_nihay',compact('rqo_result','roi_result','month_name','chalanQuery'));
