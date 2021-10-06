@@ -136,11 +136,7 @@ class EmployeeReportsController extends Controller
                     ->join('master_month AS mm','mm.id','mct.emc_month')
                     ->where('mct.gpf_number',$request->employee_gpf_num)
                     ->where("mct.financial_year",$financial_year)
-                    ->orderBy('mct.emc_id');
-                  
-                    
-                     
-                  
+                    ->orderBy('mct.emc_id');  
                   $chalanQuery = $chalanQuery->get();
       return view('Reports/chalan_nihay',compact('rqo_result','roi_result','month_name','chalanQuery'));
     }

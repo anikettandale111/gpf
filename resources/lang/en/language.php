@@ -148,5 +148,6 @@ return [
     'th_user_registration_created'=>'Created',
     'designation' => 'Designation',
     'role' => 'Role',
-    'th_providing_all_taluka'=>"All"
+    'th_providing_all_taluka'=>"All",
+    'btn_search' => 'Search',
 ];

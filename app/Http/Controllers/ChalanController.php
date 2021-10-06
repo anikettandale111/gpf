@@ -9,6 +9,7 @@ use App\Classification;
 use App\Chalan;
 use App\MasterMonthlySubscription;
 use App\MonthlyTotalChalan;
+use App\Employee;
 use DataTable;
 use Session;
 use Config;
@@ -409,6 +410,25 @@ class ChalanController extends Controller
     else
     {
       return abort('403');
+    }
+  }
+  public function getgpfnumber(Request $request)
+  {
+    if($request->employee_gpf_num)
+    {
+        $txt = $request->employee_gpf_num;
+        $result = Employee::select("master_employee.employee_name","master_employee.gpf_no")
+        ->join("taluka","taluka.id","master_employee.taluka_id")
+        ->leftJoin("departments","departments.id","master_employee.department_id")
+        ->leftJoin("designations","designations.id","master_employee.designation_id")
+        ->where('employee_name','LIKE','%'.$txt.'%')->whereOr('gpf_no','LIKE','%'.$txt.'%')->whereOr('taluka.taluka_name_en','LIKE','%'.$txt.'%')->whereOr('departments.department_name_en','LIKE','%'.$txt.'%')->whereOr('designations.designation_name_en','LIKE','%'.$txt.'%')
+        ->groupBy("master_employee.gpf_no")->get();
+
+        if(isset($result))
+        {
+          $returnHTML = view('Reports.searchResult')->with('result', $result)->render();
+          return response()->json(array('success' => true, 'html'=>$returnHTML));
+        }
     }
   }
 }

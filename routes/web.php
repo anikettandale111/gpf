@@ -127,6 +127,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('listcommonforms', 'CommonApplicationController@listcommonforms');
     Route::get('viewapplication/{id?}', 'CommonApplicationController@viewapplication');
     Route::resource('commonforms', CommonApplicationController::class);
+    Route::post("search",'ChalanController@getgpfnumber');
     // Reasons3
     // Application form
     Route::resource('commonreasons', CommonReasonsController::class);
