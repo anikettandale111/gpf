@@ -372,6 +372,7 @@ class ChalanController extends Controller
             {
               $dataapp["is_active"] = 1;
               $up = MasterMonthlySubscription::where("challan_id",$request->id)->update($dataapp);
+              $v = MasterVetanAyog::where("ChallanNo",$request->id)->update($dataapp);
             }
             return redirect()->back()->with(['success' => 'Masik Chalan Khatawani Approved successfully.']);
 
