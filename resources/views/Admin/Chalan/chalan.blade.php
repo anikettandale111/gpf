@@ -62,8 +62,8 @@
                 <label  for="first-name"> {{trans('language.th_trend_no')}}  </label>
                 <select type="text" id="chalan_month"  name="chalan_month" required="required" class="form-control ">
                   <option value="">-- चलन महिना --</option>
-                  @foreach ($month as $month)
-                  <option value="{{$month->id}}">{{$month->month_name_mar}}</option>
+                  @foreach ($month as $months)
+                  <option value="{{$months->id}}">{{$months->month_name_mar}}</option>
                   @endforeach
                 </select>
               </div>
@@ -73,8 +73,8 @@
                 <label for="middle-name">{{trans('language.th_trend_classification')}} </label>
                 <select id="classification_type" class="form-control" type="text" name="classification_type">
                   <option value="">-- निवडा  वर्गीकरण --</option>
-                  @foreach ($classification as $classification)
-                  <option value="{{$classification->id}}">{{$classification->classification_name_mar}}</option>
+                  @foreach ($classification as $classifications)
+                  <option value="{{$classifications->id}}">{{$classifications->classification_name_mar}}</option>
                   @endforeach
                 </select>
               </div>
@@ -82,8 +82,8 @@
                 <label for="middle-name">{{trans('language.th_trend_taluka')}}</label>
                 <select id="chalan_taluka" class="form-control" type="text" name="chalan_taluka">
                   <option value="">-- निवडा  तालूका --</option>
-                  @foreach ($taluka as $taluka)
-                  <option value="{{$taluka->id}}">{{$taluka->taluka_name_mar}}</option>
+                  @foreach ($taluka as $talukas)
+                  <option value="{{$talukas->id}}">{{$talukas->taluka_name_mar}}</option>
                   @endforeach
                 </select>
               </div>
@@ -119,7 +119,76 @@
       <div class="x_content">
         <div class="row">
           <div class="col-sm-12">
+            
             <div class="card-box table-responsive">
+              <div class="card-body">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <div class="col-md-6 col-sm-3 ">
+                      <label  for="Year"> {{trans('language.th_trend_year')}} </label>
+                      @php
+                      $currently_selected = date('Y');
+                      $earliest_year = session()->get('from_year');
+                      $latest_year = date('Y');
+                      @endphp
+                      <select name="chalan_year_search" id="chalan_year_search" class="form-control">
+                        <option value="">-- वर्ष निवडा --</option>
+                        <!-- @foreach ( range( $latest_year, $earliest_year ) as $i )
+                        <option value="{{$i}}" "{{($i === $currently_selected) ? 'selected':''}}"  >{{$i}}</option>
+                        @endforeach -->
+                        <option value="{{Session::get('from_year')}}">{{Session::get('from_year')}}</option>
+                        <option value="{{Session::get('to_year')}}">{{Session::get('to_year')}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-sm-3 ">
+                      <label for="middle-name">{{trans('language.th_trend_date')}}</label>
+                      <input type="date" id="chalan_date_search" class="form-control" name="chalan_date_search" >
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <div class="col-md-6 col-sm-3 ">
+                      <label>{{trans('language.th_trend_s_no')}}</label>
+                      <select type="text" id="chalan_serial_no_search" name="chalan_serial_no_search" class="form-control ">
+                        <option value="" selected disabled>-- चलन क्रमांक निवडा --</option>
+                        @for($i=1; $i <= 300; $i++)
+                        <option value="{{$i}}">{{$i}}</option>
+                        @endfor
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-sm-3 ">
+                      <label  for="first-name"> {{trans('language.th_trend_no')}}  </label>
+                      <select type="text" id="chalan_month_search"  name="chalan_month_search" class="form-control ">
+                        <option value="">-- चलन महिना --</option>
+                        @foreach ($month as $months)
+                        <option value="{{$months->id}}">{{$months->month_name_mar}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <div class="col-md-6 col-sm-3 ">
+                      <label for="middle-name">{{trans('language.th_trend_classification')}} </label>
+                      <select id="classification_type_search" class="form-control" type="text" name="classification_type_search">
+                        <option value="">-- निवडा  वर्गीकरण --</option>
+                        @foreach ($classification as $classifications)
+                        <option value="{{$classifications->id}}">{{$classifications->classification_name_mar}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-sm-3 ">
+                      <label for="middle-name">{{trans('language.th_trend_taluka')}}</label>
+                      <select id="chalan_taluka_search" class="form-control" type="text" name="chalan_taluka_search">
+                        <option value="">-- निवडा  तालूका --</option>
+                        @foreach ($taluka as $talukas)
+                        <option value="{{$talukas->id}}">{{$talukas->taluka_name_mar}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  
+                 
+               
+              </div>
               <table id="chalanTable" class="table table-striped table-bordered">
                 <thead>
                   <tr>

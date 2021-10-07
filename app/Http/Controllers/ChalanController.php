@@ -55,6 +55,15 @@ class ChalanController extends Controller
     $data ['classification']=Classification::all();
     $data ['taluka']=Taluka::all();
     if($request->ajax()){
+
+        $years =  $request->input('years');
+        $chalan_date_search = $request->input('chalan_date_search');
+        $chalan_serial_no_search = $request->input('chalan_serial_no_search');
+        $chalan_month_search = $request->input('chalan_month_search');
+        $classification_type_search = $request->input('classification_type_search');
+        $chalan_taluka_search = $request->input('chalan_taluka_search');        
+
+
       $deposits=MonthlyTotalChalan::select("tbl_monthly_total_chalan.*","tbl_monthly_total_chalan.created_at AS crateddate","tbl_monthly_total_chalan.id as chalan_id","taluka.id as  tid","taluka.taluka_name_mar as taluka_name","classifications.id as cid","classifications.classification_name_mar","master_month.month_name_mar")
       ->join("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
       ->leftJoin("classifications", "classifications.id", "=", "tbl_monthly_total_chalan.classification")
@@ -62,17 +71,46 @@ class ChalanController extends Controller
       ->where("tbl_monthly_total_chalan.year", session()->get('from_year'))
       ->where("tbl_monthly_total_chalan.chalan_month_id", ">=", 4)
       ->where("tbl_monthly_total_chalan.is_delete", "=", 1);
+
+     
+
       $deposits_two=MonthlyTotalChalan::select("tbl_monthly_total_chalan.*","tbl_monthly_total_chalan.created_at AS crateddate","tbl_monthly_total_chalan.id as chalan_id","taluka.id as  tid","taluka.taluka_name_mar as taluka_name","classifications.id as cid","classifications.classification_name_mar","master_month.month_name_mar",)
       ->join("taluka", "taluka.id", "=","tbl_monthly_total_chalan.taluka")
       ->leftJoin("classifications", "classifications.id", "=", "tbl_monthly_total_chalan.classification")
       ->join("master_month", "master_month.id", "=", "tbl_monthly_total_chalan.chalan_month_id")
       ->where("tbl_monthly_total_chalan.year", session()->get('to_year'))
       ->where("tbl_monthly_total_chalan.chalan_month_id", "<=", 3)
-      ->where("tbl_monthly_total_chalan.is_delete", "=", 1)
-      ->union($deposits)
+      ->where("tbl_monthly_total_chalan.is_delete", "=", 1);
+      if ($years) {
+          $deposits->where("tbl_monthly_total_chalan.year", '=', "{$years}");
+          $deposits_two->where("tbl_monthly_total_chalan.year", '=', "{$years}");
+      }
+      if ($chalan_date_search) {
+        $deposits->where("tbl_monthly_total_chalan.chalan_date", '=', "{$chalan_date_search}");
+        $deposits_two->where("tbl_monthly_total_chalan.chalan_date", '=', "{$chalan_date_search}");
+      }
+      if ($chalan_serial_no_search) {
+        $deposits->where("tbl_monthly_total_chalan.chalan_serial_no", '=', "{$chalan_serial_no_search}");
+        $deposits_two->where("tbl_monthly_total_chalan.chalan_serial_no", '=', "{$chalan_serial_no_search}");
+      }
+      if ($chalan_month_search) {
+        $deposits->where("tbl_monthly_total_chalan.chalan_month_id", '=', "{$chalan_month_search}");
+        $deposits_two->where("tbl_monthly_total_chalan.chalan_month_id", '=', "{$chalan_month_search}");
+      }
+      if ($classification_type_search) {
+        $deposits->where("tbl_monthly_total_chalan.classification", '=', "{$classification_type_search}");
+        $deposits_two->where("tbl_monthly_total_chalan.classification", '=', "{$classification_type_search}");
+      }
+
+      if ($chalan_taluka_search) {
+        $deposits->where("tbl_monthly_total_chalan.taluka", '=', "{$chalan_taluka_search}");
+        $deposits_two->where("tbl_monthly_total_chalan.taluka", '=', "{$chalan_taluka_search}");
+      }
+
+      $deposits_three = $deposits_two->union($deposits)
       ->latest()->get();
 
-      return datatables()->of($deposits_two)
+      return datatables()->of($deposits_three)
       ->addIndexColumn()
       ->addColumn('approved', function ($row) {
           if($row->send_to_approval ==0)

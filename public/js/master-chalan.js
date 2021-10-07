@@ -167,7 +167,29 @@ var table = $('#chalanTable').DataTable({
       { extend: 'excel', className: 'btn btn-secondary m-2' },
     ],
     pageLength: '20',
-    ajax: "chalan",
+    ajax: {
+      "url":"chalan",
+      "type": "GET",
+      "dataType": "json",
+      'data': function(data){
+        // Read values
+        var years = $('#chalan_year_search').val();
+        var chalan_dt = $('#chalan_date_search').val();
+        var chalan_no = $('#chalan_serial_no_search').val();
+        var chalan_monht = $('#chalan_month_search').val();
+        var chalan_classification= $('#classification_type_search').val();
+        var chalan_taluka= $('#chalan_taluka_search').val();
+
+        // Append to data
+        data.years = years;
+        data.chalan_date_search = chalan_dt;
+        data.chalan_serial_no_search = chalan_no;
+        data.chalan_month_search = chalan_monht;
+        data.classification_type_search = chalan_classification;
+        data.chalan_taluka_search = chalan_taluka;
+        data._token = '{{csrf_token()}}';
+      }
+    },
     columns: [{
       data: 'DT_RowIndex',
       name: 'DT_RowIndex'
@@ -218,3 +240,23 @@ var table = $('#chalanTable').DataTable({
     }
   ]
 });
+
+$('#chalan_year_search').on('change', function(){
+      table.draw();  
+});
+$('#chalan_date_search').on('change', function(){
+  table.draw();  
+});
+$('#chalan_serial_no_search').on('change', function(){
+  table.draw();  
+});
+$('#chalan_month_search').on('change', function(){
+  table.draw();  
+});
+$('#classification_type_search').on('change', function(){
+  table.draw();  
+});
+$('#chalan_taluka_search').on('change', function(){
+  table.draw();  
+});
+
