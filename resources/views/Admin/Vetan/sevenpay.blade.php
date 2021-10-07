@@ -167,6 +167,60 @@
         <div class="x_content">
           <div class="row">
             <div class="col-sm-12">
+              <div class="card-body">
+                
+                  <div class="form-group col-md-3">
+                    <label for="employeeGpfNo">{{ __('भ.नि .नि क्रमांक ') }}</label>
+                    <input id="employeeGpfNo_search" type="text" class="form-control" name="employeeGpfNo_search"  autocomplete="employeeGpfNo" autofocus>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="employee_name">{{ __('नाव ') }}</label>
+                    <input type="text" name="employee_name_search" class="form-control " id="employee_name_search">
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="taluka">{{ __('तालुका  संकेतांक ') }}</label>
+                    <select class="form-control" id="taluka_search" name="taluka_search">
+                      <option value=""> -- निवडा तालूका -- </option>
+                      @foreach($taluka as $k => $v)
+                      <option value="{{$v->id}}">{{$v->taluka_name_mar}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="employee_department">{{ __('विभाग संकेतांक') }}</label>
+                    <select class="form-control" id="employee_department_search" name="employee_department_search">
+                      <option value=""> -- निवडा विभाग -- </option>
+                      @foreach($department as $k => $v)
+                      <option value="{{$v->department_code}}">{{$v->department_name_mar}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  
+                  <div class="form-group col-md-3">
+                    <div class="col-md-6">
+                    <label for="chalan_taluka">{{ __('चलन तालुका ') }}</label>
+                    <select id="chalan_taluka_search" class="form-control getChalanNumbers" name="chalan_taluka_search">
+                      <option value=""> Select Chalan Taluka</option>
+                      @foreach($taluka as $k => $v)
+                        <option value="{{$v->id}}">{{$v->taluka_name_mar}}</option>
+                      @endforeach
+                    </select>
+                    </div>
+                    <div class="col-md-6">
+                    <label for="chalna_no">{{ __('चलन क्रमांक ') }}</label>
+                    <select type="text" id="chalan_serial_no_search" name="chalan_serial_no_search" class="form-control ">
+                      <option value="">-- चलन क्रमांक निवडा --</option>
+                      @for($i=1; $i <= 300; $i++)
+                      <option value="{{$i}}">{{$i}}</option>
+                      @endfor
+                    </select>
+                  </div>
+                  </div>
+                  
+                  
+              
+               
+              </div>
               <div class="card-box table-responsive">
                 <table id="datatable" class="table table-striped table-bordered table-responsive" style="width:100%">
                   <thead>
@@ -187,7 +241,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @if(count($sevenpayentry))
+                   {{--@if(count($sevenpayentry))
                     @foreach($sevenpayentry as $key => $temp)
                     <tr id="{{$temp->TransId}}">
                       <td>{{$key+1}}</td>
@@ -209,7 +263,7 @@
                       </td>
                     </tr>
                     @endforeach
-                    @endif
+                    @endif--}} 
                   </tbody>
                 </table>
               </div>
@@ -221,6 +275,9 @@
   </div>
 </div>
 </div>
+@endsection
+
+@push('custom-scripts')
 <script type="text/javascript">
 $(document).ready(function() {
   $('#difference_amount').change(function(){
@@ -417,5 +474,113 @@ function submitSevenPay(){
   });
 }
 
+var table = $('#datatable').DataTable({
+    processing: true,
+    serverSide: true,
+    dom: 'Bfrtip',
+    buttons: [
+      { extend: 'excel', className: 'btn btn-secondary m-2' },
+    ],
+    pageLength: '20',
+    ajax: {
+      "url":"sevenpay",
+      "type": "GET",
+      "dataType": "json",
+      'data': function(data){
+        // Read values
+        var employeeGpfNo_search = $('#employeeGpfNo_search').val();
+        var employee_name_search = $('#employee_name_search').val();
+        var taluka_search = $('#taluka_search').val();
+        var employee_department_search = $('#employee_department_search').val();
+        var chalan_taluka_search= $('#chalan_taluka_search').val();
+        var chalan_serial_no_search= $('#chalan_serial_no_search').val();
+
+        // Append to data
+        data.employeeGpfNo_search = employeeGpfNo_search;
+        data.employee_name_search = employee_name_search;
+        data.taluka_search = taluka_search;
+        data.employee_department_search = employee_department_search;
+        data.chalan_taluka_search = chalan_taluka_search;
+        data.chalan_serial_no_search = chalan_serial_no_search;
+        data._token = '{{csrf_token()}}';
+      }
+    },
+    
+    columns: [{
+      data: 'DT_RowIndex',
+      name: 'DT_RowIndex'
+    },
+    {
+      data: 'GPFNo',
+      name: 'GPF No'
+    },
+    {
+      data: 'employee_name',
+      name: 'Employee Name'
+    },
+    {
+      data: 'Instalment',
+      name: 'Instalment'
+    },
+    {
+      data: 'ChallanNo',
+      name: 'Challan No'
+    },
+    {
+      data: 'month_name_mar',
+      name: 'Month Name'
+    },
+    {
+      data: 'DtFrom',
+      name: 'DtFrom'
+    },
+    {
+      data: 'DtTo',
+      name: 'DtTo'
+     },
+     {
+      data: 'DiffAmt',
+      name: 'Total Remaining'
+     },
+    {
+      data: 'Interest',
+      name: 'Interest'
+    },
+    {
+      data: 'TotDiff',
+      name: 'Total Differance'
+    },
+    {
+      data: 'Rmk',
+      name: 'Remark'
+    },
+    
+    {
+      data: 'action',
+      name: 'Action'
+    }
+  ]
+});
+
+$('#employeeGpfNo_search').on('keyup', function(){
+      table.draw();  
+});
+$('#employee_name_search').on('keyup', function(){
+  table.draw();  
+});
+$('#taluka_search').on('change', function(){
+  table.draw();  
+});
+$('#employee_department_search').on('change', function(){
+  table.draw();  
+});
+$('#chalan_taluka_search').on('change', function(){
+  table.draw();  
+});
+$('#chalan_serial_no_search').on('change', function(){
+  table.draw();  
+});
+
 </script>
-@endsection
+
+@endpush

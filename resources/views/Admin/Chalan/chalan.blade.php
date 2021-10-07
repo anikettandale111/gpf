@@ -149,7 +149,7 @@
                     <div class="col-md-6 col-sm-3 ">
                       <label>{{trans('language.th_trend_s_no')}}</label>
                       <select type="text" id="chalan_serial_no_search" name="chalan_serial_no_search" class="form-control ">
-                        <option value="" selected disabled>-- चलन क्रमांक निवडा --</option>
+                        <option value="">-- चलन क्रमांक निवडा --</option>
                         @for($i=1; $i <= 300; $i++)
                         <option value="{{$i}}">{{$i}}</option>
                         @endfor
