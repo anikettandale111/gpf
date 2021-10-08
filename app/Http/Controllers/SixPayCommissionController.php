@@ -15,7 +15,7 @@ use App\Vetan;
 use App\MasterVetanAyog;
 use Session;
 use Config;
-
+use Auth;
 class SixPayCommissionController extends Controller
 {
   public function __construct()
@@ -162,6 +162,7 @@ class SixPayCommissionController extends Controller
     $six_pay["INTY9"] = ((int)$request->hapta_no == 9)? $request->different_interest : "";
     $six_pay["INTY10"] = ((int)$request->hapta_no == 10)? $request->different_interest : "";
     $six_pay["pay_number"]=$request->vetan;
+    $six_pay["created_by"] = Auth::user()->id;
     $id = MasterVetanAyog::insertGetId($six_pay);
     if($id){
       return ['status'=>'success','message' =>'Six Pay Saved Successfully'];

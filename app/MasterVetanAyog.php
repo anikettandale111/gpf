@@ -34,6 +34,7 @@ class MasterVetanAyog extends Model
             "INTY8",
             "INTY9",
             "INTY10",
-            "pay_number"
+            "pay_number",
+            "created_by"
     ];
 }

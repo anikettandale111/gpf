@@ -10,6 +10,7 @@ use App\Chalan;
 use App\MasterMonthlySubscription;
 use App\MonthlyTotalChalan;
 use App\Employee;
+use App\MasterVetanAyog;
 use DataTable;
 use Session;
 use Config;
